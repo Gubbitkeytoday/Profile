@@ -1,0 +1,17 @@
+# Dependencies / tools / legacy
+.claude/
+_build/
+_external/
+_legacy/
+images/
+app.js
+app.js.bak
+style.css
+style.css.bak
+fonts.css
+_manifest.json
+*.bak
+*.log
+*.err
+.DS_Store
+Thumbs.db
