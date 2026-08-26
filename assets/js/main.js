@@ -739,6 +739,7 @@
     if (hv) {
       if (reduced() || (navigator.connection && navigator.connection.saveData)) hv.closest('.hero__video').remove();
       else on(hv, 'error', () => hv.closest('.hero__video')?.remove(), true);
+    }
     /* line qr popover helper */
     const linePop = $('.line-pop');
     if (linePop) {
