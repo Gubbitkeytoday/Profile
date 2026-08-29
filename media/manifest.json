@@ -3466,5 +3466,81 @@
     "path": "media/facescan/login-screen"
    }
   ]
+ },
+ "prism64": {
+  "folder": "prism64",
+  "assets": [
+   {
+    "kind": "image",
+    "w": 1920,
+    "h": 949,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "01_Landing_Hero_Showcase.png",
+    "base": "01-landing-hero-showcase",
+    "path": "media/prism64/01-landing-hero-showcase"
+   },
+   {
+    "kind": "image",
+    "w": 1920,
+    "h": 949,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "02_HEXACO_Assessment_Test.png",
+    "base": "02-hexaco-assessment-test",
+    "path": "media/prism64/02-hexaco-assessment-test"
+   },
+   {
+    "kind": "image",
+    "w": 1920,
+    "h": 949,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "03_Personality_Result_ESTJ_AH.png",
+    "base": "03-personality-result-estj-ah",
+    "path": "media/prism64/03-personality-result-estj-ah"
+   },
+   {
+    "kind": "image",
+    "w": 1920,
+    "h": 949,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "04_Story_Card_Studio_Modal.png",
+    "base": "04-story-card-studio-modal",
+    "path": "media/prism64/04-story-card-studio-modal"
+   },
+   {
+    "kind": "image",
+    "w": 1920,
+    "h": 949,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "05_Live_GeoMap_Admin_Dashboard.png",
+    "base": "05-live-geomap-admin-dashboard",
+    "path": "media/prism64/05-live-geomap-admin-dashboard"
+   },
+   {
+    "kind": "video",
+    "src": "06_PRISM64_Motion_Hero_Showcase.mp4",
+    "base": "06-prism64-motion-hero-showcase",
+    "path": "media/prism64/06-prism64-motion-hero-showcase"
+   }
+  ]
  }
 }

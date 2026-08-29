@@ -99,11 +99,11 @@ timeline
    - *สาระการเรียนรู้*: วิศวกรรมซอฟต์แวร์, การวางสถาปัตยกรรมฐานข้อมูลเชิงสัมพันธ์ (Database Normalization & Indexing), เครือข่ายคอมพิวเตอร์และการสื่อสารข้อมูล (Networking), ระบบปฏิบัติการและระบบเสมือน (OS & Virtualization)
 2. **2024 - 2026**:
    - **การพัฒนาโปรเจกต์ระบบจริง (Full-Stack & Interactive Systems)**
-   - พัฒนาและส่งมอบผลงานรวม 15 โปรเจกต์ มีทั้งระบบเชิงธุรกิจขนาดใหญ่ (Enterprise POS, สแกนใบหน้าพนักงาน, อีคอมเมิร์ซ), ระบบเอไอ (Khui AI Streaming), เว็บจำลอง 3D / แผนที่การเดินทางขนาดใหญ่ (Metro Mini 3D) ตลอดจนงานเขียน Game Engine 2D
+   - พัฒนาและส่งมอบผลงานรวม 16 โปรเจกต์ มีทั้งระบบเชิงธุรกิจขนาดใหญ่ (Enterprise POS, สแกนใบหน้าพนักงาน, อีคอมเมิร์ซ), ระบบเอไอ (Khui AI Streaming, PRISM64 Intelligence & MCP Server), เว็บจำลอง 3D / แผนที่การเดินทางขนาดใหญ่ (Metro Mini 3D) ตลอดจนงานเขียน Game Engine 2D
 
 ---
 
-## 🚀 5. รายละเอียดผลงานทั้งหมด 15 โปรเจกต์ (All 15 Projects Detailed)
+## 🚀 5. รายละเอียดผลงานทั้งหมด 16 โปรเจกต์ (All 16 Projects Detailed)
 
 ---
 
@@ -517,6 +517,30 @@ timeline
   15. `[Image]` `images/ruedu/14_mobile_views/mobile_01_index.png`
   16. `[Image]` `images/ruedu/14_mobile_views/mobile_04_builder.png`
   17. `[Image]` `images/ruedu/14_mobile_views/mobile_11_cart.png`
+
+---
+
+### 16. PRISM64 — 64-Shade Personality Intelligence & Gemini Spark MCP (ID: 16)
+- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน)
+- **ไอคอน (Icon)**: `fa-solid fa-gem`
+- **สรุปภาพรวม (Overview)**: เว็บแอปพลิเคชันวิเคราะห์บุคลิกภาพเชิงลึก 6 มิติ 64 เฉดสี พร้อม Canvas 9:16 Social Story Studio, ระบบ Real-time Geo Telemetry และ Gemini Spark Model Context Protocol (MCP) Server รองรับ AI Agent
+- **ฟีเจอร์เด่น (Key Features)**:
+  - โมเดลจิตวิทยา HEXACO 6 มิติ (Energy, Info, Decision, Action, Identity, Relating) แตกแขนง 64 เฉดสี (16 Archetypes × 4 Sub-Variants: AH, AC, OH, OC)
+  - Dual Assessment Engine: โหมดด่วน 18 ข้อ (1.5 นาที) และโหมดเจาะลึก 36 ข้อ (3 นาที) คำนวณคะแนนแบบ Real-time
+  - Social Story Card Studio (9:16): Export รูปแบบ Light Pearl & Midnight Dark สำหรับ IG / TikTok Story ได้ทันทีด้วย Canvas API
+  - Gemini Spark MCP Server: รองรับมาตรฐาน Model Context Protocol (JSON-RPC 2.0) เชื่อมต่อ AI Agent (Gemini, Claude, Cursor) เพื่อดึงข้อมูลบุคลิกภาพ
+  - Stealth Admin Dashboard: แผนที่ Geo Telemetry สดด้วย Leaflet.js ติดตามผู้เข้าชมและผลการประเมินแบบ Real-time
+- **เทคโนโลยี (Tags)**: `Python`, `JavaScript`, `Tailwind CSS`, `Canvas API`, `Leaflet.js`, `Gemini MCP`, `Render.com`
+- **Source Code**: [github.com/Gubbitkeytoday/prism64](https://github.com/Gubbitkeytoday/prism64)
+- **Live Demo**: [prism64.onrender.com](https://prism64.onrender.com/)
+- **รูปหน้าปก (Cover)**: `images/prism64/01_Landing_Hero_Showcase.png`
+- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
+  1. `[Video]` `images/prism64/06_PRISM64_Motion_Hero_Showcase.mp4`
+  2. `[Image]` `images/prism64/01_Landing_Hero_Showcase.png`
+  3. `[Image]` `images/prism64/02_HEXACO_Assessment_Test.png`
+  4. `[Image]` `images/prism64/03_Personality_Result_ESTJ_AH.png`
+  5. `[Image]` `images/prism64/04_Story_Card_Studio_Modal.png`
+  6. `[Image]` `images/prism64/05_Live_GeoMap_Admin_Dashboard.png`
 
 ---
 

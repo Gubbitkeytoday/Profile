@@ -1,7 +1,7 @@
-﻿# 📦 Shipped Projects & Systems Catalog (15 Production Builds)
+# 📦 Shipped Projects & Systems Catalog (16 Production Builds)
 
 > **Official Systems Showcase of Wongsathorn Chapseethong (วงศธร ฉาบสีทอง)**  
-> *Technical specifications, architecture breakdown, metrics, and repositories for all 15 shipped systems.*
+> *Technical specifications, architecture breakdown, metrics, and repositories for all 16 shipped systems.*
 
 ---
 
@@ -22,6 +22,7 @@
 13. [Interactive Digital PDF Editor](#13-interactive-digital-pdf-editor) (`Web Application`)
 14. [Smart WebShop E-Commerce Engine](#14-smart-webshop-e-commerce-engine) (`Web Application`)
 15. [Community Agro-Tourism Regional Portal](#15-community-agro-tourism-regional-portal) (`Web Application`)
+16. [PRISM64 Personality Intelligence Engine & MCP Server](#16-prism64-personality-intelligence-engine--mcp-server) (`Web Application / AI MCP`)
 
 ---
 
@@ -206,6 +207,21 @@
 - **Architectural Highlights:**
   - Regional platform designed to promote local agricultural communities and eco-tourism initiatives.
   - Interactive farm attraction map, seasonal harvest availability tracker, and direct-to-farmer marketplace catalog.
+
+---
+
+## 16. PRISM64 Personality Intelligence Engine & MCP Server
+- **Category:** `Web Application` / AI & Psychological Modeling
+- **Core Tech Stack:** `Python 3`, `Modern Vanilla JavaScript (ES6+)`, `Tailwind CSS`, `HTML5 Canvas API`, `Leaflet.js`, `Gemini Spark MCP (JSON-RPC 2.0)`
+- **Key Metrics:** **64 Granular Personality Shades** · **6 Behavioral Dimensions** · **9:16 Social Story Studio** · **JSON-RPC 2.0 AI MCP Protocol**
+- **Live Demo:** [prism64.onrender.com](https://prism64.onrender.com/)
+- **Source Code:** [github.com/Gubbitkeytoday/prism64](https://github.com/Gubbitkeytoday/prism64)
+- **Architectural Highlights:**
+  - **HEXACO × MBTI Hybrid Architecture:** Extends traditional 4-letter personality typologies into 6 dimensions (Energy Direction, Information Input, Decision Making, Action Structure, Emotional Identity, and Social Relating) generating 64 discrete sub-variant personality archetypes (e.g., `ESTJ-AH`, `INTJ-OC`).
+  - **Dual Assessment Engine:** Supports both 1.5-minute Quick Mode (18 questions) and 3.0-minute Deep Diagnostic Mode (36 questions) with real-time responsive scoring algorithms and Likert scale calculations.
+  - **9:16 Social Story Card Studio:** High-resolution Canvas generator producing downloadable 1080×1920 social cards for Instagram and TikTok Stories across Light Pearl and Midnight Dark themes.
+  - **Gemini Spark Model Context Protocol (MCP):** Implements official MCP standard over JSON-RPC 2.0 (`/mcp` endpoint), allowing external LLMs and AI agents (Gemini, Claude, Cursor) to invoke tools for personality retrieval, spectrum scoring, and compatibility matching.
+  - **Stealth Admin Telemetry Dashboard:** Hidden administrative interface (`#prism-admin-gate`) with real-time Leaflet.js GPS/IP telemetry mapping and persistent session analytics.
 
 ---
 

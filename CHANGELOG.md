@@ -1,9 +1,21 @@
-﻿# 📝 Changelog
+# 📝 Changelog
 
 All notable changes to the **Wongsathorn Chapseethong Engineering Portfolio** will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+---
+
+## [1.0.2] - 2026-08-29
+
+### Added
+- **16th Shipped System — PRISM64:** Added PRISM64 Personality Intelligence Engine & Gemini Spark Model Context Protocol (MCP) Server to portfolio catalog, showcase gallery, and documentation.
+- **Optimized Media Assets:** Converted and generated high-performance multi-resolution WebP (`480w`, `960w`, `1600w`), progressive JPEG, and H.264 MP4 motion video in `media/prism64/`.
+- **Live Demo & Repository Links:** Integrated direct links to [prism64.onrender.com](https://prism64.onrender.com/) and [github.com/Gubbitkeytoday/prism64](https://github.com/Gubbitkeytoday/prism64).
+
+### Changed
+- Incremented all portfolio counters to 16 total shipped production systems (11 Web Applications, 5 Interactive).
 
 ---
 

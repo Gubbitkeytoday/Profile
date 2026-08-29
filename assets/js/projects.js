@@ -3521,5 +3521,129 @@ window.PF_PROJECTS = [
     "src": "14_mobile_views/mobile_13_offline.png"
    }
   ]
+ },
+ {
+  "id": "prism64",
+  "no": "16",
+  "cat": "web",
+  "year": "2026",
+  "icon": "crystal",
+  "th": "PRISM64 — เครื่องมือวิเคราะห์ 64 เฉดสีบุคลิกภาพ & Gemini MCP",
+  "en": "PRISM64 — 64-Shade Personality Intelligence & MCP",
+  "role_th": "Full-Stack Architecture · จิตวิทยา HEXACO · AI MCP Server",
+  "role_en": "Full-stack architecture · HEXACO engine · AI MCP server",
+  "sum_th": "เว็บแอปพลิเคชันวิเคราะห์บุคลิกภาพเชิงลึก 6 มิติ 64 เฉดสี พร้อม Canvas 9:16 Social Story Studio, ระบบ Real-time Geo Telemetry และ Gemini Spark Model Context Protocol (MCP) Server รองรับ AI Agent",
+  "sum_en": "An enterprise-grade 6-dimension 64-shade personality intelligence engine with 9:16 Story Card Studio, real-time Leaflet geo telemetry, and a Gemini Spark MCP server.",
+  "metrics": [
+   {
+    "v": "64",
+    "th": "เฉดสีบุคลิกภาพ",
+    "en": "personality shades"
+   },
+   {
+    "v": "6",
+    "th": "มิติพฤติกรรม",
+    "en": "behavior dimensions"
+   },
+   {
+    "v": "9:16",
+    "th": "Story Studio",
+    "en": "Story Studio"
+   },
+   {
+    "v": "MCP",
+    "th": "JSON-RPC AI",
+    "en": "JSON-RPC AI"
+   }
+  ],
+  "feat_th": [
+   "โมเดลจิตวิทยา HEXACO 6 มิติ (Energy, Info, Decision, Action, Identity, Relating) แตกแขนง 64 เฉดสี (16 Archetypes × 4 Sub-Variants)",
+   "Dual Assessment Engine: โหมดด่วน 18 ข้อ (1.5 นาที) และโหมดเจาะลึก 36 ข้อ (3 นาที) คำนวณแบบ Real-time",
+   "Social Story Card Studio (9:16): Export รูปแบบ Light Pearl & Midnight Dark สำหรับ IG / TikTok Story ได้ทันที",
+   "Gemini Spark MCP Server: รองรับมาตรฐาน Model Context Protocol (JSON-RPC 2.0) เชื่อมต่อ AI Agent เพื่อดึงข้อมูลบุคลิกภาพ",
+   "Stealth Admin Dashboard: แผนที่ Geo Telemetry สดด้วย Leaflet.js ติดตามผู้เข้าชมและผลการประเมินแบบ Real-time"
+  ],
+  "feat_en": [
+   "HEXACO 6-Dimension Psychological Matrix yielding 64 granular personality shades (16 Archetypes × 4 Sub-Variants)",
+   "Dual Assessment Engine: 1.5-min Quick (18 Questions) & 3.0-min Deep (36 Questions) with instant scoring",
+   "9:16 Social Story Card Studio: Instant canvas export for Instagram & TikTok (Light Pearl & Midnight Dark)",
+   "Gemini Spark MCP Server: Full Model Context Protocol (JSON-RPC 2.0) integration for AI agent querying",
+   "Stealth Admin Dashboard & Live Geo Map: Real-time visitor & submission telemetry powered by dark Leaflet.js"
+  ],
+  "tags": [
+   "Python",
+   "JavaScript",
+   "Tailwind CSS",
+   "Canvas API",
+   "Leaflet.js",
+   "Gemini MCP",
+   "Render.com"
+  ],
+  "repo": "https://github.com/Gubbitkeytoday/prism64",
+  "live": "https://prism64.onrender.com",
+  "cover": "media/prism64/01-landing-hero-showcase",
+  "coverW": [
+   480,
+   960,
+   1600
+  ],
+  "gallery": [
+   {
+    "p": "media/prism64/06-prism64-motion-hero-showcase",
+    "k": "video",
+    "w": [],
+    "src": "06_PRISM64_Motion_Hero_Showcase.mp4"
+   },
+   {
+    "p": "media/prism64/01-landing-hero-showcase",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "01_Landing_Hero_Showcase.png"
+   },
+   {
+    "p": "media/prism64/02-hexaco-assessment-test",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "02_HEXACO_Assessment_Test.png"
+   },
+   {
+    "p": "media/prism64/03-personality-result-estj-ah",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "03_Personality_Result_ESTJ_AH.png"
+   },
+   {
+    "p": "media/prism64/04-story-card-studio-modal",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "04_Story_Card_Studio_Modal.png"
+   },
+   {
+    "p": "media/prism64/05-live-geomap-admin-dashboard",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "05_Live_GeoMap_Admin_Dashboard.png"
+   }
+  ]
  }
 ];

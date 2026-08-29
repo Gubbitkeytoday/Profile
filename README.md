@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 # ⚡ Wongsathorn Chapseethong (วงศธร ฉาบสีทอง)
 ### **Full-Stack Software Engineer & Systems Architect**
@@ -13,9 +13,9 @@
 
 [![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1_AA-0_axe--core_violations-3DDC97?style=flat-square&logo=w3c&logoColor=white)](https://www.w3.org/WAI/WCAG21/quickref/)
 [![Lighthouse Performance](https://img.shields.io/badge/Lighthouse-100%2F100-3DDC97?style=flat-square&logo=lighthouse&logoColor=white)](https://pagespeed.web.dev/)
-[![Shipped Systems](https://img.shields.io/badge/Shipped_Projects-15_Production_Builds-FF5C38?style=flat-square)](./docs/PROJECTS_CATALOG.md)
+[![Shipped Systems](https://img.shields.io/badge/Shipped_Projects-16_Production_Builds-FF5C38?style=flat-square)](./docs/PROJECTS_CATALOG.md)
 [![Architecture](https://img.shields.io/badge/Architecture-Zero--Framework_Native_DOM-4CC9F0?style=flat-square)](./docs/ARCHITECTURE.md)
-[![TypeScript / Rust](https://img.shields.io/badge/Core_Stack-Next.js_14%2F16_·_React_19_·_Rust%2FWasm_·_Python-blueviolet?style=flat-square)](#-technical-skills-matrix)
+[![TypeScript / Rust](https://img.shields.io/badge/Core_Stack-Next.js_14%2F16_·_React_19_·_Rust%2FWasm_·_Python_·_MCP-blueviolet?style=flat-square)](#-technical-skills-matrix)
 
 <p align="center">
   <b>Bangkok & Hua Hin, Thailand</b> · Open for Software Engineering & Full-Stack Developer Roles / Co-op Placement
@@ -44,7 +44,7 @@ This repository houses the official engineering portfolio of **Wongsathorn Chaps
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
 │                                 ENGINEERING HIGHLIGHTS                                 │
 ├────────────────────────────────────────────────────────────────────────────────────────┤
-│  ⚡ 15 Production Builds  │ Enterprise POS, Face-Recognition Attendance, AI Chat       │
+│  ⚡ 16 Production Builds  │ Enterprise POS, AI Chat, PRISM64 MCP, 3D Metro, E-Commerce │
 │  🚀 High Throughput       │ Rust + WebAssembly on Web Workers (60 FPS with 8,193 trips)│
 │  🌐 Bilingual Engine      │ Native TH/EN semantic switching without page reloads       │
 │  🛡️ Zero Violations       │ Fully certified WCAG 2.1 AA keyboard paths and contrast    │
@@ -86,12 +86,12 @@ graph TD
 
 ---
 
-## 📦 Shipped Systems & Production Projects (15 Builds)
+## 📦 Shipped Systems & Production Projects (16 Builds)
 
-A curated catalog of 15 fully-functional systems built, tested, and shipped. For full architectural teardowns, metrics, and database schemas, see **[docs/PROJECTS_CATALOG.md](./docs/PROJECTS_CATALOG.md)**.
+A curated catalog of 16 fully-functional systems built, tested, and shipped. For full architectural teardowns, metrics, and database schemas, see **[docs/PROJECTS_CATALOG.md](./docs/PROJECTS_CATALOG.md)**.
 
 | # | System Name | Category | Core Stack | Key Metrics / Architecture Highlights | Links |
-| :-: | :--- | :---: | :--- | :--- | :---: |
+| :-: | :--- | :--- | :--- | :--- | :---: |
 | **01** | **Greater Bangkok Metro Mini 3D** | `Interactive 3D` | React 19, TypeScript, Three.js, Rust, Wasm | **60 FPS**, 10 lines, 193 stations, 8,193 trips/day. Wasm worker core. | [Live](https://metro.itstom.me) • [Repo](https://github.com/Gubbitkeytoday/tha-metro-mini-3d) |
 | **02** | **Khui AI (คุย AI)** | `Web Application` | Next.js 14, TypeScript, Prisma, SQLite, SSE | Character creator studio, real-time SSE streaming, in-game economy. | [Repo](https://github.com/Gubbitkeytoday/khuiai-fullstack) |
 | **03** | **MangaVerses** | `Web Application` | Next.js 16, TypeScript, Tailwind CSS, Lucide | High-throughput manga reader, admin dashboard, multi-banner management. | [Live](https://gubbitkeytoday.github.io/MangaVerses/) • [Repo](https://github.com/Gubbitkeytoday/MangaVerses) |
@@ -107,6 +107,7 @@ A curated catalog of 15 fully-functional systems built, tested, and shipped. For
 | **13** | **Interactive PDF Editor** | `Web Application` | TypeScript, PDF.js, Canvas API | In-browser PDF annotation, digital signature and page manipulation engine. | [Repo](https://github.com/GitBababoo) |
 | **14** | **Smart WebShop Platform** | `Web Application` | PHP 8, MySQL, AJAX, Tailwind CSS | Full-lifecycle e-commerce engine with inventory webhooks and coupon rules. | [Repo](https://github.com/GitBababoo) |
 | **15** | **Community Agro-Tourism Portal** | `Web Application` | HTML5, Modern JS, CSS Grid | Regional tourism platform featuring local products and interactive mapping. | [Repo](https://github.com/GitBababoo) |
+| **16** | **PRISM64 Personality & MCP** | `Web Application` | Python, JS, Tailwind, Canvas, MCP | 64-shade personality matrix, 9:16 Social Story Studio, Gemini MCP JSON-RPC 2.0. | [Live](https://prism64.onrender.com) • [Repo](https://github.com/Gubbitkeytoday/prism64) |
 
 ---
 

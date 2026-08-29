@@ -1,4 +1,4 @@
-﻿# 🚢 Production Deployment & Operations Runbook
+# 🚢 Production Deployment & Operations Runbook
 
 > **Portfolio Deployment & Infrastructure Guide**  
 > *Hosting, Edge CDN Caching, Media Optimization Pipelines, and Release Checklists.*
@@ -61,7 +61,7 @@ Before pushing commits to `master`, execute the following verification steps:
   node -c assets/js/projects.js
   ```
 - [ ] **2. Verify Project Counts & Badges:**
-  Confirm that `assets/js/projects.js` array count matches the badges in `index.html` (`15` Total, `10` Web, `5` Interactive).
+  Confirm that `assets/js/projects.js` array count matches the badges in `index.html` (`16` Total, `11` Web, `5` Interactive).
 - [ ] **3. Audit Zero axe-core Violations:**
   Test in browser with Chrome DevTools Lighthouse / axe DevTools extension.
 - [ ] **4. Responsive Grid & Overflow Check:**

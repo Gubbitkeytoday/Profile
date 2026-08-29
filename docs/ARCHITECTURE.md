@@ -1,4 +1,4 @@
-﻿# 🏛️ System Architecture & Engineering Design
+# 🏛️ System Architecture & Engineering Design
 
 > **Portfolio of Wongsathorn Chapseethong (วงศธร ฉาบสีทอง)**  
 > *Technical Deep-Dive into the Zero-Framework Native DOM Engine, State Lifecycle, and Rendering Pipelines.*
@@ -74,7 +74,7 @@ graph TD
 - **Event Dispatching:** When the language changes, `Lang.toggle()` dispatches a custom `pf:lang` event, causing reactive components to re-render instantly.
 
 ### 3.3 Projects & Reactive Filter Engine (`Projects`)
-- **Data Source:** Reads an immutable, pre-indexed array of 15 project objects from `window.PF_PROJECTS` (in `assets/js/projects.js`).
+- **Data Source:** Reads an immutable, pre-indexed array of 16 project objects from `window.PF_PROJECTS` (in `assets/js/projects.js`).
 - **Responsive 3-Column Grid:** Renders cards inside `.pgrid` using a balanced CSS Grid (`grid-template-columns: repeat(3, minmax(0, 1fr))`).
 - **Reactive URL Synchronization:** Search queries (`q`) and category filters (`cat`) automatically serialize to `window.location.search` (`?cat=web&q=pos`) via `history.replaceState()`, making filtered states shareable and bookmarkable.
 - **Card Micro-Architecture:**
