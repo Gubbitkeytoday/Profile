@@ -310,69 +310,66 @@
     const c = t.cloneNode(true); c.setAttribute('aria-hidden', 'true'); m.appendChild(c);
   });
 
-  /* ======================================================= CATEGORY & TAGS */
-  const getCatMeta = (p) => {
-    if (p.cat === 'app' || p.id === 'discord_rpc' || p.id === 'aerocontrol') return { icon: '💻', th: 'เดสก์ท็อป / ซิสเต็มส์', en: 'Desktop / Systems' };
-    if (p.id === 'prism64' || p.id === 'khuiai' || p.id === 'face') return { icon: '🤖', th: 'เอไอ & สตรีมมิ่ง', en: 'AI & Streaming' };
-    if (p.cat === 'interactive') return { icon: '🎮', th: 'อินเตอร์แอคทีฟ 3D', en: 'Interactive 3D' };
-    return { icon: '🌐', th: 'เว็บแอปพลิเคชัน', en: 'Web Application' };
+  /* ======================================================= ICONS (real brand marks) */
+  // Brand marks: Simple Icons (CSS-mask, tinted with the official brand hex). UI glyphs: Lucide (currentColor).
+  // Full-colour marks (Devicon) are served as <img>. All files live in images/icons/, masks in assets/css/icons.css.
+  const BRAND = {
+    nextdotjs: '000000', react: '61DAFB', angular: '0F0F11', vite: '646CFF', typescript: '3178C6', javascript: 'F7DF1E',
+    html5: 'E34F26', tailwindcss: '06B6D4', shadcnui: '000000', threedotjs: '000000', webgl: '990000', maplibre: '396CB2',
+    leaflet: '199900', rust: '000000', webassembly: '654FF0', pwa: '5A0FC8', nodedotjs: '5FA04E', express: '000000',
+    python: '3776AB', fastapi: '009688', php: '777BB4', discord: '5865F2', webrtc: '333333', modelcontextprotocol: '000000',
+    googlegemini: '8E75B2', openai: '412991', openapiinitiative: '6BA539', jsonwebtokens: '000000', postgresql: '4169E1',
+    mysql: '4479A1', mariadb: '003545', sqlite: '003B57', prisma: '2D3748', sequelize: '52B0E7', redis: 'FF4438',
+    firebase: 'DD2C00', docker: '2496ED', git: 'F05032', github: '181717', githubactions: '2088FF', linux: 'FCC624',
+    ubuntu: 'E95420', debian: 'A81D33', gnubash: '4EAA25', nginx: '009639', cloudflare: 'F38020', puppeteer: '40B5A4',
+    render: '000000', lighthouse: 'F44B21'
+  };
+  const IMG_ICONS = new Set(['windows11', 'powershell']);
+  const lum = (h) => { const n = parseInt(h, 16); return (0.2126 * (n >> 16 & 255) + 0.7152 * (n >> 8 & 255) + 0.0722 * (n & 255)) / 255; };
+  // ICO('react') → brand mark; ICO('lu-zap') → Lucide glyph in currentColor; ICO('windows11') → <img>
+  const ICO = (slug, title = '') => {
+    if (!slug) return '';
+    const t = title ? ` title="${esc(title)}"` : '';
+    if (IMG_ICONS.has(slug)) return `<img class="ico ico--img" src="images/icons/${slug}.svg" alt="" width="16" height="16" loading="lazy" decoding="async"${t}>`;
+    if (slug.startsWith('lu-')) return `<i class="ico ico--ui i-${slug}" aria-hidden="true"${t}></i>`;
+    const hex = BRAND[slug];
+    const st = hex && lum(hex) >= 0.2 ? ` style="--ico-c:#${hex}"` : '';
+    return `<i class="ico i-${slug}"${st} aria-hidden="true"${t}></i>`;
   };
 
+  const getCatMeta = (p) => {
+    if (p.cat === 'app' || p.id === 'discord_rpc' || p.id === 'aerocontrol') return { icon: 'lu-monitor', th: 'เดสก์ท็อป / ซิสเต็มส์', en: 'Desktop / Systems' };
+    if (p.id === 'prism64' || p.id === 'khuiai' || p.id === 'face') return { icon: 'lu-bot', th: 'เอไอ & สตรีมมิ่ง', en: 'AI & Streaming' };
+    if (p.cat === 'interactive') return { icon: 'lu-gamepad-2', th: 'อินเตอร์แอคทีฟ 3D', en: 'Interactive 3D' };
+    return { icon: 'lu-globe', th: 'เว็บแอปพลิเคชัน', en: 'Web Application' };
+  };
+
+  // project tag (lower-cased) → icon slug
   const TAG_ICONS = {
-    'python': '🐍',
-    'python 3.12': '🐍',
-    'windows': '🪟',
-    'windows winrt': '🪟',
-    'gsmtc api': '🪟',
-    'desktop app': '💻',
-    'discord ipc': '💬',
-    'next.js': '▲',
-    'next.js 14': '▲',
-    'next.js 16': '▲',
-    'react': '⚛️',
-    'react 19': '⚛️',
-    'typescript': '🔷',
-    'rust': '🦀',
-    'webassembly': '⚡',
-    'three.js': '📐',
-    'maplibre gl': '🗺️',
-    'leaflet.js': '🗺️',
-    'postgresql': '🐘',
-    'mysql': '🐬',
-    'sqlite': '🗄️',
-    'prisma': '💎',
-    'node.js': '🟢',
-    'php': '🐘',
-    'tailwind': '🎨',
-    'tailwind css': '🎨',
-    'shadcn/ui': '🖤',
-    'gemini mcp': '🤖',
-    'openai api': '🤖',
-    'pwa': '📱',
-    'service worker': '📱',
-    'accessibility': '♿',
-    'docker': '🐳',
-    'firebase': '🔥',
-    'multiplayer': '🎮',
-    'game engine': '🎮',
-    'web audio api': '🎧',
-    'pdf.js': '📄',
-    'canvas api': '✨',
-    'anime.js': '✨',
-    'html/css': '🌐',
-    'javascript': '🟨',
-    'vite': '⚡',
-    'angular': '🅰️',
-    'pyinstaller': '📦',
-    'pystray': '🪟',
-    'systems architecture': '🏗️',
-    'web scraping': '🕷️',
-    'render.com': '☁️'
+    'python': 'python', 'python 3.12': 'python', 'fastapi': 'fastapi', 'tkinter': 'python', 'pystray': 'python', 'pyinstaller': 'python',
+    'windows': 'windows11', 'windows winrt': 'windows11', 'gsmtc api': 'windows11',
+    'desktop app': 'lu-monitor', 'discord ipc': 'discord',
+    'next.js': 'nextdotjs', 'next.js 14': 'nextdotjs', 'next.js 16': 'nextdotjs',
+    'react': 'react', 'react 19': 'react', 'angular': 'angular', 'vite': 'vite',
+    'typescript': 'typescript', 'javascript': 'javascript', 'html/css': 'html5',
+    'rust': 'rust', 'webassembly': 'webassembly',
+    'three.js': 'threedotjs', 'maplibre gl': 'maplibre', 'leaflet.js': 'leaflet', 'leaflet': 'leaflet',
+    'gtfs': 'lu-bus',
+    'postgresql': 'postgresql', 'mysql': 'mysql', 'sqlite': 'sqlite', 'prisma': 'prisma', 'firebase': 'firebase',
+    'node.js': 'nodedotjs', 'php': 'php',
+    'tailwind': 'tailwindcss', 'tailwind css': 'tailwindcss', 'shadcn/ui': 'shadcnui',
+    'gemini mcp': 'googlegemini', 'openai api': 'openai',
+    'pwa': 'pwa', 'service worker': 'pwa', 'accessibility': 'lu-accessibility',
+    'docker': 'docker', 'render.com': 'render',
+    'multiplayer': 'lu-users', 'game engine': 'lu-gamepad-2',
+    'web audio api': 'lu-headphones', 'pdf.js': 'lu-file-text',
+    'canvas api': 'lu-brush', 'anime.js': 'lu-sparkles',
+    'systems architecture': 'lu-layers', 'web scraping': 'puppeteer'
   };
 
   const renderTag = (t) => {
     const k = (t || '').trim().toLowerCase();
-    const icon = TAG_ICONS[k] || '🏷️';
+    const icon = ICO(TAG_ICONS[k] || 'lu-tag');
     return `<span class="tag"><span class="tag__icon" aria-hidden="true">${icon}</span><span>${esc(t)}</span></span>`;
   };
 
@@ -388,13 +385,13 @@
 
     const getMetricPills = (p) => {
       if (!p.metrics || !p.metrics.length) return '';
-      const iconMap = ['⚡', '🚀', '🛡️', '🎯'];
+      const iconMap = ['lu-zap', 'lu-rocket', 'lu-shield-check', 'lu-target'];
       const clsMap = ['pcard__mpill--hot', 'pcard__mpill--cool', 'pcard__mpill--blue', 'pcard__mpill--purple'];
       return `<div class="pcard__metrics">` +
         p.metrics.slice(0, 3).map((m, i) => {
-          const ic = iconMap[i % iconMap.length];
+          const ic = ICO(iconMap[i % iconMap.length]);
           const cls = clsMap[i % clsMap.length];
-          return `<span class="pcard__mpill ${cls}"><span>${ic}</span> <strong>${esc(m.v)}</strong> <span>${esc(T(m.th, m.en))}</span></span>`;
+          return `<span class="pcard__mpill ${cls}">${ic} <strong>${esc(m.v)}</strong> <span>${esc(T(m.th, m.en))}</span></span>`;
         }).join('') +
       `</div>`;
     };
@@ -423,7 +420,7 @@
         </div>
         <div class="pcard__body">
           <div class="pcard__header">
-            <span class="pcard__cat">${catMeta.icon} ${T(catMeta.th, catMeta.en)}</span>
+            <span class="pcard__cat">${ICO(catMeta.icon)} ${T(catMeta.th, catMeta.en)}</span>
           </div>
           <h3 class="pcard__t">${esc(T(p.th, p.en))}</h3>
           ${getMetricPills(p)}
@@ -503,7 +500,7 @@
       body.innerHTML = `
         <div class="sheet__pad stack u-flow-lg">
           <div>
-            <p class="eyebrow">${p.no} — ${catMeta.icon} ${T(catMeta.th, catMeta.en)} · ${p.year}</p>
+            <p class="eyebrow">${p.no} — ${ICO(catMeta.icon)} ${T(catMeta.th, catMeta.en)} · ${p.year}</p>
             <h2 class="t-h2 u-mt-4" id="sheet-title">${esc(T(p.th, p.en))}</h2>
             <p class="label u-mt-3">${esc(T(p.role_th, p.role_en))}</p>
             <p class="body u-mt-5">${esc(T(p.sum_th, p.sum_en))}</p>
@@ -694,7 +691,7 @@
         const catMeta = getCatMeta(p);
         return {
           kind: 'prj',
-          label: `${catMeta.icon} ${T(p.th, p.en)}`,
+          label: T(p.th, p.en),
           hint: p.tags.slice(0, 2).join(' · '),
           go: () => { close(); Sheet.open(p.id); }
         };

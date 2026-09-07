@@ -1,7 +1,7 @@
-# 📦 Shipped Projects & Systems Catalog (17 Production Builds)
+# 📦 Shipped Projects & Systems Catalog (18 Production Builds)
 
 > **Official Systems Showcase of Wongsathorn Chapseethong (วงศธร ฉาบสีทอง)**  
-> *Technical specifications, architecture breakdown, metrics, and repositories for all 17 shipped systems.*
+> *Technical specifications, architecture breakdown, metrics, and repositories for all 18 shipped systems.*
 
 ---
 
@@ -24,6 +24,7 @@
 15. [Community Agro-Tourism Regional Portal](#15-community-agro-tourism-regional-portal) (`Web Application`)
 16. [PRISM64 Personality Intelligence Engine & MCP Server](#16-prism64-personality-intelligence-engine--mcp-server) (`Web Application / AI MCP`)
 17. [Discord Rich Presence Pro](#17-discord-rich-presence-pro) (`Desktop Application / Windows Systems`)
+18. [BKK Transit — Bangkok Open Transit Platform & Routing Engine](#18-bkk-transit--bangkok-open-transit-platform--routing-engine) (`Web Application / Transit Infrastructure`)
 
 ---
 
@@ -238,6 +239,22 @@
   - **Sub-Second Timeline Anchor Engine:** Computes playback progress dynamically using timeline anchor timestamps, preventing jitter and eliminating the common progress bar looping/reset bugs found in web extension implementations.
   - **DirectX / Vulkan Fullscreen Game Detection:** Automatically inspects the active foreground process via `win32gui` and suppresses Discord media updates when full-screen 3D games are detected, conserving system resources and preventing status overlap.
   - **Hot-Reloadable System Tray Daemon:** Runs as an invisible background daemon with a dedicated Taskbar tray icon supporting live Pause/Resume toggling, real-time log inspection, and zero-restart `config.json` hot-reloading.
+
+---
+
+## 18. BKK Transit — Bangkok Open Transit Platform & Routing Engine
+- **Category:** `Web Application` / Transit Infrastructure & Geospatial Intelligence
+- **Core Tech Stack:** `Python 3.12`, `FastAPI`, `SQLite (FTS5 + Spatial)`, `Leaflet.js`, `GTFS Static / GTFS-RT`, `Gemini Model Context Protocol (MCP)`, `Docker`
+- **Key Metrics:** **Sub-10ms Routing Engine** · **W3C Geolocation 500m Radar** · **Chunk-Based GTFS Streaming** · **JSON-RPC 2.0 AI MCP Integration**
+- **Live Showcase / Documentation:** [github.com/Gubbitkeytoday/bkk-transit](https://github.com/Gubbitkeytoday/bkk-transit)
+- **Source Code:** [github.com/Gubbitkeytoday/bkk-transit](https://github.com/Gubbitkeytoday/bkk-transit)
+- **Architectural Highlights:**
+  - **Official GTFS Ingestion Pipeline**: Ingests and normalizes official Bangkok transit data from OTP/สนข. (`routes.txt`, `stops.txt`, `trips.txt`, `stop_times.txt`, `frequencies.txt`, `shapes.txt`) with chunk-based streaming, referential integrity validation, and automated diagnostic reports.
+  - **GPS Radar & Proximity Discovery Engine**: Integrates W3C Geolocation with Haversine distance indexing to discover transit stops, active routes, and estimated walking arrival within 500m radius of the commuter.
+  - **Live Departures & Frequency Timetable Board**: Calculates upcoming departures across bus, boat, and rail lines from static schedules, headway frequencies, and hot-pluggable GTFS-RT protocol buffers.
+  - **Multi-Modal Trip Planner**: Computes direct and 1-transfer itineraries between any two transit stops in the Bangkok metropolitan area, drawing synchronized colored polyline vectors on Leaflet.js with station interchange guidance.
+  - **Gemini Model Context Protocol (MCP Server)**: Exposes full transit intelligence to modern LLM agents (Gemini, Claude, Cursor) via standard JSON-RPC 2.0 tools (`bkk_plan_trip`, `bkk_nearby_stops`, `bkk_route_info`, `bkk_stop_departures`).
+  - **Fault-Tolerant Circuit Breaker**: Hardened architecture ensures uninterrupted service; if external real-time streams degrade or fail, the circuit opens and transparently serves timetable approximations with zero downtime.
 
 ---
 

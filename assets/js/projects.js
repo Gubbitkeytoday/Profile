@@ -3773,5 +3773,155 @@ window.PF_PROJECTS = [
     "src": "03_github_repository.png"
    }
   ]
+ },
+ {
+  "id": "bkk_transit",
+  "no": "18",
+  "cat": "web",
+  "year": "2026",
+  "icon": "bus",
+  "th": "BKK Transit — แพลตฟอร์มข้อมูลเปิดขนส่งมวลชนกรุงเทพฯ & ระบบคำนวณเส้นทาง",
+  "en": "BKK Transit — Bangkok Open Transit Platform & Routing Engine",
+  "role_th": "สถาปัตยกรรมระบบ · GTFS Pipeline · FastAPI Backend · Leaflet.js · Model Context Protocol (MCP)",
+  "role_en": "Systems Architecture · GTFS Pipeline · FastAPI Backend · Leaflet.js · Model Context Protocol (MCP)",
+  "sum_th": "แพลตฟอร์มโครงสร้างพื้นฐานข้อมูลเปิดขนส่งมวลชนกรุงเทพฯ และปริมณฑล นำเข้า GTFS ทางการจาก สนข. (นำทาง) รองรับเรดาร์ GPS ค้นหาป้ายใกล้ฉัน ตารางเวลารถออกถัดไป และ Model Context Protocol (MCP) เชื่อมต่อ AI Assistants",
+  "sum_en": "Open transit data platform and routing engine for Greater Bangkok — Ingests official GTFS data (Namtang), GPS radar nearby stops, live departure boards, and Model Context Protocol (MCP) for AI assistants.",
+  "metrics": [
+   {
+    "v": "GTFS",
+    "th": "มาตรฐานสากล สนข.",
+    "en": "Official GTFS"
+   },
+   {
+    "v": "<10ms",
+    "th": "Query Latency",
+    "en": "Query Latency"
+   },
+   {
+    "v": "500m",
+    "th": "รัศมี GPS เรดาร์",
+    "en": "GPS Radius"
+   },
+   {
+    "v": "MCP",
+    "th": "JSON-RPC 2.0",
+    "en": "AI Protocol"
+   }
+  ],
+  "feat_th": [
+   "Official GTFS Data Ingestion: สตรีมมิ่งนำเข้าไฟล์ข้อมูล GTFS Static ทางการแบบ Chunk-based ตรวจสอบ Referential Integrity และสร้าง ValidationReport วิเคราะห์คุณภาพข้อมูล",
+   "GPS Radar & Nearby Stops: ระบุพิกัดตำแหน่งผู้ใช้ (W3C Geolocation) ด้วยหมุดเรดาร์สีฟ้าและวงแหวนความแม่นยำ พร้อมค้นหาป้ายในระยะ 500 เมตรอัตโนมัติ",
+   "Live Departures Board: แสดงตารางเวลารถและเรือเข้าป้ายถัดไป โดยคำนวณจากความถี่เดินรถ (frequencies.txt) และตารางเวลา พร้อมจุดเสียบ GTFS-RT แบบ Hot-Plug",
+   "Intelligent Trip Planner: ระบบคำนวณและวางแผนการเดินทางระหว่างสถานี ทั้งสายตรงและจุดต่อรถ 1 ครั้ง พร้อมวาดแนวเส้นทาง Polyline สีสดบนแผนที่",
+   "Model Context Protocol (MCP Server): เซิร์ฟเวอร์ MCP มาตรฐาน JSON-RPC 2.0 สำหรับเชื่อมต่อ Claude, ChatGPT, และ Gemini ให้เรียกค้นสาย ป้าย และคำนวณเส้นทางแบบ Agentic",
+   "High Resilience & Fault Tolerance: ออกแบบด้วย Circuit Breaker ป้องกันระบบล่ม เมื่อต้นทาง Realtime ขัดข้อง ระบบจะตัดวงจรและทำงานต่อด้วยข้อมูลตารางเดินรถได้ 100%"
+  ],
+  "feat_en": [
+   "Official GTFS Data Ingestion: Chunk-based streaming ingestion of official GTFS Static feeds with integrity validation and automated reporting.",
+   "GPS Radar & Nearby Stops: W3C Geolocation GPS radar with accuracy ring, automatically discovering and ranking transit stops within 500 meters.",
+   "Live Departures Board: Real-time headway-based arrival estimations from schedule frequencies with a hot-pluggable GTFS-RT engine.",
+   "Intelligent Trip Planner: Routing engine computing direct routes and single-transfer journeys with colorful interactive map polylines.",
+   "Model Context Protocol (MCP Server): JSON-RPC 2.0 MCP server enabling Claude, ChatGPT, and Gemini to perform agentic transit routing.",
+   "High Resilience & Fault Tolerance: Circuit breaker architecture ensuring 100% operational uptime via cached schedule fallback during upstream outages."
+  ],
+  "tags": [
+   "Python 3.12",
+   "FastAPI",
+   "SQLite",
+   "Leaflet.js",
+   "GTFS",
+   "Gemini MCP",
+   "Docker"
+  ],
+  "repo": "https://github.com/Gubbitkeytoday/bkk-transit",
+  "live": "https://github.com/Gubbitkeytoday/bkk-transit",
+  "cover": "media/bkk_transit/01-bkk-transit-overview",
+  "coverW": [
+   480,
+   960,
+   1600
+  ],
+  "gallery": [
+   {
+    "p": "media/bkk_transit/01-bkk-transit-overview",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "01_bangkok_transit_overview.png"
+   },
+   {
+    "p": "media/bkk_transit/02-route-shape-vehicles",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "02_route_detail_and_shape.png"
+   },
+   {
+    "p": "media/bkk_transit/03-gps-nearby-stops",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "03_gps_nearby_stops.png"
+   },
+   {
+    "p": "media/bkk_transit/04-stop-departures-board",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "04_stop_departures_board.png"
+   },
+   {
+    "p": "media/bkk_transit/05-trip-planner",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "05_trip_planner.png"
+   },
+   {
+    "p": "media/bkk_transit/06-fastapi-swagger-docs",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "06_fastapi_swagger_docs.png"
+   },
+   {
+    "p": "media/bkk_transit/07-fastapi-redoc",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "07_fastapi_redoc.png"
+   },
+   {
+    "p": "media/bkk_transit/08-mobile-responsive",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "08_mobile_responsive.png"
+   }
+  ]
  }
 ];

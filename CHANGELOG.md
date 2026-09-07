@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.5] - 2026-09-07
+
+### Added
+- **18th Shipped System — BKK Transit (Bangkok Open Transit Platform & Routing Engine):** Integrated full-stack Bangkok mass-transit routing platform into catalog, showcase gallery, and project inspection drawer.
+- **Multi-Resolution Asset Pipeline for BKK Transit:** Generated and optimized 48 responsive WebP and progressive JPEG assets (`480w`, `960w`, `1600w`) in `media/bkk_transit/` covering network overview, GPS radar, live departure boards, trip planner, and interactive API references.
+- **FastAPI & GTFS System Tags:** Added brand marks and metadata for `FastAPI` and `GTFS` transit engine chips in `assets/js/main.js`.
+- **System Metrics:** Highlighted sub-10ms routing latency, 500m GPS nearby radar, GTFS stream ingestion, and Model Context Protocol (MCP) JSON-RPC 2.0 AI agent support.
+
+### Changed
+- Updated global shipped projects count from 17 to 18 across all hero counters, filter toolbars, meta tags, and documentation catalogs.
+
+---
+
+## [1.0.4] - 2026-09-07
+
+### Changed
+- **Site-wide emoji → real marks (0 emoji left in index.html / main.js):** tech marquee (18 items), the 4 philosophy cards (labels + metric pills), timeline tags (16), project-card category badge, metric pills, tech tags (48 tag names mapped), and the project detail sheet eyebrow. New `ICO(slug)` helper in `main.js` with the official brand hex table; unknown tags fall back to a Lucide tag glyph instead of 🏷️. Command palette (⌘K) labels are now plain text (no emoji prefix).
+- **Skills section — real brand marks:** Replaced all emoji glyphs in the 4 skill cards (Frontend / Backend & Systems / Database & Data / DevOps & IT Infra) with 70 official vector logos downloaded from source: Simple Icons (46 brand SVGs, tinted with each brand's official hex via CSS mask), Devicon (Windows, PowerShell — full-colour), Lucide (22 UI glyphs for concept rows with no brand: SSE, WCAG, ACID, Backup, Networking, etc.). Multi-brand rows now show every logo (e.g. React · Angular · Vite, Linux · Ubuntu · Debian).
+- Black-mark brands (Next.js, Rust, Express, GitHub, MCP, JWT, SQLite, MariaDB, Prisma, WebRTC, shadcn/ui) follow the theme foreground so they stay visible in dark and light mode.
+- Icons stored locally in `images/icons/` (no CDN at runtime); `aria-hidden` + `title` tooltips; language toggle (TH/EN) preserved.
+
+### Fixed
+- Brand masks were blank when opening `index.html` directly via `file://` (Chrome treats `mask-image: url(file)` as cross-origin and blocks it). Masks now ship as data-URIs in a new `assets/css/icons.css` (`.i-<slug>` classes), which are origin-free — renders from `file://`, GitHub Pages or any sub-path. Markup shrank back to ~47 KB.
+
+---
+
 ## [1.0.3] - 2026-09-07
 
 ### Added

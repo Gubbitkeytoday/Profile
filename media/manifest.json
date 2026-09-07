@@ -3625,5 +3625,114 @@
     "path": "media/discord_rpc/06-github-repository"
    }
   ]
+ },
+ "bkk_transit": {
+  "folder": "bkk_transit",
+  "assets": [
+   {
+    "kind": "image",
+    "w": 1440,
+    "h": 900,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "01_bangkok_transit_overview.png",
+    "base": "01-bkk-transit-overview",
+    "path": "media/bkk_transit/01-bkk-transit-overview"
+   },
+   {
+    "kind": "image",
+    "w": 1440,
+    "h": 900,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "02_route_detail_and_shape.png",
+    "base": "02-route-shape-vehicles",
+    "path": "media/bkk_transit/02-route-shape-vehicles"
+   },
+   {
+    "kind": "image",
+    "w": 1440,
+    "h": 900,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "03_gps_nearby_stops.png",
+    "base": "03-gps-nearby-stops",
+    "path": "media/bkk_transit/03-gps-nearby-stops"
+   },
+   {
+    "kind": "image",
+    "w": 1440,
+    "h": 900,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "04_stop_departures_board.png",
+    "base": "04-stop-departures-board",
+    "path": "media/bkk_transit/04-stop-departures-board"
+   },
+   {
+    "kind": "image",
+    "w": 1440,
+    "h": 900,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "05_trip_planner.png",
+    "base": "05-trip-planner",
+    "path": "media/bkk_transit/05-trip-planner"
+   },
+   {
+    "kind": "image",
+    "w": 1440,
+    "h": 900,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "06_fastapi_swagger_docs.png",
+    "base": "06-fastapi-swagger-docs",
+    "path": "media/bkk_transit/06-fastapi-swagger-docs"
+   },
+   {
+    "kind": "image",
+    "w": 1440,
+    "h": 900,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "07_fastapi_redoc.png",
+    "base": "07-fastapi-redoc",
+    "path": "media/bkk_transit/07-fastapi-redoc"
+   },
+   {
+    "kind": "image",
+    "w": 500,
+    "h": 892,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "08_mobile_responsive.png",
+    "base": "08-mobile-responsive",
+    "path": "media/bkk_transit/08-mobile-responsive"
+   }
+  ]
  }
 }

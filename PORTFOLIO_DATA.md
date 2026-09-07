@@ -1,7 +1,7 @@
 # 📑 ข้อมูลพอร์ตโฟลิโอฉบับสมบูรณ์ (Master Portfolio Data)
 ## วงศธร ฉาบสีทอง (Wongsathorn Chapseethong) — Full-Stack Developer & IT Support
 
-> เอกสารรวบรวมข้อมูลทั้งหมดของพอร์ตโฟลิโอ ทั้งประวัติส่วนตัว, จุดเด่นทางเทคนิค, ตารางทักษะ, ไทม์ไลน์การศึกษา-ประสบการณ์, และรายละเอียดเชิงลึกของผลงานจริงทั้งหมด **17 โปรเจกต์** พร้อมรายการไฟล์สื่อ (รูปภาพ UI / วิดีโอ) และลิงก์ Source Code / Live Demo
+> เอกสารรวบรวมข้อมูลทั้งหมดของพอร์ตโฟลิโอ ทั้งประวัติส่วนตัว, จุดเด่นทางเทคนิค, ตารางทักษะ, ไทม์ไลน์การศึกษา-ประสบการณ์, และรายละเอียดเชิงลึกของผลงานจริงทั้งหมด **18 โปรเจกต์** พร้อมรายการไฟล์สื่อ (รูปภาพ UI / วิดีโอ) และลิงก์ Source Code / Live Demo
 
 ---
 
@@ -566,6 +566,33 @@ timeline
   4. `[Image]` `images/discord_rpc/02_discord_presence_synced.png`
   5. `[Image]` `images/discord_rpc/03_terminal_live_log.png`
   6. `[Image]` `images/discord_rpc/03_github_repository.png`
+
+---
+
+### 18. BKK Transit — Bangkok Open Transit Platform & Routing Engine (ID: 18)
+- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน & แพลตฟอร์มโครงสร้างพื้นฐาน)
+- **ไอคอน (Icon)**: `fa-solid fa-bus`
+- **สรุปภาพรวม (Overview)**: แพลตฟอร์มโครงสร้างพื้นฐานข้อมูลเปิดขนส่งมวลชนกรุงเทพฯ และปริมณฑล นำเข้า GTFS ทางการจาก สนข. (นำทาง) รองรับเรดาร์ GPS ค้นหาป้ายใกล้ฉัน ตารางเวลารถออกถัดไป และ Model Context Protocol (MCP) เชื่อมต่อ AI Assistants (Claude, ChatGPT, Gemini)
+- **ฟีเจอร์เด่น (Key Features)**:
+  - **Official GTFS Data Ingestion**: สตรีมมิ่งนำเข้าไฟล์ข้อมูล GTFS Static ทางการแบบ Chunk-based ตรวจสอบ Referential Integrity และสร้าง ValidationReport วิเคราะห์คุณภาพข้อมูล
+  - **GPS Radar & Nearby Stops**: ระบุพิกัดตำแหน่งผู้ใช้ (W3C Geolocation) ด้วยหมุดเรดาร์สีฟ้าและวงแหวนความแม่นยำ พร้อมค้นหาป้ายในระยะ 500 เมตรอัตโนมัติ
+  - **Live Departures Board**: แสดงตารางเวลารถและเรือเข้าป้ายถัดไป โดยคำนวณจากความถี่เดินรถ (frequencies.txt) และตารางเวลา พร้อมจุดเสียบ GTFS-RT แบบ Hot-Plug
+  - **Intelligent Trip Planner**: ระบบคำนวณและวางแผนการเดินทางระหว่างสถานี ทั้งสายตรงและจุดต่อรถ 1 ครั้ง พร้อมวาดแนวเส้นทาง Polyline สีสดบนแผนที่
+  - **Model Context Protocol (MCP Server)**: เซิร์ฟเวอร์ MCP มาตรฐาน JSON-RPC 2.0 สำหรับเชื่อมต่อ Claude, ChatGPT, และ Gemini ให้เรียกค้นสาย ป้าย และคำนวณเส้นทางแบบ Agentic
+  - **High Resilience & Fault Tolerance**: ออกแบบด้วย Circuit Breaker ป้องกันระบบล่ม เมื่อต้นทาง Realtime ขัดข้อง ระบบจะตัดวงจรและทำงานต่อด้วยข้อมูลตารางเดินรถได้ 100%
+- **เทคโนโลยี (Tags)**: `Python 3.12`, `FastAPI`, `SQLite`, `Leaflet.js`, `GTFS`, `Gemini MCP`, `Docker`
+- **Source Code**: [github.com/Gubbitkeytoday/bkk-transit](https://github.com/Gubbitkeytoday/bkk-transit)
+- **Live Showcase**: [github.com/Gubbitkeytoday/bkk-transit](https://github.com/Gubbitkeytoday/bkk-transit)
+- **รูปหน้าปก (Cover)**: `media/bkk_transit/01-bkk-transit-overview`
+- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
+  1. `[Image]` `01_bangkok_transit_overview.png` — Bangkok Transit Network Overview
+  2. `[Image]` `02_route_detail_and_shape.png` — Route Shape & Vehicles
+  3. `[Image]` `03_gps_nearby_stops.png` — GPS Radar & Nearby Stops
+  4. `[Image]` `04_stop_departures_board.png` — Live Departures Board
+  5. `[Image]` `05_trip_planner.png` — Intelligent Trip Planner
+  6. `[Image]` `06_fastapi_swagger_docs.png` — FastAPI Interactive Swagger UI
+  7. `[Image]` `07_fastapi_redoc.png` — ReDoc API Reference
+  8. `[Image]` `08_mobile_responsive.png` — Mobile Responsive Interface
 
 ---
 
