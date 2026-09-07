@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.3] - 2026-09-07
+
+### Added
+- **17th Shipped System — Discord Rich Presence Pro:** Added native Windows GSMTC Media Sync & Discord Local IPC background daemon to portfolio catalog, showcase gallery, and documentation.
+- **Optimized Media Assets:** Converted and generated high-performance multi-resolution WebP (`480w`, `960w`, `1600w`) and progressive JPEG screenshots in `media/discord_rpc/`.
+- **Repository Integration:** Integrated direct repository link and live preview showcase to [github.com/Gubbitkeytoday/discord-rich-presence-pro](https://github.com/Gubbitkeytoday/discord-rich-presence-pro).
+
+### Changed
+- Incremented all portfolio counters to 17 total shipped production systems across web applications, interactive 3D/2D, and native OS desktop utilities.
+
+---
+
 ## [1.0.2] - 2026-08-29
 
 ### Added

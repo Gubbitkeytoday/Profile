@@ -3645,5 +3645,133 @@ window.PF_PROJECTS = [
     "src": "05_Live_GeoMap_Admin_Dashboard.png"
    }
   ]
+ },
+ {
+  "id": "discord_rpc",
+  "no": "17",
+  "cat": "app",
+  "year": "2026",
+  "icon": "desktop",
+  "th": "Discord Rich Presence Pro — ระบบซิงค์สถานะสื่อระดับ Windows Kernel",
+  "en": "Discord Rich Presence Pro — Windows Media Presence Engine",
+  "role_th": "Systems Programming · Windows GSMTC API · Discord IPC",
+  "role_en": "Systems programming · Windows GSMTC · Discord Local IPC",
+  "sum_th": "เอ็นจินซิงค์สถานะการเล่นสื่อ (YouTube, Spotify, Apple Music, Netflix) ขึ้นโปรไฟล์ Discord ระดับเนทีฟผ่าน Windows GSMTC WinRT & Local IPC พร้อมระบบตรวจจับเกม DirectX/Vulkan ซ่อนอัตโนมัติ และ System Tray Controls",
+  "sum_en": "A lightweight Windows background engine streaming real-time media presence (YouTube, Spotify, etc.) to Discord via native GSMTC WinRT & Local IPC with DirectX game auto-pause.",
+  "metrics": [
+   {
+    "v": "<40MB",
+    "th": "Memory Footprint",
+    "en": "Memory footprint"
+   },
+   {
+    "v": "~0%",
+    "th": "CPU Overhead",
+    "en": "CPU overhead"
+   },
+   {
+    "v": "GSMTC",
+    "th": "Native WinRT API",
+    "en": "Native WinRT API"
+   },
+   {
+    "v": "Zero-Lag",
+    "th": "Anchor Timeline",
+    "en": "Anchor timeline"
+   }
+  ],
+  "feat_th": [
+   "Native Windows GSMTC Integration: เชื่อมต่อ WinRT Media Controls ระดับ Kernel อ่านชื่อเพลง, ศิลปิน, รูปปก, สถานะ Play/Pause และไทม์ไลน์โดยตรง",
+   "Universal Browser & Player Support: รองรับทั้ง Chrome, Edge, Brave, Opera, Spotify, Tidal, Apple Music โดยไม่ต้องลง Extension เสริมในเบราว์เซอร์",
+   "DirectX & Vulkan Game Detection: ตรวจจับหน้าต่างเกมแบบเต็มจออัตโนมัติ และหยุดส่งสถานะชั่วคราวเพื่อประหยัดทรัพยากรและไม่รบกวนเฟรมเรต",
+   "Sub-Second Timeline Anchoring: คำนวณความคืบหน้าของเพลงด้วย Timestamp Anchor แม่นยำ ไม่สะดุด และไม่เกิดปัญหาแถบเวลารีเซ็ตวนซ้ำ",
+   "System Tray Controller & Hot Reload: ควบคุมการทำงานจากไอคอนมุมขวาล่าง, สลับ Pause/Resume, ดู Log สด, และปรับแต่ง config.json โดยไม่ต้องรีสตาร์ท"
+  ],
+  "feat_en": [
+   "Native Windows GSMTC Integration: Intercepts OS-level WinRT media controls for track titles, artists, thumbnails, playback state, and duration.",
+   "Universal Browser & Player Support: Seamlessly tracks Chrome, Edge, Brave, Opera, Spotify, Tidal, and Apple Music without browser extensions.",
+   "DirectX & Vulkan Game Detection: Auto-detects active fullscreen gaming sessions and suppresses presence updates to maximize frame rates.",
+   "Sub-Second Timeline Anchoring: Accurately synchronizes elapsed and remaining playback times using precise anchor timestamps without drift.",
+   "System Tray Controller & Hot Reload: Background taskbar tray controls with instant Pause/Resume toggle, live logs, and zero-restart JSON hot-reloading."
+  ],
+  "tags": [
+   "Python 3.12",
+   "Windows WinRT",
+   "GSMTC API",
+   "Discord IPC",
+   "Pystray",
+   "PyInstaller",
+   "Systems Architecture"
+  ],
+  "repo": "https://github.com/Gubbitkeytoday/discord-rich-presence-pro",
+  "live": "https://github.com/Gubbitkeytoday/discord-rich-presence-pro",
+  "cover": "media/discord_rpc/01-discord-full-profile",
+  "coverW": [
+   480,
+   960,
+   1600
+  ],
+  "gallery": [
+   {
+    "p": "media/discord_rpc/01-discord-full-profile",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "01_discord_full_profile.png"
+   },
+   {
+    "p": "media/discord_rpc/03-discord-activity-card",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "02_discord_activity_card.png"
+   },
+   {
+    "p": "media/discord_rpc/02-youtube-source",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "01_youtube_source.png"
+   },
+   {
+    "p": "media/discord_rpc/04-discord-presence-synced",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "02_discord_presence_synced.png"
+   },
+   {
+    "p": "media/discord_rpc/05-terminal-live-log",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "03_terminal_live_log.png"
+   },
+   {
+    "p": "media/discord_rpc/06-github-repository",
+    "k": "image",
+    "w": [
+     480,
+     960,
+     1600
+    ],
+    "src": "03_github_repository.png"
+   }
+  ]
  }
 ];

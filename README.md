@@ -13,7 +13,7 @@
 
 [![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1_AA-0_axe--core_violations-3DDC97?style=flat-square&logo=w3c&logoColor=white)](https://www.w3.org/WAI/WCAG21/quickref/)
 [![Lighthouse Performance](https://img.shields.io/badge/Lighthouse-100%2F100-3DDC97?style=flat-square&logo=lighthouse&logoColor=white)](https://pagespeed.web.dev/)
-[![Shipped Systems](https://img.shields.io/badge/Shipped_Projects-16_Production_Builds-FF5C38?style=flat-square)](./docs/PROJECTS_CATALOG.md)
+[![Shipped Systems](https://img.shields.io/badge/Shipped_Projects-17_Production_Builds-FF5C38?style=flat-square)](./docs/PROJECTS_CATALOG.md)
 [![Architecture](https://img.shields.io/badge/Architecture-Zero--Framework_Native_DOM-4CC9F0?style=flat-square)](./docs/ARCHITECTURE.md)
 [![TypeScript / Rust](https://img.shields.io/badge/Core_Stack-Next.js_14%2F16_·_React_19_·_Rust%2FWasm_·_Python_·_MCP-blueviolet?style=flat-square)](#-technical-skills-matrix)
 
@@ -44,7 +44,7 @@ This repository houses the official engineering portfolio of **Wongsathorn Chaps
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
 │                                 ENGINEERING HIGHLIGHTS                                 │
 ├────────────────────────────────────────────────────────────────────────────────────────┤
-│  ⚡ 16 Production Builds  │ Enterprise POS, AI Chat, PRISM64 MCP, 3D Metro, E-Commerce │
+│  ⚡ 17 Production Builds  │ Enterprise POS, AI Chat, PRISM64 MCP, Discord RPC, 3D Metro │
 │  🚀 High Throughput       │ Rust + WebAssembly on Web Workers (60 FPS with 8,193 trips)│
 │  🌐 Bilingual Engine      │ Native TH/EN semantic switching without page reloads       │
 │  🛡️ Zero Violations       │ Fully certified WCAG 2.1 AA keyboard paths and contrast    │
@@ -86,9 +86,9 @@ graph TD
 
 ---
 
-## 📦 Shipped Systems & Production Projects (16 Builds)
+## 📦 Shipped Systems & Production Projects (17 Builds)
 
-A curated catalog of 16 fully-functional systems built, tested, and shipped. For full architectural teardowns, metrics, and database schemas, see **[docs/PROJECTS_CATALOG.md](./docs/PROJECTS_CATALOG.md)**.
+A curated catalog of 17 fully-functional systems built, tested, and shipped. For full architectural teardowns, metrics, and database schemas, see **[docs/PROJECTS_CATALOG.md](./docs/PROJECTS_CATALOG.md)**.
 
 | # | System Name | Category | Core Stack | Key Metrics / Architecture Highlights | Links |
 | :-: | :--- | :--- | :--- | :--- | :---: |
@@ -108,6 +108,7 @@ A curated catalog of 16 fully-functional systems built, tested, and shipped. For
 | **14** | **Smart WebShop Platform** | `Web Application` | PHP 8, MySQL, AJAX, Tailwind CSS | Full-lifecycle e-commerce engine with inventory webhooks and coupon rules. | [Repo](https://github.com/GitBababoo) |
 | **15** | **Community Agro-Tourism Portal** | `Web Application` | HTML5, Modern JS, CSS Grid | Regional tourism platform featuring local products and interactive mapping. | [Repo](https://github.com/GitBababoo) |
 | **16** | **PRISM64 Personality & MCP** | `Web Application` | Python, JS, Tailwind, Canvas, MCP | 64-shade personality matrix, 9:16 Social Story Studio, Gemini MCP JSON-RPC 2.0. | [Live](https://prism64.onrender.com) • [Repo](https://github.com/Gubbitkeytoday/prism64) |
+| **17** | **Discord Rich Presence Pro** | `Desktop / Systems` | Python 3.12, WinRT, GSMTC, Discord IPC | Windows Kernel media sync, DirectX/Vulkan game auto-pause, system tray. | [Repo](https://github.com/Gubbitkeytoday/discord-rich-presence-pro) |
 
 ---
 

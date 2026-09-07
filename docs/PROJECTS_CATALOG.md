@@ -1,7 +1,7 @@
-# 📦 Shipped Projects & Systems Catalog (16 Production Builds)
+# 📦 Shipped Projects & Systems Catalog (17 Production Builds)
 
 > **Official Systems Showcase of Wongsathorn Chapseethong (วงศธร ฉาบสีทอง)**  
-> *Technical specifications, architecture breakdown, metrics, and repositories for all 16 shipped systems.*
+> *Technical specifications, architecture breakdown, metrics, and repositories for all 17 shipped systems.*
 
 ---
 
@@ -23,6 +23,7 @@
 14. [Smart WebShop E-Commerce Engine](#14-smart-webshop-e-commerce-engine) (`Web Application`)
 15. [Community Agro-Tourism Regional Portal](#15-community-agro-tourism-regional-portal) (`Web Application`)
 16. [PRISM64 Personality Intelligence Engine & MCP Server](#16-prism64-personality-intelligence-engine--mcp-server) (`Web Application / AI MCP`)
+17. [Discord Rich Presence Pro](#17-discord-rich-presence-pro) (`Desktop Application / Windows Systems`)
 
 ---
 
@@ -222,6 +223,21 @@
   - **9:16 Social Story Card Studio:** High-resolution Canvas generator producing downloadable 1080×1920 social cards for Instagram and TikTok Stories across Light Pearl and Midnight Dark themes.
   - **Gemini Spark Model Context Protocol (MCP):** Implements official MCP standard over JSON-RPC 2.0 (`/mcp` endpoint), allowing external LLMs and AI agents (Gemini, Claude, Cursor) to invoke tools for personality retrieval, spectrum scoring, and compatibility matching.
   - **Stealth Admin Telemetry Dashboard:** Hidden administrative interface (`#prism-admin-gate`) with real-time Leaflet.js GPS/IP telemetry mapping and persistent session analytics.
+
+---
+
+## 17. Discord Rich Presence Pro
+- **Category:** `Desktop Application` / Windows Systems Programming & Media Protocols
+- **Core Tech Stack:** `Python 3.12`, `Windows WinRT`, `GSMTC API`, `Discord Local IPC Socket`, `Pystray`, `PIL`, `PyInstaller`
+- **Key Metrics:** **RAM < 40 MB** · **CPU ~ 0% (Efficiency Mode)** · **Native WinRT Media Hook** · **DirectX/Vulkan Auto-Pause**
+- **Live Demo / Showcase:** [github.com/Gubbitkeytoday/discord-rich-presence-pro](https://github.com/Gubbitkeytoday/discord-rich-presence-pro)
+- **Source Code:** [github.com/Gubbitkeytoday/discord-rich-presence-pro](https://github.com/Gubbitkeytoday/discord-rich-presence-pro)
+- **Architectural Highlights:**
+  - **Native OS-Level GSMTC Interception:** Intercepts Windows Global System Media Transport Controls (GSMTC) through asynchronous WinRT APIs, retrieving track metadata, album artwork, playing state, and live durations across all modern browsers (Chrome, Edge, Brave, Opera) and desktop players (Spotify, Tidal, Apple Music) without requiring separate browser extensions or background listeners.
+  - **Local Discord IPC Socket Communication:** Communicates directly with Discord's named pipe IPC socket (`\\.\pipe\discord-ipc-0`) using JSON payloads for instant status synchronization without HTTP rate limiting or cloud intermediaries.
+  - **Sub-Second Timeline Anchor Engine:** Computes playback progress dynamically using timeline anchor timestamps, preventing jitter and eliminating the common progress bar looping/reset bugs found in web extension implementations.
+  - **DirectX / Vulkan Fullscreen Game Detection:** Automatically inspects the active foreground process via `win32gui` and suppresses Discord media updates when full-screen 3D games are detected, conserving system resources and preventing status overlap.
+  - **Hot-Reloadable System Tray Daemon:** Runs as an invisible background daemon with a dedicated Taskbar tray icon supporting live Pause/Resume toggling, real-time log inspection, and zero-restart `config.json` hot-reloading.
 
 ---
 

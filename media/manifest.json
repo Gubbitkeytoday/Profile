@@ -3542,5 +3542,88 @@
     "path": "media/prism64/06-prism64-motion-hero-showcase"
    }
   ]
+ },
+ "discord_rpc": {
+  "folder": "discord_rpc",
+  "assets": [
+   {
+    "kind": "image",
+    "w": 1920,
+    "h": 1080,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "01_discord_full_profile.png",
+    "base": "01-discord-full-profile",
+    "path": "media/discord_rpc/01-discord-full-profile"
+   },
+   {
+    "kind": "image",
+    "w": 1920,
+    "h": 1080,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "02_discord_activity_card.png",
+    "base": "03-discord-activity-card",
+    "path": "media/discord_rpc/03-discord-activity-card"
+   },
+   {
+    "kind": "image",
+    "w": 1920,
+    "h": 1080,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "01_youtube_source.png",
+    "base": "02-youtube-source",
+    "path": "media/discord_rpc/02-youtube-source"
+   },
+   {
+    "kind": "image",
+    "w": 1920,
+    "h": 1080,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "02_discord_presence_synced.png",
+    "base": "04-discord-presence-synced",
+    "path": "media/discord_rpc/04-discord-presence-synced"
+   },
+   {
+    "kind": "image",
+    "w": 1920,
+    "h": 1080,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "03_terminal_live_log.png",
+    "base": "05-terminal-live-log",
+    "path": "media/discord_rpc/05-terminal-live-log"
+   },
+   {
+    "kind": "image",
+    "w": 1920,
+    "h": 1080,
+    "widths": [
+     480,
+     960,
+     1600
+    ],
+    "src": "03_github_repository.png",
+    "base": "06-github-repository",
+    "path": "media/discord_rpc/06-github-repository"
+   }
+  ]
  }
 }

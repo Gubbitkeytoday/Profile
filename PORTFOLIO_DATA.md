@@ -1,7 +1,7 @@
 # 📑 ข้อมูลพอร์ตโฟลิโอฉบับสมบูรณ์ (Master Portfolio Data)
 ## วงศธร ฉาบสีทอง (Wongsathorn Chapseethong) — Full-Stack Developer & IT Support
 
-> เอกสารรวบรวมข้อมูลทั้งหมดของพอร์ตโฟลิโอ ทั้งประวัติส่วนตัว, จุดเด่นทางเทคนิค, ตารางทักษะ, ไทม์ไลน์การศึกษา-ประสบการณ์, และรายละเอียดเชิงลึกของผลงานจริงทั้งหมด **15 โปรเจกต์** พร้อมรายการไฟล์สื่อ (รูปภาพ UI / วิดีโอ) และลิงก์ Source Code / Live Demo
+> เอกสารรวบรวมข้อมูลทั้งหมดของพอร์ตโฟลิโอ ทั้งประวัติส่วนตัว, จุดเด่นทางเทคนิค, ตารางทักษะ, ไทม์ไลน์การศึกษา-ประสบการณ์, และรายละเอียดเชิงลึกของผลงานจริงทั้งหมด **17 โปรเจกต์** พร้อมรายการไฟล์สื่อ (รูปภาพ UI / วิดีโอ) และลิงก์ Source Code / Live Demo
 
 ---
 
@@ -541,6 +541,31 @@ timeline
   4. `[Image]` `images/prism64/03_Personality_Result_ESTJ_AH.png`
   5. `[Image]` `images/prism64/04_Story_Card_Studio_Modal.png`
   6. `[Image]` `images/prism64/05_Live_GeoMap_Admin_Dashboard.png`
+
+---
+
+### 17. Discord Rich Presence Pro — Windows Media Presence Engine (ID: 17)
+- **หมวดหมู่ (Category)**: `app` (แอปพลิเคชัน & ซิสเต็มส์)
+- **ไอคอน (Icon)**: `fa-solid fa-desktop`
+- **สรุปภาพรวม (Overview)**: เอ็นจินซิงค์สถานะการเล่นสื่อ (YouTube, Spotify, Apple Music, Netflix, ฯลฯ) ขึ้นโปรไฟล์ Discord แบบเรียลไทม์ เชื่อมต่อ OS-level GSMTC WinRT ระดับเนทีฟ และ Local IPC Socket พร้อมระบบตรวจจับเกม DirectX/Vulkan ซ่อนอัตโนมัติ และ System Tray Controls
+- **ฟีเจอร์เด่น (Key Features)**:
+  - **Native Windows GSMTC Hook**: เชื่อมต่อ WinRT Media Controls ระดับ Kernel อ่านชื่อเพลง, ศิลปิน, รูปปก, สถานะ Play/Pause และไทม์ไลน์โดยตรง
+  - **Universal Browser & Player Support**: รองรับทั้ง Chrome, Edge, Brave, Opera, Spotify, Tidal, Apple Music โดยไม่ต้องลง Extension เสริมในเบราว์เซอร์
+  - **DirectX & Vulkan Game Detection**: ตรวจจับหน้าต่างเกมแบบเต็มจออัตโนมัติ และหยุดส่งสถานะชั่วคราวเพื่อประหยัดทรัพยากรและไม่รบกวนเฟรมเรต
+  - **Sub-Second Timeline Anchoring**: คำนวณความคืบหน้าของเพลงด้วย Timestamp Anchor แม่นยำ ไม่สะดุด และไม่เกิดปัญหาแถบเวลารีเซ็ตวนซ้ำ
+  - **System Tray Controller & Hot Reload**: ควบคุมการทำงานจากไอคอนมุมขวาล่าง, สลับ Pause/Resume, ดู Log สด, และปรับแต่ง config.json โดยไม่ต้องรีสตาร์ท
+  - **Efficiency First**: ใช้ RAM < 40 MB, CPU ~ 0% และรองรับการคอมไพล์เป็น .EXE พกพา
+- **เทคโนโลยี (Tags)**: `Python 3.12`, `Windows WinRT`, `GSMTC API`, `Discord IPC`, `Pystray`, `PyInstaller`, `Systems Architecture`
+- **Source Code**: [github.com/Gubbitkeytoday/discord-rich-presence-pro](https://github.com/Gubbitkeytoday/discord-rich-presence-pro)
+- **Live Showcase**: [github.com/Gubbitkeytoday/discord-rich-presence-pro](https://github.com/Gubbitkeytoday/discord-rich-presence-pro)
+- **รูปหน้าปก (Cover)**: `images/discord_rpc/01_discord_full_profile.png`
+- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
+  1. `[Image]` `images/discord_rpc/01_discord_full_profile.png`
+  2. `[Image]` `images/discord_rpc/02_discord_activity_card.png`
+  3. `[Image]` `images/discord_rpc/01_youtube_source.png`
+  4. `[Image]` `images/discord_rpc/02_discord_presence_synced.png`
+  5. `[Image]` `images/discord_rpc/03_terminal_live_log.png`
+  6. `[Image]` `images/discord_rpc/03_github_repository.png`
 
 ---
 
