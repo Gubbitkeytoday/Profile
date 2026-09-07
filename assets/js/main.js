@@ -320,6 +320,26 @@
     const pills = $$('[data-pfilter]');
     let cat = 'all', q = '';
 
+    const getCatMeta = (p) => {
+      if (p.id === 'discord_rpc' || p.id === 'aerocontrol') return { icon: '💻', th: 'เดสก์ท็อป / ซิสเต็มส์', en: 'Desktop / Systems' };
+      if (p.id === 'prism64' || p.id === 'khuiai' || p.id === 'face') return { icon: '🤖', th: 'เอไอ & สตรีมมิ่ง', en: 'AI & Streaming' };
+      if (p.cat === 'interactive') return { icon: '🎮', th: 'อินเตอร์แอคทีฟ 3D', en: 'Interactive 3D' };
+      return { icon: '🌐', th: 'เว็บแอปพลิเคชัน', en: 'Web Application' };
+    };
+
+    const getMetricPills = (p) => {
+      if (!p.metrics || !p.metrics.length) return '';
+      const iconMap = ['⚡', '🚀', '🛡️', '🎯'];
+      const clsMap = ['pcard__mpill--hot', 'pcard__mpill--cool', 'pcard__mpill--blue', 'pcard__mpill--purple'];
+      return `<div class="pcard__metrics">` +
+        p.metrics.slice(0, 3).map((m, i) => {
+          const ic = iconMap[i % iconMap.length];
+          const cls = clsMap[i % clsMap.length];
+          return `<span class="pcard__mpill ${cls}"><span>${ic}</span> <strong>${esc(m.v)}</strong> <span>${esc(T(m.th, m.en))}</span></span>`;
+        }).join('') +
+      `</div>`;
+    };
+
     const card = (p) => {
       const cw = p.coverW && p.coverW.length ? p.coverW : [480];
       const wide = cw.includes(960) ? 960 : cw[cw.length - 1];
@@ -327,6 +347,7 @@
         .map((w) => `${p.cover}-${w}.webp ${w}w`).join(', ');
       const nImg = p.gallery.filter((g) => g.k === 'image').length;
       const nVid = p.gallery.filter((g) => g.k === 'video').length;
+      const catMeta = getCatMeta(p);
       return `
       <article class="pcard ticks" data-open="${p.id}" tabindex="0" role="button"
                aria-label="${esc(T(p.th, p.en))} — ${T('เปิดรายละเอียด', 'open details')}">
@@ -343,9 +364,10 @@
         </div>
         <div class="pcard__body">
           <div class="pcard__header">
-            <span class="pcard__cat">${p.cat === 'web' ? T('เว็บแอปพลิเคชัน', 'Web Application') : T('อินเตอร์แอคทีฟ 3D', 'Interactive 3D')}</span>
+            <span class="pcard__cat">${catMeta.icon} ${T(catMeta.th, catMeta.en)}</span>
           </div>
           <h3 class="pcard__t">${esc(T(p.th, p.en))}</h3>
+          ${getMetricPills(p)}
           <p class="pcard__d">${esc(T(p.sum_th, p.sum_en))}</p>
           <div class="pcard__tags">
             ${p.tags.slice(0, 3).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}
@@ -441,8 +463,14 @@
           <hr class="rule">
 
           <div>
-            <p class="label">${T('ฟีเจอร์เด่น', 'Key features')}</p>
-            <ul class="feat u-mt-4" role="list">${feats.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
+            <p class="label">${T('ฟีเจอร์เด่น & จุดสำคัญ', 'Key features & highlights')}</p>
+            <ul class="feat u-mt-4" role="list">${feats.map((f) => {
+              const parts = f.split(': ');
+              if (parts.length > 1) {
+                return `<li><div><strong style="color:var(--fg);display:block;margin-bottom:2px;font-size:0.95rem">${esc(parts[0])}</strong><span style="color:var(--fg-2)">${esc(parts.slice(1).join(': '))}</span></div></li>`;
+              }
+              return `<li><span>${esc(f)}</span></li>`;
+            }).join('')}</ul>
           </div>
 
           <div>

@@ -148,7 +148,7 @@
     <div class="hero__meta u-mt-6">
       <span class="chip" data-en="3rd-year IT undergraduate">นักศึกษาปี 3 · เทคโนโลยีสารสนเทศ</span>
       <span class="chip" data-en="Hua Hin, Prachuap Khiri Khan">หัวหิน · ประจวบคีรีขันธ์</span>
-      <span class="chip chip--on">16 PROJECTS SHIPPED</span>
+      <span class="chip chip--on">17 PROJECTS SHIPPED</span>
     </div>
 
     <div class="hero__foot">
@@ -173,6 +173,8 @@
     <span class="marquee__i">Rust + WebAssembly <b></b></span>
     <span class="marquee__i">Three.js <b></b></span>
     <span class="marquee__i">Python / FastAPI <b></b></span>
+    <span class="marquee__i">Model Context Protocol (MCP) <b></b></span>
+    <span class="marquee__i">Windows GSMTC WinRT <b></b></span>
     <span class="marquee__i">PostgreSQL <b></b></span>
     <span class="marquee__i">Prisma ORM <b></b></span>
     <span class="marquee__i">Docker <b></b></span>
@@ -249,32 +251,48 @@
 
         <div class="grid g2 u-mt-7" data-rvg>
           <div class="stack u-flow-sm">
-            <p class="label u-accent" data-en="Full-stack architecture">สถาปัตยกรรมแบบครบวงจร</p>
+            <p class="label u-accent" data-en="🌐 Full-stack architecture">🌐 สถาปัตยกรรมแบบครบวงจร</p>
             <p class="small u-2" data-en="Database schema, REST / SSE API design, server logic, then responsive UI and state management — one person, one coherent system.">
               ออกแบบสคีมาฐานข้อมูล วาง REST / SSE API เขียนตรรกะฝั่งเซิร์ฟเวอร์
               ต่อจนถึง UI และการจัดการสถานะ — คนเดียว ระบบเดียว ต่อกันติด
             </p>
+            <div class="row" style="gap:5px;margin-top:4px">
+              <span class="pcard__mpill pcard__mpill--hot">⚡ Next.js 14/16</span>
+              <span class="pcard__mpill pcard__mpill--cool">🚀 Prisma &amp; PostgreSQL</span>
+            </div>
           </div>
           <div class="stack u-flow-sm">
-            <p class="label u-accent" data-en="Performance first">ประสิทธิภาพมาก่อน</p>
+            <p class="label u-accent" data-en="⚡ Performance first">⚡ ประสิทธิภาพมาก่อน (Low-Level &amp; Wasm)</p>
             <p class="small u-2" data-en="Rust compiled to WebAssembly on a Web Worker, 60 FPS with 8,193 daily trips on screen, images shipped as responsive WebP.">
               คำนวณหนัก ๆ ย้ายไป Rust คอมไพล์เป็น WebAssembly รันบน Web Worker
-              ได้ 60 FPS พร้อมเที่ยวรถ 8,193 เที่ยวต่อวันบนจอ
+              ได้ 60 FPS พร้อมเที่ยวรถ 8,193 เที่ยวต่อวัน และ Windows Kernel IPC กินแรม &lt;40MB
             </p>
+            <div class="row" style="gap:5px;margin-top:4px">
+              <span class="pcard__mpill pcard__mpill--hot">⚡ 60 FPS Wasm</span>
+              <span class="pcard__mpill pcard__mpill--blue">💻 &lt;40MB RAM</span>
+            </div>
           </div>
           <div class="stack u-flow-sm">
-            <p class="label u-accent" data-en="Accessible by default">เข้าถึงได้ตั้งแต่ต้น</p>
+            <p class="label u-accent" data-en="🛡️ Accessible by default">🛡️ เข้าถึงได้ตั้งแต่ต้น (Zero-Bloat)</p>
             <p class="small u-2" data-en="WCAG 2.1 AA with zero axe-core violations, full keyboard paths, prefers-reduced-motion respected, PWA offline via Service Worker.">
               ผ่าน WCAG 2.1 AA โดยไม่มี axe-core violation ใช้คีย์บอร์ดได้ครบ
-              เคารพ prefers-reduced-motion และทำงานออฟไลน์ได้ด้วย Service Worker
+              เคารพ prefers-reduced-motion และทำคะแนน Lighthouse 100/100 เต็มร้อย
             </p>
+            <div class="row" style="gap:5px;margin-top:4px">
+              <span class="pcard__mpill pcard__mpill--cool">🛡️ 100/100 Lighthouse</span>
+              <span class="pcard__mpill pcard__mpill--purple">♿ 0 axe violations</span>
+            </div>
           </div>
           <div class="stack u-flow-sm">
-            <p class="label u-accent" data-en="Systems &amp; IT support">ดูแลระบบและซัพพอร์ต</p>
+            <p class="label u-accent" data-en="🚢 Systems &amp; IT support">🚢 ดูแลระบบและซัพพอร์ต (DevOps &amp; Infra)</p>
             <p class="small u-2" data-en="Linux, Docker, networking, hardware and software troubleshooting — I can keep the thing running after it ships.">
               Linux, Docker, ระบบเครือข่าย, ดูแลฮาร์ดแวร์และซอฟต์แวร์
               — ส่งมอบแล้วผมดูแลให้มันรันต่อได้ด้วย
             </p>
+            <div class="row" style="gap:5px;margin-top:4px">
+              <span class="pcard__mpill pcard__mpill--blue">🐳 Docker &amp; CI/CD</span>
+              <span class="pcard__mpill pcard__mpill--hot">🐧 Linux &amp; Network</span>
+            </div>
           </div>
         </div>
       </div>
@@ -299,20 +317,20 @@
 
       <div class="skillcol card pad">
         <div class="skillcol__h">
-          <h3 class="t-h5">Frontend</h3>
+          <h3 class="t-h5">💻 Frontend</h3>
           <span class="idx">01</span>
         </div>
         <ul role="list">
-          <li>Next.js (App Router 14 / 16)</li>
-          <li>React 19 · Angular · Vite</li>
-          <li>TypeScript · ES6+ · HTML5</li>
+          <li><strong>Next.js (App Router 14 / 16)</strong></li>
+          <li><strong>React 19</strong> · Angular · Vite</li>
+          <li><strong>TypeScript</strong> · ES2024 · HTML5</li>
           <li>Tailwind CSS · shadcn/ui</li>
           <li>CSS Custom Properties · Responsive</li>
-          <li>Three.js · Anime.js · MapLibre GL</li>
+          <li><strong>Three.js</strong> · WebGL · MapLibre GL</li>
           <li>Web Audio API · PDF.js</li>
-          <li>WebAssembly · Web Workers</li>
-          <li>Service Worker · PWA</li>
-          <li>WCAG 2.1 AA</li>
+          <li><strong>Rust / WebAssembly · Web Workers</strong></li>
+          <li>Service Worker · Offline PWA</li>
+          <li><strong>WCAG 2.1 AA (0 violations)</strong></li>
         </ul>
         <div class="meter u-mt-4">
           <div class="meter__h"><span class="meter__t" data-en="Proficiency">ความถนัด</span><span class="meter__n">92%</span></div>
@@ -322,19 +340,19 @@
 
       <div class="skillcol card pad">
         <div class="skillcol__h">
-          <h3 class="t-h5">Backend</h3>
+          <h3 class="t-h5">⚙️ Backend &amp; Systems</h3>
           <span class="idx">02</span>
         </div>
         <ul role="list">
-          <li>Node.js · Express.js</li>
-          <li>Python 3 · FastAPI</li>
-          <li>PHP · Laravel</li>
-          <li>Rust (Wasm target)</li>
-          <li>RESTful API design</li>
-          <li>Server-Sent Events (SSE)</li>
-          <li>WebSockets (multiplayer)</li>
-          <li>OpenAI API integration</li>
-          <li>JSON-LD · Microdata</li>
+          <li><strong>Node.js · Express.js</strong></li>
+          <li><strong>Python 3.12 · FastAPI</strong></li>
+          <li><strong>Windows GSMTC WinRT API</strong></li>
+          <li><strong>Rust (Wasm target)</strong></li>
+          <li>RESTful API &amp; Microservices</li>
+          <li><strong>Server-Sent Events (SSE)</strong></li>
+          <li><strong>WebSockets &amp; WebRTC (NVENC)</strong></li>
+          <li><strong>Model Context Protocol (MCP)</strong></li>
+          <li>JSON-LD · Schema Graph</li>
           <li data-en="Auth &amp; session handling">ระบบยืนยันตัวตน · Session</li>
         </ul>
         <div class="meter u-mt-4">
@@ -345,19 +363,19 @@
 
       <div class="skillcol card pad">
         <div class="skillcol__h">
-          <h3 class="t-h5">Database</h3>
+          <h3 class="t-h5">🗄️ Database &amp; Data</h3>
           <span class="idx">03</span>
         </div>
         <ul role="list">
-          <li>PostgreSQL</li>
-          <li>MySQL · MariaDB</li>
-          <li>SQLite</li>
-          <li>Prisma ORM · Sequelize · PDO</li>
+          <li><strong>PostgreSQL</strong></li>
+          <li><strong>MySQL · MariaDB</strong></li>
+          <li><strong>SQLite (WAL mode)</strong></li>
+          <li><strong>Prisma ORM · Sequelize · PDO</strong></li>
+          <li>Redis Cache · Session Store</li>
           <li>Firebase Firestore / Realtime</li>
-          <li>LocalStorage · IndexedDB</li>
-          <li data-en="Normalization &amp; indexing">Normalization &amp; Indexing</li>
+          <li data-en="Normalization &amp; indexing"><strong>Normalization &amp; Indexing</strong></li>
           <li data-en="Migrations &amp; seeding">Migration &amp; Seed data</li>
-          <li data-en="Transactions &amp; integrity">Transaction &amp; ความถูกต้องข้อมูล</li>
+          <li data-en="Transactions &amp; integrity">ACID Transaction &amp; Integrity</li>
           <li data-en="Backup &amp; restore">สำรองและกู้คืนข้อมูล</li>
         </ul>
         <div class="meter u-mt-4">
@@ -368,24 +386,24 @@
 
       <div class="skillcol card pad">
         <div class="skillcol__h">
-          <h3 class="t-h5">DevOps &amp; IT</h3>
+          <h3 class="t-h5">🚢 DevOps &amp; IT Infra</h3>
           <span class="idx">04</span>
         </div>
         <ul role="list">
-          <li>Docker</li>
-          <li>Git · GitHub · Git Flow</li>
-          <li>GitHub Actions (CI/CD)</li>
-          <li>Linux (Ubuntu / Debian)</li>
-          <li data-en="Windows administration">Windows Administration</li>
-          <li>Shell scripting</li>
-          <li data-en="Reverse proxy &amp; hosting">Reverse Proxy · Web Hosting</li>
-          <li data-en="Computer networks">ระบบเครือข่ายคอมพิวเตอร์</li>
-          <li>Puppeteer · Cheerio · BeautifulSoup</li>
-          <li data-en="IT support &amp; troubleshooting">IT Support · แก้ปัญหาหน้างาน</li>
+          <li><strong>Docker &amp; Containerization</strong></li>
+          <li><strong>Git · GitHub · Git Flow</strong></li>
+          <li><strong>GitHub Actions (CI/CD)</strong></li>
+          <li><strong>Linux (Ubuntu / Debian)</strong></li>
+          <li data-en="Windows administration"><strong>Windows Administration</strong></li>
+          <li>Shell scripting (Bash / PowerShell)</li>
+          <li data-en="Reverse proxy &amp; hosting">Reverse Proxy (Nginx) · Edge CDN</li>
+          <li data-en="Computer networks">ระบบเครือข่าย &amp; IT Support</li>
+          <li>Puppeteer · Web Scraping</li>
+          <li data-en="IT support &amp; troubleshooting">แก้ไขปัญหาเฉพาะหน้าฮาร์ดแวร์/ซอฟต์แวร์</li>
         </ul>
         <div class="meter u-mt-4">
-          <div class="meter__h"><span class="meter__t" data-en="Proficiency">ความถนัด</span><span class="meter__n">75%</span></div>
-          <div class="meter__track"><div class="meter__fill" data-v="75"></div></div>
+          <div class="meter__h"><span class="meter__t" data-en="Proficiency">ความถนัด</span><span class="meter__n">78%</span></div>
+          <div class="meter__track"><div class="meter__fill" data-v="78"></div></div>
         </div>
       </div>
 
