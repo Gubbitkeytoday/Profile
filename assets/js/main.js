@@ -310,6 +310,72 @@
     const c = t.cloneNode(true); c.setAttribute('aria-hidden', 'true'); m.appendChild(c);
   });
 
+  /* ======================================================= CATEGORY & TAGS */
+  const getCatMeta = (p) => {
+    if (p.cat === 'app' || p.id === 'discord_rpc' || p.id === 'aerocontrol') return { icon: '💻', th: 'เดสก์ท็อป / ซิสเต็มส์', en: 'Desktop / Systems' };
+    if (p.id === 'prism64' || p.id === 'khuiai' || p.id === 'face') return { icon: '🤖', th: 'เอไอ & สตรีมมิ่ง', en: 'AI & Streaming' };
+    if (p.cat === 'interactive') return { icon: '🎮', th: 'อินเตอร์แอคทีฟ 3D', en: 'Interactive 3D' };
+    return { icon: '🌐', th: 'เว็บแอปพลิเคชัน', en: 'Web Application' };
+  };
+
+  const TAG_ICONS = {
+    'python': '🐍',
+    'python 3.12': '🐍',
+    'windows': '🪟',
+    'windows winrt': '🪟',
+    'gsmtc api': '🪟',
+    'desktop app': '💻',
+    'discord ipc': '💬',
+    'next.js': '▲',
+    'next.js 14': '▲',
+    'next.js 16': '▲',
+    'react': '⚛️',
+    'react 19': '⚛️',
+    'typescript': '🔷',
+    'rust': '🦀',
+    'webassembly': '⚡',
+    'three.js': '📐',
+    'maplibre gl': '🗺️',
+    'leaflet.js': '🗺️',
+    'postgresql': '🐘',
+    'mysql': '🐬',
+    'sqlite': '🗄️',
+    'prisma': '💎',
+    'node.js': '🟢',
+    'php': '🐘',
+    'tailwind': '🎨',
+    'tailwind css': '🎨',
+    'shadcn/ui': '🖤',
+    'gemini mcp': '🤖',
+    'openai api': '🤖',
+    'pwa': '📱',
+    'service worker': '📱',
+    'accessibility': '♿',
+    'docker': '🐳',
+    'firebase': '🔥',
+    'multiplayer': '🎮',
+    'game engine': '🎮',
+    'web audio api': '🎧',
+    'pdf.js': '📄',
+    'canvas api': '✨',
+    'anime.js': '✨',
+    'html/css': '🌐',
+    'javascript': '🟨',
+    'vite': '⚡',
+    'angular': '🅰️',
+    'pyinstaller': '📦',
+    'pystray': '🪟',
+    'systems architecture': '🏗️',
+    'web scraping': '🕷️',
+    'render.com': '☁️'
+  };
+
+  const renderTag = (t) => {
+    const k = (t || '').trim().toLowerCase();
+    const icon = TAG_ICONS[k] || '🏷️';
+    return `<span class="tag"><span class="tag__icon" aria-hidden="true">${icon}</span><span>${esc(t)}</span></span>`;
+  };
+
   /* =========================================================== PROJECTS */
   const Projects = (() => {
     const grid = $('[data-pgrid]');
@@ -319,13 +385,6 @@
     const search = $('[data-psearch]');
     const pills = $$('[data-pfilter]');
     let cat = 'all', q = '';
-
-    const getCatMeta = (p) => {
-      if (p.id === 'discord_rpc' || p.id === 'aerocontrol') return { icon: '💻', th: 'เดสก์ท็อป / ซิสเต็มส์', en: 'Desktop / Systems' };
-      if (p.id === 'prism64' || p.id === 'khuiai' || p.id === 'face') return { icon: '🤖', th: 'เอไอ & สตรีมมิ่ง', en: 'AI & Streaming' };
-      if (p.cat === 'interactive') return { icon: '🎮', th: 'อินเตอร์แอคทีฟ 3D', en: 'Interactive 3D' };
-      return { icon: '🌐', th: 'เว็บแอปพลิเคชัน', en: 'Web Application' };
-    };
 
     const getMetricPills = (p) => {
       if (!p.metrics || !p.metrics.length) return '';
@@ -370,7 +429,7 @@
           ${getMetricPills(p)}
           <p class="pcard__d">${esc(T(p.sum_th, p.sum_en))}</p>
           <div class="pcard__tags">
-            ${p.tags.slice(0, 3).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}
+            ${p.tags.slice(0, 3).map(renderTag).join('')}
             ${p.tags.length > 3 ? `<span class="tag tag--more">+${p.tags.length - 3}</span>` : ''}
           </div>
           <div class="pcard__foot">
@@ -440,10 +499,11 @@
 
     const render = (p) => {
       const feats = T(p.feat_th, p.feat_en);
+      const catMeta = getCatMeta(p);
       body.innerHTML = `
         <div class="sheet__pad stack u-flow-lg">
           <div>
-            <p class="eyebrow">${p.no} — ${p.cat === 'web' ? T('เว็บแอปพลิเคชัน', 'Web application') : T('อินเตอร์แอคทีฟ', 'Interactive')} · ${p.year}</p>
+            <p class="eyebrow">${p.no} — ${catMeta.icon} ${T(catMeta.th, catMeta.en)} · ${p.year}</p>
             <h2 class="t-h2 u-mt-4" id="sheet-title">${esc(T(p.th, p.en))}</h2>
             <p class="label u-mt-3">${esc(T(p.role_th, p.role_en))}</p>
             <p class="body u-mt-5">${esc(T(p.sum_th, p.sum_en))}</p>
@@ -475,7 +535,7 @@
 
           <div>
             <p class="label">${T('เทคโนโลยีที่ใช้', 'Built with')}</p>
-            <div class="row u-mt-4" style="gap:6px">${p.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+            <div class="row u-mt-4" style="gap:6px;flex-wrap:wrap">${p.tags.map(renderTag).join('')}</div>
           </div>
 
           <hr class="rule">
@@ -630,10 +690,15 @@
         hint: T('ไปที่ส่วน', 'Jump to section'),
         go: () => { close(); document.getElementById(s.id).scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth' }); }
       }));
-      const prj = PROJECTS.map((p) => ({
-        kind: 'prj', label: T(p.th, p.en), hint: p.tags.slice(0, 2).join(' · '),
-        go: () => { close(); Sheet.open(p.id); }
-      }));
+      const prj = PROJECTS.map((p) => {
+        const catMeta = getCatMeta(p);
+        return {
+          kind: 'prj',
+          label: `${catMeta.icon} ${T(p.th, p.en)}`,
+          hint: p.tags.slice(0, 2).join(' · '),
+          go: () => { close(); Sheet.open(p.id); }
+        };
+      });
       return secs.concat(prj);
     };
 

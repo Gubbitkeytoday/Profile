@@ -397,8 +397,18 @@ h1, h2, h3, h4, .display {
 .chip--on { border-color: var(--accent); color: var(--accent); }
 
 .tag {
-  font-family: var(--f-mono); font-size: var(--t-3xs); letter-spacing: .06em;
-  padding: 3px 8px; border-radius: 5px; background: var(--bg-3); color: var(--fg-2); white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--f-mono); font-size: var(--t-3xs); letter-spacing: .04em;
+  padding: 3px 8px; border-radius: 6px; background: var(--bg-3); color: var(--fg-2);
+  border: 1px solid var(--line); white-space: nowrap;
+  transition: all var(--d-1);
+}
+.tag:hover {
+  border-color: var(--line-2); color: var(--fg); transform: translateY(-1px);
+}
+.tag__icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 0.95em; line-height: 1; flex: none;
 }
 
 /* filter pills */
@@ -534,8 +544,17 @@ a:hover .frame--zoom img, .pcard:hover .frame--zoom img { transform: scale(1.04)
 }
 .marquee__t { display: flex; gap: var(--s-6); flex: none; min-width: 100%; animation: mq 44s linear infinite; will-change: transform; }
 .marquee:hover .marquee__t { animation-play-state: paused; }
-.marquee__i { display: inline-flex; align-items: center; gap: var(--s-4); font-family: var(--f-mono); font-size: var(--t-sm); color: var(--fg-3); white-space: nowrap; }
-.marquee__i b { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+.marquee__i {
+  display: inline-flex; align-items: center; gap: var(--s-3);
+  font-family: var(--f-mono); font-size: var(--t-sm); color: var(--fg-2);
+  white-space: nowrap; transition: color var(--d-1);
+}
+.marquee__i:hover { color: var(--fg); }
+.marquee__icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 1.15em; line-height: 1;
+}
+.marquee__i b { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); opacity: .7; margin-left: var(--s-2); }
 @keyframes mq { to { transform: translateX(-100%); } }
 
 /* --- profile photo slot --- */
@@ -562,9 +581,37 @@ a:hover .frame--zoom img, .pcard:hover .frame--zoom img { transform: scale(1.04)
 /* --- skills --- */
 .skillcol { display: flex; flex-direction: column; gap: var(--s-4); }
 .skillcol__h { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); padding-bottom: var(--s-3); border-bottom: 1px solid var(--line); }
-.skillcol ul { display: flex; flex-direction: column; gap: 10px; list-style: none; }
-.skillcol li { display: flex; align-items: baseline; gap: var(--s-3); font-size: var(--t-sm); color: var(--fg-2); }
-.skillcol li::before { content: ""; width: 5px; height: 5px; flex: none; border-radius: 1px; background: var(--accent); opacity: .55; transform: translateY(-2px); }
+.skillcol ul { display: flex; flex-direction: column; gap: 7px; list-style: none; }
+.skillcol li {
+  display: flex; align-items: center; gap: var(--s-3);
+  font-size: var(--t-sm); color: var(--fg-2);
+  padding: 6px 10px; border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all var(--d-1);
+}
+.skillcol li:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: var(--fg);
+  transform: translateX(3px);
+}
+.skillcol li::before { display: none !important; }
+.skill-ico {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 6px;
+  background: var(--bg-3); border: 1px solid var(--line);
+  font-size: 0.85rem; line-height: 1; flex: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+[data-theme="light"] .skillcol li {
+  background: rgba(0, 0, 0, 0.025);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .skillcol li:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.14);
+}
 
 /* --- timeline --- */
 .tl { position: relative; padding-left: clamp(1.5rem, 3.6vw, 2.75rem); }
@@ -991,15 +1038,20 @@ a:hover .frame--zoom img, .pcard:hover .frame--zoom img { transform: scale(1.04)
 .pcard__tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 6px;
   margin-top: auto;
   padding-top: var(--s-3);
 }
 
 .tag--more {
-  background: var(--bg-2);
-  color: var(--fg-3);
-  border: 1px dashed var(--line-2);
+  background: rgba(255, 92, 56, 0.08);
+  color: var(--accent);
+  border: 1px dashed rgba(255, 92, 56, 0.35);
+  font-weight: 600;
+}
+.tag--more:hover {
+  background: rgba(255, 92, 56, 0.16);
+  border-color: var(--accent);
 }
 
 .pcard__foot {
