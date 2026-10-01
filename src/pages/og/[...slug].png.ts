@@ -110,6 +110,12 @@ const wrapThai = (s: string) =>
 const text = (value: string, style: Style = {}) =>
   h('div', { display: 'flex', fontFamily: family(value), ...style }, wrapThai(value));
 
+const GLOW = `data:image/svg+xml;base64,${Buffer.from(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900"><defs><radialGradient id="g">' +
+    '<stop offset="0" stop-color="#ff5c38" stop-opacity=".30"/><stop offset=".5" stop-color="#ff5c38" stop-opacity=".08"/>' +
+    '<stop offset="1" stop-color="#ff5c38" stop-opacity="0"/></radialGradient></defs><rect width="900" height="900" fill="url(#g)"/></svg>',
+).toString('base64')}`;
+
 const frame = (...children: Child[]) =>
   h(
     'div',
@@ -126,15 +132,8 @@ const frame = (...children: Child[]) =>
       fontFamily: 'Space Grotesk, Anuphan',
       padding: '60px 64px 48px 72px',
     },
-    // ember glow
-    h('div', {
-      position: 'absolute',
-      top: -380,
-      right: -300,
-      width: 900,
-      height: 900,
-      backgroundImage: 'radial-gradient(closest-side, rgba(255,92,56,0.24), rgba(255,92,56,0.06) 55%, rgba(255,92,56,0))',
-    }),
+    // ember glow (an SVG radial gradient: satori's CSS radial-gradient sizing is limited)
+    img(GLOW, 900, 900, { position: 'absolute', top: -420, right: -320 }),
     // accent rail
     h('div', { position: 'absolute', left: 0, top: 0, width: 8, height: H, backgroundColor: C.accent }),
     ...children,
