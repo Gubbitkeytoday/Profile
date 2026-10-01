@@ -14,7 +14,13 @@ interface Props {
 const { lang, domain, index, projects } = Astro.props;
 const dict = {
   th: { used: 'ใช้ใน', projects: 'โปรเจกต์', project: 'โปรเจกต์', usedIn: 'ใช้ใน {n} โปรเจกต์', usedIn1: 'ใช้ใน 1 โปรเจกต์' },
-  en: { used: 'Used in', projects: 'projects', project: 'project', usedIn: 'used in {n} projects', usedIn1: 'used in 1 project' },
+  en: {
+    used: 'Used in',
+    projects: 'projects',
+    project: 'project',
+    usedIn: 'used in {n} projects',
+    usedIn1: 'used in 1 project',
+  },
 };
 const t = makeT(dict, lang);
 
@@ -88,7 +94,12 @@ const titleId = `skills-${domain.id}`;
     position: relative;
   }
   .cells {
-    grid-template-columns: repeat(auto-fill, minmax(6.25rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+  }
+  @media (min-width: 40rem) {
+    .cells {
+      grid-template-columns: repeat(auto-fill, minmax(6.25rem, 1fr));
+    }
   }
   .cell {
     position: relative;
@@ -98,8 +109,8 @@ const titleId = `skills-${domain.id}`;
     justify-content: center;
     gap: 0.6rem;
     height: 100%;
-    min-height: 6.25rem;
-    padding: 0.9rem 0.5rem 0.75rem;
+    min-height: 5.75rem;
+    padding: 0.9rem 0.35rem 0.75rem;
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
     background: var(--bg);

@@ -23,11 +23,17 @@ export function initGallery(root: HTMLElement): void {
   if (root.dataset.lightbox === 'ready') return;
   root.dataset.lightbox = 'ready';
 
-  let s: Partial<Strings> = {};
+  const s: Strings = {
+    close: 'Close',
+    zoom: 'Zoom',
+    prev: 'Previous',
+    next: 'Next',
+    error: 'The image cannot be loaded',
+  };
   try {
-    s = JSON.parse(root.dataset.strings ?? '{}') as Partial<Strings>;
+    Object.assign(s, JSON.parse(root.dataset.strings ?? '{}') as Partial<Strings>);
   } catch {
-    /* fall back to PhotoSwipe defaults */
+    /* keep the English defaults */
   }
 
   const lightbox = new PhotoSwipeLightbox({
@@ -35,7 +41,7 @@ export function initGallery(root: HTMLElement): void {
     children: 'a[data-pswp-width]',
     pswpModule: () => import('photoswipe'),
     showHideAnimationType: reducedMotion() ? 'none' : 'zoom',
-    bgOpacity: 0.96,
+    bgOpacity: 1,
     wheelToZoom: false,
     closeTitle: s.close,
     zoomTitle: s.zoom,
@@ -44,14 +50,10 @@ export function initGallery(root: HTMLElement): void {
     errorMsg: s.error,
     indexIndicatorSep: ' / ',
     paddingFn: (viewport) =>
-      viewport.x < 640
-        ? { top: 56, bottom: 64, left: 0, right: 0 }
-        : { top: 64, bottom: 80, left: 72, right: 72 },
+      viewport.x < 640 ? { top: 56, bottom: 64, left: 0, right: 0 } : { top: 64, bottom: 80, left: 72, right: 72 },
     // Full-page captures open at "fit width" (readable) and pan vertically; a click shows the whole page.
     initialZoomLevel: (zl) =>
-      zl.itemData.tall && zl.panAreaSize && zl.elementSize
-        ? Math.min(1, zl.panAreaSize.x / zl.elementSize.x)
-        : zl.fit,
+      zl.itemData.tall && zl.panAreaSize && zl.elementSize ? Math.min(1, zl.panAreaSize.x / zl.elementSize.x) : zl.fit,
     secondaryZoomLevel: (zl) => (zl.itemData.tall ? zl.fit : 0),
     maxZoomLevel: (zl) => (zl.itemData.tall ? Math.max(1, zl.fit * 4) : 0),
   });
@@ -66,7 +68,8 @@ export function initGallery(root: HTMLElement): void {
 
   // Start full-page captures at the top of the page, not the middle.
   lightbox.on('initialZoomPan', ({ slide }) => {
-    if (slide.data.tall && slide.bounds) slide.pan.y = slide.bounds.max.y;
+    // PhotoSwipe names the top-aligned position `min` (pan.y grows downwards).
+    if (slide.data.tall && slide.bounds) slide.pan.y = slide.bounds.min.y;
   });
 
   // Custom content type: native <video controls playsinline poster>.

@@ -47,8 +47,8 @@ const previewWidths = d.cover.widths.filter((w) => w <= 960);
   data-tech={tech}
   data-q={haystack}
   data-featured={featured ? '' : undefined}
-  data-preview={imageSrc(d.cover.path, previewWidths[0] ?? 480)}
-  data-preview-set={srcset(d.cover.path, previewWidths)}
+  data-cover={imageSrc(d.cover.path, previewWidths[0] ?? 480)}
+  data-cover-set={srcset(d.cover.path, previewWidths)}
 >
   <a class="row" href={href(lang, projectPath(p))}>
     <span class="year">{d.year}</span>

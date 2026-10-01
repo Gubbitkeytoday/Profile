@@ -108,7 +108,9 @@ const strings = JSON.stringify({
 });
 
 const sizes = (tile: Tile) =>
-  tile.featured ? '(min-width: 84rem) 54rem, (min-width: 1024px) 64vw, 100vw' : '(min-width: 84rem) 27rem, (min-width: 1024px) 31vw, 50vw';
+  tile.featured
+    ? '(min-width: 84rem) 54rem, (min-width: 1024px) 64vw, 100vw'
+    : '(min-width: 84rem) 27rem, (min-width: 1024px) 31vw, 50vw';
 ---
 
 <section id="gallery" aria-labelledby="gallery-title" class="shell pt-section">

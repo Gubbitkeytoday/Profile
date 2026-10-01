@@ -1,6 +1,6 @@
 /**
  * Biographical facts shared by Journey, About, Contact and the CV page.
- * Everything here is taken from the legacy site (index.html #about / #journey / #skills,
+ * Everything here is taken from the v1 site (git history: index.html #about / #journey / #skills,
  * PORTFOLIO_DATA.md) — no new dates, no new claims.
  */
 import type { Lang, Localized } from '@/i18n';

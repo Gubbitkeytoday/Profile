@@ -7,7 +7,7 @@ export const PROFILE = {
   phoneDisplay: '095-846-2520',
   location: { th: 'หัวหิน · ประจวบคีรีขันธ์', en: 'Hua Hin, Thailand' },
   line: 'https://line.me/ti/p/UzaC-aQ75C',
-  github: 'https://github.com/Gubbitkeytoday',
-  githubAlt: 'https://github.com/GitBababoo',
+  github: 'https://github.com/GitBababoo',
+  githubAlt: 'https://github.com/Gubbitkeytoday',
   facebook: 'https://web.facebook.com/wongsathorn.ggv',
 } as const;

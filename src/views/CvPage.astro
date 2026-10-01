@@ -15,7 +15,7 @@ import {
   tidy,
 } from '@/components/profile/facts';
 import Icon from '@/components/ui/Icon.astro';
-import { href, type Lang, LANGS, makeT } from '@/i18n';
+import { href, LANGS, type Lang, makeT } from '@/i18n';
 import Base from '@/layouts/Base.astro';
 import type { IconName } from '@/lib/icons';
 import { PROFILE } from '@/lib/profile';
@@ -113,7 +113,6 @@ const contacts: { icon: IconName; label: string; text: string; href?: string }[]
 ];
 
 const experience = JOURNEY.filter((e) => e.kind !== 'education');
-const byId = new Map(all.map((p) => [p.id, p]));
 const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : 'en-GB', {
   month: 'long',
   year: 'numeric',
@@ -124,7 +123,7 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
   <div class="cv-canvas">
     <nav class="cv-toolbar" aria-label={t('toolbar')}>
       <div class="cv-toolbar__in">
-        <a class="tb-btn" href={href(lang, '/')}>
+        <a class="tb-btn tb-back" href={href(lang, '/')}>
           <Icon name="lucide:arrow-left" />
           <span>{t('back')}</span>
         </a>
@@ -221,7 +220,7 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
                       <p class="entry__text">{tidy(p.data.summary[lang])}</p>
                       <p class="entry__stack">{p.data.tags.slice(0, 6).join(' · ')}</p>
                       <p class="entry__links">
-                        <span>
+                        <span class="entry__case">
                           <b>{t('caseStudy')}</b> <a href={page}>{strip(page)}</a>
                         </span>
                         {p.data.live && (
@@ -249,7 +248,14 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
                 SKILL_GROUPS.map((g) => (
                   <div class="skill">
                     <h3 class="skill__h">{g.name[lang]}</h3>
-                    <p class="skill__list">{g.items.join(' · ')}</p>
+                    <p class="skill__list">
+                      {g.items.map((it, i) => (
+                        <>
+                          <span class="whitespace-nowrap">{it}</span>
+                          {i < g.items.length - 1 && '\u00a0· '}
+                        </>
+                      ))}
+                    </p>
                   </div>
                 ))
               }
@@ -357,7 +363,7 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
       padding: 0 0.75rem;
     }
     /* Keep the three actions on one row: icon-only back button on small phones. */
-    .tb-btn:first-child span {
+    .tb-back span {
       position: absolute;
       width: 1px;
       height: 1px;
@@ -451,13 +457,19 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
     color: var(--ink-3);
     font-size: 0.85rem;
   }
-  @media (min-width: 720px) {
-    .cv-head {
-      grid-template-columns: 1fr auto;
-      align-items: end;
+  @media (max-width: 719.98px) {
+    .entry__case {
+      display: none;
     }
+  }
+  @media (min-width: 720px) {
     .cv-contact {
-      grid-template-columns: auto auto;
+      grid-template-columns: repeat(3, auto);
+      justify-content: start;
+      column-gap: 1.75rem;
+    }
+    .entry__links > span {
+      white-space: nowrap;
     }
   }
 
@@ -478,10 +490,14 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
   .cv-sec {
     padding-top: 1.35rem;
   }
+  .cv-side {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
   .cv-h {
     margin-bottom: 0.7rem;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -526,7 +542,7 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
   }
   .entry__year {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     color: var(--ink-3);
     white-space: nowrap;
   }
@@ -540,7 +556,7 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
   .entry__stack {
     margin-top: 0.3rem;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     color: var(--ink-2);
   }
   .entry__links {
@@ -549,7 +565,7 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
     gap: 0.1rem 1rem;
     margin-top: 0.2rem;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: var(--ink-3);
   }
   .entry__links b {
@@ -609,7 +625,7 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
     padding-top: 0.75rem;
     border-top: 1px solid var(--line);
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     color: var(--ink-3);
   }
   :lang(th) .cv-foot {
@@ -650,15 +666,28 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
       line-height: 1.55;
     }
     .cv-head {
-      grid-template-columns: 1fr auto;
-      align-items: end;
+      gap: 3.5mm;
+      padding-bottom: 4mm;
     }
     .cv-contact {
-      grid-template-columns: auto auto;
+      grid-template-columns: repeat(3, auto);
+      justify-content: start;
+      column-gap: 6mm;
       font-size: 8pt;
     }
+    .entry__links > span {
+      white-space: nowrap;
+    }
+    /* The title already links to the case study; the header prints the portfolio URL. */
+    .entry__case {
+      display: none;
+    }
+    .entry + .entry {
+      margin-top: 3mm;
+    }
     .cv-grid {
-      grid-template-columns: minmax(0, 1fr) 52mm;
+      grid-template-columns: minmax(0, 1fr) 54mm;
+      column-gap: 6mm;
     }
     .cv-side {
       padding-left: 5mm;
@@ -670,7 +699,7 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
     .cv-h {
       break-after: avoid;
     }
-    .kv div {
+    .cv-side .cv-sec {
       break-inside: avoid;
     }
     .paper a {
@@ -687,6 +716,9 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
     margin: 13mm 14mm 14mm;
   }
   @media print {
+    html {
+      color-scheme: light !important;
+    }
     html,
     body {
       background: #fff !important;

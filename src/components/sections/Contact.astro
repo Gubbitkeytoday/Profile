@@ -106,7 +106,15 @@ const rows: Row[] = [
     mono: true,
     copy: { text: PROFILE.phoneDisplay.replace(/-/g, ''), label: t('copyPhone'), done: t('copiedPhone') },
   },
-  { key: 'line', icon: 'simple-icons:line', label: t('line'), value: t('lineV'), href: PROFILE.line, external: true, qr: true },
+  {
+    key: 'line',
+    icon: 'simple-icons:line',
+    label: t('line'),
+    value: t('lineV'),
+    href: PROFILE.line,
+    external: true,
+    qr: true,
+  },
   {
     key: 'gh',
     icon: 'simple-icons:github',
@@ -196,9 +204,9 @@ const rows: Row[] = [
                 {r.qr && (
                   <button type="button" class="act act--text qr-btn" popovertarget="line-qr" popovertargetaction="show">
                     <Icon name="lucide:qr-code" />
-                    <span class="sr-only">{t('showQrPre')}</span>
+                    <span class="sr-only">{`${t('showQrPre')} `}</span>
                     <span class="font-mono text-xs font-semibold">QR</span>
-                    <span class="sr-only">{t('showQrPost')}</span>
+                    <span class="sr-only">{` ${t('showQrPost')}`}</span>
                   </button>
                 )}
                 {r.copy && (

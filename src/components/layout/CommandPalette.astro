@@ -14,7 +14,7 @@ const { lang } = Astro.props;
 const ui = useUi(lang);
 const dict = {
   th: {
-    placeholder: 'ค้นหาโปรเจกต์ เทคโนโลยี หรือไปยังส่วนต่าง ๆ…',
+    placeholder: 'ค้นหาผลงาน เทคโนโลยี หรือส่วนต่าง ๆ…',
     inputLabel: 'ค้นหา',
     results: 'ผลการค้นหา',
     actions: 'คำสั่ง',
@@ -36,7 +36,7 @@ const dict = {
     close: 'ปิด',
   },
   en: {
-    placeholder: 'Search projects, tech, or jump to a section…',
+    placeholder: 'Search projects, tech or sections…',
     inputLabel: 'Search',
     results: 'Results',
     actions: 'Actions',
@@ -375,6 +375,7 @@ const groups = [
       background: transparent;
       color: var(--fg);
       font-size: 1rem;
+      text-overflow: ellipsis;
       outline: none;
     }
     .cmdk__input::placeholder {

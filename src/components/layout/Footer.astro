@@ -109,21 +109,18 @@ const stack = [
       </div>
     </div>
 
-    <svg class="wordmark" viewBox="0 0 1000 156" aria-hidden="true" focusable="false">
+    <svg class="wordmark" viewBox="0 0 1000 108" aria-hidden="true" focusable="false">
       <defs>
         <linearGradient id="wordmark-fill" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" class="wordmark__stop-a"></stop>
           <stop offset="1" class="wordmark__stop-b"></stop>
         </linearGradient>
       </defs>
-      <text x="0" y="128" textLength="1000" lengthAdjust="spacingAndGlyphs" fill="url(#wordmark-fill)">WONGSATHORN</text>
+      <text x="0" y="104" textLength="1000" lengthAdjust="spacingAndGlyphs" fill="url(#wordmark-fill)">WONGSATHORN</text>
     </svg>
 
     <div class="footer-bar">
-      <p>
-        © <span data-year>{year}</span>
-        {ui('siteName')} · {t('rights')}
-      </p>
+      <p>© <span data-year>{year}</span> {ui('siteName')} · {t('rights')}</p>
       <p class="footer-stack">
         <span>{t('builtWith')}</span>
         {
@@ -178,7 +175,6 @@ const stack = [
   @layer components {
     .site-footer {
       position: relative;
-      margin-top: var(--spacing-section);
       padding-top: clamp(3rem, 6vw, 5rem);
       border-top: 1px solid var(--line);
       background:
@@ -292,7 +288,7 @@ const stack = [
       margin-top: clamp(2.5rem, 6vw, 4.5rem);
       overflow: visible;
       font-family: var(--font-display);
-      font-size: 172px;
+      font-size: 141px;
       font-weight: 700;
       letter-spacing: -0.02em;
       user-select: none;

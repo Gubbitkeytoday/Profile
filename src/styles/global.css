@@ -1,3 +1,6 @@
+/* Declare layer order up front so component-scoped `@layer components` blocks can never jump ahead of Tailwind base. */
+@layer theme, base, components, utilities;
+
 @import "tailwindcss";
 
 /* Self-hosted variable fonts (Fontsource) — no third-party font CDN. Thai glyphs come from IBM Plex Sans Thai. */
@@ -219,7 +222,7 @@
   }
   .label {
     font-family: var(--font-mono);
-    font-size: var(--text-2xs);
+    font-size: max(0.75rem, var(--text-2xs));
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;
     color: var(--fg-3);

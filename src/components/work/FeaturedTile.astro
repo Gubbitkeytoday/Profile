@@ -18,9 +18,9 @@ interface Props {
   lang: Lang;
   size: TileSize;
   /** Use a gallery image instead of the cover (path must exist in the gallery). */
-  media?: string;
+  media?: string | undefined;
   /** `peek`: small/portrait captures float on a blueprint grid instead of being cropped. */
-  fit?: 'cover' | 'peek';
+  fit?: 'cover' | 'peek' | undefined;
 }
 
 const { project: p, lang, size, media, fit = 'cover' } = Astro.props;
@@ -300,6 +300,7 @@ const titleId = `tile-${p.id}`;
   .cat {
     color: var(--fg-2);
     font-weight: 500;
+    white-space: nowrap;
   }
   .sep {
     width: 3px;
@@ -314,6 +315,8 @@ const titleId = `tile-${p.id}`;
   }
   .tags {
     display: flex;
+    min-width: 0;
+    overflow: hidden;
     gap: 0.6rem;
     margin-inline-start: auto;
     padding: 0;
@@ -407,26 +410,34 @@ const titleId = `tile-${p.id}`;
   }
 
   /* ----------------------------------------------------- flagship (8 × 2) */
-  .tile--xl .body {
-    gap: 0.6rem;
-    padding: 1.25rem 1.75rem 1.6rem;
+  /* In the mobile carousel every tile shares one rhythm; the flagship grows only in the bento. */
+  @media (max-width: 1023.98px) {
+    .tile--xl .chip:nth-child(n + 3) {
+      display: none;
+    }
   }
-  .tile--xl .title {
-    font-size: var(--text-display-sm);
-    letter-spacing: -0.03em;
-  }
-  .tile--xl .summary {
-    max-width: 62ch;
-    font-size: 1rem;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-  }
-  .tile--xl .chip {
-    padding: 0.3rem 0.65rem;
-    font-size: 0.8rem;
-  }
-  .tile--xl .media {
-    margin: 0.625rem 0.625rem 0;
+  @media (min-width: 1024px) {
+    .tile--xl .body {
+      gap: 0.6rem;
+      padding: 1.25rem 1.75rem 1.6rem;
+    }
+    .tile--xl .title {
+      font-size: var(--text-display-sm);
+      letter-spacing: -0.03em;
+    }
+    .tile--xl .summary {
+      max-width: 62ch;
+      font-size: 1rem;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+    }
+    .tile--xl .chip {
+      padding: 0.3rem 0.65rem;
+      font-size: 0.8rem;
+    }
+    .tile--xl .media {
+      margin: 0.625rem 0.625rem 0;
+    }
   }
 
   /* ------------------------------------------------------- bento (≥1024) */

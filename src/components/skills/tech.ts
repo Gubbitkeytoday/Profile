@@ -1,29 +1,17 @@
+import { techKey } from '@/components/work/shared';
 import type { Localized } from '@/i18n';
 import type { IconName } from '@/lib/icons';
 import type { Project } from '@/lib/projects';
 
 /**
- * Tech-tag matching shared by Skills (counts) and Work (`?tech=` filter).
- * "Next.js 14" → "nextjs14", "Tailwind CSS" → "tailwindcss".
+ * Counts use the Work section's own `techKey` (tech family: "Next.js 14" → "nextjs",
+ * "Tailwind CSS" → "tailwind"), so a skill's number always equals what
+ * `/?tech=<tag>#work` filters to.
  */
-export const normalizeTech = (s: string): string =>
-  s
-    .toLowerCase()
-    .normalize('NFKD')
-    .replace(/[^a-z0-9+#]/g, '');
-
-/**
- * A project tag matches a `?tech=` value when its normalized form starts with
- * the normalized value — so `Next.js` covers "Next.js 14/16", `React` covers
- * "React 19", `Python` covers "Python 3.12", `Tailwind` covers "Tailwind CSS".
- */
-export const matchesTech = (tag: string, tech: string): boolean => {
-  const t = normalizeTech(tech);
-  return t.length > 0 && normalizeTech(tag).startsWith(t);
+export const projectsUsing = (projects: readonly Project[], tech: string): Project[] => {
+  const key = techKey(tech);
+  return projects.filter((p) => p.data.tags.some((tag) => techKey(tag) === key));
 };
-
-export const projectsUsing = (projects: readonly Project[], tech: string): Project[] =>
-  projects.filter((p) => p.data.tags.some((tag) => matchesTech(tag, tech)));
 
 export interface Skill {
   name: string | Localized;

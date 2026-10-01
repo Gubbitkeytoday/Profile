@@ -36,7 +36,12 @@ const LANG_META: Record<Lang, { short: string; name: string }> = {
 };
 const langLinks = LANGS.map((l) => ({ lang: l, url: href(l, path), current: l === lang, ...LANG_META[l] }));
 const brandName = lang === 'th' ? ui('siteName') : ui('shortName');
-const links = SECTIONS.map((id, i) => ({ id, url: href(lang, `#${id}`), label: ui(id), idx: String(i + 1).padStart(2, '0') }));
+const links = SECTIONS.map((id, i) => ({
+  id,
+  url: href(lang, `#${id}`),
+  label: ui(id),
+  idx: String(i + 1).padStart(2, '0'),
+}));
 ---
 
 <header class="site-nav" data-nav>
@@ -154,7 +159,7 @@ const links = SECTIONS.map((id, i) => ({ id, url: href(lang, `#${id}`), label: u
 
     <div class="drawer__prefs">
       <p class="label">{t('display')}</p>
-      <div class="flex flex-wrap items-center gap-2">
+      <div class="drawer__pref-row">
         <button
           type="button"
           class="pref-btn"
@@ -244,7 +249,7 @@ const links = SECTIONS.map((id, i) => ({ id, url: href(lang, `#${id}`), label: u
     align-items: center;
     gap: 0.7rem;
     min-height: 44px;
-    min-width: 0;
+    min-width: 44px;
     justify-self: start;
     border-radius: var(--radius-md);
     color: var(--fg);
@@ -323,7 +328,6 @@ const links = SECTIONS.map((id, i) => ({ id, url: href(lang, `#${id}`), label: u
     font-family: var(--font-mono);
     font-size: var(--text-3xs);
     color: var(--fg-3);
-    opacity: 0.7;
   }
   @media (min-width: 80rem) {
     .nav-link__idx {
@@ -335,7 +339,6 @@ const links = SECTIONS.map((id, i) => ({ id, url: href(lang, `#${id}`), label: u
   }
   .nav-link[aria-current='true'] .nav-link__idx {
     color: var(--accent);
-    opacity: 1;
   }
   .nav-link::after {
     content: '';
@@ -397,7 +400,8 @@ const links = SECTIONS.map((id, i) => ({ id, url: href(lang, `#${id}`), label: u
     }
     .search-btn__text {
       display: inline;
-      padding-inline-end: 1.25rem;
+      padding-inline-end: 0.75rem;
+      white-space: nowrap;
     }
   }
   @media (min-width: 80rem) and (hover: hover) and (pointer: fine) {
@@ -421,8 +425,8 @@ const links = SECTIONS.map((id, i) => ({ id, url: href(lang, `#${id}`), label: u
     color: var(--fg-2);
   }
 
-  :global([data-theme='dark']) .theme-icon--moon,
-  :global([data-theme='light']) .theme-icon--sun {
+  :global([data-theme='dark'] .theme-icon--moon),
+  :global([data-theme='light'] .theme-icon--sun) {
     display: none;
   }
 
@@ -491,7 +495,7 @@ const links = SECTIONS.map((id, i) => ({ id, url: href(lang, `#${id}`), label: u
     margin: 0;
     margin-inline-start: auto;
     padding: 0;
-    width: min(25rem, 100vw);
+    width: min(25rem, calc(100vw - 2.75rem));
     max-width: 100vw;
     height: 100dvh;
     max-height: 100dvh;
@@ -601,6 +605,14 @@ const links = SECTIONS.map((id, i) => ({ id, url: href(lang, `#${id}`), label: u
   .drawer__contact {
     display: grid;
     gap: 0.75rem;
+  }
+  .drawer__pref-row {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .drawer__pref-row .lang-switch {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
   .pref-btn {
     display: inline-flex;
