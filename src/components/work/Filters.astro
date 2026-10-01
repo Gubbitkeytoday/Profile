@@ -1,0 +1,326 @@
+---
+/**
+ * Filter bar for the project index. Rendered statically; work.ts wires it up.
+ * Without JS the bar is hidden (see the <noscript> in Work.astro) and every
+ * project stays visible.
+ */
+import Icon from '@/components/ui/Icon.astro';
+import { type Lang, makeT } from '@/i18n';
+import { CATEGORY_META } from './meta';
+import { CATEGORIES, type Category } from './shared';
+
+export interface TechOption {
+  /** Shortest tag string of the family — what ?tech= carries. */
+  value: string;
+  key: string;
+  count: number;
+}
+
+interface Props {
+  lang: Lang;
+  total: number;
+  counts: Record<Category, number>;
+  tech: TechOption[];
+}
+
+const { lang, total, counts, tech } = Astro.props;
+
+const dict = {
+  th: {
+    group: 'กรองตามประเภท',
+    all: 'ทั้งหมด',
+    tech: 'เทคโนโลยี',
+    anyTech: 'ทุกเทคโนโลยี',
+    search: 'ค้นหาผลงาน',
+    placeholder: 'ค้นหาชื่อ เทคโนโลยี หรือฟีเจอร์…',
+    active: 'ตัวกรองที่ใช้อยู่',
+    clear: 'ล้างตัวกรอง',
+  },
+  en: {
+    group: 'Filter by category',
+    all: 'All',
+    tech: 'Technology',
+    anyTech: 'Any technology',
+    search: 'Search projects',
+    placeholder: 'Search name, tech or feature…',
+    active: 'Active filters',
+    clear: 'Clear filters',
+  },
+};
+const t = makeT(dict, lang);
+const pills = [
+  { id: 'all', label: t('all'), n: total },
+  ...CATEGORIES.map((c) => ({ id: c, label: CATEGORY_META[c].label[lang], n: counts[c] })),
+];
+---
+
+<div class="filters" data-work-filters>
+  <div class="bar">
+    <div class="pills" role="group" aria-label={t('group')}>
+      {
+        pills.map((p) => (
+          <button type="button" class="pill" data-cat={p.id} aria-pressed={p.id === 'all' ? 'true' : 'false'}>
+            <span>{p.label}</span>
+            <span class="count" data-count>
+              {p.n}
+            </span>
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="controls">
+      <div class="field field--select">
+        <label for="work-tech" class="sr-only">{t('tech')}</label>
+        <Icon name="lucide:cpu" class="field-ico" />
+        <select id="work-tech" data-tech-select>
+          <option value="">{t('anyTech')}</option>
+          {
+            tech.map((o) => (
+              <option value={o.value} data-key={o.key}>
+                {o.value} ({o.count})
+              </option>
+            ))
+          }
+        </select>
+        <Icon name="lucide:chevron-down" class="field-chev" />
+      </div>
+      <div class="field field--search">
+        <label for="work-q" class="sr-only">{t('search')}</label>
+        <Icon name="lucide:search" class="field-ico" />
+        <input
+          id="work-q"
+          type="search"
+          placeholder={t('placeholder')}
+          autocomplete="off"
+          spellcheck="false"
+          enterkeyhint="search"
+          data-q-input
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="active" data-active hidden>
+    <span class="active-label">{t('active')}</span>
+    <button type="button" class="chip" data-tech-chip hidden>
+      <span class="chip-k">{t('tech')}</span>
+      <span class="chip-v" data-tech-chip-value></span>
+      <Icon name="lucide:x" class="chip-x" />
+    </button>
+    <button type="button" class="clear" data-clear>
+      <Icon name="lucide:rotate-ccw" />
+      {t('clear')}
+    </button>
+  </div>
+</div>
+
+<style>
+  .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* --------------------------------------------------------------- pills */
+  .pills {
+    display: flex;
+    gap: 0.375rem;
+    margin-inline: calc(var(--spacing-gutter) * -1);
+    padding: 0.25rem var(--spacing-gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .pills::-webkit-scrollbar {
+    display: none;
+  }
+  .pill {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 0.95rem;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    background: var(--bg-1);
+    color: var(--fg-2);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) var(--ease-out-expo),
+      border-color var(--duration-fast) var(--ease-out-expo),
+      color var(--duration-fast) var(--ease-out-expo);
+  }
+  .pill:hover {
+    border-color: color-mix(in oklch, var(--fg) 35%, transparent);
+    color: var(--fg);
+  }
+  .pill[aria-pressed="true"] {
+    border-color: var(--fg);
+    background: var(--fg);
+    color: var(--bg);
+  }
+  .count {
+    min-width: 1.5em;
+    padding: 0.05rem 0.4rem;
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--fg) 8%, transparent);
+    color: var(--fg-2);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+  .pill[aria-pressed="true"] .count {
+    background: color-mix(in oklch, var(--bg) 18%, transparent);
+    color: var(--bg);
+  }
+
+  /* ------------------------------------------------------------- controls */
+  .controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+  .field {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .field :global(.field-ico) {
+    position: absolute;
+    left: 0.85rem;
+    color: var(--fg-3);
+    font-size: 1rem;
+    pointer-events: none;
+  }
+  .field :global(.field-chev) {
+    position: absolute;
+    right: 0.75rem;
+    color: var(--fg-3);
+    font-size: 0.95rem;
+    pointer-events: none;
+  }
+  select,
+  input {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0 0.9rem 0 2.45rem;
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-md);
+    background: var(--bg-1);
+    color: var(--fg);
+    font: inherit;
+    font-size: 0.9rem;
+    transition: border-color var(--duration-fast) var(--ease-out-expo);
+  }
+  select {
+    padding-right: 2.25rem;
+    appearance: none;
+    cursor: pointer;
+  }
+  input::placeholder {
+    color: var(--fg-3);
+    opacity: 1;
+  }
+  select:hover,
+  input:hover {
+    border-color: color-mix(in oklch, var(--fg) 35%, transparent);
+  }
+  select:focus-visible,
+  input:focus-visible {
+    border-color: var(--accent);
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* --------------------------------------------------------------- active */
+  .active {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .active-label {
+    color: var(--fg-3);
+    font-size: 0.8rem;
+  }
+  .chip,
+  .clear {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2rem;
+    padding: 0 0.7rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+  .chip {
+    border: 1px solid color-mix(in oklch, var(--accent) 45%, transparent);
+    background: color-mix(in oklch, var(--accent) 10%, transparent);
+    color: var(--fg);
+  }
+  .chip-k {
+    color: var(--fg-2);
+  }
+  .chip-v {
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+  .chip :global(.chip-x) {
+    color: var(--fg-2);
+  }
+  .chip:hover {
+    background: color-mix(in oklch, var(--accent) 18%, transparent);
+  }
+  .clear {
+    border: 0;
+    background: none;
+    color: var(--fg-2);
+    text-decoration: underline;
+    text-decoration-color: var(--line-2);
+    text-underline-offset: 3px;
+  }
+  .clear:hover {
+    color: var(--fg);
+    text-decoration-color: currentColor;
+  }
+
+  @media (min-width: 640px) {
+    .controls {
+      grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .bar {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .pills {
+      margin: 0;
+      padding: 0;
+      overflow: visible;
+    }
+    .pill {
+      min-height: 2.5rem;
+    }
+    .controls {
+      flex: 0 1 34rem;
+      grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+    }
+    select,
+    input {
+      min-height: 2.5rem;
+    }
+  }
+</style>

@@ -101,13 +101,15 @@ export function initGallery(root: HTMLElement): void {
 
   lightbox.on('change', pauseInactive);
   lightbox.on('contentDeactivate', ({ content }) => videoOf(content.element)?.pause());
+  // Muted preview only (never autoplay with sound); controls are always visible. Off for reduced motion.
   lightbox.on('contentActivate', ({ content }) => {
-    if (content.type !== 'video' || reducedMotion()) return;
-    videoOf(content.element)
-      ?.play()
-      .catch(() => {
-        /* autoplay refused — controls remain */
-      });
+    const video = videoOf(content.element);
+    if (content.type !== 'video' || !video || reducedMotion() || video.dataset.started) return;
+    video.dataset.started = '1';
+    video.muted = true;
+    video.play().catch(() => {
+      /* autoplay refused — controls remain */
+    });
   });
   lightbox.on('close', () => {
     for (const v of lightbox.pswp?.element?.querySelectorAll('video') ?? []) v.pause();

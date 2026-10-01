@@ -34,7 +34,8 @@ const dict = {
     copiedEmail: 'คัดลอกอีเมลแล้ว',
     copyPhone: 'คัดลอกเบอร์โทร',
     copiedPhone: 'คัดลอกเบอร์โทรแล้ว',
-    showQr: 'แสดง QR Code LINE',
+    showQrPre: 'แสดง',
+    showQrPost: 'โค้ด LINE',
     qrAlt: 'QR Code LINE — วงศธร ฉาบสีทอง',
     qrHint: 'สแกนด้วยกล้อง LINE เพื่อเพิ่มเพื่อน',
     openLine: 'เปิดแอป LINE',
@@ -60,7 +61,8 @@ const dict = {
     copiedEmail: 'Email copied',
     copyPhone: 'Copy phone number',
     copiedPhone: 'Phone number copied',
-    showQr: 'Show LINE QR code',
+    showQrPre: 'Show',
+    showQrPost: 'code for LINE',
     qrAlt: 'LINE QR code — Wongsathorn Chapseethong',
     qrHint: 'Scan with the LINE camera to add me',
     openLine: 'Open the LINE app',
@@ -192,15 +194,11 @@ const rows: Row[] = [
             {(r.copy || r.qr) && (
               <span class="row-actions">
                 {r.qr && (
-                  <button
-                    type="button"
-                    class="act qr-btn"
-                    popovertarget="line-qr"
-                    popovertargetaction="show"
-                    aria-label={t('showQr')}
-                    title={t('showQr')}
-                  >
+                  <button type="button" class="act act--text qr-btn" popovertarget="line-qr" popovertargetaction="show">
                     <Icon name="lucide:qr-code" />
+                    <span class="sr-only">{t('showQrPre')}</span>
+                    <span class="font-mono text-xs font-semibold">QR</span>
+                    <span class="sr-only">{t('showQrPost')}</span>
                   </button>
                 )}
                 {r.copy && (
@@ -329,6 +327,12 @@ const rows: Row[] = [
     border-color: var(--accent);
     background: color-mix(in oklch, var(--accent) 8%, transparent);
   }
+  .act--text {
+    display: inline-flex;
+    gap: 0.35rem;
+    width: auto;
+    padding-inline: 0.7rem;
+  }
   .act :global(.i-done) {
     display: none;
     color: var(--ok);
@@ -350,6 +354,9 @@ const rows: Row[] = [
     .act {
       width: 40px;
       height: 40px;
+    }
+    .act--text {
+      width: auto;
     }
   }
 

@@ -1,8 +1,9 @@
 ---
 /**
- * CSS-only tech marquee. The first track is the accessible list; the duplicate
- * that makes the loop seamless is aria-hidden. Pauses on hover and via a
- * keyboard-reachable toggle (WCAG 2.2.2); static wrap under reduced motion.
+ * CSS-driven tech marquee. The first track is the accessible list; the duplicate
+ * that makes the loop seamless is aria-hidden. Motion only starts once the
+ * pause button is wired (WCAG 2.2.2); it also pauses on hover / focus-within,
+ * and is a static wrapped list under prefers-reduced-motion.
  */
 import { MARQUEE } from '@/components/skills/tech';
 import Icon from '@/components/ui/Icon.astro';
@@ -14,13 +15,13 @@ interface Props {
 
 const { lang } = Astro.props;
 const dict = {
-  th: { label: 'เทคโนโลยีหลักที่ใช้', pause: 'หยุดแถบเลื่อนเทคโนโลยี' },
-  en: { label: 'Core stack', pause: 'Pause the tech ticker' },
+  th: { label: 'เทคโนโลยีหลักที่ใช้', pause: 'หยุดแถบเทคโนโลยีที่เลื่อนอยู่' },
+  en: { label: 'Core stack', pause: 'Pause the scrolling tech list' },
 };
 const t = makeT(dict, lang);
 ---
 
-<div class="marquee relative border-y border-line bg-bg">
+<div class="marquee relative border-y border-line bg-bg" data-marquee>
   <div class="viewport overflow-hidden">
     <div class="track flex w-max">
       {
@@ -41,19 +42,34 @@ const t = makeT(dict, lang);
       }
     </div>
   </div>
-  <label class="toggle" title={t('pause')}>
-    <input type="checkbox" class="sr-only" aria-label={t('pause')} />
-    <Icon name="lucide:pause" size={14} class="i-pause" />
-    <Icon name="lucide:play" size={14} class="i-play" />
-  </label>
+  <div class="ctrl">
+    <button type="button" class="toggle" aria-pressed="false" aria-label={t('pause')} title={t('pause')} hidden>
+      <Icon name="lucide:pause" size={14} class="i-pause" />
+      <Icon name="lucide:play" size={14} class="i-play" />
+    </button>
+  </div>
 </div>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>('[data-marquee]:not([data-js])')) {
+    const btn = root.querySelector<HTMLButtonElement>('.toggle');
+    if (!btn) continue;
+    btn.hidden = false;
+    btn.addEventListener('click', () => {
+      const paused = btn.getAttribute('aria-pressed') !== 'true';
+      btn.setAttribute('aria-pressed', String(paused));
+      root.toggleAttribute('data-paused', paused);
+    });
+    root.dataset.js = '';
+  }
+</script>
 
 <style>
   .marquee {
     --gap: clamp(2rem, 4vw, 3.5rem);
   }
   .viewport {
-    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 86%, transparent 94%);
     padding-block: 1.1rem;
   }
   .list {
@@ -71,42 +87,58 @@ const t = makeT(dict, lang);
     color: var(--fg);
   }
 
-  .toggle {
+  .ctrl {
     position: absolute;
     inset-block: 0;
-    inset-inline-end: 0;
+    inset-inline-end: max(0.5rem, calc(var(--spacing-gutter) - 0.75rem));
     display: grid;
     place-items: center;
-    width: 2.75rem;
-    color: var(--fg-3);
-    background: linear-gradient(90deg, transparent, var(--bg) 35%);
+  }
+  .toggle {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    background: var(--bg-1);
+    color: var(--fg-2);
     cursor: pointer;
+    transition:
+      color var(--duration-fast) ease,
+      border-color var(--duration-fast) ease;
+  }
+  .toggle[hidden] {
+    display: none;
+  }
+  /* 44px hit area around the 36px visual. */
+  .toggle::before {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 2.75rem;
+    height: 2.75rem;
+    translate: -50% -50%;
   }
   .toggle:hover {
     color: var(--fg);
+    border-color: var(--fg-3);
   }
-  .toggle:has(:focus-visible) {
-    outline: 2px solid var(--accent);
-    outline-offset: -4px;
-    border-radius: var(--radius-md);
-  }
-  .toggle :global(.i-play) {
+  .toggle :global(.i-play),
+  .toggle[aria-pressed='true'] :global(.i-pause) {
     display: none;
   }
-  .marquee:has(input:checked) .toggle :global(.i-play) {
+  .toggle[aria-pressed='true'] :global(.i-play) {
     display: block;
-  }
-  .marquee:has(input:checked) .toggle :global(.i-pause) {
-    display: none;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .track {
+    .marquee[data-js] .track {
       animation: marquee 48s linear infinite;
     }
     .marquee:hover .track,
     .marquee:focus-within .track,
-    .marquee:has(input:checked) .track {
+    .marquee[data-paused] .track {
       animation-play-state: paused;
     }
   }
@@ -116,7 +148,7 @@ const t = makeT(dict, lang);
     }
   }
 
-  /* Reduced motion: a calm, wrapped list; the duplicate and the toggle go away. */
+  /* Reduced motion: a calm, wrapped list; the duplicate and the control go away. */
   @media (prefers-reduced-motion: reduce) {
     .viewport {
       mask-image: none;
@@ -136,7 +168,7 @@ const t = makeT(dict, lang);
     .list[aria-hidden] {
       display: none;
     }
-    .toggle {
+    .ctrl {
       display: none;
     }
   }

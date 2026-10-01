@@ -11,7 +11,7 @@ const { id, num, title, lead } = Astro.props;
 
 <header class="mb-8 grid gap-x-8 gap-y-3 border-t border-line pt-6 sm:mb-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
   <div>
-    <p class="mb-3 font-mono text-2xs tracking-[0.16em] text-accent" aria-hidden="true">
+    <p class="mb-3 font-mono text-xs tracking-[0.16em] text-accent" aria-hidden="true">
       {String(num).padStart(2, '0')} —
     </p>
     <h2 id={id} class="text-display-sm font-semibold tracking-[-0.025em] text-fg [:lang(th)_&]:tracking-normal">{title}</h2>
