@@ -1,0 +1,48 @@
+{
+  "name": "wongsathorn-portfolio",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Bilingual (TH/EN) engineering portfolio of Wongsathorn Chapseethong — built with Astro, TypeScript and Tailwind CSS.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "verify": "npm run lint && npm run check && npm run build && npm run test"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/anuphan": "^5.3.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/space-grotesk": "^5.3.0",
+    "@fontsource/ibm-plex-sans-thai": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.5",
+    "photoswipe": "^5.4.4",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@axe-core/playwright": "^4.13.0",
+    "@biomejs/biome": "^2.5.15",
+    "@fontsource/anuphan": "^5.3.0",
+    "@fontsource/space-grotesk": "^5.3.0",
+    "@iconify-json/lucide": "^1.2.138",
+    "@iconify-json/simple-icons": "^1.2.98",
+    "@iconify/utils": "^3.1.7",
+    "@playwright/test": "^1.63.0",
+    "satori": "^0.33.5",
+    "sharp": "^0.35.5",
+    "typescript": "^6.0.3"
+  }
+}

@@ -1,0 +1,12 @@
+---
+import type { Lang } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<!-- TODO: Nav (layout/Nav) -->
+<div data-stub="Nav" data-lang={lang}></div>

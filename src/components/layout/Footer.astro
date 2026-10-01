@@ -1,0 +1,12 @@
+---
+import type { Lang } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<!-- TODO: Footer (layout/Footer) -->
+<div data-stub="Footer" data-lang={lang}></div>

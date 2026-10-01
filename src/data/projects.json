@@ -1,0 +1,3380 @@
+[
+  {
+    "id": "metro3d",
+    "order": 1,
+    "category": "interactive",
+    "year": 2025,
+    "icon": "train",
+    "title": {
+      "th": "Greater Bangkok Metro Mini 3D",
+      "en": "Greater Bangkok Metro Mini 3D"
+    },
+    "role": {
+      "th": "ออกแบบระบบ · Frontend 3D · Rust/Wasm",
+      "en": "System design · 3D frontend · Rust/Wasm"
+    },
+    "summary": {
+      "th": "เว็บจำลองโครงข่ายรถไฟฟ้ากรุงเทพฯ–ปริมณฑลแบบ 3 มิติ วางแนวรางตามพิกัดจริงจาก OpenStreetMap แยกระดับยกระดับ/ระดับดิน/ใต้ดิน และวิ่งขบวนตามตารางเวลาจริง GTFS",
+      "en": "A 3D simulation of the Greater Bangkok rail network, track geometry from real OpenStreetMap coordinates, separated by elevation, running real GTFS timetables."
+    },
+    "metrics": [
+      {
+        "value": "10",
+        "label": {
+          "th": "สาย",
+          "en": "lines"
+        }
+      },
+      {
+        "value": "193",
+        "label": {
+          "th": "สถานี",
+          "en": "stations"
+        }
+      },
+      {
+        "value": "8,193",
+        "label": {
+          "th": "เที่ยว/วัน",
+          "en": "trips/day"
+        }
+      },
+      {
+        "value": "60",
+        "label": {
+          "th": "FPS",
+          "en": "FPS"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "วิ่งขบวนตามตาราง GTFS จริง 10 สาย 193 สถานี 8,193 เที่ยวต่อวัน",
+        "เร่งเวลา / ย้อนเวลาได้ตามใจ พร้อมกล้องติดตามขบวน (Train Tracking)",
+        "Journey Planner วางแผนเส้นทาง บอกจุดเปลี่ยนสายและเวลาที่ใช้",
+        "แกนคำนวณตำแหน่งขบวนเขียนด้วย Rust คอมไพล์เป็น WebAssembly รันบน Web Worker",
+        "รองรับ 9 ภาษา"
+      ],
+      "en": [
+        "Real GTFS schedules — 10 lines, 193 stations, 8,193 trips a day",
+        "Time acceleration and rewind, with a camera that follows any train",
+        "Journey planner with interchanges and travel time",
+        "Train position core written in Rust, compiled to WebAssembly, run on a Web Worker",
+        "Nine languages"
+      ]
+    },
+    "tags": ["React 19", "TypeScript", "Three.js", "MapLibre GL", "Rust", "WebAssembly"],
+    "repo": "https://github.com/Gubbitkeytoday/tha-metro-mini-3d",
+    "live": "https://metro.itstom.me",
+    "cover": {
+      "path": "media/metro3d/01-network-overview",
+      "widths": [480, 960, 1600],
+      "width": 1600,
+      "height": 900
+    },
+    "gallery": [
+      {
+        "type": "video",
+        "path": "media/metro3d/demo"
+      },
+      {
+        "type": "image",
+        "path": "media/metro3d/01-network-overview",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/metro3d/02-trains-street-level",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/metro3d/03-underground-mrt-blue",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/metro3d/04-night-lighting",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/metro3d/05-journey-planner",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/metro3d/06-train-inspector",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/metro3d/07-station-board",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/metro3d/08-guided-tour",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/metro3d/09-about-support",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/metro3d/10-phone-map-thai",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 2078
+      },
+      {
+        "type": "image",
+        "path": "media/metro3d/11-phone-search-thai",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 2078
+      }
+    ]
+  },
+  {
+    "id": "khuiai",
+    "order": 2,
+    "category": "web",
+    "year": 2026,
+    "icon": "robot",
+    "title": {
+      "th": "Khui AI (คุย AI)",
+      "en": "Khui AI"
+    },
+    "role": {
+      "th": "Full-Stack · ออกแบบฐานข้อมูล · SSE Streaming",
+      "en": "Full-stack · schema design · SSE streaming"
+    },
+    "summary": {
+      "th": "แพลตฟอร์มสนทนากับตัวละคร AI ภาษาไทยแบบครบวงจร มีทั้ง Creator Studio, ระบบเศรษฐกิจในแอป และระบบชุมชน",
+      "en": "A full-stack Thai AI-character chat platform with a creator studio, an in-app economy and community features."
+    },
+    "metrics": [
+      {
+        "value": "SSE",
+        "label": {
+          "th": "สตรีมมิ่ง",
+          "en": "streaming"
+        }
+      },
+      {
+        "value": "10",
+        "label": {
+          "th": "ภาษา",
+          "en": "languages"
+        }
+      },
+      {
+        "value": "15",
+        "label": {
+          "th": "หมวดรายงาน",
+          "en": "report types"
+        }
+      },
+      {
+        "value": "12",
+        "label": {
+          "th": "ราศี",
+          "en": "horoscopes"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "Creator Studio สร้างตัวละคร AI กำหนดนิสัย บุคลิก และสถานการณ์จำลอง",
+        "แชทตอบกลับแบบ Real-time ด้วย Server-Sent Events พร้อม Fallback สลับโมเดลเมื่อ error",
+        "ระบบเศรษฐกิจ: เหรียญ เช็คอินรายวัน เควส และของขวัญ",
+        "ระบบชุมชน: คอมเมนต์ Leaderboard และการรายงานเนื้อหา 15 หมวด",
+        "ดูดวง 12 ราศี และ i18n 10 ภาษา"
+      ],
+      "en": [
+        "Creator Studio for AI characters — personality, tone and scenario",
+        "Real-time streamed replies over Server-Sent Events with automatic model fallback",
+        "In-app economy: coins, daily check-in, quests and gifts",
+        "Community: comments, leaderboard and a 15-category reporting flow",
+        "Daily horoscopes and i18n across 10 languages"
+      ]
+    },
+    "tags": ["Next.js 14", "TypeScript", "Prisma", "SQLite", "OpenAI API", "Tailwind"],
+    "repo": "https://github.com/Gubbitkeytoday/khuiai-fullstack",
+    "cover": {
+      "path": "media/khuiai/04-discover",
+      "widths": [480, 960],
+      "width": 960,
+      "height": 600
+    },
+    "gallery": [
+      {
+        "type": "video",
+        "path": "media/khuiai/khuiai-walkthrough"
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/04-discover",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/01-landing-th",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/12-chat-reply",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/05-detail-about",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/07-detail-comments",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/09-report-dialog",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/11-chat-typing",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/14-panel-models",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/15-creator-top",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/19-shop",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/20-leaderboard",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/21-horoscope",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/22-profile",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/23-preferences",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/24-mobile-discover",
+        "widths": [414],
+        "width": 414,
+        "height": 896
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/02-auth-en",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/03-signup-filled",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/06-detail-quests",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/08-comment-posted",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/10-chat-opened",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/13-chat-actions",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/16-creator-filled",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/17-creator-scenario",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/khuiai/18-creator-adult",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      }
+    ]
+  },
+  {
+    "id": "mangaverses",
+    "order": 3,
+    "category": "web",
+    "year": 2025,
+    "icon": "book",
+    "title": {
+      "th": "MangaVerses",
+      "en": "MangaVerses"
+    },
+    "role": {
+      "th": "Full-Stack · Backoffice",
+      "en": "Full-stack · backoffice"
+    },
+    "summary": {
+      "th": "เว็บอ่านมังงะแปลไทยประสิทธิภาพสูง พร้อมแผงผู้ดูแลระบบจัดการเรื่อง ตอน และตำแหน่งโฆษณา",
+      "en": "A high-performance Thai manga reader with an admin backoffice for titles, chapters and ad slots."
+    },
+    "metrics": [
+      {
+        "value": "Lazy",
+        "label": {
+          "th": "โหลดภาพ",
+          "en": "image loading"
+        }
+      },
+      {
+        "value": "2",
+        "label": {
+          "th": "โหมดอ่าน",
+          "en": "reader modes"
+        }
+      },
+      {
+        "value": "Admin",
+        "label": {
+          "th": "หลังบ้าน",
+          "en": "backoffice"
+        }
+      },
+      {
+        "value": "16",
+        "label": {
+          "th": "Next.js",
+          "en": "Next.js"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "ค้นหาและจัดหมวดหมู่ พร้อมอันดับความนิยมรายสัปดาห์/รายเดือน",
+        "ชั้นหนังสือส่วนตัวและระบบบุ๊กมาร์ก",
+        "หน้าอ่านโหลดภาพแบบ Lazy-load ปรับโหมดการอ่านได้",
+        "Backoffice จัดการรายชื่อ เพิ่มตอน และจัดการตำแหน่งโฆษณา"
+      ],
+      "en": [
+        "Search and categories with weekly and monthly popularity rankings",
+        "Personal library and bookmarks",
+        "Lazy-loading reader with switchable reading modes",
+        "Backoffice for titles, chapters and ad placement"
+      ]
+    },
+    "tags": ["Next.js 16", "TypeScript", "Tailwind", "shadcn/ui", "Prisma", "SQLite"],
+    "repo": "https://github.com/Gubbitkeytoday/MangaVerses",
+    "cover": {
+      "path": "media/mangaverses/01-home-desktop",
+      "widths": [480, 960],
+      "width": 960,
+      "height": 4003
+    },
+    "gallery": [
+      {
+        "type": "image",
+        "path": "media/mangaverses/01-home-desktop",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 4003
+      },
+      {
+        "type": "image",
+        "path": "media/mangaverses/02-browse-desktop",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 1271
+      },
+      {
+        "type": "image",
+        "path": "media/mangaverses/03-rankings-desktop",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 1385
+      },
+      {
+        "type": "image",
+        "path": "media/mangaverses/04-library-desktop",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 1504
+      },
+      {
+        "type": "image",
+        "path": "media/mangaverses/05-detail-desktop",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 3198
+      },
+      {
+        "type": "image",
+        "path": "media/mangaverses/06-reader-desktop",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/mangaverses/09-admin-overview-desktop",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 1080
+      },
+      {
+        "type": "image",
+        "path": "media/mangaverses/10-admin-ads-desktop",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 645
+      },
+      {
+        "type": "image",
+        "path": "media/mangaverses/11-admin-content-desktop",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 1351
+      },
+      {
+        "type": "image",
+        "path": "media/mangaverses/01-home-mobile",
+        "widths": [480],
+        "width": 480,
+        "height": 9871
+      },
+      {
+        "type": "image",
+        "path": "media/mangaverses/06-reader-mobile",
+        "widths": [480],
+        "width": 480,
+        "height": 1039
+      },
+      {
+        "type": "image",
+        "path": "media/mangaverses/07-privacy-desktop",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 751
+      },
+      {
+        "type": "image",
+        "path": "media/mangaverses/08-admin-login-desktop",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      }
+    ]
+  },
+  {
+    "id": "pos",
+    "order": 4,
+    "category": "web",
+    "year": 2024,
+    "icon": "register",
+    "title": {
+      "th": "SmartPOS Enterprise",
+      "en": "SmartPOS Enterprise"
+    },
+    "role": {
+      "th": "Full-Stack · ออกแบบฐานข้อมูล",
+      "en": "Full-stack · schema design"
+    },
+    "summary": {
+      "th": "ระบบบริหารร้านค้าและจุดขายหน้าร้านระดับองค์กรแบบ All-in-One ตั้งแต่คิดเงินหน้าร้านถึงแดชบอร์ดผู้บริหาร",
+      "en": "An all-in-one enterprise point-of-sale and store management system, from the till to the management dashboard."
+    },
+    "metrics": [
+      {
+        "value": "QR",
+        "label": {
+          "th": "PromptPay",
+          "en": "PromptPay"
+        }
+      },
+      {
+        "value": "Stock",
+        "label": {
+          "th": "แจ้งเตือน",
+          "en": "alerts"
+        }
+      },
+      {
+        "value": "Table",
+        "label": {
+          "th": "จัดโต๊ะ",
+          "en": "management"
+        }
+      },
+      {
+        "value": "Loyalty",
+        "label": {
+          "th": "สะสมแต้ม",
+          "en": "points"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "POS Terminal พร้อมส่วนลด ภาษี และโปรโมชัน",
+        "จัดการโต๊ะอาหารและออเดอร์ (Table Management)",
+        "ชำระเงินเงินสดและ Dynamic QR PromptPay",
+        "คลังสินค้า สต็อกคงเหลือ และแจ้งเตือนสินค้าใกล้หมด",
+        "สมาชิกสะสมแต้ม รายงานค่าใช้จ่าย และแดชบอร์ดยอดขาย"
+      ],
+      "en": [
+        "POS terminal with discounts, tax and promotions",
+        "Table and order management",
+        "Cash and dynamic PromptPay QR payment",
+        "Inventory with low-stock alerts",
+        "Loyalty points, expense reports and a sales dashboard"
+      ]
+    },
+    "tags": ["Next.js", "TypeScript", "Tailwind", "Prisma", "PostgreSQL"],
+    "repo": "https://github.com/GitBababoo/POS",
+    "cover": {
+      "path": "media/pos/02-pos-terminal",
+      "widths": [480, 960],
+      "width": 960,
+      "height": 600
+    },
+    "gallery": [
+      {
+        "type": "image",
+        "path": "media/pos/02-pos-terminal",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/pos/13-pos-cart-with-items",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/pos/14-payment-dialog",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/pos/05-dashboard",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/pos/03-products",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/pos/04-orders",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/pos/06-inventory",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/pos/07-tables",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/pos/08-customers",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/pos/09-expenses",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/pos/10-settings",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/pos/11-order-detail",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/pos/12-order-detail-dialog",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/pos/01-login",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      }
+    ]
+  },
+  {
+    "id": "facescan",
+    "order": 5,
+    "category": "web",
+    "year": 2024,
+    "icon": "face",
+    "title": {
+      "th": "Enterprise Face Scan Attendance",
+      "en": "Enterprise Face Scan Attendance"
+    },
+    "role": {
+      "th": "Frontend Angular · Firebase Serverless",
+      "en": "Angular frontend · Firebase serverless"
+    },
+    "summary": {
+      "th": "ระบบบันทึกเวลาเข้า-ออกงานด้วยการจดจำใบหน้า บนโครงสร้าง Serverless Cloud พร้อมแดชบอร์ดผู้ดูแล",
+      "en": "Face-recognition attendance on a serverless cloud stack, with an admin dashboard."
+    },
+    "metrics": [
+      {
+        "value": "Kiosk",
+        "label": {
+          "th": "สแกนสด",
+          "en": "live scan"
+        }
+      },
+      {
+        "value": "Google",
+        "label": {
+          "th": "Auth",
+          "en": "Auth"
+        }
+      },
+      {
+        "value": "Serverless",
+        "label": {
+          "th": "Firebase",
+          "en": "Firebase"
+        }
+      },
+      {
+        "value": "Leave",
+        "label": {
+          "th": "อนุมัติลา",
+          "en": "approvals"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "หน้าจอ Kiosk สแกนใบหน้ายืนยันตัวตนแบบ Real-time พร้อมสถานะสำเร็จ/ผิดพลาด",
+        "ลงทะเบียนใบหน้าพนักงานใหม่ (Face Registration)",
+        "ล็อกอินปลอดภัยด้วย Google Authentication",
+        "แดชบอร์ดตรวจเวลาเข้างาน อนุมัติการลา และสรุปเวลาทำงาน"
+      ],
+      "en": [
+        "Kiosk screen with real-time face verification and clear success/error states",
+        "New-employee face registration",
+        "Secure sign-in with Google Authentication",
+        "Admin dashboard for attendance, leave approval and hour summaries"
+      ]
+    },
+    "tags": ["Angular", "Firebase", "Tailwind", "TypeScript"],
+    "repo": "https://github.com/GitBababoo/enterprise-face-scan-attendance",
+    "cover": {
+      "path": "media/facescan/admin-overview",
+      "widths": [480, 960, 1600],
+      "width": 1600,
+      "height": 789
+    },
+    "gallery": [
+      {
+        "type": "image",
+        "path": "media/facescan/kiosk-success",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 795
+      },
+      {
+        "type": "image",
+        "path": "media/facescan/kiosk-error",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 797
+      },
+      {
+        "type": "image",
+        "path": "media/facescan/face-registration",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 803
+      },
+      {
+        "type": "image",
+        "path": "media/facescan/admin-overview",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 789
+      },
+      {
+        "type": "image",
+        "path": "media/facescan/admin-directory",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 788
+      },
+      {
+        "type": "image",
+        "path": "media/facescan/employee-dashboard",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 793
+      },
+      {
+        "type": "image",
+        "path": "media/facescan/google-auth",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 796
+      },
+      {
+        "type": "image",
+        "path": "media/facescan/login-screen",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 798
+      }
+    ]
+  },
+  {
+    "id": "hbd",
+    "order": 6,
+    "category": "interactive",
+    "year": 2025,
+    "icon": "cake",
+    "title": {
+      "th": "HBD 3D Craft",
+      "en": "HBD 3D Craft"
+    },
+    "role": {
+      "th": "3D · Web Audio · ออกแบบทั้งหมด",
+      "en": "3D · Web Audio · full design"
+    },
+    "summary": {
+      "th": "เว็บสร้างการ์ดวันเกิด 3 มิติ ที่เป่าเทียนด้วยไมโครโฟนจริงได้ และส่งต่อได้ด้วยลิงก์เดียวโดยไม่ต้องมีฐานข้อมูล",
+      "en": "A 3D birthday card you blow out with your actual microphone, shareable as a single link with no database at all."
+    },
+    "metrics": [
+      {
+        "value": "3D",
+        "label": {
+          "th": "Three.js",
+          "en": "Three.js"
+        }
+      },
+      {
+        "value": "Mic",
+        "label": {
+          "th": "เป่าเทียน",
+          "en": "blow out"
+        }
+      },
+      {
+        "value": "0",
+        "label": {
+          "th": "ฐานข้อมูล",
+          "en": "databases"
+        }
+      },
+      {
+        "value": "Base64",
+        "label": {
+          "th": "URL state",
+          "en": "URL state"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "ปรับแต่งเค้ก 3D จำนวนเทียน และข้อความอวยพร",
+        "ตรวจจับแรงลมผ่านไมโครโฟนด้วย Web Audio API เพื่อดับเปลวเทียน 3D",
+        "เข้ารหัสข้อมูลการ์ดลงใน URL แบบ Base64 ส่งต่อได้ทันทีโดยไม่ต้องมีฐานข้อมูล"
+      ],
+      "en": [
+        "Customise the 3D cake, the number of candles and the message",
+        "Web Audio API reads real breath from the microphone to blow the 3D flames out",
+        "Card state encoded into the URL as Base64 — shareable instantly, no database"
+      ]
+    },
+    "tags": ["Three.js", "Anime.js", "Vite", "Web Audio API"],
+    "repo": "https://github.com/GitBababoo/Happy-Birthday",
+    "live": "https://hbd-3d-craft.pages.dev",
+    "cover": {
+      "path": "media/hbd/1-creator-dashboard",
+      "widths": [480, 960],
+      "width": 960,
+      "height": 600
+    },
+    "gallery": [
+      {
+        "type": "video",
+        "path": "media/hbd/bandicam-2026-05-31-16-00-20-719"
+      },
+      {
+        "type": "image",
+        "path": "media/hbd/1-creator-dashboard",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/hbd/3-receiver-cake-view",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/hbd/2-envelope-gate",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      },
+      {
+        "type": "image",
+        "path": "media/hbd/4-discover-seo-hub",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 600
+      }
+    ]
+  },
+  {
+    "id": "pos-python",
+    "order": 7,
+    "category": "interactive",
+    "year": 2024,
+    "icon": "desktop",
+    "title": {
+      "th": "POS Python Offline",
+      "en": "POS Python Offline"
+    },
+    "role": {
+      "th": "Desktop App · SQLite · RBAC",
+      "en": "Desktop app · SQLite · RBAC"
+    },
+    "summary": {
+      "th": "โปรแกรมจุดขายบน Windows ทำงานออฟไลน์ 100% พร้อมระบบสิทธิ์ Audit Log และการจัดการหลายสาขา",
+      "en": "A Windows point-of-sale that runs fully offline, with role permissions, an audit log and multi-branch management."
+    },
+    "metrics": [
+      {
+        "value": "100%",
+        "label": {
+          "th": "ออฟไลน์",
+          "en": "offline"
+        }
+      },
+      {
+        "value": "RBAC",
+        "label": {
+          "th": "สิทธิ์",
+          "en": "permissions"
+        }
+      },
+      {
+        "value": "Audit",
+        "label": {
+          "th": "บันทึก",
+          "en": "log"
+        }
+      },
+      {
+        "value": "Multi",
+        "label": {
+          "th": "สาขา",
+          "en": "branch"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "ขายหน้าร้าน จัดการคิว ออกใบเสร็จ และคำนวณภาษีมูลค่าเพิ่ม",
+        "จัดการสิทธิ์พนักงาน (RBAC) และบันทึกประวัติการทำงาน (Audit Log)",
+        "บริหารหลายสาขา (Branch Management)",
+        "คลังสินค้าและรายงานยอดขาย เก็บบน SQLite ฝั่งเครื่อง"
+      ],
+      "en": [
+        "Front-of-house sales, queueing, receipts and VAT",
+        "Role-based access control and a full audit log",
+        "Multi-branch management",
+        "Inventory and sales reporting on a local SQLite database"
+      ]
+    },
+    "tags": ["Python", "SQLite", "Tkinter", "Desktop App"],
+    "repo": "https://github.com/GitBababoo/POS-Python",
+    "cover": {
+      "path": "media/pos-python/pos-sales-main",
+      "widths": [480, 960, 1600],
+      "width": 1600,
+      "height": 852
+    },
+    "gallery": [
+      {
+        "type": "image",
+        "path": "media/pos-python/pos-sales-main",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 852
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/pos-payment-success",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 853
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/backoffice-dashboard",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 852
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/backoffice-reports",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 850
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/backoffice-inventory",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 853
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/backoffice-products",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 852
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/backoffice-branches",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 848
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/backoffice-audit-log",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 851
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/backoffice-approvals",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 855
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/backoffice-users",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 853
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/backoffice-customers",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 851
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/backoffice-settings",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 852
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/pos-sales-history",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 852
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/add-product-modal",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 857
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/add-staff-modal",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 853
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/product-categories",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 815
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/backoffice-login",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 854
+      },
+      {
+        "type": "image",
+        "path": "media/pos-python/pos-login",
+        "widths": [480],
+        "width": 480,
+        "height": 554
+      }
+    ]
+  },
+  {
+    "id": "pdf-editer",
+    "order": 8,
+    "category": "web",
+    "year": 2025,
+    "icon": "pdf",
+    "title": {
+      "th": "Web PDF Editor",
+      "en": "Web PDF Editor"
+    },
+    "role": {
+      "th": "Frontend · PDF.js",
+      "en": "Frontend · PDF.js"
+    },
+    "summary": {
+      "th": "เว็บแก้ไขและเซ็นเอกสาร PDF บนเบราว์เซอร์โดยตรง ไม่ต้องอัปโหลดไฟล์ขึ้นเซิร์ฟเวอร์",
+      "en": "Edit and sign PDFs directly in the browser — the file never leaves the device."
+    },
+    "metrics": [
+      {
+        "value": "PDF.js",
+        "label": {
+          "th": "เรนเดอร์",
+          "en": "renderer"
+        }
+      },
+      {
+        "value": "E-Sign",
+        "label": {
+          "th": "ลายเซ็น",
+          "en": "signature"
+        }
+      },
+      {
+        "value": "Client",
+        "label": {
+          "th": "ประมวลผล",
+          "en": "side only"
+        }
+      },
+      {
+        "value": "Export",
+        "label": {
+          "th": "ไฟล์ใหม่",
+          "en": "new file"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "เปิดอ่านไฟล์ PDF ขนาดใหญ่ได้รวดเร็วด้วย PDF.js",
+        "เขียนข้อความ ไฮไลท์ และแนบคำอธิบาย (Annotations)",
+        "เพิ่มลายเซ็นอิเล็กทรอนิกส์ แล้ว Export เป็นไฟล์ใหม่ได้ทันที"
+      ],
+      "en": [
+        "Fast rendering of large PDFs with PDF.js",
+        "Text, highlights and annotations",
+        "Electronic signature, then export as a new file"
+      ]
+    },
+    "tags": ["React", "TypeScript", "PDF.js", "Tailwind"],
+    "repo": "https://github.com/GitBababoo/PDF-Editer",
+    "cover": {
+      "path": "media/pdf-editer/693fbfc7-b89f-442f-abab-f2018f0bc8e1",
+      "widths": [480, 960, 1600],
+      "width": 1600,
+      "height": 796
+    },
+    "gallery": [
+      {
+        "type": "video",
+        "path": "media/pdf-editer/bandicam-2026-05-20-12-57-24-871"
+      },
+      {
+        "type": "image",
+        "path": "media/pdf-editer/693fbfc7-b89f-442f-abab-f2018f0bc8e1",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 796
+      },
+      {
+        "type": "image",
+        "path": "media/pdf-editer/29f98bc9-0d28-4752-b3bf-64b1474dd3e2",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 795
+      },
+      {
+        "type": "image",
+        "path": "media/pdf-editer/44a58499-e110-4b44-9711-ffd3e3e2e935",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 795
+      }
+    ]
+  },
+  {
+    "id": "webshop",
+    "order": 9,
+    "category": "web",
+    "year": 2024,
+    "icon": "cart",
+    "title": {
+      "th": "Shopee TH Clone (Webshop)",
+      "en": "Shopee TH Clone (Webshop)"
+    },
+    "role": {
+      "th": "Full-Stack PHP · MySQL",
+      "en": "Full-stack PHP · MySQL"
+    },
+    "summary": {
+      "th": "ระบบร้านค้าออนไลน์ครบวงจรบนสถาปัตยกรรม PHP และ MySQL ตั้งแต่หน้าร้านถึงแดชบอร์ดแอดมิน",
+      "en": "A complete online store on a PHP and MySQL stack, storefront through to admin dashboard."
+    },
+    "metrics": [
+      {
+        "value": "Cart",
+        "label": {
+          "th": "ตะกร้า",
+          "en": "cart"
+        }
+      },
+      {
+        "value": "Wishlist",
+        "label": {
+          "th": "รายการโปรด",
+          "en": "wishlist"
+        }
+      },
+      {
+        "value": "Admin",
+        "label": {
+          "th": "หลังบ้าน",
+          "en": "backoffice"
+        }
+      },
+      {
+        "value": "MySQL",
+        "label": {
+          "th": "ฐานข้อมูล",
+          "en": "database"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "หน้ารวมสินค้า ค้นหา และกรองตามหมวดหมู่",
+        "ตะกร้าสินค้าและขั้นตอนการสั่งซื้อ (Checkout Flow)",
+        "รายการโปรด (Wishlist) และประวัติคำสั่งซื้อ",
+        "แดชบอร์ดแอดมินจัดการสินค้า หมวดหมู่ และสถานะจัดส่ง"
+      ],
+      "en": [
+        "Catalogue with search and category filtering",
+        "Shopping cart and checkout flow",
+        "Wishlist and order history",
+        "Admin dashboard for products, categories and shipping status"
+      ]
+    },
+    "tags": ["PHP", "MySQL", "JavaScript"],
+    "repo": "https://github.com/GitBababoo/webshop",
+    "cover": {
+      "path": "media/webshop/ws-homepage",
+      "widths": [480, 960],
+      "width": 960,
+      "height": 915
+    },
+    "gallery": [
+      {
+        "type": "image",
+        "path": "media/webshop/ws-homepage",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 915
+      },
+      {
+        "type": "image",
+        "path": "media/webshop/ws-category",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 896
+      },
+      {
+        "type": "image",
+        "path": "media/webshop/ws-cart",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 852
+      },
+      {
+        "type": "image",
+        "path": "media/webshop/ws-checkout",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 924
+      },
+      {
+        "type": "image",
+        "path": "media/webshop/ws-orders",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 628
+      },
+      {
+        "type": "image",
+        "path": "media/webshop/ws-wishlist",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 704
+      },
+      {
+        "type": "image",
+        "path": "media/webshop/ws-admin",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 804
+      }
+    ]
+  },
+  {
+    "id": "tank",
+    "order": 10,
+    "category": "interactive",
+    "year": 2024,
+    "icon": "gamepad",
+    "title": {
+      "th": "Tank.io",
+      "en": "Tank.io"
+    },
+    "role": {
+      "th": "Game Engine 2D · Multiplayer",
+      "en": "2D game engine · multiplayer"
+    },
+    "summary": {
+      "th": "เกมต่อสู้รถถังออนไลน์แบบ Real-time Multiplayer ที่เขียน Game Engine 2D ขึ้นมาเองด้วย Canvas API",
+      "en": "A real-time multiplayer tank battler on a 2D game engine written from scratch on the Canvas API."
+    },
+    "metrics": [
+      {
+        "value": "Custom",
+        "label": {
+          "th": "Engine",
+          "en": "engine"
+        }
+      },
+      {
+        "value": "Real-time",
+        "label": {
+          "th": "Multiplayer",
+          "en": "multiplayer"
+        }
+      },
+      {
+        "value": "Boss",
+        "label": {
+          "th": "อีเวนต์",
+          "en": "events"
+        }
+      },
+      {
+        "value": "Class",
+        "label": {
+          "th": "สายรถถัง",
+          "en": "evolution"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "พัฒนา Game Engine 2D เองด้วย Canvas API และ TypeScript",
+        "ระบบสายรถถัง (Class Evolution) และการอัปเกรดความสามารถ",
+        "ห้องล็อบบี้ การต่อสู้กับบอส และตารางจัดอันดับ"
+      ],
+      "en": [
+        "A 2D game engine built from scratch on Canvas API and TypeScript",
+        "Tank class evolution and ability upgrades",
+        "Lobby, boss events and a leaderboard"
+      ]
+    },
+    "tags": ["TypeScript", "Canvas API", "Game Engine", "Multiplayer"],
+    "repo": "https://github.com/GitBababoo/Tank.io",
+    "cover": {
+      "path": "media/tank/gameplay",
+      "widths": [480, 960],
+      "width": 960,
+      "height": 470
+    },
+    "gallery": [
+      {
+        "type": "image",
+        "path": "media/tank/gameplay",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 470
+      },
+      {
+        "type": "image",
+        "path": "media/tank/bosses",
+        "widths": [480],
+        "width": 480,
+        "height": 439
+      },
+      {
+        "type": "image",
+        "path": "media/tank/classes",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 422
+      },
+      {
+        "type": "image",
+        "path": "media/tank/lobby",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 673
+      },
+      {
+        "type": "image",
+        "path": "media/tank/death",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 434
+      }
+    ]
+  },
+  {
+    "id": "nike",
+    "order": 11,
+    "category": "interactive",
+    "year": 2024,
+    "icon": "shoe",
+    "title": {
+      "th": "Nike SNKRS Tracker",
+      "en": "Nike SNKRS Tracker"
+    },
+    "role": {
+      "th": "Web Scraping · Automation",
+      "en": "Web scraping · automation"
+    },
+    "summary": {
+      "th": "ระบบติดตามสต็อกรองเท้าลิมิเต็ดของ Nike SNKRS แบบเรียลไทม์ พร้อมระบบแจ้งเตือนและบอทช่วยเลือกไซส์",
+      "en": "Real-time stock tracking for limited Nike SNKRS releases, with alerts and a size-picking bot."
+    },
+    "metrics": [
+      {
+        "value": "Real-time",
+        "label": {
+          "th": "ติดตาม",
+          "en": "tracking"
+        }
+      },
+      {
+        "value": "Alert",
+        "label": {
+          "th": "แจ้งเตือน",
+          "en": "alerts"
+        }
+      },
+      {
+        "value": "Bot",
+        "label": {
+          "th": "เลือกไซส์",
+          "en": "size picker"
+        }
+      },
+      {
+        "value": "Scrape",
+        "label": {
+          "th": "ดึงข้อมูล",
+          "en": "scraping"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "ติดตามสินค้าเข้าใหม่และรุ่นที่กำลังจะวางจำหน่ายแบบเรียลไทม์",
+        "แจ้งเตือนเมื่อมีสต็อกเข้าระบบ",
+        "บอทช่วยเลือกไซส์และอำนวยความสะดวกในการกดซื้อ"
+      ],
+      "en": [
+        "Live tracking of new and upcoming releases",
+        "Alerts the moment stock appears",
+        "A bot that helps pick a size and speeds up checkout"
+      ]
+    },
+    "tags": ["React", "Node.js", "Web Scraping"],
+    "repo": "https://github.com/GitBababoo/nike-snkrs-tracker",
+    "cover": {
+      "path": "media/nike/nike-instock",
+      "widths": [480, 960],
+      "width": 960,
+      "height": 833
+    },
+    "gallery": [
+      {
+        "type": "image",
+        "path": "media/nike/nike-instock",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 833
+      },
+      {
+        "type": "image",
+        "path": "media/nike/nike-upcoming",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 833
+      },
+      {
+        "type": "image",
+        "path": "media/nike/nike-feed",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 838
+      },
+      {
+        "type": "image",
+        "path": "media/nike/nike-sizepicker",
+        "widths": [265],
+        "width": 265,
+        "height": 356
+      },
+      {
+        "type": "image",
+        "path": "media/nike/nike-bot",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 599
+      }
+    ]
+  },
+  {
+    "id": "cinema",
+    "order": 12,
+    "category": "web",
+    "year": 2024,
+    "icon": "film",
+    "title": {
+      "th": "Astra Cinema Booking",
+      "en": "Astra Cinema Booking"
+    },
+    "role": {
+      "th": "Full-Stack · PostgreSQL",
+      "en": "Full-stack · PostgreSQL"
+    },
+    "summary": {
+      "th": "ระบบจองตั๋วภาพยนตร์ออนไลน์ครบวงจร ตั้งแต่เลือกรอบฉาย ผังที่นั่ง ไปจนถึงการออกตั๋วและหลังบ้าน",
+      "en": "A full-stack cinema booking system — showtimes, interactive seat map, ticketing and admin."
+    },
+    "metrics": [
+      {
+        "value": "Seat",
+        "label": {
+          "th": "ผังที่นั่ง",
+          "en": "map"
+        }
+      },
+      {
+        "value": "Member",
+        "label": {
+          "th": "ราคาสมาชิก",
+          "en": "pricing"
+        }
+      },
+      {
+        "value": "Ticket",
+        "label": {
+          "th": "ออกตั๋ว",
+          "en": "issuing"
+        }
+      },
+      {
+        "value": "Admin",
+        "label": {
+          "th": "หลังบ้าน",
+          "en": "backoffice"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "ค้นหาภาพยนตร์ ดูรายละเอียด และเลือกรอบฉายตามโรง",
+        "แผนผังเลือกที่นั่งแบบ Interactive และคำนวณราคาสมาชิก",
+        "ชำระเงินและออกหลักฐานการจอง (Confirmation)",
+        "จัดการภาพยนตร์ รอบฉาย และการจองสำหรับผู้ดูแล"
+      ],
+      "en": [
+        "Film search, detail pages and showtimes by cinema",
+        "Interactive seat map with member pricing",
+        "Payment and booking confirmation",
+        "Admin management of films, showtimes and bookings"
+      ]
+    },
+    "tags": ["React", "Node.js", "PostgreSQL", "Tailwind"],
+    "repo": "https://github.com/GitBababoo/cinema-booking",
+    "cover": {
+      "path": "media/cinema/01-home",
+      "widths": [480, 960],
+      "width": 960,
+      "height": 2121
+    },
+    "gallery": [
+      {
+        "type": "image",
+        "path": "media/cinema/01-home",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 2121
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/02-movies",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 1313
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/03-movie-detail",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 1592
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/06-booking",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 3170
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/13-confirmation",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 1069
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/04-cinemas",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 1132
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/05-membership",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 2055
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/07-search",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 684
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/11-profile",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 1090
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/12-orders",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 1100
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/14-manage-booking",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 1127
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/15-admin",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 709
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/08-support",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 1458
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/09-forgot-password",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 787
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/10-reset-password",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 804
+      },
+      {
+        "type": "image",
+        "path": "media/cinema/16-not-found",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 787
+      }
+    ]
+  },
+  {
+    "id": "beach",
+    "order": 13,
+    "category": "web",
+    "year": 2024,
+    "icon": "beach",
+    "title": {
+      "th": "เว็บไซต์ท่องเที่ยวหาดทรายน้อย",
+      "en": "Hat Sai Noi Community Tourism"
+    },
+    "role": {
+      "th": "Full-Stack PHP · งานชุมชน",
+      "en": "Full-stack PHP · community project"
+    },
+    "summary": {
+      "th": "เว็บประชาสัมพันธ์และส่งเสริมการท่องเที่ยวชุมชนหาดทรายน้อย พร้อมฐานข้อมูลธุรกิจท้องถิ่นเพื่อกระตุ้นเศรษฐกิจในพื้นที่",
+      "en": "A community tourism site for Hat Sai Noi, with a local business directory built to bring trade into the area."
+    },
+    "metrics": [
+      {
+        "value": "Community",
+        "label": {
+          "th": "งานชุมชน",
+          "en": "project"
+        }
+      },
+      {
+        "value": "Directory",
+        "label": {
+          "th": "ธุรกิจท้องถิ่น",
+          "en": "local business"
+        }
+      },
+      {
+        "value": "CMS",
+        "label": {
+          "th": "จัดการเนื้อหา",
+          "en": "content"
+        }
+      },
+      {
+        "value": "PHP",
+        "label": {
+          "th": "MySQL",
+          "en": "MySQL"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "นำเสนอแหล่งท่องเที่ยว บรรยากาศ และกิจกรรมในพื้นที่",
+        "ฐานข้อมูลธุรกิจและร้านค้าในชุมชน",
+        "ระบบจัดการเนื้อหา บทความ และข้อมูลติดต่อสำหรับผู้ดูแล"
+      ],
+      "en": [
+        "Destinations, atmosphere and local activities",
+        "A directory of community businesses and shops",
+        "Content, article and contact management for administrators"
+      ]
+    },
+    "tags": ["PHP", "MySQL", "HTML/CSS"],
+    "repo": "https://github.com/GitBababoo/Beach_2024-5-11",
+    "cover": {
+      "path": "media/beach/home",
+      "widths": [480, 960, 1600],
+      "width": 1600,
+      "height": 803
+    },
+    "gallery": [
+      {
+        "type": "image",
+        "path": "media/beach/home",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 803
+      },
+      {
+        "type": "image",
+        "path": "media/beach/about-beach",
+        "widths": [480],
+        "width": 480,
+        "height": 463
+      },
+      {
+        "type": "image",
+        "path": "media/beach/local-business",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 873
+      },
+      {
+        "type": "image",
+        "path": "media/beach/gallery",
+        "widths": [480],
+        "width": 480,
+        "height": 579
+      },
+      {
+        "type": "image",
+        "path": "media/beach/project-origin",
+        "widths": [480],
+        "width": 480,
+        "height": 502
+      },
+      {
+        "type": "image",
+        "path": "media/beach/contact",
+        "widths": [480],
+        "width": 480,
+        "height": 508
+      },
+      {
+        "type": "image",
+        "path": "media/beach/profile",
+        "widths": [480, 960],
+        "width": 960,
+        "height": 780
+      },
+      {
+        "type": "image",
+        "path": "media/beach/admin",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 801
+      }
+    ]
+  },
+  {
+    "id": "arom-coffee",
+    "order": 14,
+    "category": "web",
+    "year": 2026,
+    "icon": "coffee",
+    "title": {
+      "th": "ARÓM — Specialty Coffee Roasters",
+      "en": "ARÓM — Specialty Coffee Roasters"
+    },
+    "role": {
+      "th": "ออกแบบแบรนด์ · Frontend · A11y",
+      "en": "Brand design · frontend · a11y"
+    },
+    "summary": {
+      "th": "เว็บแบรนด์กาแฟพิเศษ 8 หน้า สองภาษา (TH/EN) ที่อ่านได้ครบแม้ปิด JavaScript พร้อมตัวจับเวลาชง V60 และผ่าน WCAG 2.1 AA แบบ 0 violations",
+      "en": "An eight-page bilingual specialty-coffee brand site that reads completely with JavaScript off, with a working V60 brew timer and 0 axe-core violations."
+    },
+    "metrics": [
+      {
+        "value": "0",
+        "label": {
+          "th": "axe violations",
+          "en": "axe violations"
+        }
+      },
+      {
+        "value": "8",
+        "label": {
+          "th": "หน้า",
+          "en": "pages"
+        }
+      },
+      {
+        "value": "36",
+        "label": {
+          "th": "เมนู",
+          "en": "menu items"
+        }
+      },
+      {
+        "value": "11",
+        "label": {
+          "th": "JSON-LD",
+          "en": "JSON-LD types"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "ตัวจับเวลาชงกาแฟดริป V60 แบบ Interactive พร้อมขั้นตอนทีละสเต็ป",
+        "ตัวกรองและค้นหาเมนู 36 รายการ",
+        "คำนวณสถานะเปิด–ปิดร้านจากเวลาจริง แยกตามสาขาและวัน",
+        "SEO ด้วย JSON-LD 11 ประเภท และรองรับ PWA",
+        "ผ่าน WCAG 2.1 AA — 0 axe-core violations ทั้ง 8 หน้า"
+      ],
+      "en": [
+        "An interactive V60 brew timer with phased steps",
+        "Filter and search across 36 menu items",
+        "Opening status computed from the clock, per branch and per weekday",
+        "11 JSON-LD schema types and PWA support",
+        "WCAG 2.1 AA — 0 axe-core violations across all 8 pages"
+      ]
+    },
+    "tags": ["JavaScript", "HTML/CSS", "Python", "PWA", "Accessibility"],
+    "repo": "https://github.com/Gubbitkeytoday/arom-specialty-coffee",
+    "live": "https://gubbitkeytoday.github.io/arom-specialty-coffee/",
+    "cover": {
+      "path": "media/arom-coffee/01-home-index-00-full-page",
+      "widths": [480, 960, 1600],
+      "width": 1600,
+      "height": 9518
+    },
+    "gallery": [
+      {
+        "type": "image",
+        "path": "media/arom-coffee/01-home-index-02-hero-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/01-home-index-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 9518
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/02-menu-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 7590
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/03-coffee-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 7299
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/03-coffee-06-brew-guide-interactive",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1452
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/04-story-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 7602
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/05-locations-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 3739
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/06-reserve-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 3639
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/07-journal-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 6876
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/00-common-components-global-footer",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 702
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/00-common-components-global-navigation-bar",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 70
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/00-responsive-previews-mobile-coffee-full",
+        "widths": [480],
+        "width": 480,
+        "height": 12475
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/00-responsive-previews-mobile-index-full",
+        "widths": [480, 780],
+        "format": "jpg",
+        "width": 780,
+        "height": 26702
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/00-responsive-previews-mobile-locations-full",
+        "widths": [480],
+        "width": 480,
+        "height": 6948
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/00-responsive-previews-mobile-menu-full",
+        "widths": [480],
+        "width": 480,
+        "height": 14812
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/00-responsive-previews-mobile-navigation-drawer-open",
+        "widths": [480],
+        "width": 480,
+        "height": 1039
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/00-responsive-previews-mobile-reserve-full",
+        "widths": [480],
+        "width": 480,
+        "height": 7497
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/01-home-index-03-manifesto-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 988
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/01-home-index-04-signature-coffee-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1132
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/01-home-index-05-numbers-statistics-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 276
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/01-home-index-06-roasting-philosophy-band",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 702
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/01-home-index-07-coffee-origins-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 884
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/01-home-index-08-coffee-bar-ambience-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1961
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/01-home-index-09-journal-preview-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 958
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/01-home-index-10-call-to-action-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 931
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/02-menu-02-pagehead-hero",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 542
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/02-menu-04-espresso-bar-items",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1587
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/02-menu-05-slow-bar-filter-coffee",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1252
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/02-menu-06-signature-drinks",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1252
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/02-menu-07-non-coffee-beverages",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 916
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/02-menu-08-bakery-and-pastries",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1252
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/02-menu-09-retail-coffee-beans",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1251
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/02-menu-10-allergen-and-dietary-info",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 605
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/02-menu-11-special-orders-cta",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 635
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/03-coffee-02-pagehead-hero",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 542
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/03-coffee-03-coffee-overview-intro",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 626
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/03-coffee-04-thai-origins-lots-grid",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1189
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/03-coffee-05-roasting-profiles-and-curves",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1790
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/03-coffee-07-wholesale-and-partnership",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/04-story-02-pagehead-hero",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 511
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/04-story-03-origin-story-manifesto",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1138
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/04-story-04-timeline-milestones",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1857
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/04-story-05-values-quote-band",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 702
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/04-story-06-core-values-grid",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 845
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/04-story-07-roasters-and-team",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 918
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/04-story-08-visit-cta",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 932
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/05-locations-02-pagehead-hero",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 542
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/05-locations-03-locations-grid-cards",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1840
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/05-locations-04-visiting-faq",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 657
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/06-reserve-02-pagehead-hero",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 542
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/06-reserve-03-reservation-booking-form",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 2397
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/07-journal-02-pagehead-hero",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 542
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/07-journal-03-featured-article",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1775
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/07-journal-04-recent-articles-grid",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 898
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/07-journal-05-newsletter-subscribe",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 611
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/08-404-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1364
+      },
+      {
+        "type": "image",
+        "path": "media/arom-coffee/08-404-02-error-content-and-links",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 662
+      }
+    ]
+  },
+  {
+    "id": "ruedu",
+    "order": 15,
+    "category": "web",
+    "year": 2026,
+    "icon": "leaf",
+    "title": {
+      "th": "ฤดู · RUEDU — Flower Atelier",
+      "en": "ฤดู · RUEDU — Flower Atelier"
+    },
+    "role": {
+      "th": "ออกแบบแบรนด์ · E-commerce · A11y",
+      "en": "Brand design · e-commerce · a11y"
+    },
+    "summary": {
+      "th": "ระบบอีคอมเมิร์ซร้านดอกไม้ระดับ Luxury 13 หน้า สองภาษา พร้อม Bouquet Builder คำนวณราคาสด ตะกร้าใน localStorage และ Checkout 3 ขั้น",
+      "en": "A 13-page bilingual luxury florist e-commerce front end with a live-priced bouquet builder, a persistent basket and a three-step checkout."
+    },
+    "metrics": [
+      {
+        "value": "0",
+        "label": {
+          "th": "axe violations",
+          "en": "axe violations"
+        }
+      },
+      {
+        "value": "13",
+        "label": {
+          "th": "หน้า",
+          "en": "pages"
+        }
+      },
+      {
+        "value": "16",
+        "label": {
+          "th": "สินค้า",
+          "en": "products"
+        }
+      },
+      {
+        "value": "3",
+        "label": {
+          "th": "ขั้น checkout",
+          "en": "checkout steps"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "Bouquet Builder เลือกขนาด โทนสี การห่อ แจกัน และการ์ด คำนวณราคาสดทุกการเปลี่ยน",
+        "ตัวกรองสินค้าหลายมิติที่ sync เข้ากับ URL แชร์หน้าที่กรองไว้ได้",
+        "ตะกร้าเก็บใน localStorage แยก line ตามสินค้า + ตัวเลือก",
+        "Checkout 3 ขั้น ตรวจข้อมูลแยกขั้น พร้อมข้อความ error สองภาษา",
+        "Service Worker ใช้งานออฟไลน์ได้ และผ่าน WCAG 2.1 AA 0 violations"
+      ],
+      "en": [
+        "A bouquet builder — size, palette, wrap, vase, card — repriced on every change",
+        "Multi-facet product filtering synced to the URL, so a filtered view is shareable",
+        "Basket in localStorage, keyed by product plus its options",
+        "Three-step checkout validated per step with bilingual inline errors",
+        "Service worker for offline use, and 0 axe-core violations at WCAG 2.1 AA"
+      ]
+    },
+    "tags": ["JavaScript", "HTML/CSS", "PWA", "Service Worker", "Accessibility"],
+    "repo": "https://github.com/Gubbitkeytoday/ruedu-flower-atelier",
+    "cover": {
+      "path": "media/ruedu/01-homepage-00-full-page",
+      "widths": [480, 960, 1600],
+      "width": 1600,
+      "height": 10616
+    },
+    "gallery": [
+      {
+        "type": "image",
+        "path": "media/ruedu/01-homepage-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 10616
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/02-shop-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 5886
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/03-product-detail-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 3586
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/04-builder-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 3957
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/04-builder-03-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 633
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/05-subscriptions-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 4013
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/06-weddings-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 7430
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/06-weddings-05",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1539
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/07-about-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 6699
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/08-care-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 5476
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/08-care-04-calendar",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1288
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/09-journal-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 6591
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/10-contact-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 4033
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/11-cart-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 2550
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/00-global-components-01-announcement-bar",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 38
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/00-global-components-02-navigation-header",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 98
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/00-global-components-03-global-footer",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 926
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/00-global-components-04-mobile-drawer-menu",
+        "widths": [480],
+        "width": 480,
+        "height": 1039
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/01-homepage-01-hero-2021",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 940
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/01-homepage-02-this-week-01",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 2026
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/01-homepage-03-section-02",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1051
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/01-homepage-04-band-03-04-40",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 740
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/01-homepage-05-section-04",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 976
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/01-homepage-06-section-05",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 2083
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/01-homepage-07-14-00",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 657
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/01-homepage-08-section-10-09-00-18-00",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1036
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/02-shop-01-pagehead",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 710
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/02-shop-02-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 3540
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/02-shop-03-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 672
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/03-product-detail-01-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1552
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/03-product-detail-02-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1070
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/04-builder-01-pagehead",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 710
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/04-builder-02-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1650
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/05-subscriptions-01-pagehead",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 710
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/05-subscriptions-02-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 717
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/05-subscriptions-03-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 977
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/05-subscriptions-04-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 647
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/06-weddings-01-pagehead",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 710
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/06-weddings-02-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 808
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/06-weddings-03-section-01",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1210
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/06-weddings-04-band-02",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 740
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/06-weddings-06-section-03",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1460
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/07-about-01-pagehead",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 710
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/07-about-02-section-01",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1038
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/07-about-03-section-02",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1200
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/07-about-04-section-03",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1847
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/07-about-05-section-04",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 941
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/08-care-01-pagehead",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 667
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/08-care-02-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1219
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/08-care-03-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1339
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/09-journal-01-pagehead",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 667
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/09-journal-02-peony-180-000",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 2282
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/09-journal-03-waste-8",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 880
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/09-journal-04-seasonal",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 923
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/09-journal-05-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 873
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/10-contact-01-pagehead",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 710
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/10-contact-02-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1623
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/10-contact-03-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 737
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/11-cart-01-pagehead",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 613
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/11-cart-02-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 974
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/12-404-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1738
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/12-404-01-section-404",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 774
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/13-offline-00-full-page",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 1623
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/13-offline-01-section",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 660
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/14-mobile-views-mobile-01-index",
+        "widths": [480],
+        "width": 480,
+        "height": 16082
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/14-mobile-views-mobile-02-shop",
+        "widths": [480],
+        "width": 480,
+        "height": 14418
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/14-mobile-views-mobile-03-product",
+        "widths": [480],
+        "width": 480,
+        "height": 8235
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/14-mobile-views-mobile-04-builder",
+        "widths": [480],
+        "width": 480,
+        "height": 6487
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/14-mobile-views-mobile-05-subscriptions",
+        "widths": [480],
+        "width": 480,
+        "height": 6087
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/14-mobile-views-mobile-06-weddings",
+        "widths": [480],
+        "width": 480,
+        "height": 10059
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/14-mobile-views-mobile-07-about",
+        "widths": [480],
+        "width": 480,
+        "height": 9734
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/14-mobile-views-mobile-08-care",
+        "widths": [480],
+        "width": 480,
+        "height": 7580
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/14-mobile-views-mobile-09-journal",
+        "widths": [480],
+        "width": 480,
+        "height": 7998
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/14-mobile-views-mobile-10-contact",
+        "widths": [480],
+        "width": 480,
+        "height": 6213
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/14-mobile-views-mobile-11-cart",
+        "widths": [480],
+        "width": 480,
+        "height": 3681
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/14-mobile-views-mobile-12-404",
+        "widths": [480],
+        "width": 480,
+        "height": 2642
+      },
+      {
+        "type": "image",
+        "path": "media/ruedu/14-mobile-views-mobile-13-offline",
+        "widths": [480],
+        "width": 480,
+        "height": 2641
+      }
+    ]
+  },
+  {
+    "id": "prism64",
+    "order": 16,
+    "category": "web",
+    "year": 2026,
+    "icon": "crystal",
+    "title": {
+      "th": "PRISM64 — เครื่องมือวิเคราะห์ 64 เฉดสีบุคลิกภาพ & Gemini MCP",
+      "en": "PRISM64 — 64-Shade Personality Intelligence & MCP"
+    },
+    "role": {
+      "th": "Full-Stack Architecture · จิตวิทยา HEXACO · AI MCP Server",
+      "en": "Full-stack architecture · HEXACO engine · AI MCP server"
+    },
+    "summary": {
+      "th": "เว็บแอปพลิเคชันวิเคราะห์บุคลิกภาพเชิงลึก 6 มิติ 64 เฉดสี พร้อม Canvas 9:16 Social Story Studio, ระบบ Real-time Geo Telemetry และ Gemini Spark Model Context Protocol (MCP) Server รองรับ AI Agent",
+      "en": "An enterprise-grade 6-dimension 64-shade personality intelligence engine with 9:16 Story Card Studio, real-time Leaflet geo telemetry, and a Gemini Spark MCP server."
+    },
+    "metrics": [
+      {
+        "value": "64",
+        "label": {
+          "th": "เฉดสีบุคลิกภาพ",
+          "en": "personality shades"
+        }
+      },
+      {
+        "value": "6",
+        "label": {
+          "th": "มิติพฤติกรรม",
+          "en": "behavior dimensions"
+        }
+      },
+      {
+        "value": "9:16",
+        "label": {
+          "th": "Story Studio",
+          "en": "Story Studio"
+        }
+      },
+      {
+        "value": "MCP",
+        "label": {
+          "th": "JSON-RPC AI",
+          "en": "JSON-RPC AI"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "โมเดลจิตวิทยา HEXACO 6 มิติ (Energy, Info, Decision, Action, Identity, Relating) แตกแขนง 64 เฉดสี (16 Archetypes × 4 Sub-Variants)",
+        "Dual Assessment Engine: โหมดด่วน 18 ข้อ (1.5 นาที) และโหมดเจาะลึก 36 ข้อ (3 นาที) คำนวณแบบ Real-time",
+        "Social Story Card Studio (9:16): Export รูปแบบ Light Pearl & Midnight Dark สำหรับ IG / TikTok Story ได้ทันที",
+        "Gemini Spark MCP Server: รองรับมาตรฐาน Model Context Protocol (JSON-RPC 2.0) เชื่อมต่อ AI Agent เพื่อดึงข้อมูลบุคลิกภาพ",
+        "Stealth Admin Dashboard: แผนที่ Geo Telemetry สดด้วย Leaflet.js ติดตามผู้เข้าชมและผลการประเมินแบบ Real-time"
+      ],
+      "en": [
+        "HEXACO 6-Dimension Psychological Matrix yielding 64 granular personality shades (16 Archetypes × 4 Sub-Variants)",
+        "Dual Assessment Engine: 1.5-min Quick (18 Questions) & 3.0-min Deep (36 Questions) with instant scoring",
+        "9:16 Social Story Card Studio: Instant canvas export for Instagram & TikTok (Light Pearl & Midnight Dark)",
+        "Gemini Spark MCP Server: Full Model Context Protocol (JSON-RPC 2.0) integration for AI agent querying",
+        "Stealth Admin Dashboard & Live Geo Map: Real-time visitor & submission telemetry powered by dark Leaflet.js"
+      ]
+    },
+    "tags": ["Python", "JavaScript", "Tailwind CSS", "Canvas API", "Leaflet.js", "Gemini MCP", "Render.com"],
+    "repo": "https://github.com/Gubbitkeytoday/prism64",
+    "live": "https://prism64.onrender.com",
+    "cover": {
+      "path": "media/prism64/01-landing-hero-showcase",
+      "widths": [480, 960, 1600],
+      "width": 1600,
+      "height": 791
+    },
+    "gallery": [
+      {
+        "type": "video",
+        "path": "media/prism64/06-prism64-motion-hero-showcase"
+      },
+      {
+        "type": "image",
+        "path": "media/prism64/01-landing-hero-showcase",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 791
+      },
+      {
+        "type": "image",
+        "path": "media/prism64/02-hexaco-assessment-test",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 791
+      },
+      {
+        "type": "image",
+        "path": "media/prism64/03-personality-result-estj-ah",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 791
+      },
+      {
+        "type": "image",
+        "path": "media/prism64/04-story-card-studio-modal",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 791
+      },
+      {
+        "type": "image",
+        "path": "media/prism64/05-live-geomap-admin-dashboard",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 791
+      }
+    ]
+  },
+  {
+    "id": "discord-rpc",
+    "order": 17,
+    "category": "app",
+    "year": 2026,
+    "icon": "desktop",
+    "title": {
+      "th": "Discord Rich Presence Pro — ระบบซิงค์สถานะสื่อระดับ Windows Kernel",
+      "en": "Discord Rich Presence Pro — Windows Media Presence Engine"
+    },
+    "role": {
+      "th": "Systems Programming · Windows GSMTC API · Discord IPC",
+      "en": "Systems programming · Windows GSMTC · Discord Local IPC"
+    },
+    "summary": {
+      "th": "เอ็นจินซิงค์สถานะการเล่นสื่อ (YouTube, Spotify, Apple Music, Netflix) ขึ้นโปรไฟล์ Discord ระดับเนทีฟผ่าน Windows GSMTC WinRT & Local IPC พร้อมระบบตรวจจับเกม DirectX/Vulkan ซ่อนอัตโนมัติ และ System Tray Controls",
+      "en": "A lightweight Windows background engine streaming real-time media presence (YouTube, Spotify, etc.) to Discord via native GSMTC WinRT & Local IPC with DirectX game auto-pause."
+    },
+    "metrics": [
+      {
+        "value": "<40MB",
+        "label": {
+          "th": "Memory Footprint",
+          "en": "Memory footprint"
+        }
+      },
+      {
+        "value": "~0%",
+        "label": {
+          "th": "CPU Overhead",
+          "en": "CPU overhead"
+        }
+      },
+      {
+        "value": "GSMTC",
+        "label": {
+          "th": "Native WinRT API",
+          "en": "Native WinRT API"
+        }
+      },
+      {
+        "value": "Zero-Lag",
+        "label": {
+          "th": "Anchor Timeline",
+          "en": "Anchor timeline"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "Native Windows GSMTC Integration: เชื่อมต่อ WinRT Media Controls ระดับ Kernel อ่านชื่อเพลง, ศิลปิน, รูปปก, สถานะ Play/Pause และไทม์ไลน์โดยตรง",
+        "Universal Browser & Player Support: รองรับทั้ง Chrome, Edge, Brave, Opera, Spotify, Tidal, Apple Music โดยไม่ต้องลง Extension เสริมในเบราว์เซอร์",
+        "DirectX & Vulkan Game Detection: ตรวจจับหน้าต่างเกมแบบเต็มจออัตโนมัติ และหยุดส่งสถานะชั่วคราวเพื่อประหยัดทรัพยากรและไม่รบกวนเฟรมเรต",
+        "Sub-Second Timeline Anchoring: คำนวณความคืบหน้าของเพลงด้วย Timestamp Anchor แม่นยำ ไม่สะดุด และไม่เกิดปัญหาแถบเวลารีเซ็ตวนซ้ำ",
+        "System Tray Controller & Hot Reload: ควบคุมการทำงานจากไอคอนมุมขวาล่าง, สลับ Pause/Resume, ดู Log สด, และปรับแต่ง config.json โดยไม่ต้องรีสตาร์ท"
+      ],
+      "en": [
+        "Native Windows GSMTC Integration: Intercepts OS-level WinRT media controls for track titles, artists, thumbnails, playback state, and duration.",
+        "Universal Browser & Player Support: Seamlessly tracks Chrome, Edge, Brave, Opera, Spotify, Tidal, and Apple Music without browser extensions.",
+        "DirectX & Vulkan Game Detection: Auto-detects active fullscreen gaming sessions and suppresses presence updates to maximize frame rates.",
+        "Sub-Second Timeline Anchoring: Accurately synchronizes elapsed and remaining playback times using precise anchor timestamps without drift.",
+        "System Tray Controller & Hot Reload: Background taskbar tray controls with instant Pause/Resume toggle, live logs, and zero-restart JSON hot-reloading."
+      ]
+    },
+    "tags": [
+      "Python 3.12",
+      "Windows WinRT",
+      "GSMTC API",
+      "Discord IPC",
+      "Pystray",
+      "PyInstaller",
+      "Systems Architecture"
+    ],
+    "repo": "https://github.com/Gubbitkeytoday/discord-rich-presence-pro",
+    "cover": {
+      "path": "media/discord_rpc/01-discord-full-profile",
+      "widths": [480, 960, 1600],
+      "width": 304,
+      "height": 432
+    },
+    "gallery": [
+      {
+        "type": "image",
+        "path": "media/discord_rpc/01-discord-full-profile",
+        "widths": [480, 960, 1600],
+        "width": 304,
+        "height": 432
+      },
+      {
+        "type": "image",
+        "path": "media/discord_rpc/03-discord-activity-card",
+        "widths": [480, 960, 1600],
+        "width": 474,
+        "height": 288
+      },
+      {
+        "type": "image",
+        "path": "media/discord_rpc/02-youtube-source",
+        "widths": [480, 960, 1600],
+        "width": 577,
+        "height": 346
+      },
+      {
+        "type": "image",
+        "path": "media/discord_rpc/04-discord-presence-synced",
+        "widths": [480, 960, 1600],
+        "width": 447,
+        "height": 188
+      },
+      {
+        "type": "image",
+        "path": "media/discord_rpc/05-terminal-live-log",
+        "widths": [480, 960, 1600],
+        "width": 556,
+        "height": 914
+      },
+      {
+        "type": "image",
+        "path": "media/discord_rpc/06-github-repository",
+        "widths": [480, 960, 1600],
+        "width": 1600,
+        "height": 740
+      }
+    ]
+  },
+  {
+    "id": "bkk-transit",
+    "order": 18,
+    "category": "web",
+    "year": 2026,
+    "icon": "bus",
+    "title": {
+      "th": "BKK Transit — แพลตฟอร์มข้อมูลเปิดขนส่งมวลชนกรุงเทพฯ & ระบบคำนวณเส้นทาง",
+      "en": "BKK Transit — Bangkok Open Transit Platform & Routing Engine"
+    },
+    "role": {
+      "th": "สถาปัตยกรรมระบบ · GTFS Pipeline · FastAPI Backend · Leaflet.js · Model Context Protocol (MCP)",
+      "en": "Systems Architecture · GTFS Pipeline · FastAPI Backend · Leaflet.js · Model Context Protocol (MCP)"
+    },
+    "summary": {
+      "th": "แพลตฟอร์มโครงสร้างพื้นฐานข้อมูลเปิดขนส่งมวลชนกรุงเทพฯ และปริมณฑล นำเข้า GTFS ทางการจาก สนข. (นำทาง) รองรับเรดาร์ GPS ค้นหาป้ายใกล้ฉัน ตารางเวลารถออกถัดไป และ Model Context Protocol (MCP) เชื่อมต่อ AI Assistants",
+      "en": "Open transit data platform and routing engine for Greater Bangkok — Ingests official GTFS data (Namtang), GPS radar nearby stops, live departure boards, and Model Context Protocol (MCP) for AI assistants."
+    },
+    "metrics": [
+      {
+        "value": "GTFS",
+        "label": {
+          "th": "มาตรฐานสากล สนข.",
+          "en": "Official GTFS"
+        }
+      },
+      {
+        "value": "<10ms",
+        "label": {
+          "th": "Query Latency",
+          "en": "Query Latency"
+        }
+      },
+      {
+        "value": "500m",
+        "label": {
+          "th": "รัศมี GPS เรดาร์",
+          "en": "GPS Radius"
+        }
+      },
+      {
+        "value": "MCP",
+        "label": {
+          "th": "JSON-RPC 2.0",
+          "en": "AI Protocol"
+        }
+      }
+    ],
+    "features": {
+      "th": [
+        "Official GTFS Data Ingestion: สตรีมมิ่งนำเข้าไฟล์ข้อมูล GTFS Static ทางการแบบ Chunk-based ตรวจสอบ Referential Integrity และสร้าง ValidationReport วิเคราะห์คุณภาพข้อมูล",
+        "GPS Radar & Nearby Stops: ระบุพิกัดตำแหน่งผู้ใช้ (W3C Geolocation) ด้วยหมุดเรดาร์สีฟ้าและวงแหวนความแม่นยำ พร้อมค้นหาป้ายในระยะ 500 เมตรอัตโนมัติ",
+        "Live Departures Board: แสดงตารางเวลารถและเรือเข้าป้ายถัดไป โดยคำนวณจากความถี่เดินรถ (frequencies.txt) และตารางเวลา พร้อมจุดเสียบ GTFS-RT แบบ Hot-Plug",
+        "Intelligent Trip Planner: ระบบคำนวณและวางแผนการเดินทางระหว่างสถานี ทั้งสายตรงและจุดต่อรถ 1 ครั้ง พร้อมวาดแนวเส้นทาง Polyline สีสดบนแผนที่",
+        "Model Context Protocol (MCP Server): เซิร์ฟเวอร์ MCP มาตรฐาน JSON-RPC 2.0 สำหรับเชื่อมต่อ Claude, ChatGPT, และ Gemini ให้เรียกค้นสาย ป้าย และคำนวณเส้นทางแบบ Agentic",
+        "High Resilience & Fault Tolerance: ออกแบบด้วย Circuit Breaker ป้องกันระบบล่ม เมื่อต้นทาง Realtime ขัดข้อง ระบบจะตัดวงจรและทำงานต่อด้วยข้อมูลตารางเดินรถได้ 100%"
+      ],
+      "en": [
+        "Official GTFS Data Ingestion: Chunk-based streaming ingestion of official GTFS Static feeds with integrity validation and automated reporting.",
+        "GPS Radar & Nearby Stops: W3C Geolocation GPS radar with accuracy ring, automatically discovering and ranking transit stops within 500 meters.",
+        "Live Departures Board: Real-time headway-based arrival estimations from schedule frequencies with a hot-pluggable GTFS-RT engine.",
+        "Intelligent Trip Planner: Routing engine computing direct routes and single-transfer journeys with colorful interactive map polylines.",
+        "Model Context Protocol (MCP Server): JSON-RPC 2.0 MCP server enabling Claude, ChatGPT, and Gemini to perform agentic transit routing.",
+        "High Resilience & Fault Tolerance: Circuit breaker architecture ensuring 100% operational uptime via cached schedule fallback during upstream outages."
+      ]
+    },
+    "tags": ["Python 3.12", "FastAPI", "SQLite", "Leaflet.js", "GTFS", "Gemini MCP", "Docker"],
+    "repo": "https://github.com/Gubbitkeytoday/bkk-transit",
+    "cover": {
+      "path": "media/bkk_transit/01-bkk-transit-overview",
+      "widths": [480, 960, 1600],
+      "width": 1440,
+      "height": 900
+    },
+    "gallery": [
+      {
+        "type": "image",
+        "path": "media/bkk_transit/01-bkk-transit-overview",
+        "widths": [480, 960, 1600],
+        "width": 1440,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/bkk_transit/02-route-shape-vehicles",
+        "widths": [480, 960, 1600],
+        "width": 1440,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/bkk_transit/03-gps-nearby-stops",
+        "widths": [480, 960, 1600],
+        "width": 1440,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/bkk_transit/04-stop-departures-board",
+        "widths": [480, 960, 1600],
+        "width": 1440,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/bkk_transit/05-trip-planner",
+        "widths": [480, 960, 1600],
+        "width": 1440,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/bkk_transit/06-fastapi-swagger-docs",
+        "widths": [480, 960, 1600],
+        "width": 1440,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/bkk_transit/07-fastapi-redoc",
+        "widths": [480, 960, 1600],
+        "width": 1440,
+        "height": 900
+      },
+      {
+        "type": "image",
+        "path": "media/bkk_transit/08-mobile-responsive",
+        "widths": [480, 960, 1600],
+        "width": 500,
+        "height": 892
+      }
+    ]
+  }
+]

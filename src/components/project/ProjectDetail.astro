@@ -1,0 +1,16 @@
+---
+import type { Lang } from '@/i18n';
+import type { Project } from '@/lib/projects';
+
+interface Props {
+  lang: Lang;
+  project: Project;
+  prev: Project | undefined;
+  next: Project | undefined;
+}
+
+const { lang, project } = Astro.props;
+---
+
+<!-- TODO: ProjectDetail -->
+<h1>{project.data.title[lang]}</h1>

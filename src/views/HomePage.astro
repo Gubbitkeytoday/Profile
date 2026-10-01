@@ -1,0 +1,45 @@
+---
+import CommandPalette from '@/components/layout/CommandPalette.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Nav from '@/components/layout/Nav.astro';
+import About from '@/components/sections/About.astro';
+import Contact from '@/components/sections/Contact.astro';
+import Hero from '@/components/sections/Hero.astro';
+import Journey from '@/components/sections/Journey.astro';
+import Skills from '@/components/sections/Skills.astro';
+import Work from '@/components/sections/Work.astro';
+import type { Lang } from '@/i18n';
+import Base from '@/layouts/Base.astro';
+import { getProjects } from '@/lib/projects';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const count = (await getProjects()).length;
+const meta = {
+  th: {
+    title: 'วงศธร ฉาบสีทอง — Full-Stack Developer',
+    description: `พอร์ตโฟลิโอของวงศธร ฉาบสีทอง (ดรีม) นักพัฒนา Full-Stack จากหัวหิน — ผลงานจริง ${count} โปรเจกต์: ระบบขนส่ง GTFS, POS, AI แชทแบบสตรีม, MCP, เว็บ 3D และอีคอมเมิร์ซ`,
+  },
+  en: {
+    title: 'Wongsathorn Chapseethong — Full-Stack Developer',
+    description: `Portfolio of Wongsathorn Chapseethong, a full-stack developer from Hua Hin, Thailand — ${count} shipped projects: GTFS transit routing, POS, streaming AI chat, MCP tooling, 3D web and e-commerce.`,
+  },
+}[lang];
+---
+
+<Base lang={lang} title={meta.title} description={meta.description} path="/">
+  <Nav lang={lang} />
+  <main id="main" tabindex="-1">
+    <Hero lang={lang} />
+    <Work lang={lang} />
+    <Skills lang={lang} />
+    <Journey lang={lang} />
+    <About lang={lang} />
+    <Contact lang={lang} />
+  </main>
+  <Footer lang={lang} />
+  <CommandPalette lang={lang} />
+</Base>

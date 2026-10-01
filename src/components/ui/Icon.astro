@@ -1,0 +1,41 @@
+---
+import { getIconData, iconToHTML, iconToSVG, replaceIDs } from '@iconify/utils';
+/**
+ * Build-time SVG icon. Only icons actually rendered end up in the HTML —
+ * nothing is shipped to the client beyond the inline <svg>.
+ *   <Icon name="lucide:zap" />          UI glyph (inherits currentColor)
+ *   <Icon name="simple-icons:react" brand />  brand mark tinted with its official colour
+ */
+import { icons as lucide } from '@iconify-json/lucide';
+import { icons as simple } from '@iconify-json/simple-icons';
+import { BRAND_COLORS } from '@/lib/icons';
+
+interface Props {
+  name: `lucide:${string}` | `simple-icons:${string}`;
+  size?: number | string;
+  /** Accessible label. Omit for decorative icons (default). */
+  label?: string;
+  /** Tint simple-icons with their brand colour (`--brand` custom property). */
+  brand?: boolean;
+  class?: string;
+}
+
+const { name, size = '1em', label, brand = false, class: className } = Astro.props;
+const [set, icon] = name.split(':') as [string, string];
+const data = getIconData(set === 'lucide' ? lucide : simple, icon);
+if (!data) throw new Error(`Unknown icon "${name}"`);
+
+const svg = iconToSVG(data, { height: size });
+const body = replaceIDs(svg.body);
+const color = brand && set === 'simple-icons' ? BRAND_COLORS[icon] : undefined;
+const attrs: Record<string, string> = {
+  ...svg.attributes,
+  class: ['icon', brand ? 'icon--brand' : '', className ?? ''].filter(Boolean).join(' '),
+  ...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': 'true' }),
+  focusable: 'false',
+  ...(color ? { style: `--brand:#${color}` } : {}),
+};
+const html = iconToHTML(label ? `<title>${label}</title>${body}` : body, attrs);
+---
+
+<Fragment set:html={html} />

@@ -1,0 +1,12 @@
+---
+import type { Lang } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<!-- TODO: CommandPalette (layout/CommandPalette) -->
+<div data-stub="CommandPalette" data-lang={lang}></div>

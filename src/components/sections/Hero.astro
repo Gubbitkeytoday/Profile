@@ -1,0 +1,12 @@
+---
+import type { Lang } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<!-- TODO: Hero (sections/Hero) -->
+<div data-stub="Hero" data-lang={lang}></div>
