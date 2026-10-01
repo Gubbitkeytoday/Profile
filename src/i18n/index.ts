@@ -11,8 +11,8 @@ export const OG_LOCALE: Record<Lang, string> = { th: 'th_TH', en: 'en_US' };
 export const pick = <T>(value: Localized<T>, lang: Lang): T => value[lang];
 
 /** Create a typed translator from a co-located `{ th: {...}, en: {...} }` dictionary. */
-export function makeT<D extends Record<string, string>>(dict: Localized<D>, lang: Lang) {
-  return (key: keyof D): string => dict[lang][key] ?? dict[DEFAULT_LANG][key] ?? String(key);
+export function makeT<K extends string>(dict: Localized<Readonly<Record<K, string>>>, lang: Lang) {
+  return (key: K): string => dict[lang][key] ?? dict[DEFAULT_LANG][key] ?? key;
 }
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');

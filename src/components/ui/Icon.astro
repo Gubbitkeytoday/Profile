@@ -12,12 +12,12 @@ import { BRAND_COLORS } from '@/lib/icons';
 
 interface Props {
   name: `lucide:${string}` | `simple-icons:${string}`;
-  size?: number | string;
+  size?: number | string | undefined;
   /** Accessible label. Omit for decorative icons (default). */
-  label?: string;
+  label?: string | undefined;
   /** Tint simple-icons with their brand colour (`--brand` custom property). */
-  brand?: boolean;
-  class?: string;
+  brand?: boolean | undefined;
+  class?: string | undefined;
 }
 
 const { name, size = '1em', label, brand = false, class: className } = Astro.props;
