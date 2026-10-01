@@ -1,0 +1,56 @@
+# Deploys the Astro build to GitHub Pages.
+#
+# One-time setup: repository Settings → Pages → Build and deployment → Source
+# must be set to "GitHub Actions" (not "Deploy from a branch"), otherwise the
+# deploy-pages step fails and the legacy branch build keeps serving.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; let an in-progress production deploy finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  ASTRO_TELEMETRY_DISABLED: 1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

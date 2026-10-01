@@ -1,0 +1,200 @@
+---
+/**
+ * Hero "featured work" tile: flagship project cover (the page's LCP image),
+ * framed with blueprint corner ticks, with a mono caption + one real metric.
+ * Two more covers peek behind it on wide screens (decorative, lazy).
+ */
+import Icon from '@/components/ui/Icon.astro';
+import { href, type Lang, makeT } from '@/i18n';
+import { imageSrc, pickWidth, srcset } from '@/lib/media';
+import { type Project, projectPath } from '@/lib/projects';
+
+interface Props {
+  lang: Lang;
+  project: Project;
+  peeks?: Project[];
+}
+
+const { lang, project, peeks = [] } = Astro.props;
+const d = project.data;
+
+const dict = {
+  th: { featured: 'ผลงานเด่น', open: 'ดูรายละเอียดโปรเจกต์' },
+  en: { featured: 'Featured project', open: 'View project details' },
+};
+const t = makeT(dict, lang);
+
+/** "BKK Transit — Bangkok Open Transit…" → "BKK Transit" */
+const shortTitle = (p: Project) => p.data.title[lang].split(/\s+[—–-]\s+/)[0] ?? p.data.title[lang];
+/** First metric with a numeral reads as a real figure ("<10ms"), else the first one. */
+const metric = d.metrics.find((m) => /\d/.test(m.value)) ?? d.metrics[0];
+const stack = d.tags.slice(0, 3).join(' · ');
+const sizes = '(min-width: 1024px) 40vw, calc(100vw - 2.5rem)';
+---
+
+<a
+  href={href(lang, projectPath(project))}
+  class="tile group relative block rounded-xl outline-offset-8"
+  aria-label={`${t('open')}: ${d.title[lang]}`}
+>
+  {
+    peeks.length > 0 && (
+      <div class="peeks" aria-hidden="true">
+        {peeks.slice(0, 2).map((p, i) => (
+          <div class={`peek peek-${i + 1}`}>
+            <img
+              src={imageSrc(p.data.cover.path, pickWidth(p.data.cover.widths, 480))}
+              alt=""
+              width={p.data.cover.width}
+              height={p.data.cover.height}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  <figure class="frame relative rounded-xl border border-line-2 bg-bg-1 p-2 shadow-elev-2">
+    <span class="ticks" aria-hidden="true"></span>
+    <div class="media relative overflow-hidden rounded-lg bg-bg-2">
+      <img
+        src={imageSrc(d.cover.path, pickWidth(d.cover.widths, 960))}
+        srcset={srcset(d.cover.path, d.cover.widths)}
+        {sizes}
+        alt={d.title[lang]}
+        width={d.cover.width}
+        height={d.cover.height}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="h-full w-full object-cover object-top"
+      />
+    </div>
+    <figcaption class="flex flex-wrap items-end justify-between gap-x-6 gap-y-3 px-2 pt-4 pb-2">
+      <div class="min-w-0">
+        <p class="label flex items-center gap-2">
+          <span class="font-mono text-accent tabular-nums" aria-hidden="true">FIG.01</span>
+          <span>{t('featured')}</span>
+        </p>
+        <p class="mt-1.5 flex items-center gap-2 font-display text-lg font-semibold text-fg">
+          {shortTitle(project)}
+          <Icon
+            name="lucide:arrow-up-right"
+            size={18}
+            class="text-fg-3 transition-[translate,color] duration-(--duration-base) ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+          />
+        </p>
+        <p class="mt-0.5 truncate font-mono text-2xs text-fg-3" lang="en">{stack}</p>
+      </div>
+      {
+        metric && (
+          <p class="text-end">
+            <span class="block font-display text-2xl font-semibold leading-none text-accent-2 tabular-nums">
+              {metric.value}
+            </span>
+            <span class="mt-1 block font-mono text-2xs uppercase tracking-[0.08em] text-fg-3 [:lang(th)_&]:font-sans [:lang(th)_&]:normal-case [:lang(th)_&]:tracking-normal">
+              {metric.label[lang]}
+            </span>
+          </p>
+        )
+      }
+    </figcaption>
+  </figure>
+</a>
+
+<style>
+  .tile {
+    isolation: isolate;
+  }
+  .media {
+    aspect-ratio: 16 / 10;
+  }
+  .frame {
+    transition:
+      border-color var(--duration-base) var(--ease-out-expo),
+      translate var(--duration-slow) var(--ease-out-expo);
+  }
+  .tile:hover .frame,
+  .tile:focus-visible .frame {
+    border-color: color-mix(in oklch, var(--accent) 45%, var(--line-2));
+  }
+  .media img {
+    transition: scale var(--duration-slow) var(--ease-out-expo);
+  }
+  .tile:hover .media img {
+    scale: 1.02;
+  }
+
+  /* Blueprint corner ticks: four L-marks just outside the frame. */
+  .ticks {
+    --t: 14px;
+    --w: 1px;
+    --c: var(--fg-3);
+    position: absolute;
+    inset: -9px;
+    pointer-events: none;
+    background:
+      linear-gradient(var(--c) 0 0) top left / var(--t) var(--w) no-repeat,
+      linear-gradient(var(--c) 0 0) top left / var(--w) var(--t) no-repeat,
+      linear-gradient(var(--c) 0 0) top right / var(--t) var(--w) no-repeat,
+      linear-gradient(var(--c) 0 0) top right / var(--w) var(--t) no-repeat,
+      linear-gradient(var(--c) 0 0) bottom left / var(--t) var(--w) no-repeat,
+      linear-gradient(var(--c) 0 0) bottom left / var(--w) var(--t) no-repeat,
+      linear-gradient(var(--c) 0 0) bottom right / var(--t) var(--w) no-repeat,
+      linear-gradient(var(--c) 0 0) bottom right / var(--w) var(--t) no-repeat;
+    transition: inset var(--duration-base) var(--ease-out-expo);
+  }
+  .tile:hover .ticks {
+    --c: var(--accent);
+    inset: -12px;
+  }
+
+  /* Stacked peeks: offset upward behind the frame, desktop only. */
+  .peeks {
+    display: none;
+  }
+  @media (min-width: 64rem) {
+    .peeks {
+      display: block;
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+    .peek {
+      position: absolute;
+      inset-inline: 0;
+      top: 0;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--bg-2);
+      transform-origin: 50% 0;
+      transition: translate var(--duration-slow) var(--ease-out-expo);
+    }
+    .peek img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      opacity: 0.35;
+      filter: grayscale(1);
+    }
+    .peek-1 {
+      translate: 0 -1.1rem;
+      scale: 0.93;
+    }
+    .peek-2 {
+      translate: 0 -2.1rem;
+      scale: 0.86;
+    }
+    .tile:hover .peek-1 {
+      translate: 0 -1.5rem;
+    }
+    .tile:hover .peek-2 {
+      translate: 0 -2.9rem;
+    }
+  }
+</style>

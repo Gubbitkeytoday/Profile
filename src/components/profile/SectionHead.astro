@@ -1,0 +1,37 @@
+---
+/**
+ * Editorial section header: "03 — Journey" eyebrow, display h2, optional lead.
+ * The numeral stays mono (Latin digits); the word follows `.label` Thai rules.
+ */
+interface Props {
+  num: string;
+  eyebrow: string;
+  title: string;
+  /** id for the h2 — the section's aria-labelledby target. */
+  id: string;
+  lead?: string;
+  /** `lg` for closing statements (Contact). */
+  size?: 'md' | 'lg';
+  class?: string;
+}
+
+const { num, eyebrow, title, id, lead, size = 'md', class: className } = Astro.props;
+---
+
+<header class:list={['section-head', className]}>
+  <p class="label flex items-center gap-3">
+    <span class="font-mono text-accent tabular-nums">{num}</span>
+    <span class="h-px w-6 bg-line-2" aria-hidden="true"></span>
+    <span>{eyebrow}</span>
+  </p>
+  <h2
+    id={id}
+    class:list={[
+      'mt-5 font-semibold tracking-tightest text-fg [:lang(th)_&]:tracking-normal',
+      size === 'lg' ? 'text-display-lg' : 'text-display',
+    ]}
+  >
+    {title}
+  </h2>
+  {lead && <p class="mt-6 max-w-[46ch] text-lg leading-relaxed text-fg-2">{lead}</p>}
+</header>

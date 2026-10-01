@@ -1,0 +1,98 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  ASTRO_TELEMETRY_DISABLED: 1
+
+jobs:
+  verify:
+    name: Lint · typecheck · build · e2e
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint (Biome)
+        run: npm run lint
+
+      - name: Type-check (astro check)
+        run: npm run check
+
+      - name: Build
+        run: npm run build
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Playwright tests (against astro preview)
+        run: npm run test:e2e
+        env:
+          PW_SKIP_BUILD: '1'
+
+      - name: Upload Playwright report
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
+
+      - name: Upload dist for Lighthouse
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/
+          retention-days: 3
+
+  lighthouse:
+    name: Lighthouse CI
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # `astro preview` serves dist/ under the /Profile/ base path, so Astro must be installed.
+      - run: npm ci
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist
+
+      - name: Run Lighthouse CI (budgets in lighthouserc.cjs)
+        run: npm run lhci
+
+      - name: Upload Lighthouse reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/
+          retention-days: 14

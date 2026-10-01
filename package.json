@@ -5,6 +5,7 @@
   "type": "module",
   "description": "Bilingual (TH/EN) engineering portfolio of Wongsathorn Chapseethong — built with Astro, TypeScript and Tailwind CSS.",
   "license": "MIT",
+  "packageManager": "npm@10.9.4",
   "engines": {
     "node": ">=22.12"
   },
@@ -17,7 +18,11 @@
     "format": "biome check --write .",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
-    "verify": "npm run lint && npm run check && npm run build && npm run test"
+    "verify": "npm run lint && npm run check && npm run build && npm run test",
+    "test:e2e": "playwright test",
+    "test:install": "playwright install --with-deps chromium",
+    "lhci": "npx --yes @lhci/cli@0.15.1 autorun --config=./lighthouserc.cjs",
+    "media:dims": "node scripts/sync-media-dimensions.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

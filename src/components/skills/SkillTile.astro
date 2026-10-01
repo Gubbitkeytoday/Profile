@@ -1,0 +1,171 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { href, type Lang, makeT } from '@/i18n';
+import type { Project } from '@/lib/projects';
+import { type Domain, projectsUsing } from './tech';
+
+interface Props {
+  lang: Lang;
+  domain: Domain;
+  index: number;
+  projects: Project[];
+}
+
+const { lang, domain, index, projects } = Astro.props;
+const dict = {
+  th: { used: 'ใช้ใน', projects: 'โปรเจกต์', project: 'โปรเจกต์', usedIn: 'ใช้ใน {n} โปรเจกต์', usedIn1: 'ใช้ใน 1 โปรเจกต์' },
+  en: { used: 'Used in', projects: 'projects', project: 'project', usedIn: 'used in {n} projects', usedIn1: 'used in 1 project' },
+};
+const t = makeT(dict, lang);
+
+const skills = domain.skills.map((s) => {
+  const used = s.tech ? projectsUsing(projects, s.tech) : [];
+  return {
+    ...s,
+    label: typeof s.name === 'string' ? s.name : s.name[lang],
+    used: used.length,
+    ids: used.map((p) => p.id),
+    url: s.tech && used.length > 0 ? href(lang, `/?tech=${encodeURIComponent(s.tech)}#work`) : undefined,
+  };
+});
+const total = new Set(skills.flatMap((s) => s.ids)).size;
+const num = String(index + 1).padStart(2, '0');
+const titleId = `skills-${domain.id}`;
+---
+
+<article
+  class:list={['tile flex flex-col rounded-xl border border-line bg-bg-1 p-5 shadow-elev-1 sm:p-7', `tile--${domain.size}`]}
+  aria-labelledby={titleId}
+>
+  <header class="flex items-start justify-between gap-4">
+    <div>
+      <p class="font-mono text-2xs text-fg-3 tabular-nums" aria-hidden="true">{num}</p>
+      <h3 id={titleId} class="mt-2 text-xl font-semibold text-fg sm:text-2xl">{domain.title[lang]}</h3>
+    </div>
+    <span class="badge grid size-10 shrink-0 place-items-center rounded-md border border-line text-fg-2" aria-hidden="true">
+      <Icon name={domain.icon} size={20} />
+    </span>
+  </header>
+  <p class="mt-3 max-w-[52ch] text-[0.95rem] leading-relaxed text-fg-2">{domain.proof[lang]}</p>
+
+  <ul class="cells mt-6 grid gap-2" role="list">
+    {
+      skills.map((s) => (
+        <li>
+          {s.url ? (
+            <a href={s.url} class="cell is-link">
+              <Icon name={s.icon} size={32} brand />
+              <span class="name">{s.label}</span>
+              <span class="count" aria-hidden="true">
+                {s.used}
+              </span>
+              <span class="sr-only">, {s.used === 1 ? t('usedIn1') : t('usedIn').replace('{n}', String(s.used))}</span>
+            </a>
+          ) : (
+            <span class="cell">
+              <Icon name={s.icon} size={32} brand />
+              <span class="name">{s.label}</span>
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+
+  {domain.also && <p class="mt-5 text-sm leading-relaxed text-fg-3">{domain.also[lang]}</p>}
+
+  <footer class="mt-auto pt-6">
+    <p class="flex items-baseline gap-2 border-t border-line pt-4 text-sm text-fg-3">
+      {t('used')}
+      <span class="font-display text-2xl font-semibold leading-none text-accent-2 tabular-nums">{total}</span>
+      {total === 1 ? t('project') : t('projects')}
+    </p>
+  </footer>
+</article>
+
+<style>
+  .tile {
+    position: relative;
+  }
+  .cells {
+    grid-template-columns: repeat(auto-fill, minmax(6.25rem, 1fr));
+  }
+  .cell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    height: 100%;
+    min-height: 6.25rem;
+    padding: 0.9rem 0.5rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--bg);
+    color: var(--fg-2);
+    text-align: center;
+  }
+  .cell .name {
+    font-size: var(--text-xs);
+    line-height: 1.3;
+    font-weight: 500;
+  }
+  .cell.is-link {
+    color: var(--fg);
+    transition:
+      border-color var(--duration-fast) ease,
+      background-color var(--duration-fast) ease;
+  }
+  .cell.is-link:hover,
+  .cell.is-link:focus-visible {
+    border-color: var(--line-2);
+    background: var(--bg-2);
+  }
+  /* Untagged skills read quieter: still listed, not linked. */
+  .cell:not(.is-link) {
+    border-style: dashed;
+  }
+  .cell:not(.is-link) :global(.icon) {
+    opacity: 0.75;
+  }
+
+  /* Monochrome marks; brand colour only on hover/focus of a linked cell. */
+  .cell:not(.is-link:hover):not(.is-link:focus-visible) :global(.icon--brand) {
+    color: currentColor;
+  }
+  .count {
+    position: absolute;
+    top: 0.45rem;
+    inset-inline-end: 0.55rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-3xs);
+    color: var(--accent-2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (min-width: 64rem) {
+    .tile--lg {
+      grid-column: span 7;
+    }
+    .tile--sm {
+      grid-column: span 5;
+    }
+  }
+  /* Untouched on reduced motion / browsers without scroll-driven animations. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .tile {
+        animation: rise linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 55%;
+      }
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      translate: 0 2rem;
+    }
+  }
+</style>

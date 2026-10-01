@@ -1,0 +1,143 @@
+---
+/**
+ * CSS-only tech marquee. The first track is the accessible list; the duplicate
+ * that makes the loop seamless is aria-hidden. Pauses on hover and via a
+ * keyboard-reachable toggle (WCAG 2.2.2); static wrap under reduced motion.
+ */
+import { MARQUEE } from '@/components/skills/tech';
+import Icon from '@/components/ui/Icon.astro';
+import { type Lang, makeT } from '@/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const dict = {
+  th: { label: 'เทคโนโลยีหลักที่ใช้', pause: 'หยุดแถบเลื่อนเทคโนโลยี' },
+  en: { label: 'Core stack', pause: 'Pause the tech ticker' },
+};
+const t = makeT(dict, lang);
+---
+
+<div class="marquee relative border-y border-line bg-bg">
+  <div class="viewport overflow-hidden">
+    <div class="track flex w-max">
+      {
+        [0, 1].map((copy) => (
+          <ul
+            class="list flex shrink-0 items-center"
+            aria-label={copy === 0 ? t('label') : undefined}
+            aria-hidden={copy === 1 ? 'true' : undefined}
+          >
+            {MARQUEE.map((item) => (
+              <li class="item flex items-center gap-2.5 whitespace-nowrap font-mono text-sm text-fg-2" lang="en">
+                <Icon name={item.icon} size={18} brand />
+                {item.name}
+              </li>
+            ))}
+          </ul>
+        ))
+      }
+    </div>
+  </div>
+  <label class="toggle" title={t('pause')}>
+    <input type="checkbox" class="sr-only" aria-label={t('pause')} />
+    <Icon name="lucide:pause" size={14} class="i-pause" />
+    <Icon name="lucide:play" size={14} class="i-play" />
+  </label>
+</div>
+
+<style>
+  .marquee {
+    --gap: clamp(2rem, 4vw, 3.5rem);
+  }
+  .viewport {
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 88%, transparent);
+    padding-block: 1.1rem;
+  }
+  .list {
+    gap: var(--gap);
+    padding-inline-end: var(--gap);
+  }
+  .item {
+    transition: color var(--duration-fast) ease;
+  }
+  /* Monochrome by default; brand colour on hover (global dark-mode fixes still apply). */
+  .item:not(:hover) :global(.icon--brand) {
+    color: currentColor;
+  }
+  .item:hover {
+    color: var(--fg);
+  }
+
+  .toggle {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: 0;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    color: var(--fg-3);
+    background: linear-gradient(90deg, transparent, var(--bg) 35%);
+    cursor: pointer;
+  }
+  .toggle:hover {
+    color: var(--fg);
+  }
+  .toggle:has(:focus-visible) {
+    outline: 2px solid var(--accent);
+    outline-offset: -4px;
+    border-radius: var(--radius-md);
+  }
+  .toggle :global(.i-play) {
+    display: none;
+  }
+  .marquee:has(input:checked) .toggle :global(.i-play) {
+    display: block;
+  }
+  .marquee:has(input:checked) .toggle :global(.i-pause) {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .track {
+      animation: marquee 48s linear infinite;
+    }
+    .marquee:hover .track,
+    .marquee:focus-within .track,
+    .marquee:has(input:checked) .track {
+      animation-play-state: paused;
+    }
+  }
+  @keyframes marquee {
+    to {
+      translate: -50% 0;
+    }
+  }
+
+  /* Reduced motion: a calm, wrapped list; the duplicate and the toggle go away. */
+  @media (prefers-reduced-motion: reduce) {
+    .viewport {
+      mask-image: none;
+    }
+    .track {
+      width: auto;
+      animation: none;
+    }
+    .list {
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 0.75rem;
+      column-gap: 1.75rem;
+      padding-inline: var(--spacing-gutter);
+      flex-shrink: 1;
+    }
+    .list[aria-hidden] {
+      display: none;
+    }
+    .toggle {
+      display: none;
+    }
+  }
+</style>

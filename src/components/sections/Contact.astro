@@ -1,12 +1,448 @@
 ---
-import type { Lang } from '@/i18n';
+import { MAIL_SUBJECT } from '@/components/profile/facts';
+import SectionHead from '@/components/profile/SectionHead.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { asset, href, type Lang, makeT, useUi } from '@/i18n';
+import type { IconName } from '@/lib/icons';
+import { PROFILE } from '@/lib/profile';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
+const ui = useUi(lang);
+
+const dict = {
+  th: {
+    eyebrow: 'ติดต่อ',
+    title: 'มาสร้างอะไรดีๆ ด้วยกัน',
+    available: 'พร้อมรับงาน · ฝึกงาน สหกิจศึกษา ฟรีแลนซ์ และงานประจำ',
+    body: 'ทั้งสาย Full-Stack Development และ IT Support — ตอบเร็วที่สุดทางอีเมลครับ',
+    emailMe: 'ส่งอีเมลหาผม',
+    channels: 'ช่องทางติดต่อ',
+    email: 'อีเมล',
+    phone: 'โทรศัพท์',
+    line: 'LINE',
+    lineV: 'เพิ่มเพื่อนทาง LINE',
+    githubMain: 'GitHub (หลัก)',
+    githubAlt: 'GitHub (รอง)',
+    facebook: 'Facebook',
+    location: 'ที่อยู่',
+    locationV: 'หัวหิน · ประจวบคีรีขันธ์ · ไทย',
+    copyEmail: 'คัดลอกอีเมล',
+    copiedEmail: 'คัดลอกอีเมลแล้ว',
+    copyPhone: 'คัดลอกเบอร์โทร',
+    copiedPhone: 'คัดลอกเบอร์โทรแล้ว',
+    showQr: 'แสดง QR Code LINE',
+    qrAlt: 'QR Code LINE — วงศธร ฉาบสีทอง',
+    qrHint: 'สแกนด้วยกล้อง LINE เพื่อเพิ่มเพื่อน',
+    openLine: 'เปิดแอป LINE',
+    newTab: '(เปิดในแท็บใหม่)',
+  },
+  en: {
+    eyebrow: 'Contact',
+    title: 'Let’s build something good.',
+    available: 'Available · internships, co-op, freelance and full-time',
+    body: 'Full-stack development or IT support — I reply fastest by email.',
+    emailMe: 'Email me',
+    channels: 'Contact channels',
+    email: 'Email',
+    phone: 'Phone',
+    line: 'LINE',
+    lineV: 'Add me on LINE',
+    githubMain: 'GitHub (main)',
+    githubAlt: 'GitHub (alt)',
+    facebook: 'Facebook',
+    location: 'Location',
+    locationV: 'Hua Hin, Prachuap Khiri Khan, Thailand',
+    copyEmail: 'Copy email',
+    copiedEmail: 'Email copied',
+    copyPhone: 'Copy phone number',
+    copiedPhone: 'Phone number copied',
+    showQr: 'Show LINE QR code',
+    qrAlt: 'LINE QR code — Wongsathorn Chapseethong',
+    qrHint: 'Scan with the LINE camera to add me',
+    openLine: 'Open the LINE app',
+    newTab: '(opens in a new tab)',
+  },
+};
+const t = makeT(dict, lang);
+
+const mailto = `mailto:${PROFILE.email}?subject=${encodeURIComponent(MAIL_SUBJECT[lang])}`;
+const handle = (url: string) => url.replace(/^https?:\/\/(web\.|www\.)?/, '').replace(/\/$/, '');
+
+interface Row {
+  key: string;
+  icon: IconName;
+  label: string;
+  value: string;
+  href?: string;
+  external?: boolean;
+  mono?: boolean;
+  copy?: { text: string; label: string; done: string };
+  qr?: boolean;
+}
+
+/* Legacy labels: GitBababoo is the main account, Gubbitkeytoday the alt (README / PORTFOLIO_DATA). */
+const rows: Row[] = [
+  {
+    key: 'email',
+    icon: 'lucide:mail',
+    label: t('email'),
+    value: PROFILE.email,
+    href: mailto,
+    mono: true,
+    copy: { text: PROFILE.email, label: t('copyEmail'), done: t('copiedEmail') },
+  },
+  {
+    key: 'phone',
+    icon: 'lucide:phone',
+    label: t('phone'),
+    value: PROFILE.phoneDisplay,
+    href: `tel:${PROFILE.phone}`,
+    mono: true,
+    copy: { text: PROFILE.phoneDisplay.replace(/-/g, ''), label: t('copyPhone'), done: t('copiedPhone') },
+  },
+  { key: 'line', icon: 'simple-icons:line', label: t('line'), value: t('lineV'), href: PROFILE.line, external: true, qr: true },
+  {
+    key: 'gh',
+    icon: 'simple-icons:github',
+    label: t('githubMain'),
+    value: handle(PROFILE.githubAlt),
+    href: PROFILE.githubAlt,
+    external: true,
+    mono: true,
+  },
+  {
+    key: 'gh2',
+    icon: 'simple-icons:github',
+    label: t('githubAlt'),
+    value: handle(PROFILE.github),
+    href: PROFILE.github,
+    external: true,
+    mono: true,
+  },
+  {
+    key: 'fb',
+    icon: 'simple-icons:facebook',
+    label: t('facebook'),
+    value: handle(PROFILE.facebook).replace('facebook.com/', ''),
+    href: PROFILE.facebook,
+    external: true,
+    mono: true,
+  },
+  { key: 'loc', icon: 'lucide:map-pin', label: t('location'), value: t('locationV') },
+];
 ---
 
-<!-- TODO: Contact (sections/Contact) -->
-<div data-stub="Contact" data-lang={lang}></div>
+<section id="contact" aria-labelledby="contact-title" class="py-section">
+  <div class="shell grid gap-12 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:col-span-6">
+      <SectionHead num="05" eyebrow={t('eyebrow')} title={t('title')} id="contact-title" size="lg" />
+
+      <p class="mt-8 inline-flex items-center gap-2.5 text-sm font-medium text-fg">
+        <span class="size-2 rounded-full bg-ok ring-4 ring-[color-mix(in_oklch,var(--ok)_18%,transparent)]" aria-hidden="true"
+        ></span>
+        {t('available')}
+      </p>
+      <p class="mt-3 max-w-[44ch] text-lg leading-relaxed text-fg-2">{t('body')}</p>
+
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a
+          href={mailto}
+          class="inline-flex min-h-12 items-center gap-2 rounded-md bg-accent px-5 font-medium text-on-accent shadow-elev-1 transition-[filter,translate] duration-(--duration-fast) hover:brightness-110 active:translate-y-px"
+        >
+          <Icon name="lucide:mail" />
+          {t('emailMe')}
+        </a>
+        <a
+          href={href(lang, '/cv/')}
+          class="inline-flex min-h-12 items-center gap-2 rounded-md border border-line-2 bg-bg-1 px-5 font-medium text-fg transition-colors duration-(--duration-fast) hover:border-fg-3 hover:bg-bg-2"
+        >
+          <Icon name="lucide:file-text" class="text-fg-3" />
+          {ui('cvLong')}
+        </a>
+      </div>
+    </div>
+
+    <ul class="rows lg:col-span-6 lg:pt-3" aria-label={t('channels')}>
+      {
+        rows.map((r) => (
+          <li class="row">
+            <span class="row-label label">
+              <Icon name={r.icon} class="row-icon" />
+              {r.label}
+            </span>
+            <span class="row-value">
+              {r.href ? (
+                <a
+                  href={r.href}
+                  class:list={['row-link', r.mono && 'font-mono text-[0.9rem]']}
+                  {...(r.external ? { target: '_blank', rel: 'noopener' } : {})}
+                >
+                  <span class="truncate">{r.value}</span>
+                  {r.external && <Icon name="lucide:arrow-up-right" class="row-arrow" />}
+                  {r.external && <span class="sr-only">{t('newTab')}</span>}
+                </a>
+              ) : (
+                <span class="row-text">{r.value}</span>
+              )}
+            </span>
+            {(r.copy || r.qr) && (
+              <span class="row-actions">
+                {r.qr && (
+                  <button
+                    type="button"
+                    class="act qr-btn"
+                    popovertarget="line-qr"
+                    popovertargetaction="show"
+                    aria-label={t('showQr')}
+                    title={t('showQr')}
+                  >
+                    <Icon name="lucide:qr-code" />
+                  </button>
+                )}
+                {r.copy && (
+                  <button
+                    type="button"
+                    class="act"
+                    data-copy={r.copy.text}
+                    data-done={r.copy.done}
+                    aria-label={r.copy.label}
+                    title={r.copy.label}
+                  >
+                    <Icon name="lucide:copy" class="i-copy" />
+                    <Icon name="lucide:check" class="i-done" />
+                  </button>
+                )}
+              </span>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div id="line-qr" popover class="qr-pop" role="dialog" aria-label={t('line')}>
+    <img src={asset('line-qr.png')} alt={t('qrAlt')} width="176" height="176" loading="lazy" decoding="async" />
+    <p class="mt-3 text-center text-xs leading-snug text-fg-2">{t('qrHint')}</p>
+    <a
+      href={PROFILE.line}
+      target="_blank"
+      rel="noopener"
+      class="mt-3 flex min-h-11 items-center justify-center gap-1.5 rounded-md bg-bg-2 text-sm font-medium text-fg transition-colors duration-(--duration-fast) hover:bg-bg-3"
+    >
+      {t('openLine')}
+      <Icon name="lucide:arrow-up-right" />
+      <span class="sr-only">{t('newTab')}</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .rows {
+    border-top: 1px solid var(--line);
+  }
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "label actions"
+      "value actions";
+    align-items: center;
+    column-gap: 0.75rem;
+    padding-block: 0.75rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .row-label {
+    grid-area: label;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .row-label :global(.row-icon) {
+    font-size: 0.95rem;
+    color: var(--fg-3);
+    transition: color var(--duration-base) var(--ease-out-expo);
+  }
+  .row:hover .row-label :global(.row-icon) {
+    color: var(--accent);
+  }
+  .row-value {
+    grid-area: value;
+    min-width: 0;
+  }
+  .row-link,
+  .row-text {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 44px;
+    min-width: 0;
+    color: var(--fg);
+  }
+  .row-link {
+    width: fit-content;
+    max-width: 100%;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 5px;
+    transition:
+      color var(--duration-fast),
+      text-decoration-color var(--duration-fast);
+  }
+  .row-link:hover {
+    color: var(--accent);
+    text-decoration-color: currentColor;
+  }
+  .row-link :global(.row-arrow) {
+    flex: none;
+    color: var(--fg-3);
+    transition: translate var(--duration-base) var(--ease-out-expo);
+  }
+  .row-link:hover :global(.row-arrow) {
+    color: currentColor;
+    translate: 2px -2px;
+  }
+  .row-actions {
+    grid-area: actions;
+    display: flex;
+    gap: 0.5rem;
+  }
+  .act {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    color: var(--fg-2);
+    cursor: pointer;
+    transition:
+      color var(--duration-fast),
+      border-color var(--duration-fast),
+      background-color var(--duration-fast);
+  }
+  .act:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: color-mix(in oklch, var(--accent) 8%, transparent);
+  }
+  .act :global(.i-done) {
+    display: none;
+    color: var(--ok);
+  }
+  .act[data-state="done"] :global(.i-copy) {
+    display: none;
+  }
+  .act[data-state="done"] :global(.i-done) {
+    display: block;
+  }
+
+  @media (min-width: 640px) {
+    .row {
+      grid-template-columns: 10.5rem minmax(0, 1fr) auto;
+      grid-template-areas: "label value actions";
+      column-gap: 1.25rem;
+      padding-block: 0.4rem;
+    }
+    .act {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  /* --------------------------------------------------- LINE QR popover */
+  .qr-btn {
+    anchor-name: --line-qr;
+  }
+  .qr-pop {
+    width: 15rem;
+    padding: 1rem;
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-lg);
+    background: var(--bg-1);
+    color: var(--fg);
+    box-shadow: var(--elev-2);
+    opacity: 0;
+    scale: 0.96;
+    transition:
+      opacity var(--duration-base) var(--ease-out-expo),
+      scale var(--duration-base) var(--ease-out-expo),
+      display var(--duration-base) allow-discrete,
+      overlay var(--duration-base) allow-discrete;
+  }
+  .qr-pop:popover-open {
+    opacity: 1;
+    scale: 1;
+  }
+  @starting-style {
+    .qr-pop:popover-open {
+      opacity: 0;
+      scale: 0.96;
+    }
+  }
+  .qr-pop::backdrop {
+    background: transparent;
+  }
+  .qr-pop img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: var(--radius-md);
+    background: #fff;
+    padding: 0.5rem;
+  }
+  @supports (anchor-name: --a) {
+    .qr-pop {
+      position-anchor: --line-qr;
+      inset: auto;
+      top: anchor(bottom);
+      right: anchor(right);
+      margin: 0.5rem 0 0;
+      position-try-fallbacks: flip-block;
+      transform-origin: top right;
+    }
+  }
+</style>
+
+<script>
+  import { copyText } from '@/scripts/ui';
+
+  function init() {
+    const root = document.getElementById('contact');
+    if (!root || root.dataset.ready) return;
+    root.dataset.ready = 'true';
+
+    for (const btn of root.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
+      btn.addEventListener('click', async () => {
+        const ok = await copyText(btn.dataset.copy ?? '', btn.dataset.done ?? '');
+        if (!ok) return;
+        btn.dataset.state = 'done';
+        window.setTimeout(() => delete btn.dataset.state, 1600);
+      });
+    }
+
+    /* Hover-capable pointers also open the QR on hover/focus; touch uses the button (tap). */
+    const pop = document.getElementById('line-qr');
+    const trigger = root.querySelector<HTMLButtonElement>('.qr-btn');
+    if (!pop || !trigger || !('showPopover' in pop) || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    let timer: number | undefined;
+    const open = () => {
+      window.clearTimeout(timer);
+      if (!pop.matches(':popover-open')) pop.showPopover();
+    };
+    const close = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        if (pop.matches(':popover-open') && !pop.matches(':hover, :focus-within')) pop.hidePopover();
+      }, 220);
+    };
+    trigger.addEventListener('pointerenter', open);
+    trigger.addEventListener('pointerleave', close);
+    pop.addEventListener('pointerenter', open);
+    pop.addEventListener('pointerleave', close);
+  }
+  init();
+</script>

@@ -1,0 +1,704 @@
+---
+/**
+ * Printable bilingual résumé (/cv/ and /en/cv/).
+ * Screen: a white A4 "sheet" on the site canvas with a small toolbar.
+ * Print: the sheet alone, A4, black on white, URLs visible as text.
+ */
+import {
+  EDUCATION,
+  JOURNEY,
+  KIND_LABEL,
+  MAIL_SUBJECT,
+  SKILL_GROUPS,
+  START_YEAR,
+  shortTitle,
+  tidy,
+} from '@/components/profile/facts';
+import Icon from '@/components/ui/Icon.astro';
+import { href, type Lang, LANGS, makeT } from '@/i18n';
+import Base from '@/layouts/Base.astro';
+import type { IconName } from '@/lib/icons';
+import { PROFILE } from '@/lib/profile';
+import { getProjects, projectPath } from '@/lib/projects';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const other = LANGS.find((l) => l !== lang) ?? 'en';
+const site = Astro.site ?? new URL('https://gubbitkeytoday.github.io');
+const all = await getProjects();
+const selected = all.slice(0, 8);
+const strip = (url: string) => url.replace(/^https?:\/\/(web\.|www\.)?/, '').replace(/\/$/, '');
+const abs = (path: string) => new URL(path, site).href;
+
+const dict = {
+  th: {
+    title: `CV — ${PROFILE.name.th}`,
+    description: `ประวัติย่อ (CV) ของ${PROFILE.name.th} Full-Stack Developer และ IT Support จากหัวหิน — การศึกษา ทักษะ และผลงานเด่น ${selected.length} โปรเจกต์ พิมพ์หรือบันทึกเป็น PDF ได้`,
+    back: 'กลับหน้าแรก',
+    switchLang: 'English',
+    print: 'พิมพ์ / บันทึกเป็น PDF',
+    noJs: 'กด Ctrl + P (หรือ ⌘ + P) เพื่อพิมพ์หรือบันทึกเป็น PDF',
+    toolbar: 'เครื่องมือ CV',
+    role: 'Full-Stack Developer · IT Support',
+    contact: 'ข้อมูลติดต่อ',
+    summary: 'สรุป',
+    summaryText: `Full-Stack Developer และ IT Support จากหัวหิน นักศึกษาปริญญาตรีชั้นปีที่ 3 สาขาเทคโนโลยีสารสนเทศ สร้างระบบตั้งแต่โครงสร้างฐานข้อมูล สถาปัตยกรรม API ไปจนถึงหน้าบ้านที่เร็ว เข้าถึงได้ และใช้งานได้จริง — มีผลงาน ${all.length} โปรเจกต์ พร้อมรับฝึกงาน สหกิจ หรืองานประจำ`,
+    education: 'การศึกษา',
+    experience: 'เส้นทางการพัฒนา',
+    projects: 'ผลงานเด่น',
+    caseStudy: 'รายละเอียด',
+    live: 'เว็บจริง',
+    code: 'โค้ด',
+    skills: 'ทักษะ',
+    languages: 'ภาษา',
+    thai: 'ไทย',
+    thaiLevel: 'ภาษาแม่',
+    english: 'อังกฤษ',
+    englishNote: 'อ่านเอกสารเทคนิค · พอร์ตโฟลิโอนี้ทำสองภาษา',
+    availability: 'สถานะ',
+    availabilityText: 'พร้อมรับงาน · ฝึกงาน สหกิจศึกษา ฟรีแลนซ์ และงานประจำ สาย Full-Stack / IT Support',
+    portfolio: 'พอร์ตโฟลิโอ',
+    updated: 'อัปเดต',
+    since: `เขียนโค้ดต่อเนื่องตั้งแต่ ${START_YEAR}`,
+  },
+  en: {
+    title: `CV — ${PROFILE.name.en}`,
+    description: `Résumé of ${PROFILE.name.en}, a full-stack developer and IT support from Hua Hin, Thailand — education, skills and ${selected.length} selected projects. Print or save as PDF.`,
+    back: 'Back to site',
+    switchLang: 'ภาษาไทย',
+    print: 'Print / Save as PDF',
+    noJs: 'Press Ctrl + P (or ⌘ + P) to print or save as PDF',
+    toolbar: 'CV tools',
+    role: 'Full-Stack Developer · IT Support',
+    contact: 'Contact',
+    summary: 'Summary',
+    summaryText: `Full-stack developer and IT support based in Hua Hin; third-year Information Technology undergraduate. I build systems end to end — database schema, API architecture and a fast, accessible interface that holds up in real use — with ${all.length} projects so far. Open to internships, co-op and full-time roles.`,
+    education: 'Education',
+    experience: 'Development timeline',
+    projects: 'Selected projects',
+    caseStudy: 'Case study',
+    live: 'Live',
+    code: 'Code',
+    skills: 'Skills',
+    languages: 'Languages',
+    thai: 'Thai',
+    thaiLevel: 'Native',
+    english: 'English',
+    englishNote: 'Technical reading · this portfolio is bilingual',
+    availability: 'Availability',
+    availabilityText: 'Open to internships, co-op, freelance and full-time roles in full-stack or IT support',
+    portfolio: 'Portfolio',
+    updated: 'Updated',
+    since: `Building continuously since ${START_YEAR}`,
+  },
+};
+const t = makeT(dict, lang);
+
+const contacts: { icon: IconName; label: string; text: string; href?: string }[] = [
+  {
+    icon: 'lucide:mail',
+    label: 'Email',
+    text: PROFILE.email,
+    href: `mailto:${PROFILE.email}?subject=${encodeURIComponent(MAIL_SUBJECT[lang])}`,
+  },
+  { icon: 'lucide:phone', label: 'Phone', text: PROFILE.phoneDisplay, href: `tel:${PROFILE.phone}` },
+  { icon: 'lucide:map-pin', label: 'Location', text: PROFILE.location[lang] },
+  { icon: 'lucide:globe', label: t('portfolio'), text: strip(abs(href(lang, '/'))), href: abs(href(lang, '/')) },
+  { icon: 'simple-icons:github', label: 'GitHub', text: strip(PROFILE.githubAlt), href: PROFILE.githubAlt },
+  { icon: 'simple-icons:github', label: 'GitHub', text: strip(PROFILE.github), href: PROFILE.github },
+  { icon: 'simple-icons:line', label: 'LINE', text: strip(PROFILE.line), href: PROFILE.line },
+];
+
+const experience = JOURNEY.filter((e) => e.kind !== 'education');
+const byId = new Map(all.map((p) => [p.id, p]));
+const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : 'en-GB', {
+  month: 'long',
+  year: 'numeric',
+}).format(new Date());
+---
+
+<Base lang={lang} title={t('title')} description={t('description')} path="/cv/">
+  <div class="cv-canvas">
+    <nav class="cv-toolbar" aria-label={t('toolbar')}>
+      <div class="cv-toolbar__in">
+        <a class="tb-btn" href={href(lang, '/')}>
+          <Icon name="lucide:arrow-left" />
+          <span>{t('back')}</span>
+        </a>
+        <div class="flex items-center gap-2">
+          <a class="tb-btn" href={href(other, '/cv/')} hreflang={other} lang={other}>
+            <Icon name="lucide:languages" />
+            <span>{t('switchLang')}</span>
+          </a>
+          <button class="tb-btn tb-btn--primary" type="button" data-print hidden>
+            <Icon name="lucide:printer" />
+            <span>{t('print')}</span>
+          </button>
+        </div>
+      </div>
+      <noscript><p class="cv-nojs">{t('noJs')}</p></noscript>
+    </nav>
+
+    <main id="main" tabindex="-1">
+      <article class="paper" data-theme="light">
+        <!-- ======================================================= HEAD -->
+        <header class="cv-head">
+          <div>
+            <h1 class="cv-name">{PROFILE.name[lang]}</h1>
+            <p class="cv-alt" lang={other}>
+              {PROFILE.name[other]} · {PROFILE.nickname[lang]}
+            </p>
+            <p class="cv-role">{t('role')}</p>
+          </div>
+          <ul class="cv-contact" aria-label={t('contact')}>
+            {
+              contacts.map((c) => (
+                <li>
+                  <Icon name={c.icon} class="cv-contact__i" />
+                  <span class="sr-only">{c.label}: </span>
+                  {c.href ? <a href={c.href}>{c.text}</a> : <span>{c.text}</span>}
+                </li>
+              ))
+            }
+          </ul>
+        </header>
+
+        <div class="cv-grid">
+          <div class="cv-main">
+            <!-- ================================================== SUMMARY -->
+            <section class="cv-sec" aria-labelledby="cv-summary">
+              <h2 id="cv-summary" class="cv-h">{t('summary')}</h2>
+              <p class="cv-summary">{t('summaryText')}</p>
+            </section>
+
+            <!-- ================================================ EDUCATION -->
+            <section class="cv-sec" aria-labelledby="cv-edu">
+              <h2 id="cv-edu" class="cv-h">{t('education')}</h2>
+              <div class="entry">
+                <div class="entry__top">
+                  <h3 class="entry__title">{EDUCATION.degree[lang]}</h3>
+                  <p class="entry__year">{EDUCATION.period[lang]}</p>
+                </div>
+                <p class="entry__text">{EDUCATION.topics[lang]}</p>
+              </div>
+            </section>
+
+            <!-- =============================================== EXPERIENCE -->
+            <section class="cv-sec" aria-labelledby="cv-exp">
+              <h2 id="cv-exp" class="cv-h">{t('experience')}</h2>
+              {
+                experience.map((e) => (
+                  <div class="entry">
+                    <div class="entry__top">
+                      <h3 class="entry__title">{e.title[lang]}</h3>
+                      <p class="entry__year">
+                        {e.year} · {KIND_LABEL[e.kind][lang]}
+                      </p>
+                    </div>
+                    <p class="entry__text">{e.body[lang]}</p>
+                  </div>
+                ))
+              }
+            </section>
+
+            <!-- ================================================= PROJECTS -->
+            <section class="cv-sec" aria-labelledby="cv-proj">
+              <h2 id="cv-proj" class="cv-h">{t('projects')}</h2>
+              {
+                selected.map((p) => {
+                  const page = abs(href(lang, projectPath(p)));
+                  return (
+                    <div class="entry">
+                      <div class="entry__top">
+                        <h3 class="entry__title">
+                          <a href={page}>{shortTitle(p, lang)}</a>
+                        </h3>
+                        <p class="entry__year">{p.data.year}</p>
+                      </div>
+                      <p class="entry__text">{tidy(p.data.summary[lang])}</p>
+                      <p class="entry__stack">{p.data.tags.slice(0, 6).join(' · ')}</p>
+                      <p class="entry__links">
+                        <span>
+                          <b>{t('caseStudy')}</b> <a href={page}>{strip(page)}</a>
+                        </span>
+                        {p.data.live && (
+                          <span>
+                            <b>{t('live')}</b> <a href={p.data.live}>{strip(p.data.live)}</a>
+                          </span>
+                        )}
+                        {p.data.repo && (
+                          <span>
+                            <b>{t('code')}</b> <a href={p.data.repo}>{strip(p.data.repo)}</a>
+                          </span>
+                        )}
+                      </p>
+                    </div>
+                  );
+                })
+              }
+            </section>
+          </div>
+
+          <aside class="cv-side">
+            <section class="cv-sec" aria-labelledby="cv-skills">
+              <h2 id="cv-skills" class="cv-h">{t('skills')}</h2>
+              {
+                SKILL_GROUPS.map((g) => (
+                  <div class="skill">
+                    <h3 class="skill__h">{g.name[lang]}</h3>
+                    <p class="skill__list">{g.items.join(' · ')}</p>
+                  </div>
+                ))
+              }
+            </section>
+
+            <section class="cv-sec" aria-labelledby="cv-lang">
+              <h2 id="cv-lang" class="cv-h">{t('languages')}</h2>
+              <dl class="kv">
+                <div>
+                  <dt>{t('thai')}</dt>
+                  <dd>{t('thaiLevel')}</dd>
+                </div>
+                <div>
+                  <dt>{t('english')}</dt>
+                  <dd>{t('englishNote')}</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section class="cv-sec" aria-labelledby="cv-avail">
+              <h2 id="cv-avail" class="cv-h">{t('availability')}</h2>
+              <p class="cv-small">{t('availabilityText')}</p>
+              <p class="cv-small mt-2">{t('since')}</p>
+            </section>
+          </aside>
+        </div>
+
+        <footer class="cv-foot">
+          <span>{PROFILE.name[lang]} — CV</span>
+          <span>{t('updated')} {updated}</span>
+        </footer>
+      </article>
+    </main>
+  </div>
+</Base>
+
+<style>
+  /* ============================================================ SCREEN */
+  .cv-canvas {
+    min-height: 100dvh;
+    padding-bottom: clamp(2rem, 6vw, 5rem);
+    background:
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 64px 64px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 64px 64px,
+      var(--bg);
+  }
+  .cv-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid var(--line);
+    background: var(--glass);
+    backdrop-filter: blur(14px) saturate(1.4);
+  }
+  .cv-toolbar__in {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    max-width: calc(210mm + 2rem);
+    margin-inline: auto;
+    padding: 0.6rem 1rem;
+  }
+  .cv-nojs {
+    max-width: calc(210mm + 2rem);
+    margin: 0 auto;
+    padding: 0 1rem 0.6rem;
+    font-size: 0.8rem;
+    color: var(--fg-3);
+  }
+  .tb-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0 0.9rem;
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-md);
+    background: var(--bg-1);
+    color: var(--fg);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast),
+      border-color var(--duration-fast),
+      filter var(--duration-fast);
+  }
+  .tb-btn:hover {
+    background: var(--bg-2);
+    border-color: var(--fg-3);
+  }
+  .tb-btn--primary {
+    border-color: transparent;
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .tb-btn--primary:hover {
+    background: var(--accent);
+    border-color: transparent;
+    filter: brightness(1.1);
+  }
+  @media (max-width: 479px) {
+    .tb-btn {
+      padding: 0 0.75rem;
+    }
+    /* Keep the three actions on one row: icon-only back button on small phones. */
+    .tb-btn:first-child span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
+
+  main {
+    padding-inline: 1rem;
+  }
+  main:focus {
+    outline: none;
+  }
+
+  .paper {
+    --ink: var(--fg);
+    --ink-2: var(--fg-2);
+    --ink-3: var(--fg-3);
+    max-width: 210mm;
+    margin: clamp(1rem, 4vw, 2.5rem) auto 0;
+    padding: clamp(1.5rem, 5vw, 15mm) clamp(1.25rem, 5vw, 15mm);
+    background: var(--bg-1);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    box-shadow:
+      0 1px 2px oklch(0% 0 0 / 0.08),
+      0 30px 70px -30px oklch(0% 0 0 / 0.45);
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+  :lang(th) .paper {
+    line-height: 1.7;
+  }
+
+  /* ---- head */
+  .cv-head {
+    display: grid;
+    gap: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px solid var(--ink);
+  }
+  .cv-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+  :lang(th) .cv-name {
+    letter-spacing: 0;
+    line-height: 1.25;
+  }
+  .cv-alt {
+    margin-top: 0.35rem;
+    color: var(--ink-3);
+    font-size: 0.875rem;
+  }
+  .cv-role {
+    margin-top: 0.6rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .cv-contact {
+    display: grid;
+    gap: 0.3rem 1.25rem;
+    font-size: 0.8rem;
+  }
+  .cv-contact li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+  .cv-contact a,
+  .cv-contact span:not(.sr-only) {
+    overflow-wrap: anywhere;
+    color: var(--ink-2);
+  }
+  .cv-contact a:hover {
+    color: var(--accent);
+  }
+  .cv-contact :global(.cv-contact__i) {
+    flex: none;
+    color: var(--ink-3);
+    font-size: 0.85rem;
+  }
+  @media (min-width: 720px) {
+    .cv-head {
+      grid-template-columns: 1fr auto;
+      align-items: end;
+    }
+    .cv-contact {
+      grid-template-columns: auto auto;
+    }
+  }
+
+  /* ---- body grid */
+  .cv-grid {
+    display: grid;
+    gap: 0 2rem;
+  }
+  @media (min-width: 720px) {
+    .cv-grid {
+      grid-template-columns: minmax(0, 1fr) 15.5rem;
+    }
+    .cv-side {
+      padding-left: 1.5rem;
+      border-left: 1px solid var(--line);
+    }
+  }
+  .cv-sec {
+    padding-top: 1.35rem;
+  }
+  .cv-h {
+    margin-bottom: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    line-height: 1.3;
+  }
+  :lang(th) .cv-h {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .cv-summary {
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+  .entry + .entry {
+    margin-top: 0.9rem;
+  }
+  .entry {
+    break-inside: avoid;
+  }
+  .entry__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.1rem 1rem;
+  }
+  .entry__title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  :lang(th) .entry__title {
+    letter-spacing: 0;
+  }
+  .entry__title a:hover {
+    color: var(--accent);
+  }
+  .entry__year {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+  :lang(th) .entry__year {
+    font-family: var(--font-sans);
+  }
+  .entry__text {
+    margin-top: 0.2rem;
+    color: var(--ink-2);
+  }
+  .entry__stack {
+    margin-top: 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-2);
+  }
+  .entry__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.1rem 1rem;
+    margin-top: 0.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-3);
+  }
+  .entry__links b {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+  .entry__links a {
+    color: var(--ink-3);
+    overflow-wrap: anywhere;
+    text-decoration: underline;
+    text-decoration-color: var(--line-2);
+    text-underline-offset: 2px;
+  }
+  .entry__links a:hover {
+    color: var(--accent);
+  }
+  .skill + .skill {
+    margin-top: 0.75rem;
+  }
+  .skill {
+    break-inside: avoid;
+  }
+  .skill__h {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+  .skill__list,
+  .cv-small {
+    margin-top: 0.15rem;
+    font-size: 0.78rem;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+  .kv div + div {
+    margin-top: 0.45rem;
+  }
+  .kv dt {
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  .kv dd {
+    font-size: 0.78rem;
+    color: var(--ink-2);
+  }
+  .cv-foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-3);
+  }
+  :lang(th) .cv-foot {
+    font-family: var(--font-sans);
+  }
+</style>
+
+<style is:global>
+  /* ============================================================= PRINT */
+  @page {
+    size: A4;
+    margin: 13mm 14mm 14mm;
+  }
+  @media print {
+    html,
+    body,
+    .cv-canvas {
+      background: #fff !important;
+      color: #000 !important;
+    }
+    .cv-toolbar,
+    .skip-link,
+    .toast {
+      display: none !important;
+    }
+    .cv-canvas main {
+      padding: 0;
+    }
+    .paper {
+      --ink: #000;
+      --ink-2: #1f1f1f;
+      --ink-3: #4a4a4a;
+      --line: #c8c8c8;
+      --line-2: #9a9a9a;
+      --accent: #a83a17;
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      background: #fff;
+      font-size: 9pt;
+      line-height: 1.45;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .paper .cv-head {
+      grid-template-columns: 1fr auto;
+      align-items: end;
+    }
+    .paper .cv-contact {
+      grid-template-columns: auto auto;
+      font-size: 8pt;
+    }
+    .paper .cv-grid {
+      grid-template-columns: minmax(0, 1fr) 52mm;
+    }
+    .paper .cv-side {
+      padding-left: 5mm;
+      border-left: 1px solid var(--line);
+    }
+    .paper .cv-sec {
+      padding-top: 4.5mm;
+    }
+    .paper .cv-h {
+      break-after: avoid;
+    }
+    .paper .entry,
+    .paper .skill,
+    .paper .kv div {
+      break-inside: avoid;
+    }
+    .paper a {
+      color: inherit;
+      text-decoration: none;
+    }
+    /* Links whose text is not already the URL print it alongside. */
+    .paper .entry__title a::after {
+      content: none;
+    }
+    .paper .entry__links a {
+      text-decoration: none;
+    }
+  }
+</style>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-print]');
+  if (btn && !btn.dataset.ready) {
+    btn.dataset.ready = 'true';
+    btn.hidden = false;
+    btn.addEventListener('click', () => window.print());
+  }
+</script>

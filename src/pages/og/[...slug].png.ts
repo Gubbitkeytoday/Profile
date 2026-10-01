@@ -103,8 +103,7 @@ const family = (s: string) => (isThai(s) ? 'Anuphan' : 'Space Grotesk, Anuphan')
 /** Thai has no spaces between words: insert zero-width spaces at word boundaries so satori can wrap lines. */
 const ZWSP = String.fromCharCode(0x200b);
 const segmenter = new Intl.Segmenter('th', { granularity: 'word' });
-const wrapThai = (s: string) =>
-  isThai(s) ? Array.from(segmenter.segment(s), ({ segment }) => segment).join(ZWSP) : s;
+const wrapThai = (s: string) => (isThai(s) ? Array.from(segmenter.segment(s), ({ segment }) => segment).join(ZWSP) : s);
 
 /** A text block: picks the right font for the script and makes Thai wrappable. */
 const text = (value: string, style: Style = {}) =>
@@ -265,7 +264,14 @@ function projectCard(p: Project, lang: Lang, cover: string | null) {
           letterSpacing: thaiTitle ? 0 : -1.5,
           lineClamp: 3,
         }),
-        text(d.role[lang], { marginTop: 16, fontSize: 22, fontWeight: 500, color: C.fg2, lineHeight: 1.45, lineClamp: 2 }),
+        text(d.role[lang], {
+          marginTop: 16,
+          fontSize: 22,
+          fontWeight: 500,
+          color: C.fg2,
+          lineHeight: 1.45,
+          lineClamp: 2,
+        }),
         h(
           'div',
           { display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 'auto', paddingTop: 20 },
