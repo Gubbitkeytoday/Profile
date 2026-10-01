@@ -284,3 +284,15 @@
   opacity: 1;
   translate: 0 0;
 }
+
+/* ------------------------------------------------------------ RENDERING
+ * Below-the-fold sections skip style/layout until they approach the viewport.
+ * Thai line-breaking is dictionary-based and costly, so this matters most on the TH pages.
+ * `auto` in contain-intrinsic-size remembers each section's real height once laid out. */
+@layer base {
+  main > section:not(:first-child),
+  .site-footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1200px;
+  }
+}

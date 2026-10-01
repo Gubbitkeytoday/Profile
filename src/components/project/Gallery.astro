@@ -120,7 +120,7 @@ const sizes = (tile: Tile) =>
     </p>
   </SectionHead>
 
-  <div class="gal" data-gallery data-strings={strings}>
+  <div class="gal" data-gallery data-strings={strings} data-gallery-label={`${title} — ${t('lbDialog')}`}>
     <ul role="list" class="gal__grid">
       {
         tiles.map((tile) => (

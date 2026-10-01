@@ -22,7 +22,7 @@
     "test:e2e": "playwright test",
     "test:install": "playwright install --with-deps chromium",
     "lhci": "npx --yes @lhci/cli@0.15.1 autorun --config=./lighthouserc.cjs",
-    "media:dims": "node scripts/sync-media-dimensions.mjs"
+    "media:dims": "node scripts/make-cover-variants.mjs && node scripts/sync-media-dimensions.mjs && biome format --write src/data/projects.json"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

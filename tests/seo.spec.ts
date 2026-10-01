@@ -90,7 +90,8 @@ test.describe('crawl files', () => {
     expect(res?.status()).toBe(404);
     await expect(page.locator('h1')).toContainText('404');
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
-    await expect(page.locator(`a[href="${BASE}"]`).first()).toBeVisible();
-    await expect(page.locator(`a[href="${BASE}en/"]`).first()).toBeVisible();
+    // Scope to <main>: the header also links to both homes (hidden in the collapsed mobile nav).
+    await expect(page.locator(`main a[href="${BASE}"]`).first()).toBeVisible();
+    await expect(page.locator(`main a[href="${BASE}en/"]`).first()).toBeVisible();
   });
 });

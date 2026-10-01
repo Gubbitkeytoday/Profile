@@ -1,257 +1,323 @@
 <div align="center">
 
-# ⚡ Wongsathorn Chapseethong (วงศธร ฉาบสีทอง)
-### **Full-Stack Software Engineer & Systems Architect**
-*High-Performance Web Applications · Interactive 3D Graphics · Distributed Systems · IT Infrastructure*
+# Wongsathorn Chapseethong — Portfolio
 
-[![Live Demo](https://img.shields.io/badge/Live_Portfolio-gubbitkeytoday.github.io%2FProfile-FF5C38?style=for-the-badge&logo=githubpages&logoColor=white)](https://gubbitkeytoday.github.io/Profile/)
-[![GitHub Profile](https://img.shields.io/badge/GitHub-GitBababoo-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GitBababoo)
-[![LINE Official](https://img.shields.io/badge/LINE-Contact%20QR-06C755?style=for-the-badge&logo=line&logoColor=white)](https://line.me/ti/p/UzaC-aQ75C)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](./LICENSE.md)
+**Bilingual (TH / EN) engineering portfolio of Wongsathorn Chapseethong (วงศธร ฉาบสีทอง), full-stack developer.**
 
-<br/>
+[![CI](https://github.com/Gubbitkeytoday/Profile/actions/workflows/ci.yml/badge.svg)](https://github.com/Gubbitkeytoday/Profile/actions/workflows/ci.yml)
+[![Astro](https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white)](https://astro.build/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](./tsconfig.json)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE.md)
 
-[![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1_AA-0_axe--core_violations-3DDC97?style=flat-square&logo=w3c&logoColor=white)](https://www.w3.org/WAI/WCAG21/quickref/)
-[![Lighthouse Performance](https://img.shields.io/badge/Lighthouse-100%2F100-3DDC97?style=flat-square&logo=lighthouse&logoColor=white)](https://pagespeed.web.dev/)
-[![Shipped Systems](https://img.shields.io/badge/Shipped_Projects-18_Production_Builds-FF5C38?style=flat-square)](./docs/PROJECTS_CATALOG.md)
-[![Architecture](https://img.shields.io/badge/Architecture-Zero--Framework_Native_DOM-4CC9F0?style=flat-square)](./docs/ARCHITECTURE.md)
-[![TypeScript / Rust](https://img.shields.io/badge/Core_Stack-Next.js_14%2F16_·_React_19_·_Rust%2FWasm_·_Python_·_MCP-blueviolet?style=flat-square)](#-technical-skills-matrix)
-
-<p align="center">
-  <b>Bangkok & Hua Hin, Thailand</b> · Open for Software Engineering & Full-Stack Developer Roles / Co-op Placement
-</p>
-
----
-
-[🚀 Live Website](https://gubbitkeytoday.github.io/Profile/) •
-[📑 Master Data](./PORTFOLIO_DATA.md) •
-[🏛️ Architecture Guide](./docs/ARCHITECTURE.md) •
-[📦 Projects Catalog](./docs/PROJECTS_CATALOG.md) •
-[🎨 Design System](./docs/ACCESSIBILITY_AND_DESIGN_SYSTEM.md) •
-[🚢 Deployment Runbook](./docs/DEPLOYMENT.md)
+**Live:** [gubbitkeytoday.github.io/Profile](https://gubbitkeytoday.github.io/Profile/) ·
+[English](https://gubbitkeytoday.github.io/Profile/en/) ·
+[CV](https://gubbitkeytoday.github.io/Profile/en/cv/)
 
 </div>
 
-<br/>
-
-## 🎯 Executive Summary & Engineering Philosophy
-
-I build software systems from first principles — from **database normalization and high-throughput API design** to **sub-millisecond client rendering and accessible interfaces**.
-
-This repository houses the official engineering portfolio of **Wongsathorn Chapseethong (ดรีม / Dream)**. Rather than relying on heavyweight abstractions or template boilerplates, this portfolio was architected from scratch using **Native Web Standards (HTML5, CSS Custom Properties, ES2022 JavaScript)** with zero build runtime overhead, delivering a **100/100 Lighthouse Performance rating** and **0 axe-core accessibility violations**.
-
-```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                                 ENGINEERING HIGHLIGHTS                                 │
-├────────────────────────────────────────────────────────────────────────────────────────┤
-│  ⚡ 18 Production Builds  │ BKK Transit GTFS, Enterprise POS, AI MCP, Discord RPC, 3D  │
-│  🚀 High Throughput       │ Rust + WebAssembly on Web Workers (60 FPS with 8,193 trips)│
-│  🌐 Bilingual Engine      │ Native TH/EN semantic switching without page reloads       │
-│  🛡️ Zero Violations       │ Fully certified WCAG 2.1 AA keyboard paths and contrast    │
-│  📦 100% Native           │ Zero client-side JavaScript frameworks or runtime deps     │
-└────────────────────────────────────────────────────────────────────────────────────────┘
-```
-
 ---
 
-## 🏛️ System Architecture
+## Contents
+
+- [Overview](#overview)
+- [Highlights](#highlights)
+- [Architecture](#architecture)
+- [Tech stack](#tech-stack)
+- [Project structure](#project-structure)
+- [Getting started](#getting-started)
+- [Scripts](#scripts)
+- [Content editing](#content-editing)
+- [Quality gates](#quality-gates)
+- [Deployment](#deployment)
+- [Featured projects](#featured-projects)
+- [สรุปภาษาไทย](#สรุปภาษาไทย)
+- [Documentation](#documentation)
+- [License](#license)
+
+## Overview
+
+A statically generated portfolio site built with **Astro 7**, **TypeScript** (strictest preset) and **Tailwind CSS v4**.
+Every page is pre-rendered HTML; JavaScript is shipped only for the parts that are interactive (navigation drawer,
+command palette, project filters, gallery lightbox, copy buttons).
+
+The site has two locales with separate URLs — Thai at `/` (default) and English at `/en/` — a case-study page for every
+project (`/projects/<id>/`), a printable CV (`/cv/`), generated Open Graph images, and a sitemap.
+
+All project content lives in one file, [`src/data/projects.json`](./src/data/projects.json), validated at build time by
+a Zod schema in [`src/content.config.ts`](./src/content.config.ts).
+
+## Highlights
+
+- **Static first.** Astro renders every route at build time; client scripts only enhance markup that already works.
+- **Real i18n routing.** `/` (TH) and `/en/` (EN), with `canonical`, `hreflang` (incl. `x-default`), `og:locale` and a localized sitemap.
+- **Per-project pages.** 18 projects × 2 locales = 36 case-study pages, with previous/next navigation and `BreadcrumbList` + `SoftwareSourceCode` JSON-LD.
+- **Filterable work index.** Category pills, a tech `<select>` and search, all synced to the URL (`?cat=`, `?tech=`, `?q=`). Skill tiles link straight to `?tech=` filters.
+- **Command palette.** Press `⌘K` / `Ctrl K` or `/`. It uses a native `<dialog>` with an ARIA combobox and listbox, and the search ignores punctuation (`nextjs` finds `Next.js`).
+- **Printable CV.** `/cv/` and `/en/cv/` render an A4 sheet you can print or save as a PDF.
+- **Design tokens in OKLCH.** A dark and a light theme, three motion durations, and Thai typography rules built into the base styles.
+- **Motion without a JS library.** Native cross-document view transitions plus CSS scroll-driven animations, all turned off under `prefers-reduced-motion`.
+- **Build-time assets.** Iconify SVGs are inlined at build time (only the icons that are used), fonts are self-hosted with Fontsource, and OG images are rendered with satori and sharp.
+- **Enforced quality.** Biome, `astro check`, Playwright with axe-core (WCAG 2.2 AA) and Lighthouse CI budgets run on every pull request.
+
+## Architecture
 
 ```mermaid
-graph TD
-    User([🌐 Client / Browser]) -->|HTTP / HTTPS| Edge[GitHub Pages CDN Edge]
-    Edge -->|Cache-Busted Payloads| HTML[index.html - Semantic DOM & JSON-LD]
-    
-    subgraph Client Architecture [Zero-Framework Client Engine]
-        HTML --> CSS[assets/css/main.css - Engineered Dark / Light System]
-        HTML --> AppCore[assets/js/main.js - Event Lifecycle & State Manager]
-        HTML --> DataStore[assets/js/projects.js - Precompiled Immutable Catalog]
-        
-        AppCore --> ThemeEngine[Theme Switcher · LocalStorage Sync]
-        AppCore --> LangEngine[Bilingual Engine · TH / EN DOM Translator]
-        AppCore --> FilterEngine[Reactive Filter & Real-Time Query Matcher]
-        AppCore --> SheetEngine[Interactive Drawer & Modal System]
-        AppCore --> LightboxEngine[Media Lightbox · 274 WebP / MP4 Assets]
-        AppCore --> CanvasFX[HTML5 Canvas Constellation Particle Pipeline]
-        AppCore --> LineQREngine[Live LINE QR Popover & Dynamic Tooltip]
-    end
+flowchart LR
+  subgraph Source
+    JSON["src/data/projects.json"] --> CC["Content collection<br/>(Zod schema, content.config.ts)"]
+    I18N["src/i18n<br/>ui dict + makeT"]
+    CSS["src/styles/global.css<br/>Tailwind v4 + OKLCH tokens"]
+  end
 
-    subgraph Media Delivery [Multi-Resolution Asset Pipeline]
-        LightboxEngine --> MediaRepo[media/ - Optimized 480p / 960p / 1600p WebP & MP4]
-    end
+  subgraph Build["astro build (static)"]
+    CC --> Pages["src/pages<br/>/ · /en/ · /projects/[slug]/ · /cv/ · 404"]
+    I18N --> Pages
+    CSS --> Pages
+    CC --> OG["src/pages/og/[...slug].png.ts<br/>satori → sharp"]
+    Pages --> Sitemap["@astrojs/sitemap<br/>+ robots.txt.ts"]
+  end
 
-    subgraph SEO & Discovery [Generative Engine Optimization]
-        HTML --> SchemaGraph[Schema.org Person / ProfilePage Linked Graph]
-    end
+  subgraph Output["dist/"]
+    HTML["HTML per route"]
+    Assets["/_astro/* hashed JS · CSS · fonts"]
+    PNG["og/*.png"]
+    Media["media/* (copied from public/)"]
+  end
+
+  Pages --> HTML
+  Pages --> Assets
+  OG --> PNG
+  Output -->|actions/deploy-pages| GHP["GitHub Pages<br/>gubbitkeytoday.github.io/Profile/"]
 ```
 
----
+See [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) for the rendering model, data flow and component map.
 
-## 📦 Shipped Systems & Production Projects (18 Builds)
+## Tech stack
 
-A curated catalog of 18 fully-functional systems built, tested, and shipped. For full architectural teardowns, metrics, and database schemas, see **[docs/PROJECTS_CATALOG.md](./docs/PROJECTS_CATALOG.md)**.
+| Area | Choice | Notes |
+| :-- | :-- | :-- |
+| Framework | [Astro](https://astro.build/) 7 | Static output, `base: '/Profile'`, `trailingSlash: 'always'`, built-in i18n routing |
+| Language | TypeScript 6 | `astro/tsconfigs/strictest`, `@/*` → `src/*` path alias |
+| Styling | Tailwind CSS 4 (`@tailwindcss/vite`) | Tokens in `src/styles/global.css` (`@theme`, OKLCH) |
+| Content | Astro content collections + Zod | `file()` loader over `src/data/projects.json` |
+| Icons | Iconify (`@iconify-json/lucide`, `@iconify-json/simple-icons`) | Inlined at build time by `src/components/ui/Icon.astro` |
+| Fonts | Fontsource | Inter, Space Grotesk, Anuphan, IBM Plex Sans Thai, JetBrains Mono (self-hosted) |
+| Lightbox | PhotoSwipe 5 | Loaded on demand on project pages; images and video |
+| OG images | satori + sharp | 1200 × 630 PNG per page type and locale |
+| SEO | `@astrojs/sitemap`, `robots.txt` endpoint, web manifest | JSON-LD `Person`, `BreadcrumbList`, `SoftwareSourceCode` |
+| Lint / format | Biome 2 | `biome.json` |
+| Tests | Playwright + `@axe-core/playwright` | Desktop Chrome and Pixel 7 projects against `astro preview` |
+| Performance | Lighthouse CI 0.15 | Budgets in `lighthouserc.cjs` |
+| CI / CD | GitHub Actions | `.github/workflows/ci.yml`, `.github/workflows/deploy.yml` |
 
-| # | System Name | Category | Core Stack | Key Metrics / Architecture Highlights | Links |
-| :-: | :--- | :--- | :--- | :--- | :---: |
-| **01** | **Greater Bangkok Metro Mini 3D** | `Interactive 3D` | React 19, TypeScript, Three.js, Rust, Wasm | **60 FPS**, 10 lines, 193 stations, 8,193 trips/day. Wasm worker core. | [Live](https://metro.itstom.me) • [Repo](https://github.com/Gubbitkeytoday/tha-metro-mini-3d) |
-| **02** | **Khui AI (คุย AI)** | `Web Application` | Next.js 14, TypeScript, Prisma, SQLite, SSE | Character creator studio, real-time SSE streaming, in-game economy. | [Repo](https://github.com/Gubbitkeytoday/khuiai-fullstack) |
-| **03** | **MangaVerses** | `Web Application` | Next.js 16, TypeScript, Tailwind CSS, Lucide | High-throughput manga reader, admin dashboard, multi-banner management. | [Live](https://gubbitkeytoday.github.io/MangaVerses/) • [Repo](https://github.com/Gubbitkeytoday/MangaVerses) |
-| **04** | **SmartPOS Enterprise** | `Web Application` | Next.js 14, TypeScript, Tailwind CSS | Enterprise POS with inventory tracking, cash reconciliation & receipt engine. | [Repo](https://github.com/Gubbitkeytoday/synhub-membership-system) |
-| **05** | **RUEDU (ฤดู) Flower Atelier** | `Web Application` | HTML5, Vanilla CSS, Modern JS, PWA | Luxury florist e-commerce, 13 pages, interactive bouquet builder, PWA offline. | [Live](https://gubbitkeytoday.github.io/ruedu-flower-atelier/) • [Repo](https://github.com/Gubbitkeytoday/ruedu-flower-atelier) |
-| **06** | **ARÓM Specialty Coffee** | `Web Application` | HTML5, Vanilla CSS, Modern JS, Web Audio | Specialty coffee roastery, 8 pages, V60 interactive brew timer, 0 axe violations. | [Live](https://gubbitkeytoday.github.io/arom-specialty-coffee/) • [Repo](https://github.com/Gubbitkeytoday/arom-specialty-coffee) |
-| **07** | **AeroControl** | `Distributed System` | Next.js 16.3, WebRTC, Python, NVENC | Ultra-low latency remote desktop streaming with GPU hardware encoding. | [Repo](https://github.com/Gubbitkeytoday/aerocontrol) |
-| **08** | **Syntech CRM & Membership** | `Web Application` | Next.js 14, TypeScript, Tailwind CSS | Tiered enterprise membership system, transaction history & analytics. | [Repo](https://github.com/Gubbitkeytoday/syntech_crm_draft) |
-| **09** | **HBD 3D Craft** | `Interactive 3D` | Three.js, WebGL, Web Audio API | Custom 3D cake builder with procedural decorations and dynamic lighting. | [Live](https://hbd-3d-craft.pages.dev) • [Repo](https://github.com/Gubbitkeytoday/hbd-3d-craft) |
-| **10** | **Multiplayer Tank Arena 2D** | `Interactive 2D` | Node.js, Express, WebSocket, Canvas API | 60-tick multiplayer arcade game with client-side prediction and collision math. | [Repo](https://github.com/GitBababoo) |
-| **11** | **Face-Recognition Attendance** | `AI / Computer Vision` | Python, OpenCV, Flask, SQLite | Real-time biometrics clock-in system with anti-spoofing and audit logs. | [Repo](https://github.com/GitBababoo) |
-| **12** | **Cinema Booking Engine** | `Web Application` | PHP, MySQL, JavaScript, Bootstrap | Multi-screen seat reservation system with dynamic pricing and PDF tickets. | [Repo](https://github.com/GitBababoo) |
-| **13** | **Interactive PDF Editor** | `Web Application` | TypeScript, PDF.js, Canvas API | In-browser PDF annotation, digital signature and page manipulation engine. | [Repo](https://github.com/GitBababoo) |
-| **14** | **Smart WebShop Platform** | `Web Application` | PHP 8, MySQL, AJAX, Tailwind CSS | Full-lifecycle e-commerce engine with inventory webhooks and coupon rules. | [Repo](https://github.com/GitBababoo) |
-| **15** | **Community Agro-Tourism Portal** | `Web Application` | HTML5, Modern JS, CSS Grid | Regional tourism platform featuring local products and interactive mapping. | [Repo](https://github.com/GitBababoo) |
-| **16** | **PRISM64 Personality & MCP** | `Web Application` | Python, JS, Tailwind, Canvas, MCP | 64-shade personality matrix, 9:16 Social Story Studio, Gemini MCP JSON-RPC 2.0. | [Live](https://prism64.onrender.com) • [Repo](https://github.com/Gubbitkeytoday/prism64) |
-| **17** | **Discord Rich Presence Pro** | `Desktop / Systems` | Python 3.12, WinRT, GSMTC, Discord IPC | Windows Kernel media sync, DirectX/Vulkan game auto-pause, system tray. | [Repo](https://github.com/Gubbitkeytoday/discord-rich-presence-pro) |
-| **18** | **BKK Transit (Bangkok Open Transit)** | `Web Application` | Python 3.12, FastAPI, SQLite, Leaflet.js, GTFS, MCP | Bangkok mass transit routing engine, GTFS timetable parsing, interactive map & MCP tool. | [Repo](https://github.com/Gubbitkeytoday/bkk-transit) |
+## Project structure
 
----
-
-## 🛠️ Technical Skills Matrix
-
-```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                                   CORE TECH MATRIX                                     │
-├───────────────────┬───────────────────┬───────────────────┬────────────────────────────┤
-│     FRONTEND      │      BACKEND      │     DATABASE      │       SYSTEMS & DEVOPS     │
-├───────────────────┼───────────────────┼───────────────────┼────────────────────────────┤
-│ Next.js 14 / 16   │ Node.js / Express │ PostgreSQL        │ Linux (Debian / Ubuntu)    │
-│ React 19          │ Python (FastAPI)  │ MySQL / MariaDB   │ Docker & Containerization  │
-│ TypeScript (ESNext│ Rust (WebAssembly)│ SQLite            │ Git & GitHub Workflows     │
-│ Three.js / WebGL  │ PHP 8.x / Laravel │ Prisma ORM        │ CI / CD Automation         │
-│ Tailwind CSS      │ RESTful & SSE APIs│ Redis Cache       │ IT Hardware & Networking   │
-│ Web Audio API     │ WebSockets (WS)   │ Firebase DB       │ Web Scraping (Puppeteer)   │
-└───────────────────┴───────────────────┴───────────────────┴────────────────────────────┘
-```
-
----
-
-## 📂 Repository Structure
-
-```
-Profile/
-├── index.html                           # Single Source of Truth Semantic HTML5 application
-├── PORTFOLIO_DATA.md                    # Master technical data and specifications
-├── README.md                            # High-level architecture and developer overview
-├── CONTRIBUTING.md                      # Contribution guidelines and workflow rules
-├── CODE_OF_CONDUCT.md                   # Contributor Covenant Code of Conduct
-├── SECURITY.md                          # Security and vulnerability disclosure policies
-├── CHANGELOG.md                         # Semantic versioning release history
-├── LICENSE.md                           # MIT License
-│
-├── assets/                              # Production Client Assets
-│   ├── css/
-│   │   └── main.css                     # Engineered dark/light design system & CSS tokens
-│   ├── js/
-│   │   ├── projects.js                  # Precompiled immutable JSON catalog of 18 builds
-│   │   └── main.js                      # Core runtime: Routing, Drawers, Modals, Canvas FX
-│   ├── favicon.svg                      # Scalable SVG brand mark
-│   ├── apple-touch-icon.png             # iOS icon bundle
-│   └── line-qr.png                      # Crisp high-density LINE contact QR code
-│
-├── media/                               # Optimized Multi-Resolution Media Pipeline (78.5 MB)
-│   ├── hero/                            # Crossfading cinematic video backgrounds
-│   ├── metro3d/                         # 3D Metro simulation captures & demo video
-│   ├── khuiai/                          # Khui AI interface & studio screenshots
-│   ├── mangaverse/                      # Manga reader views & admin dashboard
-│   ├── pos/                             # Enterprise POS transaction flows
-│   ├── ruedu/                           # Luxury floral atelier photography & UI
-│   ├── arom/                            # Specialty coffee interactive timer & menus
-│   └── ...                              # All 18 systems media bundles
-│
-└── docs/                                # Technical Engineering Documentation
-    ├── ARCHITECTURE.md                  # Detailed zero-framework engine & DOM lifecycle
-    ├── PROJECTS_CATALOG.md              # Deep-dive case studies of all 18 builds
-    ├── ACCESSIBILITY_AND_DESIGN_SYSTEM.md # Design tokens, contrast & WCAG AA audit
-    └── DEPLOYMENT.md                    # GitHub Pages release, caching & maintenance runbook
+```text
+src/
+├── components/
+│   ├── hero/          FeaturedTile, TechMarquee
+│   ├── layout/        Nav, Footer, CommandPalette
+│   ├── profile/       SectionHead, facts.ts (bio, journey, education, CV skill groups)
+│   ├── project/       ProjectDetail, Gallery (+ gallery.ts, lightbox.css), MetricGrid,
+│   │                  ProjectFacts, PrevNext, SectionHead, dict.ts, media.ts
+│   ├── sections/      Hero, Work, Skills, Journey, About, Contact
+│   ├── skills/        SkillTile, tech.ts
+│   ├── ui/            Icon.astro (build-time Iconify SVG)
+│   └── work/          FeaturedTile, Filters, ProjectRow, work.ts (client), meta.ts, shared.ts
+├── content.config.ts  Zod schema for the `projects` collection
+├── env.d.ts           App.Locals typing (per-page icon sprite)
+├── data/
+│   └── projects.json  Single source of truth for all project content
+├── i18n/index.ts      Locales, href()/asset() helpers, shared UI dict, makeT()
+├── layouts/Base.astro <head>: SEO, OG, hreflang, JSON-LD, theme bootstrap
+├── lib/               icons.ts, media.ts, profile.ts, projects.ts, project-paths.ts
+├── pages/
+│   ├── index.astro · cv.astro · 404.astro · robots.txt.ts
+│   ├── projects/[slug].astro
+│   ├── en/            index.astro · cv.astro · projects/[slug].astro
+│   └── og/[...slug].png.ts
+├── scripts/           nav.ts, palette.ts, search.ts, theme.ts, footer.ts, ui.ts
+├── styles/global.css  Tailwind import, fonts, tokens, base layer, view transitions
+└── views/             HomePage, ProjectPage, CvPage (shared by TH and EN routes)
 ```
 
----
+Other top-level folders: `public/` (media, favicon, manifest, LINE QR), `scripts/sync-media-dimensions.mjs`,
+`tests/` (Playwright specs), `docs/`, `.github/workflows/`.
 
-## 💻 Local Development & Setup
+## Getting started
 
-This project uses **zero runtime dependencies** and executes natively in any modern web browser.
+Requirements: **Node.js 22** (see `.nvmrc`; `package.json` requires `>=22.12`) and npm.
 
-### Prerequisites
-- Python 3.8+ (or Node.js 18+)
-- Modern browser (Chrome 120+, Firefox 120+, Safari 17+, Edge 120+)
-
-### 1. Clone the Repository
 ```bash
 git clone https://github.com/Gubbitkeytoday/Profile.git
 cd Profile
+npm ci
+npm run dev
 ```
 
-### 2. Launch Local Static Server
-```bash
-# Option A: Using Python built-in HTTP server
-python -m http.server 3000
+Open <http://localhost:4321/Profile/>. The `/Profile/` base path is required locally too, because it matches GitHub Pages.
 
-# Option B: Using Node.js npx serve
-npx serve . -l 3000
-```
-
-Open **[http://localhost:3000](http://localhost:3000)** in your browser.
-
----
-
-## 🧪 Automated Quality Assurance & Verification
-
-The codebase has undergone exhaustive QA audits for accessibility, responsive layouts, and cross-browser consistency:
+To run the end-to-end tests the first time, install Chromium once:
 
 ```bash
-# Verify JavaScript syntax across all asset scripts
-node -c assets/js/main.js
-node -c assets/js/projects.js
-
-# Audit Accessibility & Performance (via Google Lighthouse)
-npx lighthouse http://localhost:3000 --chrome-flags="--headless" --output=html --output-path=report.html
+npm run test:install
 ```
 
-### Verified Audit Results:
-- ✅ **axe-core Accessibility Audit:** 0 violations (Full WCAG 2.1 AA certified).
-- ✅ **Lighthouse Performance Score:** 100 / 100 on Desktop, 98 / 100 on Mobile.
-- ✅ **Horizontal Layout Stability:** 0px overflow across 360px, 390px, 768px, 1280px, and 1920px viewports.
-- ✅ **JavaScript Runtime Errors:** 0 console warnings or unhandled exceptions.
+## Scripts
 
----
+| Script | Command | Purpose |
+| :-- | :-- | :-- |
+| `npm run dev` | `astro dev` | Dev server at `http://localhost:4321/Profile/` |
+| `npm run build` | `astro build` | Static build into `dist/` (pages, OG images, sitemap) |
+| `npm run preview` | `astro preview` | Serve `dist/` under the `/Profile/` base |
+| `npm run check` | `astro check` | Type-check `.astro` and `.ts` files |
+| `npm run lint` | `biome check .` | Lint and check formatting |
+| `npm run format` | `biome check --write .` | Apply safe fixes and formatting |
+| `npm test` / `npm run test:e2e` | `playwright test` | Build, preview, then run all Playwright specs |
+| `npm run test:ui` | `playwright test --ui` | Playwright UI mode |
+| `npm run test:install` | `playwright install --with-deps chromium` | Install the test browser |
+| `npm run verify` | lint → check → build → test | Everything CI's `verify` job runs |
+| `npm run lhci` | `@lhci/cli@0.15.1 autorun` | Lighthouse CI against `astro preview` (run `npm run build` first) |
+| `npm run media:dims` | `node scripts/make-cover-variants.mjs && node scripts/sync-media-dimensions.mjs` | Add 720w cover variants, then write real image width/height back into `projects.json` |
 
-## 🚢 Deployment Architecture
+## Content editing
 
-Continuous deployment is automated via **GitHub Pages**:
-- **Production Host:** `https://gubbitkeytoday.github.io/Profile/`
-- **Branch:** `master`
-- **Asset Caching:** Fingerprinted version parameters (`?v=1.0.1`) ensure immediate client cache invalidation upon deployment.
+### Add or edit a project
 
-For complete release procedures, see **[docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)**.
+1. Add an object to `src/data/projects.json`. The schema in `src/content.config.ts` rejects anything malformed at build time.
 
----
+   | Field | Type | Notes |
+   | :-- | :-- | :-- |
+   | `id` | string | URL slug: `/projects/<id>/`, `og/<id>-<lang>.png` |
+   | `order` | positive int | Higher = listed first |
+   | `category` | `web` \| `interactive` \| `app` | Filter pill and label |
+   | `year` | int 2020–2030 | |
+   | `icon` | string | Key into `PROJECT_ICONS` in `src/lib/icons.ts` (falls back to a folder glyph) |
+   | `title`, `role`, `summary` | `{ th, en }` | Both locales required, non-empty |
+   | `metrics` | `{ value, label: { th, en } }[]` | Shown as metric tiles; audit scores are filtered out of card chips |
+   | `features` | `{ th: string[], en: string[] }` | Bullet list on the case-study page |
+   | `tags` | string[] | Tech tags; drive the `?tech=` filter, skill counts and tag icons (`TAG_ICONS` in `src/lib/icons.ts`) |
+   | `repo`, `live` | URL, optional | Only set `live` for a site that is actually deployed |
+   | `cover` | `{ path, widths, width, height }` | Cover image |
+   | `gallery` | array | `{ type: "image", path, widths, width, height, format? }` or `{ type: "video", path }` |
 
-## 👤 Author & Contact Information
+2. Add media under `public/media/<folder>/`, using this naming scheme:
 
-**Wongsathorn Chapseethong (วงศธร ฉาบสีทอง)**  
-*Full-Stack Software Engineer & IT Support Specialist*
+   ```text
+   <path>-<width>.webp      e.g. media/metro3d/01-network-overview-960.webp
+   <path>-<width>.jpg       JPEG variant of the same width
+   <path>.mp4               video (gallery type "video")
+   <path>-poster.jpg        video poster
+   ```
 
-- 📧 **Email:** [pushilkun@gmail.com](mailto:pushilkun@gmail.com)
-- 📞 **Phone:** [+66 95-846-2520](tel:0958462520)
-- 💬 **LINE:** [@LINE Direct Link](https://line.me/ti/p/UzaC-aQ75C) *(Hover over the LINE badge on the live site for instant QR scan)*
-- 🐙 **GitHub (Primary):** [github.com/GitBababoo](https://github.com/GitBababoo)
-- 🐙 **GitHub (Secondary):** [github.com/Gubbitkeytoday](https://github.com/Gubbitkeytoday)
-- 🌐 **Facebook:** [wongsathorn.ggv](https://web.facebook.com/wongsathorn.ggv)
-- 📍 **Location:** Hua Hin, Prachuap Khiri Khan, Thailand
+   `path` in the JSON omits the width and extension. `widths` lists the variants that exist (usually `[480, 960, 1600]`).
+   A capture taller than WebP's 16383 px limit can ship as JPEG only; set `"format": "jpg"` on that gallery item.
 
----
+3. Sync the intrinsic sizes and verify:
 
-## 📄 License
+   ```bash
+   npm run media:dims   # fills width/height from the largest variant; exits non-zero if a file is missing
+   npm run verify
+   ```
 
-This project is licensed under the **MIT License** — see the [LICENSE.md](./LICENSE.md) file for details.
+Media generation commands (sharp / cwebp) are in [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md#5-media-optimization).
 
-<div align="center">
-<sub>Crafted with engineering discipline and precision by <strong>Wongsathorn Chapseethong</strong></sub>
-</div>
+### Edit copy
+
+- Shared UI strings: `ui` dictionary in `src/i18n/index.ts`.
+- Component strings: a co-located `{ th: {...}, en: {...} }` dictionary read through `makeT(dict, lang)`.
+- Personal and contact facts: `src/lib/profile.ts`. Biography, journey, education and CV skill groups: `src/components/profile/facts.ts`.
+
+## Quality gates
+
+These are enforced in CI (`.github/workflows/ci.yml`); a pull request that breaks any of them fails.
+
+| Gate | Tool | What must hold |
+| :-- | :-- | :-- |
+| Lint and format | Biome | `biome check .` passes |
+| Types | `astro check` | No type errors (strictest tsconfig) |
+| Build | `astro build` | Schema-valid content, every route and OG image renders |
+| Accessibility | Playwright + axe-core | **Zero** violations for tags `wcag2a`, `wcag2aa`, `wcag21aa`, `wcag22aa`: home TH and EN in dark and light, plus a project page in both themes, at desktop and mobile sizes |
+| Keyboard | Playwright | The skip link is the first tab stop and moves focus to `#main` |
+| Health | Playwright | No console errors, failed requests or HTTP ≥ 400; every `<img>` has `width`, `height` and `alt`; internal links on both home pages return 200 |
+| SEO | Playwright | `lang`, a single `h1`, canonical, hreflang, `og:image` (1200 × 630), JSON-LD `Person`, sitemap, robots.txt, manifest, noindex 404 |
+| Project pages | Playwright | All 36 project URLs return 200 with the right title, canonical and OG image |
+| Lighthouse | Lighthouse CI (mobile, 3 runs, median) | Performance ≥ 0.85 · Accessibility = 1.00 · Best practices ≥ 0.95 · SEO = 1.00 · CLS ≤ 0.05 · script ≤ 50 KB · zero third-party requests (errors); LCP ≤ 2.5 s, TBT ≤ 200 ms and total weight ≤ 1.6 MB (warnings) |
+
+Lighthouse checks `/`, `/en/` and `/projects/metro3d/`. Scores change from run to run, so this README does not quote
+any; the CI run is the source of truth.
+
+## Deployment
+
+Pushing to `master` runs `.github/workflows/deploy.yml`, which builds the site and publishes `dist/` with
+`actions/deploy-pages`.
+
+**One-time setup:** in the repository, open **Settings → Pages → Build and deployment → Source** and choose
+**GitHub Actions**. If the source is still "Deploy from a branch", the deploy step fails and Pages keeps serving the old branch build.
+
+Details, the CI pipeline and troubleshooting are in [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md).
+
+## Featured projects
+
+All **18** projects in `src/data/projects.json`, in site order (highest `order` first). Full details are in
+[docs/PROJECTS_CATALOG.md](./docs/PROJECTS_CATALOG.md).
+
+| # | Project | Year | Category | Stack | Links |
+| --: | :-- | :-: | :-- | :-- | :-- |
+| 01 | **BKK Transit** | 2026 | Web app | Python 3.12, FastAPI, SQLite, Leaflet.js, GTFS, Gemini MCP, Docker | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/bkk-transit/) · [Repo](https://github.com/Gubbitkeytoday/bkk-transit) |
+| 02 | **Discord Rich Presence Pro** | 2026 | Desktop app | Python 3.12, Windows WinRT, GSMTC API, Discord IPC, Pystray, PyInstaller, Systems Architecture | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/discord-rpc/) · [Repo](https://github.com/Gubbitkeytoday/discord-rich-presence-pro) |
+| 03 | **PRISM64** | 2026 | Web app | Python, JavaScript, Tailwind CSS, Canvas API, Leaflet.js, Gemini MCP, Render.com | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/prism64/) · [Repo](https://github.com/Gubbitkeytoday/prism64) · [Live](https://prism64.onrender.com) |
+| 04 | **ฤดู · RUEDU** | 2026 | Web app | JavaScript, HTML/CSS, PWA, Service Worker, Accessibility | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/ruedu/) · [Repo](https://github.com/Gubbitkeytoday/ruedu-flower-atelier) |
+| 05 | **ARÓM** | 2026 | Web app | JavaScript, HTML/CSS, Python, PWA, Accessibility | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/arom-coffee/) · [Repo](https://github.com/Gubbitkeytoday/arom-specialty-coffee) · [Live](https://gubbitkeytoday.github.io/arom-specialty-coffee/) |
+| 06 | **Hat Sai Noi Community Tourism** | 2024 | Web app | PHP, MySQL, HTML/CSS | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/beach/) · [Repo](https://github.com/GitBababoo/Beach_2024-5-11) |
+| 07 | **Astra Cinema Booking** | 2024 | Web app | React, Node.js, PostgreSQL, Tailwind | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/cinema/) · [Repo](https://github.com/GitBababoo/cinema-booking) |
+| 08 | **Nike SNKRS Tracker** | 2024 | Interactive | React, Node.js, Web Scraping | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/nike/) · [Repo](https://github.com/GitBababoo/nike-snkrs-tracker) |
+| 09 | **Tank.io** | 2024 | Interactive | TypeScript, Canvas API, Game Engine, Multiplayer | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/tank/) · [Repo](https://github.com/GitBababoo/Tank.io) |
+| 10 | **Shopee TH Clone (Webshop)** | 2024 | Web app | PHP, MySQL, JavaScript | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/webshop/) · [Repo](https://github.com/GitBababoo/webshop) |
+| 11 | **Web PDF Editor** | 2025 | Web app | React, TypeScript, PDF.js, Tailwind | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/pdf-editer/) · [Repo](https://github.com/GitBababoo/PDF-Editer) |
+| 12 | **POS Python Offline** | 2024 | Desktop app | Python, SQLite, Tkinter, Desktop App | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/pos-python/) · [Repo](https://github.com/GitBababoo/POS-Python) |
+| 13 | **HBD 3D Craft** | 2025 | Interactive | Three.js, Anime.js, Vite, Web Audio API | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/hbd/) · [Repo](https://github.com/GitBababoo/Happy-Birthday) · [Live](https://hbd-3d-craft.pages.dev) |
+| 14 | **Enterprise Face Scan Attendance** | 2024 | Web app | Angular, Firebase, Tailwind, TypeScript | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/facescan/) · [Repo](https://github.com/GitBababoo/enterprise-face-scan-attendance) |
+| 15 | **SmartPOS Enterprise** | 2024 | Web app | Next.js, TypeScript, Tailwind, Prisma, PostgreSQL | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/pos/) · [Repo](https://github.com/GitBababoo/POS) |
+| 16 | **MangaVerses** | 2025 | Web app | Next.js 16, TypeScript, Tailwind, shadcn/ui, Prisma, SQLite | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/mangaverses/) · [Repo](https://github.com/Gubbitkeytoday/MangaVerses) |
+| 17 | **Khui AI** | 2026 | Web app | Next.js 14, TypeScript, Prisma, SQLite, OpenAI API, Tailwind | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/khuiai/) · [Repo](https://github.com/Gubbitkeytoday/khuiai-fullstack) |
+| 18 | **Greater Bangkok Metro Mini 3D** | 2025 | Interactive | React 19, TypeScript, Three.js, MapLibre GL, Rust, WebAssembly | [Case study](https://gubbitkeytoday.github.io/Profile/en/projects/metro3d/) · [Repo](https://github.com/Gubbitkeytoday/tha-metro-mini-3d) · [Live](https://metro.itstom.me) |
+
+By category: 12 web apps, 4 interactive, 2 desktop apps. All 18 link to a repository; 4 link to a live deployment.
+
+## สรุปภาษาไทย
+
+พอร์ตโฟลิโอสองภาษา (ไทย/อังกฤษ) ของ **วงศธร ฉาบสีทอง (ดรีม)** นักพัฒนา Full-Stack จากหัวหิน
+สร้างด้วย **Astro 7 + TypeScript + Tailwind CSS v4** และ build เป็น HTML แบบ static ทั้งหมด ส่ง JavaScript เฉพาะส่วนที่ต้องโต้ตอบ
+
+- **URL แยกตามภาษา:** ภาษาไทยอยู่ที่ `/` ภาษาอังกฤษอยู่ที่ `/en/` แต่ละโปรเจกต์มีหน้าของตัวเองที่ `/projects/<id>/` และมีหน้า CV สำหรับพิมพ์ที่ `/cv/`
+- **ข้อมูลผลงาน:** ทั้ง 18 โปรเจกต์อยู่ในไฟล์เดียวคือ `src/data/projects.json` ระบบตรวจ schema ตอน build
+- **เพิ่มโปรเจกต์:** เพิ่ม object ใน JSON แล้ววางภาพไว้ที่ `public/media/` ตั้งชื่อไฟล์แบบ `<path>-<width>.webp|jpg` จากนั้นรัน `npm run media:dims` และ `npm run verify`
+- **เริ่มพัฒนา:** ใช้ Node 22 รัน `npm ci` แล้ว `npm run dev` จากนั้นเปิด <http://localhost:4321/Profile/>
+- **มาตรฐานที่ CI บังคับ:** axe-core (WCAG 2.2 AA) ต้องเจอ 0 violations และต้องผ่านเกณฑ์ Lighthouse CI ตามที่ตั้งไว้ใน `lighthouserc.cjs`
+- **Deploy:** push ขึ้น `master` แล้วเว็บจะ deploy อัตโนมัติ แต่ต้องตั้งค่าครั้งแรกก่อนที่ Settings → Pages → Source → **GitHub Actions**
+
+## Documentation
+
+| Document | Contents |
+| :-- | :-- |
+| [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) | Rendering model, routing, data flow, components, scripts, styling, motion, SEO |
+| [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md) | CI/CD, Pages setup, media pipeline, caching, troubleshooting |
+| [docs/ACCESSIBILITY_AND_DESIGN_SYSTEM.md](./docs/ACCESSIBILITY_AND_DESIGN_SYSTEM.md) | Tokens, typography (incl. Thai rules), component patterns, a11y checklist |
+| [docs/PROJECTS_CATALOG.md](./docs/PROJECTS_CATALOG.md) | Every project in detail (English) |
+| [PORTFOLIO_DATA.md](./PORTFOLIO_DATA.md) | Profile and project data (Thai) |
+| [docs/UI_UX_REVIEW.md](./docs/UI_UX_REVIEW.md) | UI/UX review of v1 and the v2 plan (Thai) |
+| [CONTRIBUTING.md](./CONTRIBUTING.md) · [CHANGELOG.md](./CHANGELOG.md) · [SECURITY.md](./SECURITY.md) · [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) | Project process |
+
+## Contact
+
+**Wongsathorn Chapseethong (วงศธร ฉาบสีทอง)**, Hua Hin, Thailand ·
+[pushilkun@gmail.com](mailto:pushilkun@gmail.com) ·
+[GitHub (GitBababoo)](https://github.com/GitBababoo) ·
+[GitHub (Gubbitkeytoday)](https://github.com/Gubbitkeytoday) ·
+[LINE](https://line.me/ti/p/UzaC-aQ75C)
+
+## License
+
+[MIT](./LICENSE.md) © 2026 Wongsathorn Chapseethong.

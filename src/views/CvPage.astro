@@ -35,6 +35,9 @@ const abs = (path: string) => new URL(path, site).href;
 
 const dict = {
   th: {
+    email: 'อีเมล',
+    phone: 'โทรศัพท์',
+    location: 'ที่อยู่',
     title: `CV — ${PROFILE.name.th}`,
     description: `ประวัติย่อ (CV) ของ${PROFILE.name.th} Full-Stack Developer และ IT Support จากหัวหิน — การศึกษา ทักษะ และผลงานเด่น ${selected.length} โปรเจกต์ พิมพ์หรือบันทึกเป็น PDF ได้`,
     back: 'กลับหน้าแรก',
@@ -65,6 +68,9 @@ const dict = {
     since: `เขียนโค้ดต่อเนื่องตั้งแต่ ${START_YEAR}`,
   },
   en: {
+    email: 'Email',
+    phone: 'Phone',
+    location: 'Location',
     title: `CV — ${PROFILE.name.en}`,
     description: `Résumé of ${PROFILE.name.en}, a full-stack developer and IT support from Hua Hin, Thailand — education, skills and ${selected.length} selected projects. Print or save as PDF.`,
     back: 'Back to site',
@@ -100,12 +106,12 @@ const t = makeT(dict, lang);
 const contacts: { icon: IconName; label: string; text: string; href?: string }[] = [
   {
     icon: 'lucide:mail',
-    label: 'Email',
+    label: t('email'),
     text: PROFILE.email,
     href: `mailto:${PROFILE.email}?subject=${encodeURIComponent(MAIL_SUBJECT[lang])}`,
   },
-  { icon: 'lucide:phone', label: 'Phone', text: PROFILE.phoneDisplay, href: `tel:${PROFILE.phone}` },
-  { icon: 'lucide:map-pin', label: 'Location', text: PROFILE.location[lang] },
+  { icon: 'lucide:phone', label: t('phone'), text: PROFILE.phoneDisplay, href: `tel:${PROFILE.phone}` },
+  { icon: 'lucide:map-pin', label: t('location'), text: PROFILE.location[lang] },
   { icon: 'lucide:globe', label: t('portfolio'), text: strip(abs(href(lang, '/'))), href: abs(href(lang, '/')) },
   { icon: 'simple-icons:github', label: 'GitHub', text: strip(PROFILE.githubAlt), href: PROFILE.githubAlt },
   { icon: 'simple-icons:github', label: 'GitHub', text: strip(PROFILE.github), href: PROFILE.github },

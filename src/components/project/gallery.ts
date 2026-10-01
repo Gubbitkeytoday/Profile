@@ -147,6 +147,14 @@ export function initGallery(root: HTMLElement): void {
     });
   });
 
+  // PhotoSwipe's root is role="dialog" but unnamed and not modal by default.
+  lightbox.on('afterInit', () => {
+    const el = lightbox.pswp?.element;
+    if (!el) return;
+    el.setAttribute('aria-modal', 'true');
+    el.setAttribute('aria-label', root.dataset.galleryLabel || document.title);
+  });
+
   lightbox.init();
 }
 

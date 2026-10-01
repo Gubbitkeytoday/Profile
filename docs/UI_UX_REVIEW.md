@@ -70,8 +70,8 @@
 | sheet/modal แบบ hash | **หน้าแยกต่อโปรเจกต์** `/projects/[slug]/` (36 หน้า) + View Transitions แบบ native |
 | Google Fonts CDN | **Fontsource** self-host: Inter, Space Grotesk, **Anuphan** (หัวเรื่องไทย), IBM Plex Sans Thai, JetBrains Mono |
 | lightbox เขียนเอง | **PhotoSwipe 5**: swipe, zoom, คีย์บอร์ด และรองรับวิดีโอ |
-| ไม่มี CI | **GitHub Actions**: Biome lint → astro check → build → Playwright + axe → Lighthouse CI → deploy Pages |
-| ไม่มี og:image | **OG image อัตโนมัติ** (satori) ทุกหน้า ทุกภาษา |
+| ไม่มี CI | **GitHub Actions**: `ci.yml` รัน Biome lint → astro check → build → Playwright + axe → Lighthouse CI ส่วน `deploy.yml` เป็น workflow แยกที่ build แล้ว deploy ขึ้น Pages เมื่อ push เข้า `master` |
+| ไม่มี og:image | **OG image อัตโนมัติ** (satori) ของหน้าแรกและทุกโปรเจกต์ ทั้งสองภาษา (หน้า CV ใช้ภาพของหน้าแรก) |
 
 ### UX ใหม่
 - ลำดับ Section ใหม่: **Hero → ผลงาน → ทักษะ → เส้นทาง → เกี่ยวกับ → ติดต่อ**
@@ -83,8 +83,8 @@
 - ปรับข้อความให้ตรงไปตรงมา ตัด claim ที่พิสูจน์ไม่ได้ออก
 
 ### มาตรฐานที่ CI บังคับไว้ (ต่อไปจะไม่มี claim ลอยๆ อีก)
-- axe-core (WCAG 2.2 AA) ต้องเป็น **0 violations** ทั้งธีมมืด/สว่าง และ TH/EN
-- Lighthouse budgets: Accessibility = 100, SEO = 100, Performance ≥ 90, CLS < 0.05, LCP < 2.5s
+- axe-core (WCAG 2.2 AA) ต้องเป็น **0 violations** ทั้งธีมมืด/สว่าง ในหน้าแรก TH/EN และหน้าโปรเจกต์ ทั้งขนาดเดสก์ท็อปและมือถือ
+- Lighthouse budgets (error): Accessibility = 100, SEO = 100, Performance ≥ 85 (วัดจริงหลังยกเครื่อง 89–99 จากเดิม 78), Best Practices ≥ 95, CLS ≤ 0.05, JS ≤ 50KB และไม่มี request ไปยัง third-party · เป้า LCP ≤ 2.5s ตั้งเป็น warning (ตอนนี้ 1.8–3.1s ในโหมดจำลอง 4G ช้า)
 - ไม่มี request ที่ได้ 4xx/5xx และไม่มี console error
 
 ---

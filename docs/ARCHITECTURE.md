@@ -1,132 +1,232 @@
-# 🏛️ System Architecture & Engineering Design
+# Architecture
 
-> **Portfolio of Wongsathorn Chapseethong (วงศธร ฉาบสีทอง)**  
-> *Technical Deep-Dive into the Zero-Framework Native DOM Engine, State Lifecycle, and Rendering Pipelines.*
-
----
-
-## 1. Architectural Philosophy & Design Principles
-
-The design goal of this portfolio is **engineering purity and raw performance**. While modern enterprise applications often require heavyweight component frameworks (React, Next.js, Vue), a software engineer's primary portfolio should exemplify mastery of the underlying web platform.
-
-### Core Tenets:
-1. **Zero Runtime Overhead:** 0 external JavaScript libraries, 0 framework runtimes, 0 client-side build steps.
-2. **Native Web Standards First:** Leveraging HTML5 Semantic Elements, CSS Custom Properties (Level 4), CSS Grid / Flexbox, ES2022 JavaScript, and the Web Animation API.
-3. **Sub-Millisecond Interactions:** Immediate response times (<16ms frame budget), 60 FPS animations, zero Cumulative Layout Shift (CLS = 0.000).
-4. **Resilient Offline First (PWA Compatible):** Structured asset paths, deterministic caching, and graceful degradation for `prefers-reduced-motion` and `save-data` user preferences.
-5. **Certified Accessibility (WCAG 2.1 AA):** Zero `axe-core` rule violations across all themes, full keyboard traversal paths, ARIA roles, and high-contrast color token scales (>= 4.5:1 / 7:1).
+This document describes how the portfolio is built: rendering, routing, data, components, client scripts, styling,
+motion, performance and SEO. Everything below reflects the code in `src/`. If the code and this document disagree,
+the code is right and this document needs fixing.
 
 ---
 
-## 2. High-Level System Architecture Diagram
+## 1. Rendering model
+
+- **Static site generation.** `astro build` pre-renders every route to HTML in `dist/`. There is no server runtime and
+  no client-side framework.
+- **Islands without frameworks.** Interactive behaviour comes from small TypeScript modules in `<script>` tags inside
+  `.astro` components. Astro bundles these as ES modules into hashed files under `/_astro/` and includes them only on
+  pages that use the component.
+- **Progressive enhancement.** Markup is complete without JavaScript: every project row is a plain link, gallery
+  thumbnails link to the full-size file, and the CV can be printed with `Ctrl/⌘ + P`. Scripts only toggle `[hidden]`,
+  ARIA state and classes. They never re-render lists.
+- **Idempotent init.** Each script guards itself with a `data-ready` (or similar) attribute so that running it twice
+  has no effect.
+
+`astro.config.mjs`:
+
+| Option | Value | Why |
+| :-- | :-- | :-- |
+| `site` | `https://gubbitkeytoday.github.io` | Absolute URLs for canonical, OG and sitemap |
+| `base` | `/Profile` | GitHub Pages project site path; also used in dev and preview |
+| `trailingSlash` | `always` | One canonical form per URL |
+| `i18n` | `th` default, `en`, `prefixDefaultLocale: false` | `/` = Thai, `/en/` = English |
+| `integrations` | `@astrojs/sitemap` (`th-TH`, `en-US`) | Localized sitemap index |
+| `prefetch` | `prefetchAll: false`, `defaultStrategy: 'hover'` | Opt-in only. No link currently sets `data-astro-prefetch` |
+| `vite.plugins` | `@tailwindcss/vite` | Tailwind CSS v4 |
+
+## 2. Routing and i18n
+
+| Route (under `/Profile`) | File | View |
+| :-- | :-- | :-- |
+| `/` · `/en/` | `src/pages/index.astro` · `src/pages/en/index.astro` | `src/views/HomePage.astro` |
+| `/projects/<id>/` · `/en/projects/<id>/` | `src/pages/projects/[slug].astro` · `src/pages/en/projects/[slug].astro` | `src/views/ProjectPage.astro` |
+| `/cv/` · `/en/cv/` | `src/pages/cv.astro` · `src/pages/en/cv.astro` | `src/views/CvPage.astro` |
+| `/404.html` | `src/pages/404.astro` | Bilingual, `noindex` (GitHub Pages serves it for any missing path) |
+| `/og/<name>-<lang>.png` | `src/pages/og/[...slug].png.ts` | Build-time PNG endpoint |
+| `/robots.txt` | `src/pages/robots.txt.ts` | Text endpoint |
+| `/sitemap-index.xml` | `@astrojs/sitemap` | Generated |
+
+Every page file is a thin wrapper that passes `lang` to a shared view, so the two locales cannot drift apart
+structurally. Both project routes share `getStaticPaths` from `src/lib/project-paths.ts`, which also computes the
+previous and next project.
+
+A build produces 41 HTML pages: 2 home pages, 36 project pages (18 × 2), 2 CV pages and the 404 page.
+
+`src/i18n/index.ts` provides:
+
+- `LANGS`, `DEFAULT_LANG`, `HTML_LANG`, `OG_LOCALE`.
+- `href(lang, path)`: a locale-aware internal URL that includes the base path (`href('en', '/projects/metro3d/')` →
+  `/Profile/en/projects/metro3d/`). It also handles `#hash` paths.
+- `asset(path)`: a URL for a file in `public/`.
+- `stripLocale(pathname)`: the locale-agnostic path, used by the language switcher.
+- `makeT(dict, lang)`: a typed translator over a co-located `{ th: {...}, en: {...} }` dictionary. A missing key
+  falls back to Thai, then to the key itself.
+- `ui` / `useUi(lang)`: strings shared by more than one component.
+- `SECTIONS`: home-page section order, which is also the nav order (`work`, `skills`, `journey`, `about`, `contact`).
+
+The language links keep the current `#hash` (`initLangLinks` in `src/scripts/nav.ts`), and so does the palette's
+"switch language" command.
+
+## 3. Data flow
 
 ```mermaid
-graph TD
-    subgraph Browser Engine
-        DOM[DOM Tree - index.html]
-        CSSOM[CSSOM - main.css]
-    end
-
-    subgraph State Management & Event Bus
-        AppInit([DOMContentLoaded / boot]) --> MainJS[assets/js/main.js]
-        DataStore[(assets/js/projects.js - PF_PROJECTS)] --> ProjectsModule[Projects Module]
-        
-        MainJS --> ThemeModule[Theme Engine]
-        MainJS --> LangModule[Bilingual Engine]
-        MainJS --> ProjectsModule
-        MainJS --> SheetModule[Sheet / Drawer Engine]
-        MainJS --> LightboxModule[Lightbox Engine]
-        MainJS --> CanvasModule[Canvas FX Engine]
-        MainJS --> LineQRModule[LINE QR Popover]
-        MainJS --> CmdKModule[Command Palette Engine]
-    end
-
-    subgraph User Interactions & Lifecycle
-        ThemeModule <-->|Read / Write| LocalStorage[(localStorage: 'pf:theme')]
-        LangModule <-->|Read / Write| LocalStorageLang[(localStorage: 'pf:lang')]
-        LangModule -.->|Emits 'pf:lang' Event| ProjectsModule
-        
-        ProjectsModule <-->|Syncs 'cat' and 'q'| URLParams[Browser URL Query String]
-        ProjectsModule -->|Generates Article Nodes| DOM
-        
-        DOM -->|Clicks [data-open]| SheetModule
-        SheetModule -->|Clicks Media Thumbs| LightboxModule
-        
-        DOM -->|Hover / Focus / Tap| LineQRModule
-        DOM -->|Global Keydown ⌘K| CmdKModule
-    end
+flowchart TD
+  JSON["src/data/projects.json"] -->|"file() loader"| Schema["src/content.config.ts<br/>Zod schema"]
+  Schema --> Get["src/lib/projects.ts<br/>getProjects() sorted by order desc"]
+  Get --> Home["HomePage: Hero · Work · Skills · Journey"]
+  Get --> Detail["ProjectPage: ProjectDetail · Gallery · PrevNext"]
+  Get --> CV["CvPage (top 8 projects)"]
+  Get --> Palette["CommandPalette (project options)"]
+  Get --> OG["og/[...slug].png.ts"]
+  Profile["src/lib/profile.ts<br/>contact facts"] --> Home
+  Profile --> CV
+  Facts["src/components/profile/facts.ts<br/>journey · education · skill groups"] --> Home
+  Facts --> CV
 ```
 
----
+- **`src/data/projects.json`** is the single source of truth for project content. The schema requires both locales
+  for `title`, `role` and `summary`, a `cover` with real `width`/`height`, and a typed `gallery` (an image with an
+  optional `format: "jpg"`, or a video).
+- **`src/lib/profile.ts`** holds name, email, phone, location and social links.
+- **`src/components/profile/facts.ts`** holds the journey timeline, education, working principles and CV skill groups.
+  It also has `tidy()`, which removes the marketing phrases the UX review flagged ("enterprise-grade",
+  "Windows Kernel") wherever they might still appear in text.
+- **Counts are always derived.** The project count in the meta description, OG image, CV and hero comes from
+  `getProjects().length`. Skill tile numbers come from `projectsUsing()` in `src/components/skills/tech.ts`, which uses
+  the same `techKey()` as the Work filter, so a skill's number always equals the result of `/?tech=<tag>#work`.
 
-## 3. Module Breakdown & Internal Lifecycles
+## 4. Component map
 
-### 3.1 Theme Engine (`Theme`)
-- **Mechanism:** Manages the `data-theme="dark|light"` attribute on the `<html>` root element.
-- **Persistence:** Synchronizes with `localStorage.getItem('pf:theme')`. Falls back to the operating system's hardware setting via `window.matchMedia('(prefers-color-scheme: dark)')`.
-- **CSS Token Switch:** Updates CSS variables (`--bg`, `--bg-1`, `--fg`, `--accent`, `--line`, etc.) globally with zero layout repaints.
+### Layout
 
-### 3.2 Bilingual Engine (`Lang`)
-- **Mechanism:** Manages bilingual text across the entire DOM tree without page reloads.
-- **Translation Strategy:**
-  1. For static markup, elements declare `data-en="English Translation"`, `data-en-aria="..."`, or `data-en-ph="..."` (placeholders).
-  2. For dynamic components (project cards, drawer, search results), `T(th, en)` evaluates the active language flag and renders the corresponding string.
-- **Event Dispatching:** When the language changes, `Lang.toggle()` dispatches a custom `pf:lang` event, causing reactive components to re-render instantly.
+| Component | Purpose |
+| :-- | :-- |
+| `layouts/Base.astro` | `<head>`: title, description, canonical, hreflang, OG and Twitter tags, JSON-LD `Person`, manifest, and an inline theme bootstrap that runs before first paint. Also renders the skip link |
+| `components/layout/Nav.astro` | Sticky header with section links, language switch, theme toggle, palette trigger, CV link, and a mobile drawer in a `<dialog>` |
+| `components/layout/Footer.astro` | Footer links, live year, back-to-top button with a scroll-progress ring |
+| `components/layout/CommandPalette.astro` | `<dialog>` command palette. Options (actions, sections, projects) are rendered at build time |
 
-### 3.3 Projects & Reactive Filter Engine (`Projects`)
-- **Data Source:** Reads an immutable, pre-indexed array of 16 project objects from `window.PF_PROJECTS` (in `assets/js/projects.js`).
-- **Responsive 3-Column Grid:** Renders cards inside `.pgrid` using a balanced CSS Grid (`grid-template-columns: repeat(3, minmax(0, 1fr))`).
-- **Reactive URL Synchronization:** Search queries (`q`) and category filters (`cat`) automatically serialize to `window.location.search` (`?cat=web&q=pos`) via `history.replaceState()`, making filtered states shareable and bookmarkable.
-- **Card Micro-Architecture:**
-  - `pcard__media`: 16:10 aspect ratio with multi-resolution `picture` WebP sources (`480w`, `960w`, `1600w`).
-  - `pcard__badge`: Year indicator and real-time pulsing `LIVE` status dot.
-  - `pcard__tags`: High-contrast pill badges with overflow `+N` count.
-  - `pcard__foot`: Media asset counters and interactive sliding CTA arrow.
+### Home sections (`components/sections/`)
 
-### 3.4 Detail Drawer Engine (`Sheet`)
-- **Slide-Over Modal:** Clicking any project card triggers `Sheet.open(projectId)`.
-- **DOM Construction:** Dynamically compiles the project's hero metrics, feature list, role definition, external demo/repo links, and gallery thumbnails.
-- **Accessibility & Focus Trapping:** Sets `aria-hidden="false"`, `role="dialog"`, `aria-modal="true"`, locks background scroll, and traps keyboard focus onto the close button.
-- **Deep Linking:** Supports direct URL hashing (`#p-metro3d`), immediately opening the corresponding case study on page load.
+| Component | Purpose |
+| :-- | :-- |
+| `Hero.astro` | Name, role, value proposition, calls to action, and the flagship project tile (BKK Transit) |
+| `Work.astro` | "01 — Work": curated featured bento and a filterable index of every project |
+| `Skills.astro` | "02 — Skills": domain tiles whose counts link to `?tech=` filters |
+| `Journey.astro` | Timeline from `facts.ts` (education → projects → now), linking to case studies |
+| `About.astro` | Bio, principles, stat counters (count-up only when motion is allowed) |
+| `Contact.astro` | Contact channels with copy buttons, and a LINE QR in a native `popover` |
 
-### 3.5 Lightbox Engine (`Lightbox`)
-- **High-Performance Fullscreen Stage:** Displays both high-definition images and HTML5 videos (`.mp4`).
-- **Keyboard Navigation:** Full support for `ArrowLeft` (previous), `ArrowRight` (next), and `Escape` (exit).
-- **Responsive Thumbnails:** Synchronized bottom thumbnail strip with active indicator and viewport auto-scrolling.
+### Feature components
 
-### 3.6 Canvas FX Particle Engine (`BgFX`)
-- **Constellation Simulation:** Renders an animated particle field simulating data networks.
-- **Performance Constraints:**
-  - Automatically skipped if `prefers-reduced-motion: reduce` is enabled.
-  - Paused when the browser tab loses focus (`visibilitychange` API) to conserve GPU and battery life.
-  - Dynamically calculates particle velocity, distance connection threshold, and DPI pixel ratio scaling (`window.devicePixelRatio`).
+| Component | Purpose |
+| :-- | :-- |
+| `hero/FeaturedTile.astro` | Flagship cover (the page's LCP image, `fetchpriority="high"`) with two decorative lazy "peek" covers on wide screens |
+| `hero/TechMarquee.astro` | CSS marquee of the core stack. The first track is the accessible list and the duplicate is `aria-hidden`. A pause button (`aria-pressed`) appears once JS runs, and the marquee is a static list under reduced motion |
+| `work/FeaturedTile.astro` | Bento tile. The whole tile is one link (stretched `::after` on the title link) and carries a `view-transition-name` |
+| `work/Filters.astro` | Category pills (`aria-pressed`), a labelled tech `<select>`, search input, active-filter chip. Hidden without JS |
+| `work/ProjectRow.astro` | One row of the editorial index. A plain link whose `data-*` attributes are what the filter reads |
+| `work/meta.ts` | Build-time helpers: category labels and icons, card metrics (audit scores excluded), icon tags |
+| `work/shared.ts` | Shared between build and client: `norm()`, `techKey()`, `CATEGORIES` |
+| `skills/SkillTile.astro` | One skill domain: brand icons, per-tool project counts, links to filtered work |
+| `skills/tech.ts` | Skill domains, marquee list, `projectsUsing()` |
+| `profile/SectionHead.astro` | Editorial section header ("03 — Journey" eyebrow, `h2`, optional lead) |
+| `profile/facts.ts` | Biographical data shared by home and CV |
+| `project/ProjectDetail.astro` | Case-study page body: hero cover (`view-transition-name`), summary, links, features, `BreadcrumbList` + `SoftwareSourceCode` JSON-LD |
+| `project/ProjectFacts.astro` | Facts panel: role, year, category, tags (Latin tags get `lang="en"` on Thai pages) |
+| `project/MetricGrid.astro` | Metric tiles with a visually hidden `h2` |
+| `project/Gallery.astro` | Thumbnail grid of links (works without JS), enhanced by `gallery.ts` |
+| `project/gallery.ts` · `lightbox.css` | PhotoSwipe 5 lightbox: native `<video>` slides, tall-capture zoom and pan, localized labels |
+| `project/media.ts` | Build-time `srcset` variants (capped at intrinsic width) and poster sizes read from JPEG headers |
+| `project/PrevNext.astro` | Previous/next project links (`rel="prev"`/`rel="next"`) |
+| `project/SectionHead.astro` | "01 — Title" heading used inside the case study |
+| `project/dict.ts` | Strings shared by the project components and the lightbox |
+| `ui/Icon.astro` | Build-time Iconify SVG (`lucide:*`, `simple-icons:*`). The first use of an icon on a page emits a `<symbol>`, and later uses are a small `<use href>` (tracked in `Astro.locals.iconSprite`, typed in `src/env.d.ts`). Decorative by default (`aria-hidden`); `label` adds `role="img"` and an escaped `<title>`; `brand` tints with the official colour |
 
-### 3.7 LINE Contact & QR Popover Engine (`LinePop`)
-- **Hover & Focus Interaction:** Displays a floating QR code popover above the LINE contact link when hovered on desktop or focused via keyboard navigation.
-- **Touch Device Optimization:** On mobile/tablet screens, tapping the green `QR` badge toggles the popover open/closed, while tapping the main text navigates directly to the official LINE URL (`https://line.me/ti/p/UzaC-aQ75C`).
-- **Click-Outside Dismissal:** Document-level event listener automatically dismisses the popover when the user clicks elsewhere.
+### Views
 
----
+| View | Purpose |
+| :-- | :-- |
+| `views/HomePage.astro` | Nav, the six sections, Footer and CommandPalette |
+| `views/ProjectPage.astro` | Nav, ProjectDetail, Footer and CommandPalette, with a per-project OG image and `og:type=article` |
+| `views/CvPage.astro` | A4 résumé sheet with a toolbar (back, switch language, print). Print styles output black on white with URLs as text |
 
-## 4. Performance & Memory Management Standards
+## 5. Client scripts
 
-| Strategy | Implementation Details |
-| :--- | :--- |
-| **Event Delegation** | Handlers for cards (`[data-open]`), copy buttons (`[data-copy]`), and links are attached to `document` or parent containers rather than individual elements, preventing memory leaks during DOM re-renders. |
-| **Responsive Images** | `<picture>` elements use `srcset` with WebP compression (`480w`, `960w`, `1600w`) and `sizes` attributes, reducing mobile image payload by over 75%. |
-| **CSS Transforms** | Animations use hardware-accelerated properties (`transform`, `opacity`) with `will-change` hints on critical hero elements. |
-| **Asynchronous Decoding** | All project media assets declare `loading="lazy"` and `decoding="async"`, preventing main thread blocking during scroll. |
+| Script | Loaded by | What it does |
+| :-- | :-- | :-- |
+| `scripts/nav.ts` | Nav | Glass header once the page has scrolled, and hides it on scroll down (rAF-throttled, passive listener). Scroll-spy via `IntersectionObserver` sets `aria-current` on section links. Opens the drawer with `showModal()`, traps focus, closes on backdrop click or link, returns focus to the opener, and closes when the viewport reaches desktop width. Language links keep the `#hash`. Shows `⌘` instead of `Ctrl` on Apple platforms |
+| `scripts/theme.ts` | `nav.ts` | Theme toggle buttons: swaps the label or `aria-label` and updates `meta[name=theme-color]`. Follows OS changes until the visitor makes an explicit choice |
+| `scripts/ui.ts` | shared | `toast()` (`role="status"`), `copyText()` with a textarea fallback, `prefersReducedMotion()`, `setTheme()` (persists to `localStorage`, dispatches `themechange`) |
+| `scripts/palette.ts` | CommandPalette | Opens on `⌘K`/`Ctrl K`, on `/` (when the user is not typing) or from any `[data-cmdk-open]` element. Filters and ranks the build-time options, keeps DOM order equal to visual order, supports Arrow/Home/End/Enter keys, `aria-activedescendant`, a debounced result-count announcement, and focus return on close. Actions: copy email, open CV, toggle theme, switch language, open GitHub or LINE |
+| `scripts/search.ts` | palette (build and client) | `normalize()` / `tokens()`: lower-cases, folds Latin accents (`ARÓM` → `arom`) and strips separators. Thai marks are kept |
+| `scripts/footer.ts` | Footer | Sets the live year. The back-to-top button appears after the first viewport and hides while the footer is visible. Progress ring uses a CSS `scroll()` timeline, with a rAF fallback where unsupported |
+| `components/work/work.ts` | Work | Category, tech and search filters with per-category counts, a status line, empty state, and URL sync (`?cat=`, `?tech=`, `?q=`; `?tag=` is accepted as an alias). Reads the initial state from the URL. Hides the bento while filtering and keeps the filter bar in place. Shows a floating cover preview on desktop hover, and sets a `view-transition-name` on click so the preview morphs into the project hero |
+| `components/project/gallery.ts` | Gallery | PhotoSwipe lightbox. The core module is loaded with `import()` only when the lightbox first opens |
+| inline in `About.astro` | About | Count-up for stat numbers. The final values are already in the HTML; it animates only off-screen counters and only when motion is allowed |
+| inline in `Contact.astro` | Contact | Copy buttons. On hover-capable pointers, the LINE QR popover also opens on hover and focus |
+| inline in `TechMarquee.astro` | TechMarquee | Reveals and wires the pause/play button |
+| inline in `CvPage.astro` | CV | Reveals the print button and calls `window.print()` |
+| inline in `Base.astro` | every page | Sets `data-theme` before first paint: stored choice, otherwise `prefers-color-scheme` |
 
----
+## 6. Styling and tokens
 
-## 5. Security & Browser Hardening
+- `src/styles/global.css` declares the layer order (`theme, base, components, utilities`), imports Tailwind and the
+  Fontsource faces, and defines the tokens.
+- **Runtime theme tokens** (`--bg`, `--fg`, `--accent`, …) are plain custom properties on `:root`/`[data-theme="dark"]`
+  and `[data-theme="light"]`, written in OKLCH with hex noted for reference. `@theme inline` maps them to Tailwind
+  utilities (`bg-bg-1`, `text-fg-2`, `border-line`, `shadow-elev-2`, …).
+- **Static design tokens** live in `@theme`: font stacks, the fluid type scale (`--text-3xs` … `--text-hero`), tracking,
+  radii, easings, three durations, container and spacing.
+- **Theme variants:** `dark:` and `light:` custom variants key off `[data-theme]`, not the media query, so the visitor's choice wins.
+- Component-specific CSS lives in scoped `<style>` blocks in each `.astro` file.
 
-- **Content Security:** Strict absence of `eval()`, `Function()`, or unescaped innerHTML injections. User-facing strings pass through an HTML entity sanitizer (`esc()`).
-- **Tab Sniffing Protection:** All external links (`target="_blank"`) automatically receive `rel="noopener noreferrer"`.
-- **CSP Compatible:** Self-contained CSS and JavaScript assets compatible with strict Content Security Policy directives (`script-src 'self'`).
+The full token tables and typography rules are in
+[ACCESSIBILITY_AND_DESIGN_SYSTEM.md](./ACCESSIBILITY_AND_DESIGN_SYSTEM.md).
 
----
+## 7. Motion
 
-<div align="center">
-<sub>Designed and engineered for longevity, accessibility, and speed.</sub>
-</div>
+- **Page transitions:** native cross-document view transitions (`@view-transition { navigation: auto; }`) with no
+  JavaScript router. Shared elements use `view-transition-name: project-<id>` (bento tile, hover preview and project
+  hero), so a cover morphs into the case-study hero.
+- **Scroll-driven reveals:** `animation-timeline: view()` in SkillTile, Journey, FeaturedTile, ProjectDetail and
+  Gallery, wrapped in `@supports (animation-timeline: view())`. Browsers without support show content statically,
+  never hidden. The footer progress ring uses `animation-timeline: scroll(root block)`.
+- **Entry animations** for dialogs and popovers use `@starting-style` (Nav drawer, CommandPalette, Contact QR).
+- **Reduced motion:** under `prefers-reduced-motion: reduce`, view transitions are disabled, animation and transition
+  durations are reduced to 0.01 ms, smooth scrolling is turned off, the marquee becomes a static list, count-ups do
+  not run, PhotoSwipe uses no zoom animation, and gallery videos do not auto-preview.
+
+## 8. Performance decisions
+
+- Static HTML, with no framework runtime. Each page ships only its own small modules; PhotoSwipe's core is loaded on
+  demand.
+- **LCP:** the hero flagship cover and the project hero image are `loading="eager"` with `fetchpriority="high"`.
+  Other images are `loading="lazy"` with `decoding="async"`.
+- **Responsive images:** every image has `srcset` built from the `<path>-<width>` variants and explicit
+  `width`/`height` (enforced by a test), which prevents layout shift.
+- **Fonts:** self-hosted variable fonts (no font CDN) with `font-display: swap`; `unicode-range` subsets mean browsers
+  fetch only the scripts they need. No preloads — measured: they competed with the LCP image without improving LCP,
+  and font-swap CLS stays ≈ 0.01.
+- **CSS:** inlined per page (`build.inlineStylesheets: 'always'`, ~20 KB gzipped) so nothing blocks first render.
+- **Rendering:** sections below the hero use `content-visibility: auto` (with remembered `contain-intrinsic-size`), which
+  cut style/layout time by ~35 % on the Thai home page, where dictionary-based Thai line breaking is expensive.
+- **LCP image:** covers ship a 720w variant (`scripts/make-cover-variants.mjs`) so phones don't fetch the 960w file.
+- **Icons:** inlined SVG at build time, so there is no icon font, external sprite or runtime fetch. Each icon's path data appears once per page as a `<symbol>`, and repeats reference it with `<use>`.
+- **Scroll work:** listeners are passive and rAF-throttled, observers replace scroll polling where possible, and CSS
+  scroll timelines are preferred over JavaScript.
+- **Budgets** are enforced by Lighthouse CI (see [DEPLOYMENT.md](./DEPLOYMENT.md#3-ci-pipeline)): JS transfer ≤ 50 KB,
+  zero third-party requests, performance ≥ 0.85, CLS ≤ 0.05 (errors); LCP ≤ 2.5 s (warning).
+
+## 9. SEO
+
+| Concern | Implementation |
+| :-- | :-- |
+| Canonical | `Base.astro` emits an absolute `<link rel="canonical">` for each locale's own URL |
+| hreflang | `th`, `en` and `x-default` (→ Thai) alternates on every indexable page |
+| Open Graph / Twitter | `og:type`, `og:title`, `og:description`, `og:url`, `og:image` (1200 × 630), `og:locale` + `og:locale:alternate`, `twitter:card=summary_large_image` |
+| OG images | `src/pages/og/[...slug].png.ts` renders `og/home-{th,en}.png` and `og/<id>-{th,en}.png` with satori (static Fontsource WOFF: Space Grotesk and Anuphan, with Thai word segmentation for line wrapping), then encodes them with sharp. The CV page uses the home image |
+| JSON-LD | `Person` on every page. Project pages add `BreadcrumbList` and `SoftwareSourceCode` |
+| Sitemap | `@astrojs/sitemap` with `th-TH`/`en-US` alternates. The 404 page is excluded |
+| robots.txt | `src/pages/robots.txt.ts`: `Allow: /` plus an absolute `Sitemap:` line |
+| Manifest | `public/manifest.webmanifest`, with `start_url` and `scope` set to `/Profile/` |
+| 404 | `noindex`, links to both home pages |
+
+All of the above is asserted by `tests/seo.spec.ts` and `tests/projects.spec.ts`.

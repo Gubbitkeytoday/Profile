@@ -5,8 +5,12 @@
 # deploy-pages step fails and the legacy branch build keeps serving.
 name: Deploy to GitHub Pages
 
+# Deploys only after the CI workflow (lint, typecheck, build, e2e + axe, Lighthouse CI)
+# has passed on a push to master, so a red build never reaches production.
 on:
-  push:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
     branches: [master]
   workflow_dispatch:
 
@@ -25,10 +29,16 @@ env:
 
 jobs:
   build:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+        with:
+          # Build exactly the commit CI verified.
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - uses: actions/setup-node@v7
         with:

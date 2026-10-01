@@ -131,12 +131,14 @@ function initDrawer(): void {
   });
 }
 
-/** Language links keep the section the visitor is looking at. */
+/** Language links keep the section (and Work filters) the visitor is looking at. */
 function initLangLinks(): void {
   document.addEventListener('click', (event) => {
     const link = (event.target as Element | null)?.closest?.<HTMLAnchorElement>('a[data-lang-link]');
-    if (!link || !location.hash) return;
+    if (!link || (!location.hash && !location.search)) return;
     const url = new URL(link.href);
+    // Keep the section and any Work filters (?cat/?tech/?q) across the switch.
+    url.search = location.search;
     url.hash = location.hash;
     link.href = url.href;
   });

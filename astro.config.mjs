@@ -10,6 +10,8 @@ export default defineConfig({
   site: SITE,
   base: BASE,
   trailingSlash: 'always',
+  // Per-page CSS is small (~20 KB gzipped); inlining it removes every render-blocking request.
+  build: { inlineStylesheets: 'always' },
   i18n: {
     defaultLocale: 'th',
     locales: ['th', 'en'],

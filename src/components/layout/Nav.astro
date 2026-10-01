@@ -29,7 +29,9 @@ const dict = {
 };
 const t = makeT(dict, lang);
 
-const path = stripLocale(Astro.url.pathname);
+// The 404 page has no per-locale twin: its language switch goes to the other home page.
+const rawPath = stripLocale(Astro.url.pathname);
+const path = /^\/404(\.html)?\/?$/.test(rawPath) ? '/' : rawPath;
 const LANG_META: Record<Lang, { short: string; name: string }> = {
   th: { short: 'TH', name: 'ภาษาไทย' },
   en: { short: 'EN', name: 'English' },
@@ -446,7 +448,7 @@ const links = SECTIONS.map((id, i) => ({
     border-radius: 7px;
     color: var(--fg-3);
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     font-weight: 500;
     letter-spacing: 0.04em;
     transition:

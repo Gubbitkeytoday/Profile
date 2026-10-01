@@ -37,7 +37,7 @@ const featured = FEATURED.flatMap((f) => {
 const featuredIds = new Set(featured.map((f) => f.id));
 
 /** Index reads as a chronology: newest year first, then newest project. */
-const index = [...projects].sort((a, b) => b.data.year - a.data.year || b.data.order - a.data.order);
+const index = projects; // already in site-wide order (byNewest)
 
 const counts = Object.fromEntries(
   CATEGORIES.map((c) => [c, projects.filter((p) => p.data.category === c).length]),

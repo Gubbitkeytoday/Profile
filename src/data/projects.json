@@ -68,7 +68,7 @@
     "live": "https://metro.itstom.me",
     "cover": {
       "path": "media/metro3d/01-network-overview",
-      "widths": [480, 960, 1600],
+      "widths": [480, 720, 960, 1600],
       "width": 1600,
       "height": 900
     },
@@ -224,7 +224,7 @@
     "repo": "https://github.com/Gubbitkeytoday/khuiai-fullstack",
     "cover": {
       "path": "media/khuiai/12-chat-reply",
-      "widths": [480, 960],
+      "widths": [480, 720, 960],
       "width": 960,
       "height": 600
     },
@@ -469,7 +469,7 @@
     "repo": "https://github.com/Gubbitkeytoday/MangaVerses",
     "cover": {
       "path": "media/mangaverses/01-home-desktop",
-      "widths": [480, 960],
+      "widths": [480, 720, 960],
       "width": 960,
       "height": 4003
     },
@@ -582,8 +582,8 @@
       "en": "Full-stack · schema design"
     },
     "summary": {
-      "th": "ระบบบริหารร้านค้าและจุดขายหน้าร้านระดับองค์กรแบบ All-in-One ตั้งแต่คิดเงินหน้าร้านถึงแดชบอร์ดผู้บริหาร",
-      "en": "An all-in-one enterprise point-of-sale and store management system, from the till to the management dashboard."
+      "th": "ระบบบริหารร้านค้าและจุดขายหน้าร้านแบบ All-in-One ตั้งแต่คิดเงินหน้าร้านถึงแดชบอร์ดผู้บริหาร",
+      "en": "An all-in-one point-of-sale and store management system, from the till to the management dashboard."
     },
     "metrics": [
       {
@@ -635,7 +635,7 @@
     "repo": "https://github.com/GitBababoo/POS",
     "cover": {
       "path": "media/pos/02-pos-terminal",
-      "widths": [480, 960],
+      "widths": [480, 720, 960],
       "width": 960,
       "height": 600
     },
@@ -806,7 +806,7 @@
     "repo": "https://github.com/GitBababoo/enterprise-face-scan-attendance",
     "cover": {
       "path": "media/facescan/admin-overview",
-      "widths": [480, 960, 1600],
+      "widths": [480, 720, 960, 1600],
       "width": 1600,
       "height": 789
     },
@@ -934,7 +934,7 @@
     "live": "https://hbd-3d-craft.pages.dev",
     "cover": {
       "path": "media/hbd/1-creator-dashboard",
-      "widths": [480, 960],
+      "widths": [480, 720, 960],
       "width": 960,
       "height": 600
     },
@@ -1039,7 +1039,7 @@
     "repo": "https://github.com/GitBababoo/POS-Python",
     "cover": {
       "path": "media/pos-python/pos-sales-main",
-      "widths": [480, 960, 1600],
+      "widths": [480, 720, 960, 1600],
       "width": 1600,
       "height": 852
     },
@@ -1236,7 +1236,7 @@
     "repo": "https://github.com/GitBababoo/PDF-Editer",
     "cover": {
       "path": "media/pdf-editer/693fbfc7-b89f-442f-abab-f2018f0bc8e1",
-      "widths": [480, 960, 1600],
+      "widths": [480, 720, 960, 1600],
       "width": 1600,
       "height": 796
     },
@@ -1334,7 +1334,7 @@
     "repo": "https://github.com/GitBababoo/webshop",
     "cover": {
       "path": "media/webshop/ws-homepage",
-      "widths": [480, 960],
+      "widths": [480, 720, 960],
       "width": 960,
       "height": 915
     },
@@ -1454,7 +1454,7 @@
     "repo": "https://github.com/GitBababoo/Tank.io",
     "cover": {
       "path": "media/tank/gameplay",
-      "widths": [480, 960],
+      "widths": [480, 720, 960],
       "width": 960,
       "height": 470
     },
@@ -1560,7 +1560,7 @@
     "repo": "https://github.com/GitBababoo/nike-snkrs-tracker",
     "cover": {
       "path": "media/nike/nike-instock",
-      "widths": [480, 960],
+      "widths": [480, 720, 960],
       "width": 960,
       "height": 833
     },
@@ -1668,7 +1668,7 @@
     "repo": "https://github.com/GitBababoo/cinema-booking",
     "cover": {
       "path": "media/cinema/01-home",
-      "widths": [480, 960],
+      "widths": [480, 720, 960],
       "width": 960,
       "height": 2121
     },
@@ -1851,7 +1851,7 @@
     "repo": "https://github.com/GitBababoo/Beach_2024-5-11",
     "cover": {
       "path": "media/beach/home",
-      "widths": [480, 960, 1600],
+      "widths": [480, 720, 960, 1600],
       "width": 1600,
       "height": 803
     },
@@ -1936,7 +1936,7 @@
       {
         "value": "0",
         "label": {
-          "th": "axe violations",
+          "th": "จุดที่ axe พบ",
           "en": "axe violations"
         }
       },
@@ -1983,7 +1983,7 @@
     "live": "https://gubbitkeytoday.github.io/arom-specialty-coffee/",
     "cover": {
       "path": "media/arom-coffee/01-home-index-00-full-page",
-      "widths": [480, 960, 1600],
+      "widths": [480, 720, 960, 1600],
       "width": 1600,
       "height": 9518
     },
@@ -2398,7 +2398,7 @@
     "icon": "leaf",
     "title": {
       "th": "ฤดู · RUEDU — Flower Atelier",
-      "en": "ฤดู · RUEDU — Flower Atelier"
+      "en": "RUEDU — Flower Atelier"
     },
     "role": {
       "th": "ออกแบบแบรนด์ · E-commerce · A11y",
@@ -2412,7 +2412,7 @@
       {
         "value": "0",
         "label": {
-          "th": "axe violations",
+          "th": "จุดที่ axe พบ",
           "en": "axe violations"
         }
       },
@@ -2458,7 +2458,7 @@
     "repo": "https://github.com/Gubbitkeytoday/ruedu-flower-atelier",
     "cover": {
       "path": "media/ruedu/01-homepage-00-full-page",
-      "widths": [480, 960, 1600],
+      "widths": [480, 720, 960, 1600],
       "width": 1600,
       "height": 10616
     },
@@ -3073,7 +3073,7 @@
     "live": "https://prism64.onrender.com",
     "cover": {
       "path": "media/prism64/01-landing-hero-showcase",
-      "widths": [480, 960, 1600],
+      "widths": [480, 720, 960, 1600],
       "width": 1600,
       "height": 791
     },
@@ -3273,7 +3273,7 @@
       {
         "value": "<10ms",
         "label": {
-          "th": "Query Latency",
+          "th": "เวลาค้นหา",
           "en": "Query Latency"
         }
       },
@@ -3314,7 +3314,7 @@
     "repo": "https://github.com/Gubbitkeytoday/bkk-transit",
     "cover": {
       "path": "media/bkk_transit/01-bkk-transit-overview",
-      "widths": [480, 960, 1600],
+      "widths": [480, 720, 960, 1600],
       "width": 1440,
       "height": 900
     },

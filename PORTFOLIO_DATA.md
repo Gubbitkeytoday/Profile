@@ -1,614 +1,562 @@
-# 📑 ข้อมูลพอร์ตโฟลิโอฉบับสมบูรณ์ (Master Portfolio Data)
-## วงศธร ฉาบสีทอง (Wongsathorn Chapseethong) — Full-Stack Developer & IT Support
+# ข้อมูลพอร์ตโฟลิโอ (Portfolio Data)
 
-> เอกสารรวบรวมข้อมูลทั้งหมดของพอร์ตโฟลิโอ ทั้งประวัติส่วนตัว, จุดเด่นทางเทคนิค, ตารางทักษะ, ไทม์ไลน์การศึกษา-ประสบการณ์, และรายละเอียดเชิงลึกของผลงานจริงทั้งหมด **18 โปรเจกต์** พร้อมรายการไฟล์สื่อ (รูปภาพ UI / วิดีโอ) และลิงก์ Source Code / Live Demo
+## วงศธร ฉาบสีทอง (Wongsathorn Chapseethong) — Full-Stack Developer · IT Support
+
+> เอกสารนี้รวมข้อมูลส่วนตัว ทักษะ เส้นทางการเรียน และรายละเอียดผลงานทั้ง **18 โปรเจกต์** ไว้ในที่เดียว เพื่อให้อ่านได้ง่าย
+>
+> **แหล่งข้อมูลจริง (single source of truth)**
+>
+> - ผลงานทั้งหมดดึงมาจาก [`src/data/projects.json`](./src/data/projects.json)
+> - ข้อมูลติดต่ออยู่ใน [`src/lib/profile.ts`](./src/lib/profile.ts)
+> - เส้นทางการเรียน การศึกษา และกลุ่มทักษะใน CV อยู่ใน [`src/components/profile/facts.ts`](./src/components/profile/facts.ts)
+>
+> เมื่อแก้ไฟล์เหล่านั้นแล้ว ต้องอัปเดตเอกสารนี้ตามด้วย ตัวเลขและฟีเจอร์ของแต่ละโปรเจกต์ยกมาจากข้อมูลตามที่เขียนไว้ ซึ่งอธิบายตัวโปรเจกต์นั้นๆ เอง ไม่ใช่ผลการวัดเว็บพอร์ตโฟลิโอนี้
 
 ---
 
-## 👤 1. ข้อมูลส่วนตัวและการติดต่อ (Personal Profile & Contact)
+## 1. ข้อมูลส่วนตัวและการติดต่อ
 
 | หัวข้อ | รายละเอียด |
-| :--- | :--- |
-| **ชื่อ-นามสกุล** | นายวงศธร ฉาบสีทอง (Wongsathorn Chapseethong) |
-| **ชื่อเล่น** | ดรีม (Dream) |
-| **สายงานหลัก** | **Full-Stack Developer** |
-| **ความสนใจเสริม** | **IT Support / System Administrator / Network & Infra** |
-| **สถานะปัจจุบัน** | นักศึกษาปริญญาตรี ชั้นปีที่ 3 สาขาเทคโนโลยีสารสนเทศ (IT) *(พร้อมรับงาน / รับนักศึกษาฝึกงาน)* |
-| **ที่อยู่ / สถานที่พำนัก** | อำเภอหัวหิน จังหวัดประจวบคีรีขันธ์ ประเทศไทย |
-| **อีเมล (Email)** | [`pushilkun@gmail.com`](mailto:pushilkun@gmail.com) |
-| **เบอร์โทรศัพท์** | [`095-846-2520`](tel:0958462520) |
-| **LINE (QR Code / Direct Link)** | [`https://line.me/ti/p/UzaC-aQ75C`](https://line.me/ti/p/UzaC-aQ75C) |
-| **GitHub หลัก** | [github.com/GitBababoo](https://github.com/GitBababoo) |
-| **GitHub รอง** | [github.com/Gubbitkeytoday](https://github.com/Gubbitkeytoday) |
-| **Facebook** | [wongsathorn.ggv](https://web.facebook.com/wongsathorn.ggv) |
-| **Live Demos สำคัญ** | - Metro 3D: [metro.itstom.me](https://metro.itstom.me)<br>- HBD 3D Craft: [hbd-3d-craft.pages.dev](https://hbd-3d-craft.pages.dev) |
+| :-- | :-- |
+| ชื่อ-นามสกุล | วงศธร ฉาบสีทอง (Wongsathorn Chapseethong) |
+| ชื่อเล่น | ดรีม (Dream) |
+| สายงาน | Full-Stack Developer · IT Support |
+| สถานะ | นักศึกษาปริญญาตรีชั้นปีที่ 3 สาขาเทคโนโลยีสารสนเทศ (เริ่มเรียนปี 2023) กำลังหาที่ฝึกงาน สหกิจ หรืองานประจำ |
+| ที่อยู่ | หัวหิน · ประจวบคีรีขันธ์ |
+| อีเมล | [pushilkun@gmail.com](mailto:pushilkun@gmail.com) |
+| โทรศัพท์ | [095-846-2520](tel:+66958462520) |
+| LINE | [line.me/ti/p/UzaC-aQ75C](https://line.me/ti/p/UzaC-aQ75C) (บนเว็บมี QR ให้สแกนที่ส่วนติดต่อ) |
+| GitHub หลัก | [github.com/GitBababoo](https://github.com/GitBababoo) |
+| GitHub รอง | [github.com/Gubbitkeytoday](https://github.com/Gubbitkeytoday) |
+| Facebook | [wongsathorn.ggv](https://web.facebook.com/wongsathorn.ggv) |
+| เว็บพอร์ตโฟลิโอ | [gubbitkeytoday.github.io/Profile](https://gubbitkeytoday.github.io/Profile/) · [EN](https://gubbitkeytoday.github.io/Profile/en/) · [CV](https://gubbitkeytoday.github.io/Profile/cv/) |
 
 ---
 
-## 💡 2. บทสรุปจุดเด่นและแนวทางการพัฒนา (Professional Summary & Philosophy)
+## 2. แนวทางการทำงาน
 
-- **Full-Stack Architecture**: พัฒนาเว็บแอปพลิเคชันตั้งแต่โครงสร้างฐานข้อมูล (Database Schema), การวางสถาปัตยกรรม API (REST / SSE Streaming), ตรรกะฝั่งเซิร์ฟเวอร์ ไปจนถึงหน้าบ้าน (Responsive UI & State Management)
-- **High Performance & Modern Tech**: เลือกใช้เทคโนโลยีที่ทันสมัยและทรงพลัง เช่น **Next.js (14/16), React 19, TypeScript, Rust + WebAssembly, Python, PostgreSQL** และการจัดการ State ที่มีประสิทธิภาพ
-- **Interactive & Real-Time Experience**: มีประสบการณ์สร้างเว็บ 3D ด้วย Three.js, Game Engine 2D Multiplayer, แผนที่จำลองการเดินรถไฟฟ้าระดับเมืองตามพิกัดจริง และระบบประมวลผลเสียง Web Audio API
-- **Accessibility & Web Standards**: ออกแบบระบบตามมาตรฐาน WCAG 2.1 AA (0 axe-core violations), รองรับ Progressive Web App (PWA), ทำงานแบบ Offline ด้วย Service Worker และวางโครงสร้าง SEO (JSON-LD Schema)
-- **System Administration & IT Support**: มีพื้นฐานแข็งแกร่งด้าน Linux, Docker, Computer Networks, การดูแลรักษาอุปกรณ์ Hardware/Software และการแก้ไขปัญหาเฉพาะหน้าของระบบไอที
+ข้อความนี้ตรงกับ `PRINCIPLES` ใน `facts.ts` และตัด claim ที่พิสูจน์ไม่ได้ออกไปแล้ว
 
----
-
-## 🛠️ 3. ตารางทักษะและความเชี่ยวชาญทางเทคนิค (Technical Skills Matrix)
-
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                           TECH STACK OVERVIEW                           │
-├─────────────────┬───────────────────┬─────────────────┬─────────────────┤
-│    FRONTEND     │      BACKEND      │    DATABASE     │ DEVOPS & TOOLS  │
-├─────────────────┼───────────────────┼─────────────────┼─────────────────┤
-│ Next.js 14/16   │ Node.js / Express │ PostgreSQL      │ Docker          │
-│ React 19        │ Python (FastAPI)  │ MySQL           │ Git / GitHub    │
-│ TypeScript / JS │ PHP / Laravel     │ SQLite          │ GitHub Actions  │
-│ Tailwind / UI   │ Rust (Wasm)       │ Firebase        │ Linux / Server  │
-│ Three.js / PWA  │ RESTful / SSE     │ Prisma ORM      │ Web Scraping    │
-└─────────────────┴───────────────────┴─────────────────┴─────────────────┘
-```
-
-### รายละเอียดแยกตามหมวดหมู่:
-
-1. **Frontend Development**:
-   - **Frameworks & Libs**: Next.js (App Router 14/16), React 19, Angular, Vite
-   - **Languages**: TypeScript, Modern JavaScript (ES6+), HTML5 Semantic, CSS3 / Vanilla CSS
-   - **UI & Styling**: Tailwind CSS, shadcn/ui, Glassmorphism, CSS Custom Properties (Variables), Responsive Design
-   - **Graphics & Audio**: Three.js (3D Scenes & Animations), Anime.js, MapLibre GL, Web Audio API
-   - **Advanced Frontend**: WebAssembly (Wasm via Rust/Worker), Web Workers, Service Worker (Offline PWA), PDF.js, Accessibility (WCAG 2.1 AA)
-
-2. **Backend & Systems**:
-   - **Languages**: TypeScript / Node.js, Python 3, PHP, Rust
-   - **Frameworks**: Express.js, FastAPI, Laravel
-   - **APIs & Protocols**: RESTful APIs, Server-Sent Events (SSE Streaming), WebSockets (Multiplayer Game), JSON-LD Microdata, OpenAI API Integration
-
-3. **Database & Storage**:
-   - **Relational Databases**: PostgreSQL, MySQL, SQLite
-   - **ORMs & Drivers**: Prisma ORM, Sequelize, PDO
-   - **Cloud Database**: Firebase Firestore / Realtime DB, LocalStorage / IndexedDB
-
-4. **DevOps, Tools & Infrastructure**:
-   - **Version Control**: Git, GitHub, Git Flow, Branch Protection
-   - **CI/CD & Container**: Docker, GitHub Actions Automation
-   - **Operating Systems & System Admin**: Linux (Ubuntu/Debian), Windows Administration, Shell Scripting, IT Support & Troubleshooting
-   - **Others**: Puppeteer / Cheerio / BeautifulSoup (Web Scraping), Reverse Proxy & Web Hosting
+- **ครบทั้งระบบ:** ออกแบบสคีมาฐานข้อมูล วาง REST / SSE API เขียนตรรกะฝั่งเซิร์ฟเวอร์ แล้วทำต่อจนถึง UI คนเดียวทำได้ทั้งระบบและต่อกันติด
+- **ประสิทธิภาพมาก่อน:** งานคำนวณหนักย้ายไปเขียนด้วย Rust แล้วคอมไพล์เป็น WebAssembly รันบน Web Worker เช่น Metro Mini 3D รันได้ 60 FPS พร้อมเที่ยวรถ 8,193 เที่ยวต่อวัน
+- **ใช้ได้จริง ดูแลต่อได้:** ใช้คีย์บอร์ดได้ครบ เคารพ `prefers-reduced-motion` ตามแนวทาง WCAG 2.1 AA และมีพื้นฐาน Linux, Docker และเครือข่าย จึงดูแลระบบให้รันต่อได้หลังส่งมอบ
 
 ---
 
-## 🎓 4. เส้นทางและการเรียนรู้ (Journey & Experience Timeline)
+## 3. ทักษะ
 
-```mermaid
-timeline
-    title เส้นทางการเรียนรู้และประสบการณ์พัฒนาซอฟต์แวร์
-    section การศึกษา (Education)
-        2023 : เข้าศึกษาปริญญาตรี สาขาเทคโนโลยีสารสนเทศ (IT)
-        2024 : ศึกษาการออกแบบฐานข้อมูล, ระบบเครือข่าย และโครงสร้างเซิร์ฟเวอร์
-        2025 : ขึ้นชั้นปีที่ 3 มุ่งเน้น Full-Stack Web Development & Modern DevOps
-        2026 : พร้อมรับงาน / สหกิจศึกษา / นักศึกษาฝึกงาน (Full-Stack & IT Support)
-    section ประสบการณ์พัฒนา (Projects Milestone)
-        2024 : พัฒนาระบบ POS, Webshop, จองตั๋วโรงหนัง และโปรเจกต์ส่งเสริมชุมชน
-        2025 : สร้างแอป 3D Interactive (HBD Craft, Metro 3D, MangaVerses)
-        2026 : ส่งมอบระบบ AI Chat, ระบบ Luxury E-Commerce (RUEDU) และ Specialty Coffee (ARÓM)
-```
+กลุ่มทักษะตามที่แสดงในหน้า CV (`SKILL_GROUPS`) ส่วนตัวเลข "ใช้ใน N โปรเจกต์" ในส่วนทักษะบนหน้าเว็บนับจากแท็กใน `projects.json` โดยตรง
 
-1. **2023 - ปัจจุบัน (ชั้นปีที่ 3)**:
-   - **ระดับปริญญาตรี — สาขาเทคโนโลยีสารสนเทศ (Information Technology: IT)**
-   - *สาระการเรียนรู้*: วิศวกรรมซอฟต์แวร์, การวางสถาปัตยกรรมฐานข้อมูลเชิงสัมพันธ์ (Database Normalization & Indexing), เครือข่ายคอมพิวเตอร์และการสื่อสารข้อมูล (Networking), ระบบปฏิบัติการและระบบเสมือน (OS & Virtualization)
-2. **2024 - 2026**:
-   - **การพัฒนาโปรเจกต์ระบบจริง (Full-Stack & Interactive Systems)**
-   - พัฒนาและส่งมอบผลงานรวม 16 โปรเจกต์ มีทั้งระบบเชิงธุรกิจขนาดใหญ่ (Enterprise POS, สแกนใบหน้าพนักงาน, อีคอมเมิร์ซ), ระบบเอไอ (Khui AI Streaming, PRISM64 Intelligence & MCP Server), เว็บจำลอง 3D / แผนที่การเดินทางขนาดใหญ่ (Metro Mini 3D) ตลอดจนงานเขียน Game Engine 2D
+| กลุ่ม | ทักษะ |
+| :-- | :-- |
+| Frontend | Next.js (App Router 14/16), React 19, Angular, Vite, TypeScript, JavaScript, HTML5 / CSS, Tailwind CSS, shadcn/ui, Three.js / WebGL, MapLibre, Rust → WebAssembly, Web Workers, PWA / Service Worker, Web Audio API, PDF.js, WCAG 2.1 AA |
+| Backend และระบบ | Node.js / Express, Python 3.12 / FastAPI, PHP, REST APIs, Server-Sent Events, WebSockets / WebRTC, Model Context Protocol, Windows WinRT · GSMTC, Discord IPC, Auth · JWT · sessions |
+| ฐานข้อมูล | PostgreSQL, MySQL / MariaDB, SQLite, Prisma, Sequelize · PDO, Redis, Firebase, Normalization & indexing, Migrations & seeding |
+| DevOps และไอที | Docker, Git / GitHub, GitHub Actions, Linux (Ubuntu / Debian), Windows administration, Bash / PowerShell, Nginx · Cloudflare, Networking & IT support, Puppeteer |
 
 ---
 
-## 🚀 5. รายละเอียดผลงานทั้งหมด 16 โปรเจกต์ (All 16 Projects Detailed)
+## 4. เส้นทางการเรียนและการพัฒนา
+
+ข้อมูลตรงกับ `JOURNEY` ใน `facts.ts`
+
+| ปี | ประเภท | เรื่อง | โปรเจกต์ |
+| :-: | :-- | :-- | :-- |
+| 2023 | การศึกษา | เข้าศึกษาปริญญาตรี สาขาเทคโนโลยีสารสนเทศ: วิศวกรรมซอฟต์แวร์ การออกแบบฐานข้อมูลเชิงสัมพันธ์ เครือข่ายคอมพิวเตอร์และการสื่อสารข้อมูล ระบบปฏิบัติการและระบบเสมือน | — |
+| 2024 | ผลงาน | ระบบจริงชุดแรก ได้แก่ POS เว็บช้อปปิ้ง ระบบจองตั๋วโรงหนังพร้อมผังที่นั่ง และเว็บท่องเที่ยวชุมชน ควบคู่กับการเรียนเรื่อง Normalization, Indexing และโครงสร้างเซิร์ฟเวอร์ | `pos`, `webshop`, `cinema`, `beach` |
+| 2025 | ผลงาน | ขึ้นชั้นปีที่ 3 ทำงาน 3D, Wasm และเรียลไทม์ เช่น งาน Three.js และ Metro Mini 3D ที่แกนคำนวณเขียนด้วย Rust แล้วคอมไพล์เป็น WebAssembly | `metro3d`, `hbd`, `mangaverses` |
+| 2026 | ปัจจุบัน | งาน AI ซิสเต็มส์ และอีคอมเมิร์ซ และพร้อมรับงาน | `bkk-transit`, `prism64`, `discord-rpc`, `khuiai`, `ruedu`, `arom-coffee` |
 
 ---
 
-### 1. Greater Bangkok Metro Mini 3D (ID: 14)
-- **หมวดหมู่ (Category)**: `interactive` (อินเตอร์แอคทีฟ)
-- **ไอคอน (Icon)**: `fa-solid fa-train-subway`
-- **สรุปภาพรวม (Overview)**: เว็บแอปพลิเคชันจำลองโครงข่ายรถไฟฟ้ากรุงเทพฯ และปริมณฑลแบบ 3 มิติ วางแนวรางตามพิกัดจริงจาก OpenStreetMap พร้อมแยกระดับความสูงจริง (ยกระดับ, ระดับดิน, ใต้ดิน)
-- **ฟีเจอร์เด่น (Key Features)**:
-  - วิ่งขบวนรถตามตารางเวลาจริง GTFS รวม 10 สาย, 193 สถานี, 8,193 เที่ยวต่อวัน
-  - ปรับเร่งเวลา / ย้อนเวลาได้ตามใจชอบ
-  - ระบบ Train Tracking กล้องติดตามขบวนรถ พร้อมดูตารางจอดทุกสถานีแบบ Real-time
-  - ระบบค้นหาสถานีและวางแผนเส้นทางอัจฉริยะ (Journey Planner) บอกจุดเปลี่ยนสายและระยะเวลา
-  - รองรับการแสดงผล 9 ภาษา
-  - แกนคำนวณตำแหน่งขบวนรถเขียนด้วย **Rust** คอมไพล์เป็น **WebAssembly (Wasm)** รันแยกบน **Web Worker** เพื่อความลื่นไหลระดับ 60 FPS
-- **เทคโนโลยี (Tags)**: `React 19`, `TypeScript`, `Three.js`, `MapLibre GL`, `Rust`, `WebAssembly`
-- **Source Code**: [github.com/Gubbitkeytoday/tha-metro-mini-3d](https://github.com/Gubbitkeytoday/tha-metro-mini-3d)
-- **Live Demo**: [metro.itstom.me](https://metro.itstom.me)
-- **รูปหน้าปก (Cover)**: `images/metro3d/01-network-overview.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Video]` `images/metro3d/demo.mp4`
-  2. `[Image]` `images/metro3d/01-network-overview.png`
-  3. `[Image]` `images/metro3d/02-trains-street-level.png`
-  4. `[Image]` `images/metro3d/03-underground-mrt-blue.png`
-  5. `[Image]` `images/metro3d/04-night-lighting.png`
-  6. `[Image]` `images/metro3d/05-journey-planner.png`
-  7. `[Image]` `images/metro3d/06-train-inspector.png`
-  8. `[Image]` `images/metro3d/07-station-board.png`
-  9. `[Image]` `images/metro3d/08-guided-tour.png`
-  10. `[Image]` `images/metro3d/09-about-support.png`
-  11. `[Image]` `images/metro3d/10-phone-map-thai.png`
-  12. `[Image]` `images/metro3d/11-phone-search-thai.png`
+## 5. ผลงานทั้งหมด 18 โปรเจกต์
+
+เรียงตามลำดับเดียวกับบนเว็บ (`order` มากไปน้อย)
+
+**สรุป:** เว็บแอป 12 · อินเทอร์แอคทีฟ 4 · แอปเดสก์ท็อป 2 · ปี 2024: 8 · ปี 2025: 4 · ปี 2026: 6 · ทุกโปรเจกต์มีลิงก์ซอร์สโค้ด · มีเว็บจริงที่เปิดใช้งาน 4 โปรเจกต์
+
+| # | โปรเจกต์ | หมวด | ปี | ซอร์สโค้ด | เว็บจริง |
+| --: | :-- | :-- | :-: | :-: | :-: |
+| 01 | BKK Transit | เว็บแอป | 2026 | [repo](https://github.com/Gubbitkeytoday/bkk-transit) | — |
+| 02 | Discord Rich Presence Pro | แอปเดสก์ท็อป | 2026 | [repo](https://github.com/Gubbitkeytoday/discord-rich-presence-pro) | — |
+| 03 | PRISM64 | เว็บแอป | 2026 | [repo](https://github.com/Gubbitkeytoday/prism64) | [live](https://prism64.onrender.com) |
+| 04 | ฤดู · RUEDU | เว็บแอป | 2026 | [repo](https://github.com/Gubbitkeytoday/ruedu-flower-atelier) | — |
+| 05 | ARÓM | เว็บแอป | 2026 | [repo](https://github.com/Gubbitkeytoday/arom-specialty-coffee) | [live](https://gubbitkeytoday.github.io/arom-specialty-coffee/) |
+| 06 | เว็บไซต์ท่องเที่ยวหาดทรายน้อย | เว็บแอป | 2024 | [repo](https://github.com/GitBababoo/Beach_2024-5-11) | — |
+| 07 | Astra Cinema Booking | เว็บแอป | 2024 | [repo](https://github.com/GitBababoo/cinema-booking) | — |
+| 08 | Nike SNKRS Tracker | อินเทอร์แอคทีฟ | 2024 | [repo](https://github.com/GitBababoo/nike-snkrs-tracker) | — |
+| 09 | Tank.io | อินเทอร์แอคทีฟ | 2024 | [repo](https://github.com/GitBababoo/Tank.io) | — |
+| 10 | Shopee TH Clone (Webshop) | เว็บแอป | 2024 | [repo](https://github.com/GitBababoo/webshop) | — |
+| 11 | Web PDF Editor | เว็บแอป | 2025 | [repo](https://github.com/GitBababoo/PDF-Editer) | — |
+| 12 | POS Python Offline | แอปเดสก์ท็อป | 2024 | [repo](https://github.com/GitBababoo/POS-Python) | — |
+| 13 | HBD 3D Craft | อินเทอร์แอคทีฟ | 2025 | [repo](https://github.com/GitBababoo/Happy-Birthday) | [live](https://hbd-3d-craft.pages.dev) |
+| 14 | Enterprise Face Scan Attendance | เว็บแอป | 2024 | [repo](https://github.com/GitBababoo/enterprise-face-scan-attendance) | — |
+| 15 | SmartPOS Enterprise | เว็บแอป | 2024 | [repo](https://github.com/GitBababoo/POS) | — |
+| 16 | MangaVerses | เว็บแอป | 2025 | [repo](https://github.com/Gubbitkeytoday/MangaVerses) | — |
+| 17 | Khui AI (คุย AI) | เว็บแอป | 2026 | [repo](https://github.com/Gubbitkeytoday/khuiai-fullstack) | — |
+| 18 | Greater Bangkok Metro Mini 3D | อินเทอร์แอคทีฟ | 2025 | [repo](https://github.com/Gubbitkeytoday/tha-metro-mini-3d) | [live](https://metro.itstom.me) |
+
+### 01. BKK Transit — แพลตฟอร์มข้อมูลเปิดขนส่งมวลชนกรุงเทพฯ & ระบบคำนวณเส้นทาง / BKK Transit — Bangkok Open Transit Platform & Routing Engine
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `bkk-transit` · 18 |
+| หมวด · ปี | เว็บแอป (`web`) · 2026 |
+| บทบาท | สถาปัตยกรรมระบบ · GTFS Pipeline · FastAPI Backend · Leaflet.js · Model Context Protocol (MCP) |
+| เทคโนโลยี | Python 3.12, FastAPI, SQLite, Leaflet.js, GTFS, Gemini MCP, Docker |
+| ตัวเลขสำคัญ | **GTFS** มาตรฐานสากล สนข. · **<10ms** Query Latency · **500m** รัศมี GPS เรดาร์ · **MCP** JSON-RPC 2.0 |
+| ซอร์สโค้ด | [github.com/Gubbitkeytoday/bkk-transit](https://github.com/Gubbitkeytoday/bkk-transit) |
+| เว็บจริง | — (ไม่มีเว็บที่เปิดใช้งาน) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/bkk-transit/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/bkk-transit/) |
+| สื่อ | ภาพปก `media/bkk_transit/01-bkk-transit-overview` · แกลเลอรี 8 ภาพ |
+
+แพลตฟอร์มโครงสร้างพื้นฐานข้อมูลเปิดขนส่งมวลชนกรุงเทพฯ และปริมณฑล นำเข้า GTFS ทางการจาก สนข. (นำทาง) รองรับเรดาร์ GPS ค้นหาป้ายใกล้ฉัน ตารางเวลารถออกถัดไป และ Model Context Protocol (MCP) เชื่อมต่อ AI Assistants
+
+**ฟีเจอร์หลัก**
+
+- Official GTFS Data Ingestion: สตรีมมิ่งนำเข้าไฟล์ข้อมูล GTFS Static ทางการแบบ Chunk-based ตรวจสอบ Referential Integrity และสร้าง ValidationReport วิเคราะห์คุณภาพข้อมูล
+- GPS Radar & Nearby Stops: ระบุพิกัดตำแหน่งผู้ใช้ (W3C Geolocation) ด้วยหมุดเรดาร์สีฟ้าและวงแหวนความแม่นยำ พร้อมค้นหาป้ายในระยะ 500 เมตรอัตโนมัติ
+- Live Departures Board: แสดงตารางเวลารถและเรือเข้าป้ายถัดไป โดยคำนวณจากความถี่เดินรถ (frequencies.txt) และตารางเวลา พร้อมจุดเสียบ GTFS-RT แบบ Hot-Plug
+- Intelligent Trip Planner: ระบบคำนวณและวางแผนการเดินทางระหว่างสถานี ทั้งสายตรงและจุดต่อรถ 1 ครั้ง พร้อมวาดแนวเส้นทาง Polyline สีสดบนแผนที่
+- Model Context Protocol (MCP Server): เซิร์ฟเวอร์ MCP มาตรฐาน JSON-RPC 2.0 สำหรับเชื่อมต่อ Claude, ChatGPT, และ Gemini ให้เรียกค้นสาย ป้าย และคำนวณเส้นทางแบบ Agentic
+- High Resilience & Fault Tolerance: ออกแบบด้วย Circuit Breaker ป้องกันระบบล่ม เมื่อต้นทาง Realtime ขัดข้อง ระบบจะตัดวงจรและทำงานต่อด้วยข้อมูลตารางเดินรถที่แคชไว้
 
 ---
 
-### 2. Khui AI (คุย AI) (ID: 13)
-- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน)
-- **ไอคอน (Icon)**: `fa-solid fa-robot`
-- **สรุปภาพรวม (Overview)**: แพลตฟอร์มสนทนากับตัวละคร AI ภาษาไทยแบบ Full-Stack ครบวงจร พร้อมฟีเจอร์ Social และระบบเศรษฐกิจภายในเกม
-- **ฟีเจอร์เด่น (Key Features)**:
-  - ระบบสร้างตัวละคร AI (Creator Studio) กำหนดนิสัย บุคลิก และสถานการณ์จำลองได้อิสระ
-  - แชทสตรีมมิ่งตอบกลับแบบ Real-time ด้วย Server-Sent Events (SSE) รองรับ Fallback สลับโมเดล AI เมื่อเกิด Error
-  - ระบบเศรษฐกิจ: เหรียญสะสม, เช็คอินรายวัน, เควส/ภารกิจ, ส่งของขวัญให้ตัวละคร
-  - ระบบชุมชน: คอมเมนต์, จัดอันดับตัวละครยอดนิยม (Leaderboard), รายงานเนื้อหาไม่เหมาะสม 15 หมวด
-  - ฟีเจอร์เสริม: ดูดวงรายวัน 12 ราศี และรองรับภาษา i18n รวม 10 ภาษา
-- **เทคโนโลยี (Tags)**: `Next.js 14`, `TypeScript`, `Prisma`, `SQLite`, `OpenAI API`, `Tailwind`
-- **Source Code**: [github.com/Gubbitkeytoday/khuiai-fullstack](https://github.com/Gubbitkeytoday/khuiai-fullstack)
-- **รูปหน้าปก (Cover)**: `images/khuiai/04-discover.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Video]` `images/khuiai/khuiai-walkthrough.webm`
-  2. `[Image]` `images/khuiai/04-discover.png`
-  3. `[Image]` `images/khuiai/01-landing-th.png`
-  4. `[Image]` `images/khuiai/12-chat-reply.png`
-  5. `[Image]` `images/khuiai/05-detail-about.png`
-  6. `[Image]` `images/khuiai/07-detail-comments.png`
-  7. `[Image]` `images/khuiai/09-report-dialog.png`
-  8. `[Image]` `images/khuiai/11-chat-typing.png`
-  9. `[Image]` `images/khuiai/14-panel-models.png`
-  10. `[Image]` `images/khuiai/15-creator-top.png`
-  11. `[Image]` `images/khuiai/18-creator-adult.png`
-  12. `[Image]` `images/khuiai/19-shop.png`
-  13. `[Image]` `images/khuiai/20-leaderboard.png`
-  14. `[Image]` `images/khuiai/21-horoscope.png`
-  15. `[Image]` `images/khuiai/22-profile.png`
-  16. `[Image]` `images/khuiai/23-preferences.png`
-  17. `[Image]` `images/khuiai/24-mobile-discover.png`
-  18. `[Image]` `images/khuiai/02-auth-en.png`
-  19. `[Image]` `images/khuiai/03-signup-filled.png`
-  20. `[Image]` `images/khuiai/06-detail-quests.png`
-  21. `[Image]` `images/khuiai/08-comment-posted.png`
-  22. `[Image]` `images/khuiai/10-chat-opened.png`
-  23. `[Image]` `images/khuiai/13-chat-actions.png`
-  24. `[Image]` `images/khuiai/16-creator-filled.png`
-  25. `[Image]` `images/khuiai/17-creator-scenario.png`
+### 02. Discord Rich Presence Pro — ซิงค์สถานะสื่อบน Windows / Discord Rich Presence Pro — Windows Media Presence Engine
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `discord-rpc` · 17 |
+| หมวด · ปี | แอปเดสก์ท็อป (`app`) · 2026 |
+| บทบาท | Systems Programming · Windows GSMTC API · Discord IPC |
+| เทคโนโลยี | Python 3.12, Windows WinRT, GSMTC API, Discord IPC, Pystray, PyInstaller, Systems Architecture |
+| ตัวเลขสำคัญ | **<40MB** Memory Footprint · **~0%** CPU Overhead · **GSMTC** Native WinRT API · **Zero-Lag** Anchor Timeline |
+| ซอร์สโค้ด | [github.com/Gubbitkeytoday/discord-rich-presence-pro](https://github.com/Gubbitkeytoday/discord-rich-presence-pro) |
+| เว็บจริง | — (ไม่มีเว็บที่เปิดใช้งาน) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/discord-rpc/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/discord-rpc/) |
+| สื่อ | ภาพปก `media/discord_rpc/01-discord-full-profile` · แกลเลอรี 6 ภาพ |
+
+เอ็นจินซิงค์สถานะการเล่นสื่อ (YouTube, Spotify, Apple Music, Netflix) ขึ้นโปรไฟล์ Discord ระดับเนทีฟผ่าน Windows GSMTC WinRT & Local IPC พร้อมระบบตรวจจับเกม DirectX/Vulkan ซ่อนอัตโนมัติ และ System Tray Controls
+
+**ฟีเจอร์หลัก**
+
+- Native Windows GSMTC Integration: เชื่อมต่อ WinRT Media Controls (GSMTC) ของ Windows อ่านชื่อเพลง, ศิลปิน, รูปปก, สถานะ Play/Pause และไทม์ไลน์โดยตรง
+- Universal Browser & Player Support: รองรับทั้ง Chrome, Edge, Brave, Opera, Spotify, Tidal, Apple Music โดยไม่ต้องลง Extension เสริมในเบราว์เซอร์
+- DirectX & Vulkan Game Detection: ตรวจจับหน้าต่างเกมแบบเต็มจออัตโนมัติ และหยุดส่งสถานะชั่วคราวเพื่อประหยัดทรัพยากรและไม่รบกวนเฟรมเรต
+- Sub-Second Timeline Anchoring: คำนวณความคืบหน้าของเพลงด้วย Timestamp Anchor แม่นยำ ไม่สะดุด และไม่เกิดปัญหาแถบเวลารีเซ็ตวนซ้ำ
+- System Tray Controller & Hot Reload: ควบคุมการทำงานจากไอคอนมุมขวาล่าง, สลับ Pause/Resume, ดู Log สด, และปรับแต่ง config.json โดยไม่ต้องรีสตาร์ท
 
 ---
 
-### 3. MangaVerses (ID: 12)
-- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน)
-- **ไอคอน (Icon)**: `fa-solid fa-book-open`
-- **สรุปภาพรวม (Overview)**: เว็บอ่านมังงะและการ์ตูนแปลไทยประสิทธิภาพสูง รองรับทั้งเดสก์ท็อปและสมาร์ทโฟน
-- **ฟีเจอร์เด่น (Key Features)**:
-  - ระบบค้นหาและจัดหมวดหมู่การ์ตูน, อันดับความนิยมประจำสัปดาห์/เดือน
-  - ชั้นหนังสือส่วนตัว (Personal Library / Bookmarks)
-  - หน้าอ่านมังงะที่โหลดภาพแบบ Lazy-load รวดเร็ว ปรับโหมดการอ่านได้
-  - แผงควบคุมผู้ดูแลระบบหลังบ้าน (Admin Backoffice) จัดการรายชื่อมังงะ เพิ่มตอนใหม่ และจัดการตำแหน่งแสดงโฆษณา
-- **เทคโนโลยี (Tags)**: `Next.js 16`, `TypeScript`, `Tailwind`, `shadcn/ui`, `Prisma`, `SQLite`
-- **Source Code**: [github.com/Gubbitkeytoday/MangaVerses](https://github.com/Gubbitkeytoday/MangaVerses)
-- **รูปหน้าปก (Cover)**: `images/mangaverses/01-home-desktop.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `images/mangaverses/01-home-desktop.png`
-  2. `[Image]` `images/mangaverses/02-browse-desktop.png`
-  3. `[Image]` `images/mangaverses/03-rankings-desktop.png`
-  4. `[Image]` `images/mangaverses/04-library-desktop.png`
-  5. `[Image]` `images/mangaverses/05-detail-desktop.png`
-  6. `[Image]` `images/mangaverses/06-reader-desktop.png`
-  7. `[Image]` `images/mangaverses/07-privacy-desktop.png`
-  8. `[Image]` `images/mangaverses/08-admin-login-desktop.png`
-  9. `[Image]` `images/mangaverses/09-admin-overview-desktop.png`
-  10. `[Image]` `images/mangaverses/10-admin-ads-desktop.png`
-  11. `[Image]` `images/mangaverses/11-admin-content-desktop.png`
-  12. `[Image]` `images/mangaverses/01-home-mobile.png`
-  13. `[Image]` `images/mangaverses/06-reader-mobile.png`
+### 03. PRISM64 — เครื่องมือวิเคราะห์ 64 เฉดสีบุคลิกภาพ & Gemini MCP / PRISM64 — 64-Shade Personality Intelligence & MCP
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `prism64` · 16 |
+| หมวด · ปี | เว็บแอป (`web`) · 2026 |
+| บทบาท | Full-Stack Architecture · จิตวิทยา HEXACO · AI MCP Server |
+| เทคโนโลยี | Python, JavaScript, Tailwind CSS, Canvas API, Leaflet.js, Gemini MCP, Render.com |
+| ตัวเลขสำคัญ | **64** เฉดสีบุคลิกภาพ · **6** มิติพฤติกรรม · **9:16** Story Studio · **MCP** JSON-RPC AI |
+| ซอร์สโค้ด | [github.com/Gubbitkeytoday/prism64](https://github.com/Gubbitkeytoday/prism64) |
+| เว็บจริง | [prism64.onrender.com](https://prism64.onrender.com) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/prism64/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/prism64/) |
+| สื่อ | ภาพปก `media/prism64/01-landing-hero-showcase` · แกลเลอรี 5 ภาพ + วิดีโอ 1 |
+
+เว็บแอปพลิเคชันวิเคราะห์บุคลิกภาพเชิงลึก 6 มิติ 64 เฉดสี พร้อม Canvas 9:16 Social Story Studio, ระบบ Real-time Geo Telemetry และ Gemini Spark Model Context Protocol (MCP) Server รองรับ AI Agent
+
+**ฟีเจอร์หลัก**
+
+- โมเดลจิตวิทยา HEXACO 6 มิติ (Energy, Info, Decision, Action, Identity, Relating) แตกแขนง 64 เฉดสี (16 Archetypes × 4 Sub-Variants)
+- Dual Assessment Engine: โหมดด่วน 18 ข้อ (1.5 นาที) และโหมดเจาะลึก 36 ข้อ (3 นาที) คำนวณแบบ Real-time
+- Social Story Card Studio (9:16): Export รูปแบบ Light Pearl & Midnight Dark สำหรับ IG / TikTok Story ได้ทันที
+- Gemini Spark MCP Server: รองรับมาตรฐาน Model Context Protocol (JSON-RPC 2.0) เชื่อมต่อ AI Agent เพื่อดึงข้อมูลบุคลิกภาพ
+- Stealth Admin Dashboard: แผนที่ Geo Telemetry สดด้วย Leaflet.js ติดตามผู้เข้าชมและผลการประเมินแบบ Real-time
 
 ---
 
-### 4. SmartPOS Enterprise (ID: 1)
-- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน)
-- **ไอคอน (Icon)**: `fa-solid fa-cash-register`
-- **สรุปภาพรวม (Overview)**: ระบบบริหารจัดการร้านค้าและจุดขายหน้าร้าน (Point of Sale) ระดับองค์กรแบบ All-in-One
-- **ฟีเจอร์เด่น (Key Features)**:
-  - ระบบคิดเงินหน้าร้าน (POS Terminal) พร้อมตัวเลือกส่วนลด ภาษี และโปรโมชัน
-  - ระบบจัดการโต๊ะอาหารและการสั่งออเดอร์ (Table Management)
-  - ระบบชำระเงินรองรับเงินสดและ Dynamic QR Code PromptPay
-  - ระบบจัดการคลังสินค้า สต็อกคงเหลือ และแจ้งเตือนสินค้าใกล้หมด
-  - ระบบสมาชิกสะสมแต้ม, รายงานค่าใช้จ่าย และแดชบอร์ดสถิติยอดขาย
-- **เทคโนโลยี (Tags)**: `Next.js`, `TypeScript`, `Tailwind`, `Prisma`, `Postgres`
-- **Source Code**: [github.com/GitBababoo/POS](https://github.com/GitBababoo/POS)
-- **รูปหน้าปก (Cover)**: `images/pos/02-pos-terminal.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `images/pos/02-pos-terminal.png`
-  2. `[Image]` `images/pos/01-login.png`
-  3. `[Image]` `images/pos/03-products.png`
-  4. `[Image]` `images/pos/04-orders.png`
-  5. `[Image]` `images/pos/05-dashboard.png`
-  6. `[Image]` `images/pos/06-inventory.png`
-  7. `[Image]` `images/pos/07-tables.png`
-  8. `[Image]` `images/pos/08-customers.png`
-  9. `[Image]` `images/pos/09-expenses.png`
-  10. `[Image]` `images/pos/10-settings.png`
-  11. `[Image]` `images/pos/11-order-detail.png`
-  12. `[Image]` `images/pos/12-order-detail-dialog.png`
-  13. `[Image]` `images/pos/13-pos-cart-with-items.png`
-  14. `[Image]` `images/pos/14-payment-dialog.png`
+### 04. ฤดู · RUEDU — Flower Atelier
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `ruedu` · 15 |
+| หมวด · ปี | เว็บแอป (`web`) · 2026 |
+| บทบาท | ออกแบบแบรนด์ · E-commerce · A11y |
+| เทคโนโลยี | JavaScript, HTML/CSS, PWA, Service Worker, Accessibility |
+| ตัวเลขสำคัญ | **0** axe violations · **13** หน้า · **16** สินค้า · **3** ขั้น checkout |
+| ซอร์สโค้ด | [github.com/Gubbitkeytoday/ruedu-flower-atelier](https://github.com/Gubbitkeytoday/ruedu-flower-atelier) |
+| เว็บจริง | — (ไม่มีเว็บที่เปิดใช้งาน) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/ruedu/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/ruedu/) |
+| สื่อ | ภาพปก `media/ruedu/01-homepage-00-full-page` · แกลเลอรี 77 ภาพ |
+
+ระบบอีคอมเมิร์ซร้านดอกไม้ระดับ Luxury 13 หน้า สองภาษา พร้อม Bouquet Builder คำนวณราคาสด ตะกร้าใน localStorage และ Checkout 3 ขั้น
+
+**ฟีเจอร์หลัก**
+
+- Bouquet Builder เลือกขนาด โทนสี การห่อ แจกัน และการ์ด คำนวณราคาสดทุกการเปลี่ยน
+- ตัวกรองสินค้าหลายมิติที่ sync เข้ากับ URL แชร์หน้าที่กรองไว้ได้
+- ตะกร้าเก็บใน localStorage แยก line ตามสินค้า + ตัวเลือก
+- Checkout 3 ขั้น ตรวจข้อมูลแยกขั้น พร้อมข้อความ error สองภาษา
+- Service Worker ใช้งานออฟไลน์ได้ และผ่าน WCAG 2.1 AA 0 violations
 
 ---
 
-### 5. Enterprise Face Scan Attendance (ID: 2)
-- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน)
-- **ไอคอน (Icon)**: `fa-solid fa-user-check`
-- **สรุปภาพรวม (Overview)**: ระบบเช็คชื่อและบันทึกเวลาเข้า-ออกงานของพนักงานด้วยระบบจดจำใบหน้าอัตโนมัติ บนโครงสร้าง Serverless Cloud
-- **ฟีเจอร์เด่น (Key Features)**:
-  - หน้าจอ Kiosk สแกนใบหน้าตรวจสอบตัวตนพนักงานแบบ Real-time พร้อมแสดงผลสำเร็จ/ข้อผิดพลาด
-  - ระบบลงทะเบียนใบหน้าพนักงานใหม่ (Face Registration)
-  - ระบบล็อกอินปลอดภัยด้วย Google Authentication
-  - แดชบอร์ดผู้ดูแลระบบ (Admin Directory) ตรวจสอบเวลาเข้างาน, อนุมัติการลา และสรุปเวลาทำงาน
-- **เทคโนโลยี (Tags)**: `Angular`, `Firebase`, `Tailwind`, `TypeScript`
-- **Source Code**: [github.com/GitBababoo/enterprise-face-scan-attendance](https://github.com/GitBababoo/enterprise-face-scan-attendance)
-- **รูปหน้าปก (Cover)**: `images/สแกนหน้า/admin-overview.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `images/สแกนหน้า/admin-overview.png`
-  2. `[Image]` `images/สแกนหน้า/admin-directory.png`
-  3. `[Image]` `images/สแกนหน้า/employee-dashboard.png`
-  4. `[Image]` `images/สแกนหน้า/face-registration.png`
-  5. `[Image]` `images/สแกนหน้า/google-auth.png`
-  6. `[Image]` `images/สแกนหน้า/kiosk-error.png`
-  7. `[Image]` `images/สแกนหน้า/kiosk-success.png`
-  8. `[Image]` `images/สแกนหน้า/login-screen.png`
+### 05. ARÓM — Specialty Coffee Roasters
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `arom-coffee` · 14 |
+| หมวด · ปี | เว็บแอป (`web`) · 2026 |
+| บทบาท | ออกแบบแบรนด์ · Frontend · A11y |
+| เทคโนโลยี | JavaScript, HTML/CSS, Python, PWA, Accessibility |
+| ตัวเลขสำคัญ | **0** axe violations · **8** หน้า · **36** เมนู · **11** JSON-LD |
+| ซอร์สโค้ด | [github.com/Gubbitkeytoday/arom-specialty-coffee](https://github.com/Gubbitkeytoday/arom-specialty-coffee) |
+| เว็บจริง | [gubbitkeytoday.github.io/arom-specialty-coffee/](https://gubbitkeytoday.github.io/arom-specialty-coffee/) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/arom-coffee/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/arom-coffee/) |
+| สื่อ | ภาพปก `media/arom-coffee/01-home-index-00-full-page` · แกลเลอรี 57 ภาพ |
+
+เว็บแบรนด์กาแฟพิเศษ 8 หน้า สองภาษา (TH/EN) ที่อ่านได้ครบแม้ปิด JavaScript พร้อมตัวจับเวลาชง V60 และผ่าน WCAG 2.1 AA แบบ 0 violations
+
+**ฟีเจอร์หลัก**
+
+- ตัวจับเวลาชงกาแฟดริป V60 แบบ Interactive พร้อมขั้นตอนทีละสเต็ป
+- ตัวกรองและค้นหาเมนู 36 รายการ
+- คำนวณสถานะเปิด–ปิดร้านจากเวลาจริง แยกตามสาขาและวัน
+- SEO ด้วย JSON-LD 11 ประเภท และรองรับ PWA
+- ผ่าน WCAG 2.1 AA — 0 axe-core violations ทั้ง 8 หน้า
 
 ---
 
-### 6. HBD 3D Craft (ID: 3)
-- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน)
-- **ไอคอน (Icon)**: `fa-solid fa-cake-candles`
-- **สรุปภาพรวม (Overview)**: เว็บสร้างการ์ดอวยพรวันเกิดแบบ 3 มิติ พร้อมลูกเล่น Interactive เป่าเทียนด้วยไมโครโฟน
-- **ฟีเจอร์เด่น (Key Features)**:
-  - ปรับแต่งหน้าตาเค้กวันเกิด 3D, จำนวนเทียน และข้อความอวยพร
-  - ตรวจจับระดับเสียงลมเป่าผ่านไมโครโฟนด้วย **Web Audio API** เพื่อดับเปลวเทียน 3D
-  - เข้ารหัสข้อมูลการ์ดลงใน URL Base64 ทำให้สามารถส่งต่อลิงก์ให้ผู้รับได้ทันทีโดยไม่ต้องพึ่งพาฐานข้อมูล
-- **เทคโนโลยี (Tags)**: `Three.js`, `Anime.js`, `Vite`, `Web Audio API`
-- **Source Code**: [github.com/GitBababoo/Happy-Birthday](https://github.com/GitBababoo/Happy-Birthday)
-- **Live Demo**: [hbd-3d-craft.pages.dev](https://hbd-3d-craft.pages.dev)
-- **รูปหน้าปก (Cover)**: `images/HBD/1_creator_dashboard.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `images/HBD/1_creator_dashboard.png`
-  2. `[Image]` `images/HBD/2_envelope_gate.png`
-  3. `[Image]` `images/HBD/3_receiver_cake_view.png`
-  4. `[Image]` `images/HBD/4_discover_seo_hub.png`
-  5. `[Video]` `images/HBD/bandicam 2026-05-31 16-00-20-719.mp4`
+### 06. เว็บไซต์ท่องเที่ยวหาดทรายน้อย / Hat Sai Noi Community Tourism
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `beach` · 13 |
+| หมวด · ปี | เว็บแอป (`web`) · 2024 |
+| บทบาท | Full-Stack PHP · งานชุมชน |
+| เทคโนโลยี | PHP, MySQL, HTML/CSS |
+| ตัวเลขสำคัญ | **Community** งานชุมชน · **Directory** ธุรกิจท้องถิ่น · **CMS** จัดการเนื้อหา · **PHP** MySQL |
+| ซอร์สโค้ด | [github.com/GitBababoo/Beach_2024-5-11](https://github.com/GitBababoo/Beach_2024-5-11) |
+| เว็บจริง | — (ไม่มีเว็บที่เปิดใช้งาน) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/beach/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/beach/) |
+| สื่อ | ภาพปก `media/beach/home` · แกลเลอรี 8 ภาพ |
+
+เว็บประชาสัมพันธ์และส่งเสริมการท่องเที่ยวชุมชนหาดทรายน้อย พร้อมฐานข้อมูลธุรกิจท้องถิ่นเพื่อกระตุ้นเศรษฐกิจในพื้นที่
+
+**ฟีเจอร์หลัก**
+
+- นำเสนอแหล่งท่องเที่ยว บรรยากาศ และกิจกรรมในพื้นที่
+- ฐานข้อมูลธุรกิจและร้านค้าในชุมชน
+- ระบบจัดการเนื้อหา บทความ และข้อมูลติดต่อสำหรับผู้ดูแล
 
 ---
 
-### 7. POS Python Offline (ID: 4)
-- **หมวดหมู่ (Category)**: `interactive` (อินเตอร์แอคทีฟ / Desktop)
-- **ไอคอน (Icon)**: `fa-solid fa-desktop`
-- **สรุปภาพรวม (Overview)**: โปรแกรมบริหารจัดการจุดขายหน้าร้านบนระบบปฏิบัติการ Windows ทำงานแบบ Offline 100%
-- **ฟีเจอร์เด่น (Key Features)**:
-  - ระบบขายหน้าร้าน, จัดการคิว, ออกใบเสร็จ และคำนวณภาษีมูลค่าเพิ่ม
-  - ระบบจัดการสิทธิ์พนักงาน (RBAC), บันทึกประวัติการทำงาน (Audit Log)
-  - ระบบบริหารจัดการหลายสาขา (Branch Management)
-  - ระบบคลังสินค้าและการรายงานยอดขาย บันทึกลงฐานข้อมูล SQLite ฝั่งเครื่อง Client
-- **เทคโนโลยี (Tags)**: `Python`, `SQLite`, `Desktop App`, `Tkinter`
-- **Source Code**: [github.com/GitBababoo/POS-Python](https://github.com/GitBababoo/POS-Python)
-- **รูปหน้าปก (Cover)**: `images/POS python/pos_sales_main.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `images/POS python/pos_sales_main.png`
-  2. `[Image]` `images/POS python/add_product_modal.png`
-  3. `[Image]` `images/POS python/add_staff_modal.png`
-  4. `[Image]` `images/POS python/backoffice_approvals.png`
-  5. `[Image]` `images/POS python/backoffice_audit_log.png`
-  6. `[Image]` `images/POS python/backoffice_branches.png`
-  7. `[Image]` `images/POS python/backoffice_customers.png`
-  8. `[Image]` `images/POS python/backoffice_dashboard.png`
-  9. `[Image]` `images/POS python/backoffice_inventory.png`
-  10. `[Image]` `images/POS python/backoffice_login.png`
-  11. `[Image]` `images/POS python/backoffice_products.png`
-  12. `[Image]` `images/POS python/backoffice_reports.png`
-  13. `[Image]` `images/POS python/backoffice_settings.png`
-  14. `[Image]` `images/POS python/backoffice_users.png`
-  15. `[Image]` `images/POS python/pos_login.png`
-  16. `[Image]` `images/POS python/pos_payment_success.png`
-  17. `[Image]` `images/POS python/pos_sales_history.png`
-  18. `[Image]` `images/POS python/product_categories.png`
+### 07. Astra Cinema Booking
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `cinema` · 12 |
+| หมวด · ปี | เว็บแอป (`web`) · 2024 |
+| บทบาท | Full-Stack · PostgreSQL |
+| เทคโนโลยี | React, Node.js, PostgreSQL, Tailwind |
+| ตัวเลขสำคัญ | **Seat** ผังที่นั่ง · **Member** ราคาสมาชิก · **Ticket** ออกตั๋ว · **Admin** หลังบ้าน |
+| ซอร์สโค้ด | [github.com/GitBababoo/cinema-booking](https://github.com/GitBababoo/cinema-booking) |
+| เว็บจริง | — (ไม่มีเว็บที่เปิดใช้งาน) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/cinema/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/cinema/) |
+| สื่อ | ภาพปก `media/cinema/01-home` · แกลเลอรี 16 ภาพ |
+
+ระบบจองตั๋วภาพยนตร์ออนไลน์ครบวงจร ตั้งแต่เลือกรอบฉาย ผังที่นั่ง ไปจนถึงการออกตั๋วและหลังบ้าน
+
+**ฟีเจอร์หลัก**
+
+- ค้นหาภาพยนตร์ ดูรายละเอียด และเลือกรอบฉายตามโรง
+- แผนผังเลือกที่นั่งแบบ Interactive และคำนวณราคาสมาชิก
+- ชำระเงินและออกหลักฐานการจอง (Confirmation)
+- จัดการภาพยนตร์ รอบฉาย และการจองสำหรับผู้ดูแล
 
 ---
 
-### 8. Web PDF Editor (ID: 5)
-- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน)
-- **ไอคอน (Icon)**: `fa-solid fa-file-pdf`
-- **สรุปภาพรวม (Overview)**: เว็บแอปพลิเคชันแก้ไขและจัดการเอกสาร PDF บนเบราว์เซอร์โดยตรง
-- **ฟีเจอร์เด่น (Key Features)**:
-  - เปิดอ่านไฟล์ PDF ขนาดใหญ่ได้อย่างรวดเร็วด้วย **PDF.js**
-  - วาดเขียนข้อความ ไฮไลท์ และแนบคำอธิบาย (Annotations)
-  - เพิ่มลายเซ็นอิเล็กทรอนิกส์ (E-Signature) พร้อมบันทึกและ Export เป็นไฟล์ใหม่ออกมาได้ทันที
-- **เทคโนโลยี (Tags)**: `React`, `TypeScript`, `PDF.js`, `Tailwind`
-- **Source Code**: [github.com/GitBababoo/PDF-Editer](https://github.com/GitBababoo/PDF-Editer)
-- **รูปหน้าปก (Cover)**: `images/pdf-editer/{693FBFC7-B89F-442F-ABAB-F2018F0BC8E1}.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `images/pdf-editer/{693FBFC7-B89F-442F-ABAB-F2018F0BC8E1}.png`
-  2. `[Image]` `images/pdf-editer/{29F98BC9-0D28-4752-B3BF-64B1474DD3E2}.png`
-  3. `[Image]` `images/pdf-editer/{44A58499-E110-4B44-9711-FFD3E3E2E935}.png`
-  4. `[Video]` `images/pdf-editer/bandicam 2026-05-20 12-57-24-871.mp4`
+### 08. Nike SNKRS Tracker
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `nike` · 11 |
+| หมวด · ปี | อินเทอร์แอคทีฟ (`interactive`) · 2024 |
+| บทบาท | Web Scraping · Automation |
+| เทคโนโลยี | React, Node.js, Web Scraping |
+| ตัวเลขสำคัญ | **Real-time** ติดตาม · **Alert** แจ้งเตือน · **Bot** เลือกไซส์ · **Scrape** ดึงข้อมูล |
+| ซอร์สโค้ด | [github.com/GitBababoo/nike-snkrs-tracker](https://github.com/GitBababoo/nike-snkrs-tracker) |
+| เว็บจริง | — (ไม่มีเว็บที่เปิดใช้งาน) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/nike/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/nike/) |
+| สื่อ | ภาพปก `media/nike/nike-instock` · แกลเลอรี 5 ภาพ |
+
+ระบบติดตามสต็อกรองเท้าลิมิเต็ดของ Nike SNKRS แบบเรียลไทม์ พร้อมระบบแจ้งเตือนและบอทช่วยเลือกไซส์
+
+**ฟีเจอร์หลัก**
+
+- ติดตามสินค้าเข้าใหม่และรุ่นที่กำลังจะวางจำหน่ายแบบเรียลไทม์
+- แจ้งเตือนเมื่อมีสต็อกเข้าระบบ
+- บอทช่วยเลือกไซส์และอำนวยความสะดวกในการกดซื้อ
 
 ---
 
-### 9. Shopee TH Clone (Webshop) (ID: 7)
-- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน)
-- **ไอคอน (Icon)**: `fa-solid fa-cart-shopping`
-- **สรุปภาพรวม (Overview)**: ระบบร้านค้าออนไลน์และอีคอมเมิร์ซแบบครบวงจร พัฒนาด้วยสถาปัตยกรรม PHP & MySQL
-- **ฟีเจอร์เด่น (Key Features)**:
-  - หน้ารวมสินค้า, ระบบค้นหา และการกรองตามหมวดหมู่
-  - ระบบตะกร้าสินค้า (Shopping Cart) และขั้นตอนการสั่งซื้อ (Checkout Flow)
-  - ระบบรายการโปรด (Wishlist) และประวัติคำสั่งซื้อของผู้ใช้งาน
-  - แดชบอร์ดแอดมินจัดการสินค้า หมวดหมู่ และสถานะการจัดส่ง
-- **เทคโนโลยี (Tags)**: `PHP`, `MySQL`, `JavaScript`
-- **Source Code**: [github.com/GitBababoo/webshop](https://github.com/GitBababoo/webshop)
-- **รูปหน้าปก (Cover)**: `images/webshop/ws-homepage.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `images/webshop/ws-homepage.png`
-  2. `[Image]` `images/webshop/ws-admin.png`
-  3. `[Image]` `images/webshop/ws-cart.png`
-  4. `[Image]` `images/webshop/ws-category.png`
-  5. `[Image]` `images/webshop/ws-checkout.png`
-  6. `[Image]` `images/webshop/ws-orders.png`
-  7. `[Image]` `images/webshop/ws-wishlist.png`
+### 09. Tank.io
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `tank` · 10 |
+| หมวด · ปี | อินเทอร์แอคทีฟ (`interactive`) · 2024 |
+| บทบาท | Game Engine 2D · Multiplayer |
+| เทคโนโลยี | TypeScript, Canvas API, Game Engine, Multiplayer |
+| ตัวเลขสำคัญ | **Custom** Engine · **Real-time** Multiplayer · **Boss** อีเวนต์ · **Class** สายรถถัง |
+| ซอร์สโค้ด | [github.com/GitBababoo/Tank.io](https://github.com/GitBababoo/Tank.io) |
+| เว็บจริง | — (ไม่มีเว็บที่เปิดใช้งาน) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/tank/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/tank/) |
+| สื่อ | ภาพปก `media/tank/gameplay` · แกลเลอรี 5 ภาพ |
+
+เกมต่อสู้รถถังออนไลน์แบบ Real-time Multiplayer ที่เขียน Game Engine 2D ขึ้นมาเองด้วย Canvas API
+
+**ฟีเจอร์หลัก**
+
+- พัฒนา Game Engine 2D เองด้วย Canvas API และ TypeScript
+- ระบบสายรถถัง (Class Evolution) และการอัปเกรดความสามารถ
+- ห้องล็อบบี้ การต่อสู้กับบอส และตารางจัดอันดับ
 
 ---
 
-### 10. Tank.io (ID: 8)
-- **หมวดหมู่ (Category)**: `interactive` (อินเตอร์แอคทีฟ / เกม)
-- **ไอคอน (Icon)**: `fa-solid fa-gamepad`
-- **สรุปภาพรวม (Overview)**: เกมต่อสู้รถถังออนไลน์แบบ Real-time Multiplayer บนเว็บเบราว์เซอร์
-- **ฟีเจอร์เด่น (Key Features)**:
-  - พัฒนาโครงสร้าง **Game Engine 2D** ขึ้นมาเองด้วย Canvas API และ TypeScript
-  - ระบบสายรถถัง (Class Evolution) และการอัปเกรดความสามารถ
-  - ระบบห้องล็อบบี้, การต่อสู้กับบอส (Boss Events) และตารางคะแนนจัดอันดับ
-- **เทคโนโลยี (Tags)**: `TypeScript`, `Game Engine`, `Multiplayer`
-- **Source Code**: [github.com/GitBababoo/Tank.io](https://github.com/GitBababoo/Tank.io)
-- **รูปหน้าปก (Cover)**: `images/tank/gameplay.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `images/tank/gameplay.png`
-  2. `[Image]` `images/tank/bosses.png`
-  3. `[Image]` `images/tank/classes.png`
-  4. `[Image]` `images/tank/death.png`
-  5. `[Image]` `images/tank/lobby.png`
+### 10. Shopee TH Clone (Webshop)
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `webshop` · 9 |
+| หมวด · ปี | เว็บแอป (`web`) · 2024 |
+| บทบาท | Full-Stack PHP · MySQL |
+| เทคโนโลยี | PHP, MySQL, JavaScript |
+| ตัวเลขสำคัญ | **Cart** ตะกร้า · **Wishlist** รายการโปรด · **Admin** หลังบ้าน · **MySQL** ฐานข้อมูล |
+| ซอร์สโค้ด | [github.com/GitBababoo/webshop](https://github.com/GitBababoo/webshop) |
+| เว็บจริง | — (ไม่มีเว็บที่เปิดใช้งาน) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/webshop/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/webshop/) |
+| สื่อ | ภาพปก `media/webshop/ws-homepage` · แกลเลอรี 7 ภาพ |
+
+ระบบร้านค้าออนไลน์ครบวงจรบนสถาปัตยกรรม PHP และ MySQL ตั้งแต่หน้าร้านถึงแดชบอร์ดแอดมิน
+
+**ฟีเจอร์หลัก**
+
+- หน้ารวมสินค้า ค้นหา และกรองตามหมวดหมู่
+- ตะกร้าสินค้าและขั้นตอนการสั่งซื้อ (Checkout Flow)
+- รายการโปรด (Wishlist) และประวัติคำสั่งซื้อ
+- แดชบอร์ดแอดมินจัดการสินค้า หมวดหมู่ และสถานะจัดส่ง
 
 ---
 
-### 11. Nike SNKRS Tracker (ID: 9)
-- **หมวดหมู่ (Category)**: `interactive` (อินเตอร์แอคทีฟ / ระบบ Automation)
-- **ไอคอน (Icon)**: `fa-solid fa-shoe-prints`
-- **สรุปภาพรวม (Overview)**: ระบบ Web Scraping และติดตามสต็อกรองเท้าสนีกเกอร์รุ่นลิมิเต็ดของ Nike SNKRS
-- **ฟีเจอร์เด่น (Key Features)**:
-  - ติดตามสินค้าเข้าใหม่และสินค้ากำลังจะวางจำหน่าย (Upcoming Releases) แบบเรียลไทม์
-  - ระบบแจ้งเตือนเมื่อมีสต็อกเข้ามาในระบบ
-  - ฟังก์ชันบอทช่วยเลือกไซส์และอำนวยความสะดวกในการกดซื้อสินค้า
-- **เทคโนโลยี (Tags)**: `React`, `Node.js`, `Web Scraping`
-- **Source Code**: [github.com/GitBababoo/nike-snkrs-tracker](https://github.com/GitBababoo/nike-snkrs-tracker)
-- **รูปหน้าปก (Cover)**: `images/nike/nike-instock.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `images/nike/nike-instock.png`
-  2. `[Image]` `images/nike/nike-bot.png`
-  3. `[Image]` `images/nike/nike-feed.png`
-  4. `[Image]` `images/nike/nike-sizepicker.png`
-  5. `[Image]` `images/nike/nike-upcoming.png`
+### 11. Web PDF Editor
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `pdf-editer` · 8 |
+| หมวด · ปี | เว็บแอป (`web`) · 2025 |
+| บทบาท | Frontend · PDF.js |
+| เทคโนโลยี | React, TypeScript, PDF.js, Tailwind |
+| ตัวเลขสำคัญ | **PDF.js** เรนเดอร์ · **E-Sign** ลายเซ็น · **Client** ประมวลผล · **Export** ไฟล์ใหม่ |
+| ซอร์สโค้ด | [github.com/GitBababoo/PDF-Editer](https://github.com/GitBababoo/PDF-Editer) |
+| เว็บจริง | — (ไม่มีเว็บที่เปิดใช้งาน) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/pdf-editer/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/pdf-editer/) |
+| สื่อ | ภาพปก `media/pdf-editer/693fbfc7-b89f-442f-abab-f2018f0bc8e1` · แกลเลอรี 3 ภาพ + วิดีโอ 1 |
+
+เว็บแก้ไขและเซ็นเอกสาร PDF บนเบราว์เซอร์โดยตรง ไม่ต้องอัปโหลดไฟล์ขึ้นเซิร์ฟเวอร์
+
+**ฟีเจอร์หลัก**
+
+- เปิดอ่านไฟล์ PDF ขนาดใหญ่ได้รวดเร็วด้วย PDF.js
+- เขียนข้อความ ไฮไลท์ และแนบคำอธิบาย (Annotations)
+- เพิ่มลายเซ็นอิเล็กทรอนิกส์ แล้ว Export เป็นไฟล์ใหม่ได้ทันที
 
 ---
 
-### 12. Astra Cinema Booking (ID: 10)
-- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน)
-- **ไอคอน (Icon)**: `fa-solid fa-film`
-- **สรุปภาพรวม (Overview)**: ระบบจองตั๋วภาพยนตร์ออนไลน์ระดับ Full-Stack ครอบคลุมตั้งแต่เลือกรอบฉายจนถึงการออกตั๋ว
-- **ฟีเจอร์เด่น (Key Features)**:
-  - ค้นหารายชื่อภาพยนตร์, ดูรายละเอียด และเลือกรอบฉายตามโรงภาพยนตร์
-  - แผนผังเลือกที่นั่งแบบ Interactive และระบบคำนวณราคาสมาชิก
-  - ระบบชำระเงินและออกหลักฐานการจอง (Confirmation Ticket)
-  - ระบบจัดการข้อมูลภาพยนตร์ รอบฉาย และการจองสำหรับผู้ดูแลระบบ
-- **เทคโนโลยี (Tags)**: `React`, `Node.js`, `PostgreSQL`, `Tailwind`
-- **Source Code**: [github.com/GitBababoo/cinema-booking](https://github.com/GitBababoo/cinema-booking)
-- **รูปหน้าปก (Cover)**: `images/จองตั๋วโรงหนัง/01-home.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `images/จองตั๋วโรงหนัง/01-home.png`
-  2. `[Image]` `images/จองตั๋วโรงหนัง/02-movies.png`
-  3. `[Image]` `images/จองตั๋วโรงหนัง/03-movie-detail.png`
-  4. `[Image]` `images/จองตั๋วโรงหนัง/04-cinemas.png`
-  5. `[Image]` `images/จองตั๋วโรงหนัง/05-membership.png`
-  6. `[Image]` `images/จองตั๋วโรงหนัง/06-booking.png`
-  7. `[Image]` `images/จองตั๋วโรงหนัง/07-search.png`
-  8. `[Image]` `images/จองตั๋วโรงหนัง/08-support.png`
-  9. `[Image]` `images/จองตั๋วโรงหนัง/09-forgot-password.png`
-  10. `[Image]` `images/จองตั๋วโรงหนัง/10-reset-password.png`
-  11. `[Image]` `images/จองตั๋วโรงหนัง/11-profile.png`
-  12. `[Image]` `images/จองตั๋วโรงหนัง/12-orders.png`
-  13. `[Image]` `images/จองตั๋วโรงหนัง/13-confirmation.png`
-  14. `[Image]` `images/จองตั๋วโรงหนัง/14-manage-booking.png`
-  15. `[Image]` `images/จองตั๋วโรงหนัง/15-admin.png`
-  16. `[Image]` `images/จองตั๋วโรงหนัง/16-not-found.png`
+### 12. POS Python Offline
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `pos-python` · 7 |
+| หมวด · ปี | แอปเดสก์ท็อป (`app`) · 2024 |
+| บทบาท | Desktop App · SQLite · RBAC |
+| เทคโนโลยี | Python, SQLite, Tkinter, Desktop App |
+| ตัวเลขสำคัญ | **100%** ออฟไลน์ · **RBAC** สิทธิ์ · **Audit** บันทึก · **Multi** สาขา |
+| ซอร์สโค้ด | [github.com/GitBababoo/POS-Python](https://github.com/GitBababoo/POS-Python) |
+| เว็บจริง | — (ไม่มีเว็บที่เปิดใช้งาน) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/pos-python/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/pos-python/) |
+| สื่อ | ภาพปก `media/pos-python/pos-sales-main` · แกลเลอรี 18 ภาพ |
+
+โปรแกรมจุดขายบน Windows ทำงานออฟไลน์ 100% พร้อมระบบสิทธิ์ Audit Log และการจัดการหลายสาขา
+
+**ฟีเจอร์หลัก**
+
+- ขายหน้าร้าน จัดการคิว ออกใบเสร็จ และคำนวณภาษีมูลค่าเพิ่ม
+- จัดการสิทธิ์พนักงาน (RBAC) และบันทึกประวัติการทำงาน (Audit Log)
+- บริหารหลายสาขา (Branch Management)
+- คลังสินค้าและรายงานยอดขาย เก็บบน SQLite ฝั่งเครื่อง
 
 ---
 
-### 13. เว็บไซต์ท่องเที่ยวหาดทรายน้อย (ID: 11)
-- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน)
-- **ไอคอน (Icon)**: `fa-solid fa-umbrella-beach`
-- **สรุปภาพรวม (Overview)**: เว็บไซต์ประชาสัมพันธ์และส่งเสริมการท่องเที่ยวชุมชนหาดทรายน้อย พร้อมฐานข้อมูลธุรกิจท้องถิ่น
-- **ฟีเจอร์เด่น (Key Features)**:
-  - นำเสนอข้อมูลแหล่งท่องเที่ยว บรรยากาศ และกิจกรรมในพื้นที่
-  - ฐานข้อมูลธุรกิจและร้านค้าในชุมชนเพื่อกระตุ้นเศรษฐกิจท้องถิ่น
-  - ระบบจัดการเนื้อหา บทความ และข้อมูลติดต่อสำหรับผู้ดูแล
-- **เทคโนโลยี (Tags)**: `PHP`, `HTML/CSS`, `MySQL`
-- **Source Code**: [github.com/GitBababoo/Beach_2024-5-11](https://github.com/GitBababoo/Beach_2024-5-11)
-- **รูปหน้าปก (Cover)**: `images/beach/หน้าหลัก.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `images/beach/หน้าหลัก.png`
-  2. `[Image]` `images/beach/admin.png`
-  3. `[Image]` `images/beach/profile.png`
-  4. `[Image]` `images/beach/ข้อมูลหาดทรายน้อย.png`
-  5. `[Image]` `images/beach/ติดต่อ.png`
-  6. `[Image]` `images/beach/ที่มาโครงการ..png`
-  7. `[Image]` `images/beach/ธุรกิจชุมชน.png`
-  8. `[Image]` `images/beach/ภาพบรรยากาศโครงการ.png`
+### 13. HBD 3D Craft
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `hbd` · 6 |
+| หมวด · ปี | อินเทอร์แอคทีฟ (`interactive`) · 2025 |
+| บทบาท | 3D · Web Audio · ออกแบบทั้งหมด |
+| เทคโนโลยี | Three.js, Anime.js, Vite, Web Audio API |
+| ตัวเลขสำคัญ | **3D** Three.js · **Mic** เป่าเทียน · **0** ฐานข้อมูล · **Base64** URL state |
+| ซอร์สโค้ด | [github.com/GitBababoo/Happy-Birthday](https://github.com/GitBababoo/Happy-Birthday) |
+| เว็บจริง | [hbd-3d-craft.pages.dev](https://hbd-3d-craft.pages.dev) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/hbd/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/hbd/) |
+| สื่อ | ภาพปก `media/hbd/1-creator-dashboard` · แกลเลอรี 4 ภาพ + วิดีโอ 1 |
+
+เว็บสร้างการ์ดวันเกิด 3 มิติ ที่เป่าเทียนด้วยไมโครโฟนจริงได้ และส่งต่อได้ด้วยลิงก์เดียวโดยไม่ต้องมีฐานข้อมูล
+
+**ฟีเจอร์หลัก**
+
+- ปรับแต่งเค้ก 3D จำนวนเทียน และข้อความอวยพร
+- ตรวจจับแรงลมผ่านไมโครโฟนด้วย Web Audio API เพื่อดับเปลวเทียน 3D
+- เข้ารหัสข้อมูลการ์ดลงใน URL แบบ Base64 ส่งต่อได้ทันทีโดยไม่ต้องมีฐานข้อมูล
 
 ---
 
-### 14. ARÓM — Specialty Coffee Roasters (ID: 15)
-- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน)
-- **ไอคอน (Icon)**: `fa-solid fa-mug-saucer`
-- **สรุปภาพรวม (Overview)**: เว็บไซต์แบรนด์กาแฟพิเศษ Specialty Coffee ในกรุงเทพฯ รวม 8 หน้า ทำงานแบบสองภาษา (TH/EN) โดยไม่ต้องใช้ JS ในส่วนหลัก
-- **ฟีเจอร์เด่น (Key Features)**:
-  - ระบบนาฬิกาจับเวลาชงกาแฟดริป V60 Interactive (Brew Guide & Timer)
-  - ตัวกรองเมนูกาแฟและเครื่องดื่ม 36 รายการ
-  - คำนวณเวลาเปิด-ปิดร้านตามเวลาจริง (Real-time Opening Hours)
-  - โครงสร้าง SEO ขั้นสูงด้วย JSON-LD Schema 11 ประเภท
-  - ผ่านเกณฑ์ Accessibility สูงสุด 0 axe-core violations (WCAG 2.1 AA) และรองรับ PWA
-- **เทคโนโลยี (Tags)**: `JavaScript`, `HTML/CSS`, `Python`, `PWA`, `Accessibility`
-- **Source Code**: [github.com/Gubbitkeytoday/arom-coffee](https://github.com/Gubbitkeytoday/arom-coffee)
-- **รูปหน้าปก (Cover)**: `images/arom-coffee/01_home_index/00_full_page.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `images/arom-coffee/01_home_index/00_full_page.png`
-  2. `[Image]` `images/arom-coffee/01_home_index/02_hero_section.png`
-  3. `[Image]` `images/arom-coffee/02_menu/00_full_page.png`
-  4. `[Image]` `images/arom-coffee/03_coffee/00_full_page.png`
-  5. `[Image]` `images/arom-coffee/03_coffee/06_brew_guide_interactive.png`
-  6. `[Image]` `images/arom-coffee/04_story/00_full_page.png`
-  7. `[Image]` `images/arom-coffee/05_locations/00_full_page.png`
-  8. `[Image]` `images/arom-coffee/06_reserve/00_full_page.png`
-  9. `[Image]` `images/arom-coffee/07_journal/00_full_page.png`
-  10. `[Image]` `images/arom-coffee/00_responsive_previews/mobile_index_full.png`
-  11. `[Image]` `images/arom-coffee/00_responsive_previews/mobile_menu_full.png`
-  12. `[Image]` `images/arom-coffee/00_responsive_previews/mobile_coffee_full.png`
-  13. `[Image]` `images/arom-coffee/00_responsive_previews/mobile_reserve_full.png`
+### 14. Enterprise Face Scan Attendance
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `facescan` · 5 |
+| หมวด · ปี | เว็บแอป (`web`) · 2024 |
+| บทบาท | Frontend Angular · Firebase Serverless |
+| เทคโนโลยี | Angular, Firebase, Tailwind, TypeScript |
+| ตัวเลขสำคัญ | **Kiosk** สแกนสด · **Google** Auth · **Serverless** Firebase · **Leave** อนุมัติลา |
+| ซอร์สโค้ด | [github.com/GitBababoo/enterprise-face-scan-attendance](https://github.com/GitBababoo/enterprise-face-scan-attendance) |
+| เว็บจริง | — (ไม่มีเว็บที่เปิดใช้งาน) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/facescan/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/facescan/) |
+| สื่อ | ภาพปก `media/facescan/admin-overview` · แกลเลอรี 8 ภาพ |
+
+ระบบบันทึกเวลาเข้า-ออกงานด้วยการจดจำใบหน้า บนโครงสร้าง Serverless Cloud พร้อมแดชบอร์ดผู้ดูแล
+
+**ฟีเจอร์หลัก**
+
+- หน้าจอ Kiosk สแกนใบหน้ายืนยันตัวตนแบบ Real-time พร้อมสถานะสำเร็จ/ผิดพลาด
+- ลงทะเบียนใบหน้าพนักงานใหม่ (Face Registration)
+- ล็อกอินปลอดภัยด้วย Google Authentication
+- แดชบอร์ดตรวจเวลาเข้างาน อนุมัติการลา และสรุปเวลาทำงาน
 
 ---
 
-### 15. ฤดู · RUEDU — Flower Atelier (ID: 16)
-- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน)
-- **ไอคอน (Icon)**: `fa-solid fa-leaf`
-- **สรุปภาพรวม (Overview)**: ระบบอีคอมเมิร์ซร้านดอกไม้หรูระดับ Luxury ในกรุงเทพฯ รวม 13 หน้า แบบสองภาษา (TH/EN) พร้อมดีไซน์พรีเมียม
-- **ฟีเจอร์เด่น (Key Features)**:
-  - ระบบออกแบบจัดช่อดอกไม้ Interactive Bouquet Builder คำนวณราคาเรียลไทม์ตามขนาด ดอกไม้ และการตกแต่ง
-  - ตัวกรองสินค้าตามโอกาสและโทนสีที่ Sync เข้ากับ URL Parameters
-  - ระบบตะกร้าสินค้าที่บันทึกค่าลง localStorage และขั้นตอนการชำระเงิน 3 สเต็ป
-  - Service Worker รองรับการทำงานแบบออฟไลน์ PWA อย่างสมบูรณ์
-  - ผ่านเกณฑ์ Accessibility ระดับสากล 0 axe-core violations (WCAG 2.1 AA)
-- **เทคโนโลยี (Tags)**: `JavaScript`, `HTML/CSS`, `PWA`, `Service Worker`, `Accessibility`
-- **Source Code**: [github.com/Gubbitkeytoday/ruedu-flower-atelier](https://github.com/Gubbitkeytoday/ruedu-flower-atelier)
-- **รูปหน้าปก (Cover)**: `images/ruedu/01_homepage/00_full_page.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `images/ruedu/01_homepage/00_full_page.png`
-  2. `[Image]` `images/ruedu/02_shop/00_full_page.png`
-  3. `[Image]` `images/ruedu/03_product_detail/00_full_page.png`
-  4. `[Image]` `images/ruedu/04_builder/00_full_page.png`
-  5. `[Image]` `images/ruedu/04_builder/03_section_ราคาประกอบขึ้นมาอย่างไร.png`
-  6. `[Image]` `images/ruedu/05_subscriptions/00_full_page.png`
-  7. `[Image]` `images/ruedu/06_weddings/00_full_page.png`
-  8. `[Image]` `images/ruedu/06_weddings/05_แกลเลอรีงานแต่ง.png`
-  9. `[Image]` `images/ruedu/07_about/00_full_page.png`
-  10. `[Image]` `images/ruedu/08_care/00_full_page.png`
-  11. `[Image]` `images/ruedu/08_care/04_calendar_ปฏิทินฤดูดอกไม้ไทย.png`
-  12. `[Image]` `images/ruedu/09_journal/00_full_page.png`
-  13. `[Image]` `images/ruedu/10_contact/00_full_page.png`
-  14. `[Image]` `images/ruedu/11_cart/00_full_page.png`
-  15. `[Image]` `images/ruedu/14_mobile_views/mobile_01_index.png`
-  16. `[Image]` `images/ruedu/14_mobile_views/mobile_04_builder.png`
-  17. `[Image]` `images/ruedu/14_mobile_views/mobile_11_cart.png`
+### 15. SmartPOS Enterprise
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `pos` · 4 |
+| หมวด · ปี | เว็บแอป (`web`) · 2024 |
+| บทบาท | Full-Stack · ออกแบบฐานข้อมูล |
+| เทคโนโลยี | Next.js, TypeScript, Tailwind, Prisma, PostgreSQL |
+| ตัวเลขสำคัญ | **QR** PromptPay · **Stock** แจ้งเตือน · **Table** จัดโต๊ะ · **Loyalty** สะสมแต้ม |
+| ซอร์สโค้ด | [github.com/GitBababoo/POS](https://github.com/GitBababoo/POS) |
+| เว็บจริง | — (ไม่มีเว็บที่เปิดใช้งาน) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/pos/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/pos/) |
+| สื่อ | ภาพปก `media/pos/02-pos-terminal` · แกลเลอรี 14 ภาพ |
+
+ระบบบริหารร้านค้าและจุดขายหน้าร้านระดับองค์กรแบบ All-in-One ตั้งแต่คิดเงินหน้าร้านถึงแดชบอร์ดผู้บริหาร
+
+**ฟีเจอร์หลัก**
+
+- POS Terminal พร้อมส่วนลด ภาษี และโปรโมชัน
+- จัดการโต๊ะอาหารและออเดอร์ (Table Management)
+- ชำระเงินเงินสดและ Dynamic QR PromptPay
+- คลังสินค้า สต็อกคงเหลือ และแจ้งเตือนสินค้าใกล้หมด
+- สมาชิกสะสมแต้ม รายงานค่าใช้จ่าย และแดชบอร์ดยอดขาย
 
 ---
 
-### 16. PRISM64 — 64-Shade Personality Intelligence & Gemini Spark MCP (ID: 16)
-- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน)
-- **ไอคอน (Icon)**: `fa-solid fa-gem`
-- **สรุปภาพรวม (Overview)**: เว็บแอปพลิเคชันวิเคราะห์บุคลิกภาพเชิงลึก 6 มิติ 64 เฉดสี พร้อม Canvas 9:16 Social Story Studio, ระบบ Real-time Geo Telemetry และ Gemini Spark Model Context Protocol (MCP) Server รองรับ AI Agent
-- **ฟีเจอร์เด่น (Key Features)**:
-  - โมเดลจิตวิทยา HEXACO 6 มิติ (Energy, Info, Decision, Action, Identity, Relating) แตกแขนง 64 เฉดสี (16 Archetypes × 4 Sub-Variants: AH, AC, OH, OC)
-  - Dual Assessment Engine: โหมดด่วน 18 ข้อ (1.5 นาที) และโหมดเจาะลึก 36 ข้อ (3 นาที) คำนวณคะแนนแบบ Real-time
-  - Social Story Card Studio (9:16): Export รูปแบบ Light Pearl & Midnight Dark สำหรับ IG / TikTok Story ได้ทันทีด้วย Canvas API
-  - Gemini Spark MCP Server: รองรับมาตรฐาน Model Context Protocol (JSON-RPC 2.0) เชื่อมต่อ AI Agent (Gemini, Claude, Cursor) เพื่อดึงข้อมูลบุคลิกภาพ
-  - Stealth Admin Dashboard: แผนที่ Geo Telemetry สดด้วย Leaflet.js ติดตามผู้เข้าชมและผลการประเมินแบบ Real-time
-- **เทคโนโลยี (Tags)**: `Python`, `JavaScript`, `Tailwind CSS`, `Canvas API`, `Leaflet.js`, `Gemini MCP`, `Render.com`
-- **Source Code**: [github.com/Gubbitkeytoday/prism64](https://github.com/Gubbitkeytoday/prism64)
-- **Live Demo**: [prism64.onrender.com](https://prism64.onrender.com/)
-- **รูปหน้าปก (Cover)**: `images/prism64/01_Landing_Hero_Showcase.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Video]` `images/prism64/06_PRISM64_Motion_Hero_Showcase.mp4`
-  2. `[Image]` `images/prism64/01_Landing_Hero_Showcase.png`
-  3. `[Image]` `images/prism64/02_HEXACO_Assessment_Test.png`
-  4. `[Image]` `images/prism64/03_Personality_Result_ESTJ_AH.png`
-  5. `[Image]` `images/prism64/04_Story_Card_Studio_Modal.png`
-  6. `[Image]` `images/prism64/05_Live_GeoMap_Admin_Dashboard.png`
+### 16. MangaVerses
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `mangaverses` · 3 |
+| หมวด · ปี | เว็บแอป (`web`) · 2025 |
+| บทบาท | Full-Stack · Backoffice |
+| เทคโนโลยี | Next.js 16, TypeScript, Tailwind, shadcn/ui, Prisma, SQLite |
+| ตัวเลขสำคัญ | **Lazy** โหลดภาพ · **2** โหมดอ่าน · **Admin** หลังบ้าน · **16** Next.js |
+| ซอร์สโค้ด | [github.com/Gubbitkeytoday/MangaVerses](https://github.com/Gubbitkeytoday/MangaVerses) |
+| เว็บจริง | — (ไม่มีเว็บที่เปิดใช้งาน) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/mangaverses/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/mangaverses/) |
+| สื่อ | ภาพปก `media/mangaverses/01-home-desktop` · แกลเลอรี 13 ภาพ |
+
+เว็บอ่านมังงะแปลไทยประสิทธิภาพสูง พร้อมแผงผู้ดูแลระบบจัดการเรื่อง ตอน และตำแหน่งโฆษณา
+
+**ฟีเจอร์หลัก**
+
+- ค้นหาและจัดหมวดหมู่ พร้อมอันดับความนิยมรายสัปดาห์/รายเดือน
+- ชั้นหนังสือส่วนตัวและระบบบุ๊กมาร์ก
+- หน้าอ่านโหลดภาพแบบ Lazy-load ปรับโหมดการอ่านได้
+- Backoffice จัดการรายชื่อ เพิ่มตอน และจัดการตำแหน่งโฆษณา
 
 ---
 
-### 17. Discord Rich Presence Pro — Windows Media Presence Engine (ID: 17)
-- **หมวดหมู่ (Category)**: `app` (แอปพลิเคชัน & ซิสเต็มส์)
-- **ไอคอน (Icon)**: `fa-solid fa-desktop`
-- **สรุปภาพรวม (Overview)**: เอ็นจินซิงค์สถานะการเล่นสื่อ (YouTube, Spotify, Apple Music, Netflix, ฯลฯ) ขึ้นโปรไฟล์ Discord แบบเรียลไทม์ เชื่อมต่อ OS-level GSMTC WinRT ระดับเนทีฟ และ Local IPC Socket พร้อมระบบตรวจจับเกม DirectX/Vulkan ซ่อนอัตโนมัติ และ System Tray Controls
-- **ฟีเจอร์เด่น (Key Features)**:
-  - **Native Windows GSMTC Hook**: เชื่อมต่อ WinRT Media Controls ระดับ Kernel อ่านชื่อเพลง, ศิลปิน, รูปปก, สถานะ Play/Pause และไทม์ไลน์โดยตรง
-  - **Universal Browser & Player Support**: รองรับทั้ง Chrome, Edge, Brave, Opera, Spotify, Tidal, Apple Music โดยไม่ต้องลง Extension เสริมในเบราว์เซอร์
-  - **DirectX & Vulkan Game Detection**: ตรวจจับหน้าต่างเกมแบบเต็มจออัตโนมัติ และหยุดส่งสถานะชั่วคราวเพื่อประหยัดทรัพยากรและไม่รบกวนเฟรมเรต
-  - **Sub-Second Timeline Anchoring**: คำนวณความคืบหน้าของเพลงด้วย Timestamp Anchor แม่นยำ ไม่สะดุด และไม่เกิดปัญหาแถบเวลารีเซ็ตวนซ้ำ
-  - **System Tray Controller & Hot Reload**: ควบคุมการทำงานจากไอคอนมุมขวาล่าง, สลับ Pause/Resume, ดู Log สด, และปรับแต่ง config.json โดยไม่ต้องรีสตาร์ท
-  - **Efficiency First**: ใช้ RAM < 40 MB, CPU ~ 0% และรองรับการคอมไพล์เป็น .EXE พกพา
-- **เทคโนโลยี (Tags)**: `Python 3.12`, `Windows WinRT`, `GSMTC API`, `Discord IPC`, `Pystray`, `PyInstaller`, `Systems Architecture`
-- **Source Code**: [github.com/Gubbitkeytoday/discord-rich-presence-pro](https://github.com/Gubbitkeytoday/discord-rich-presence-pro)
-- **Live Showcase**: [github.com/Gubbitkeytoday/discord-rich-presence-pro](https://github.com/Gubbitkeytoday/discord-rich-presence-pro)
-- **รูปหน้าปก (Cover)**: `images/discord_rpc/01_discord_full_profile.png`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `images/discord_rpc/01_discord_full_profile.png`
-  2. `[Image]` `images/discord_rpc/02_discord_activity_card.png`
-  3. `[Image]` `images/discord_rpc/01_youtube_source.png`
-  4. `[Image]` `images/discord_rpc/02_discord_presence_synced.png`
-  5. `[Image]` `images/discord_rpc/03_terminal_live_log.png`
-  6. `[Image]` `images/discord_rpc/03_github_repository.png`
+### 17. Khui AI (คุย AI) / Khui AI
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `khuiai` · 2 |
+| หมวด · ปี | เว็บแอป (`web`) · 2026 |
+| บทบาท | Full-Stack · ออกแบบฐานข้อมูล · SSE Streaming |
+| เทคโนโลยี | Next.js 14, TypeScript, Prisma, SQLite, OpenAI API, Tailwind |
+| ตัวเลขสำคัญ | **SSE** สตรีมมิ่ง · **10** ภาษา · **15** หมวดรายงาน · **12** ราศี |
+| ซอร์สโค้ด | [github.com/Gubbitkeytoday/khuiai-fullstack](https://github.com/Gubbitkeytoday/khuiai-fullstack) |
+| เว็บจริง | — (ไม่มีเว็บที่เปิดใช้งาน) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/khuiai/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/khuiai/) |
+| สื่อ | ภาพปก `media/khuiai/12-chat-reply` · แกลเลอรี 24 ภาพ + วิดีโอ 1 |
+
+แพลตฟอร์มสนทนากับตัวละคร AI ภาษาไทยแบบครบวงจร มีทั้ง Creator Studio, ระบบเศรษฐกิจในแอป และระบบชุมชน
+
+**ฟีเจอร์หลัก**
+
+- Creator Studio สร้างตัวละคร AI กำหนดนิสัย บุคลิก และสถานการณ์จำลอง
+- แชทตอบกลับแบบ Real-time ด้วย Server-Sent Events พร้อม Fallback สลับโมเดลเมื่อ error
+- ระบบเศรษฐกิจ: เหรียญ เช็คอินรายวัน เควส และของขวัญ
+- ระบบชุมชน: คอมเมนต์ Leaderboard และการรายงานเนื้อหา 15 หมวด
+- ดูดวง 12 ราศี และ i18n 10 ภาษา
 
 ---
 
-### 18. BKK Transit — Bangkok Open Transit Platform & Routing Engine (ID: 18)
-- **หมวดหมู่ (Category)**: `web` (เว็บแอปพลิเคชัน & แพลตฟอร์มโครงสร้างพื้นฐาน)
-- **ไอคอน (Icon)**: `fa-solid fa-bus`
-- **สรุปภาพรวม (Overview)**: แพลตฟอร์มโครงสร้างพื้นฐานข้อมูลเปิดขนส่งมวลชนกรุงเทพฯ และปริมณฑล นำเข้า GTFS ทางการจาก สนข. (นำทาง) รองรับเรดาร์ GPS ค้นหาป้ายใกล้ฉัน ตารางเวลารถออกถัดไป และ Model Context Protocol (MCP) เชื่อมต่อ AI Assistants (Claude, ChatGPT, Gemini)
-- **ฟีเจอร์เด่น (Key Features)**:
-  - **Official GTFS Data Ingestion**: สตรีมมิ่งนำเข้าไฟล์ข้อมูล GTFS Static ทางการแบบ Chunk-based ตรวจสอบ Referential Integrity และสร้าง ValidationReport วิเคราะห์คุณภาพข้อมูล
-  - **GPS Radar & Nearby Stops**: ระบุพิกัดตำแหน่งผู้ใช้ (W3C Geolocation) ด้วยหมุดเรดาร์สีฟ้าและวงแหวนความแม่นยำ พร้อมค้นหาป้ายในระยะ 500 เมตรอัตโนมัติ
-  - **Live Departures Board**: แสดงตารางเวลารถและเรือเข้าป้ายถัดไป โดยคำนวณจากความถี่เดินรถ (frequencies.txt) และตารางเวลา พร้อมจุดเสียบ GTFS-RT แบบ Hot-Plug
-  - **Intelligent Trip Planner**: ระบบคำนวณและวางแผนการเดินทางระหว่างสถานี ทั้งสายตรงและจุดต่อรถ 1 ครั้ง พร้อมวาดแนวเส้นทาง Polyline สีสดบนแผนที่
-  - **Model Context Protocol (MCP Server)**: เซิร์ฟเวอร์ MCP มาตรฐาน JSON-RPC 2.0 สำหรับเชื่อมต่อ Claude, ChatGPT, และ Gemini ให้เรียกค้นสาย ป้าย และคำนวณเส้นทางแบบ Agentic
-  - **High Resilience & Fault Tolerance**: ออกแบบด้วย Circuit Breaker ป้องกันระบบล่ม เมื่อต้นทาง Realtime ขัดข้อง ระบบจะตัดวงจรและทำงานต่อด้วยข้อมูลตารางเดินรถได้ 100%
-- **เทคโนโลยี (Tags)**: `Python 3.12`, `FastAPI`, `SQLite`, `Leaflet.js`, `GTFS`, `Gemini MCP`, `Docker`
-- **Source Code**: [github.com/Gubbitkeytoday/bkk-transit](https://github.com/Gubbitkeytoday/bkk-transit)
-- **Live Showcase**: [github.com/Gubbitkeytoday/bkk-transit](https://github.com/Gubbitkeytoday/bkk-transit)
-- **รูปหน้าปก (Cover)**: `media/bkk_transit/01-bkk-transit-overview`
-- **ไฟล์ในแกลเลอรี (Gallery Assets)**:
-  1. `[Image]` `01_bangkok_transit_overview.png` — Bangkok Transit Network Overview
-  2. `[Image]` `02_route_detail_and_shape.png` — Route Shape & Vehicles
-  3. `[Image]` `03_gps_nearby_stops.png` — GPS Radar & Nearby Stops
-  4. `[Image]` `04_stop_departures_board.png` — Live Departures Board
-  5. `[Image]` `05_trip_planner.png` — Intelligent Trip Planner
-  6. `[Image]` `06_fastapi_swagger_docs.png` — FastAPI Interactive Swagger UI
-  7. `[Image]` `07_fastapi_redoc.png` — ReDoc API Reference
-  8. `[Image]` `08_mobile_responsive.png` — Mobile Responsive Interface
+### 18. Greater Bangkok Metro Mini 3D
+
+| หัวข้อ | รายละเอียด |
+| :-- | :-- |
+| id · order | `metro3d` · 1 |
+| หมวด · ปี | อินเทอร์แอคทีฟ (`interactive`) · 2025 |
+| บทบาท | ออกแบบระบบ · Frontend 3D · Rust/Wasm |
+| เทคโนโลยี | React 19, TypeScript, Three.js, MapLibre GL, Rust, WebAssembly |
+| ตัวเลขสำคัญ | **10** สาย · **193** สถานี · **8,193** เที่ยว/วัน · **60** FPS |
+| ซอร์สโค้ด | [github.com/Gubbitkeytoday/tha-metro-mini-3d](https://github.com/Gubbitkeytoday/tha-metro-mini-3d) |
+| เว็บจริง | [metro.itstom.me](https://metro.itstom.me) |
+| หน้ารายละเอียด | [TH](https://gubbitkeytoday.github.io/Profile/projects/metro3d/) · [EN](https://gubbitkeytoday.github.io/Profile/en/projects/metro3d/) |
+| สื่อ | ภาพปก `media/metro3d/01-network-overview` · แกลเลอรี 11 ภาพ + วิดีโอ 1 |
+
+เว็บจำลองโครงข่ายรถไฟฟ้ากรุงเทพฯ–ปริมณฑลแบบ 3 มิติ วางแนวรางตามพิกัดจริงจาก OpenStreetMap แยกระดับยกระดับ/ระดับดิน/ใต้ดิน และวิ่งขบวนตามตารางเวลาจริง GTFS
+
+**ฟีเจอร์หลัก**
+
+- วิ่งขบวนตามตาราง GTFS จริง 10 สาย 193 สถานี 8,193 เที่ยวต่อวัน
+- เร่งเวลา / ย้อนเวลาได้ตามใจ พร้อมกล้องติดตามขบวน (Train Tracking)
+- Journey Planner วางแผนเส้นทาง บอกจุดเปลี่ยนสายและเวลาที่ใช้
+- แกนคำนวณตำแหน่งขบวนเขียนด้วย Rust คอมไพล์เป็น WebAssembly รันบน Web Worker
+- รองรับ 9 ภาษา
 
 ---
 
-## 🎨 6. ฟีเจอร์และการทำงานของระบบ Frontend (Portfolio System Architecture)
+## 6. ระบบของเว็บพอร์ตโฟลิโอ (v2)
 
-1. **Theme Toggle System (สลับโหมดมืด / สว่าง)**:
-   - สลับ `data-theme="dark"` และ `data-theme="light"` บนแท็ก `<html>`
-   - จดจำค่าผ่าน `localStorage` อัตโนมัติ ปรับชุดสี Glassmorphism และความคมชัดของข้อความ
-2. **Search Engine & Filter**:
-   - ค้นหาแบบ Dynamic Real-time ได้ทั้งจากชื่อโปรเจกต์, คำอธิบาย หรือชื่อแท็กเทคโนโลยี
-   - กรองหมวดหมู่ผลงาน (`ทั้งหมด`, `เว็บแอปพลิเคชัน`, `อินเตอร์แอคทีฟ`) พร้อมแสดงจำนวนผลงานตามจริง
-3. **Multi-Media Lightbox Modal**:
-   - รองรับทั้งไฟล์ภาพ (**PNG, JPG**) และไฟล์วิดีโอ (**MP4, WebM**) พร้อม Video Player อัตโนมัติ
-   - ควบคุมได้ผ่านปุ่มลูกศรหน้าจอ, คีย์บอร์ด (`ArrowLeft` / `ArrowRight` / `Escape`) หรือคลิกที่แถบรูปย่อ (Thumbnails)
-   - มีปุ่มขยายสื่อแบบเต็มหน้าจอ (Fullscreen Support)
-4. **Interactive UI / UX**:
-   - ระบบคัดลอกข้อมูลติดต่อลงคลิปบอร์ดแบบ One-click พร้อมแสดง Toast Notification
-   - ปุ่ม Back to Top พร้อม SVG Circular Scroll Progress Ring
-   - แอนิเมชันพื้นหลัง Ambient Mesh Blob แบบโมเดิร์น
+- **สร้างด้วย:** Astro 7, TypeScript (strict) และ Tailwind CSS v4 build เป็น HTML แบบ static ทั้งหมด แล้ว deploy ขึ้น GitHub Pages ด้วย GitHub Actions
+- **สองภาษาแยก URL:** ภาษาไทยอยู่ที่ `/` ภาษาอังกฤษอยู่ที่ `/en/` มี canonical, hreflang, OG image แยกตามภาษา และ sitemap
+- **หน้ารายละเอียดโปรเจกต์:** `/projects/<id>/` มีแกลเลอรี PhotoSwipe (ภาพและวิดีโอ) และปุ่มไปโปรเจกต์ก่อนหน้าหรือถัดไป
+- **ส่วนผลงาน:** กรองตามหมวด ตามเทคโนโลยี (`?tech=`) และค้นหาได้ ค่าตัวกรองซิงก์กับ URL
+- **Command Palette:** เปิดด้วย ⌘K / Ctrl K หรือ `/` ค้นหาหน้า โปรเจกต์ และคำสั่ง เช่น คัดลอกอีเมล เปิด CV สลับธีม สลับภาษา
+- **หน้า CV:** `/cv/` สั่งพิมพ์หรือบันทึกเป็น PDF ได้
+- **ธีม:** มืดและสว่าง จำค่าที่เลือกไว้ใน `localStorage` ถ้ายังไม่เคยเลือกจะตามการตั้งค่าของระบบ
+- **คุณภาพที่ CI ตรวจ:** axe-core (WCAG 2.2 AA) ต้องได้ 0 violations และต้องผ่านเกณฑ์ Lighthouse CI ตาม `lighthouserc.cjs` รายละเอียดอยู่ใน [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)
