@@ -285,6 +285,8 @@ const groups = [
 </script>
 
 <style>
+  /* Same order Tailwind declares; repeated here in case this sheet loads before global.css. */
+  @layer theme, base, components, utilities;
   @layer components {
     .cmdk {
       margin: min(12vh, 7rem) auto auto;

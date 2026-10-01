@@ -213,6 +213,8 @@ const links = SECTIONS.map((id, i) => ({ id, url: href(lang, `#${id}`), label: u
 </script>
 
 <style>
+  /* Same order Tailwind declares; repeated here in case this sheet loads before global.css. */
+  @layer theme, base, components, utilities;
   /* In the components layer so Tailwind utilities (hidden, md:flex…) still win. */
   @layer components {
   .site-nav {
