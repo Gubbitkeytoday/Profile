@@ -1,0 +1,107 @@
+---
+import { type Lang, makeT } from '@/i18n';
+import type { Project } from '@/lib/projects';
+import { dict, pad2 } from './dict';
+
+interface Props {
+  lang: Lang;
+  metrics: Project['data']['metrics'];
+}
+
+const { lang, metrics } = Astro.props;
+const t = makeT(dict, lang);
+---
+
+{
+  metrics.length > 0 && (
+    <section aria-labelledby="metrics-title" class="shell mt-4 sm:mt-5">
+      <h2 id="metrics-title" class="sr-only">
+        {t('metrics')}
+      </h2>
+      <dl class="metrics" style={`--n:${Math.min(metrics.length, 4)}`}>
+        {metrics.map((m, i) => (
+          <div class="metric">
+            <dt class="metric__label">{m.label[lang]}</dt>
+            <dd class="metric__value">{m.value}</dd>
+            <span class="metric__idx" aria-hidden="true">
+              {pad2(i + 1)}
+            </span>
+          </div>
+        ))}
+      </dl>
+    </section>
+  )
+}
+
+<style>
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--line);
+    box-shadow: var(--elev-1);
+  }
+  @media (min-width: 768px) {
+    .metrics {
+      grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+    }
+  }
+  .metric {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    min-width: 0;
+    padding: clamp(1.1rem, 2.4vw, 1.75rem);
+    background: var(--bg-1);
+  }
+  .metric::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: clamp(1.1rem, 2.4vw, 1.75rem);
+    width: 1.5rem;
+    height: 2px;
+    background: var(--accent-2);
+  }
+  .metric__value {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 3rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent-2);
+    overflow-wrap: anywhere;
+  }
+  .metric__label {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+    line-height: 1.45;
+  }
+  :lang(th) .metric__label {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .metric__idx {
+    position: absolute;
+    top: 0.85rem;
+    right: 1rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-3xs);
+    letter-spacing: 0.08em;
+    color: var(--fg-3);
+    opacity: 0.7;
+  }
+</style>

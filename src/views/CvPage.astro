@@ -272,7 +272,7 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
             <section class="cv-sec" aria-labelledby="cv-avail">
               <h2 id="cv-avail" class="cv-h">{t('availability')}</h2>
               <p class="cv-small">{t('availabilityText')}</p>
-              <p class="cv-small mt-2">{t('since')}</p>
+              <p class="cv-small cv-small--gap">{t('since')}</p>
             </section>
           </aside>
         </div>
@@ -587,6 +587,9 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
     color: var(--ink-2);
     line-height: 1.55;
   }
+  .cv-small--gap {
+    margin-top: 0.4rem;
+  }
   .kv div + div {
     margin-top: 0.45rem;
   }
@@ -612,27 +615,17 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
   :lang(th) .cv-foot {
     font-family: var(--font-sans);
   }
-</style>
-
-<style is:global>
   /* ============================================================= PRINT */
-  @page {
-    size: A4;
-    margin: 13mm 14mm 14mm;
-  }
   @media print {
-    html,
-    body,
     .cv-canvas {
-      background: #fff !important;
-      color: #000 !important;
+      min-height: 0;
+      padding: 0;
+      background: #fff;
     }
-    .cv-toolbar,
-    .skip-link,
-    .toast {
-      display: none !important;
+    .cv-toolbar {
+      display: none;
     }
-    .cv-canvas main {
+    main {
       padding: 0;
     }
     .paper {
@@ -652,44 +645,56 @@ const updated = new Intl.DateTimeFormat(lang === 'th' ? 'th-TH-u-ca-gregory' : '
       font-size: 9pt;
       line-height: 1.45;
       print-color-adjust: exact;
-      -webkit-print-color-adjust: exact;
     }
-    .paper .cv-head {
+    :lang(th) .paper {
+      line-height: 1.55;
+    }
+    .cv-head {
       grid-template-columns: 1fr auto;
       align-items: end;
     }
-    .paper .cv-contact {
+    .cv-contact {
       grid-template-columns: auto auto;
       font-size: 8pt;
     }
-    .paper .cv-grid {
+    .cv-grid {
       grid-template-columns: minmax(0, 1fr) 52mm;
     }
-    .paper .cv-side {
+    .cv-side {
       padding-left: 5mm;
       border-left: 1px solid var(--line);
     }
-    .paper .cv-sec {
+    .cv-sec {
       padding-top: 4.5mm;
     }
-    .paper .cv-h {
+    .cv-h {
       break-after: avoid;
     }
-    .paper .entry,
-    .paper .skill,
-    .paper .kv div {
+    .kv div {
       break-inside: avoid;
     }
     .paper a {
       color: inherit;
       text-decoration: none;
     }
-    /* Links whose text is not already the URL print it alongside. */
-    .paper .entry__title a::after {
-      content: none;
+  }
+</style>
+
+<style is:global>
+  /* ============================================================= PRINT */
+  @page {
+    size: A4;
+    margin: 13mm 14mm 14mm;
+  }
+  @media print {
+    html,
+    body {
+      background: #fff !important;
+      color: #000 !important;
     }
-    .paper .entry__links a {
-      text-decoration: none;
+    .skip-link,
+    .toast {
+      display: none !important;
     }
   }
 </style>

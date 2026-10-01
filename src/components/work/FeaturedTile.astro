@@ -27,8 +27,8 @@ const { project: p, lang, size, media, fit = 'cover' } = Astro.props;
 const d = p.data;
 
 const dict = {
-  th: { metrics: 'ตัวเลขสำคัญ', stack: 'เทคโนโลยีหลัก', live: 'ออนไลน์', shot: 'ภาพหน้าจอ' },
-  en: { metrics: 'Key numbers', stack: 'Core stack', live: 'Live', shot: 'Screenshot of' },
+  th: { metrics: 'ตัวเลขสำคัญ', stack: 'เทคโนโลยีหลัก', live: 'ออนไลน์' },
+  en: { metrics: 'Key numbers', stack: 'Core stack', live: 'Live' },
 };
 const t = makeT(dict, lang);
 
@@ -61,7 +61,7 @@ const titleId = `tile-${p.id}`;
         sizes={sizes}
         width={img.width}
         height={img.height}
-        alt={`${t('shot')} ${name}`}
+        alt=""
         loading="lazy"
         decoding="async"
         style={`view-transition-name: project-${p.id}`}
@@ -246,11 +246,11 @@ const titleId = `tile-${p.id}`;
     padding: 0.2rem 0.6rem 0.2rem 0.5rem;
     border: 1px solid var(--line-2);
     border-radius: 999px;
-    background: color-mix(in oklch, var(--bg-1) 90%, transparent);
-    backdrop-filter: blur(8px);
+    background: var(--bg-1);
+    box-shadow: var(--elev-1);
     color: var(--fg);
     font-family: var(--font-mono);
-    font-size: var(--text-3xs);
+    font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.12em;
     line-height: 1.5;
@@ -258,7 +258,7 @@ const titleId = `tile-${p.id}`;
   }
   :global(:lang(th)) .live {
     font-family: var(--font-sans);
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     letter-spacing: 0;
     text-transform: none;
   }

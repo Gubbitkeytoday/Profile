@@ -1,0 +1,206 @@
+---
+/**
+ * One row of the editorial project index. A plain link; the data-* attributes
+ * are what the client filter reads (it only toggles [hidden], never re-renders).
+ */
+import Icon from '@/components/ui/Icon.astro';
+import { href, type Lang } from '@/i18n';
+import { projectIcon } from '@/lib/icons';
+import { imageSrc, srcset } from '@/lib/media';
+import { type Project, projectPath } from '@/lib/projects';
+import { CATEGORY_META, categoryLabel } from './meta';
+import { norm, splitTitle, techKey } from './shared';
+
+interface Props {
+  project: Project;
+  lang: Lang;
+  /** Featured projects also own a bento tile (used to avoid duplicate view-transition names). */
+  featured?: boolean;
+}
+
+const { project: p, lang, featured = false } = Astro.props;
+const d = p.data;
+const [name] = splitTitle(d.title[lang]);
+
+const haystack = [
+  d.title.th,
+  d.title.en,
+  d.summary[lang],
+  d.role[lang],
+  ...d.tags,
+  ...d.features[lang],
+  CATEGORY_META[d.category].label.th,
+  CATEGORY_META[d.category].label.en,
+  String(d.year),
+]
+  .map(norm)
+  .join('|');
+const tech = [...new Set(d.tags.map(techKey))].join(' ');
+const stack = d.tags.slice(0, 3).join(' · ');
+const previewWidths = d.cover.widths.filter((w) => w <= 960);
+---
+
+<li
+  class="item"
+  data-id={p.id}
+  data-cat={d.category}
+  data-tech={tech}
+  data-q={haystack}
+  data-featured={featured ? '' : undefined}
+  data-preview={imageSrc(d.cover.path, previewWidths[0] ?? 480)}
+  data-preview-set={srcset(d.cover.path, previewWidths)}
+>
+  <a class="row" href={href(lang, projectPath(p))}>
+    <span class="year">{d.year}</span>
+    <span class="ico"><Icon name={projectIcon(d.icon)} /></span>
+    <span class="main">
+      <span class="name">{name}</span>
+      <span class="role">{d.role[lang]}</span>
+      <span class="meta-m">{d.year} · {categoryLabel(d.category, lang)}</span>
+    </span>
+    <span class="stack" lang="en">{stack}</span>
+    <span class="cat"><Icon name={CATEGORY_META[d.category].icon} class="cat-ico" />{categoryLabel(d.category, lang)}</span>
+    <span class="go"><Icon name="lucide:arrow-right" /></span>
+  </a>
+</li>
+
+<style>
+  .item {
+    border-bottom: 1px solid var(--line);
+  }
+  .row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr) 1.25rem;
+    gap: 0.25rem 0.9rem;
+    align-items: center;
+    min-height: 4.25rem;
+    padding: 0.85rem 0.25rem;
+    color: var(--fg-2);
+    text-decoration: none;
+    transition: background-color var(--duration-fast) var(--ease-out-expo);
+  }
+  .row:focus-visible {
+    z-index: 1;
+    outline-offset: -2px;
+    border-radius: var(--radius-md);
+  }
+  .year,
+  .stack,
+  .cat {
+    display: none;
+  }
+  .year,
+  .stack {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--fg-3);
+  }
+  .ico {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--bg-1);
+    color: var(--fg-2);
+    font-size: 1rem;
+    transition:
+      color var(--duration-base) var(--ease-out-expo),
+      border-color var(--duration-base) var(--ease-out-expo);
+  }
+  .main {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+  }
+  .name {
+    overflow: hidden;
+    color: var(--fg);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  :global(:lang(th)) .name {
+    letter-spacing: 0;
+  }
+  .role {
+    overflow: hidden;
+    color: var(--fg-3);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .meta-m {
+    color: var(--fg-3);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+  .go {
+    color: var(--fg-3);
+    transition:
+      color var(--duration-base) var(--ease-out-expo),
+      translate var(--duration-base) var(--ease-out-expo);
+  }
+
+  .row:hover,
+  .row:focus-visible {
+    background: color-mix(in oklch, var(--fg) 3.5%, transparent);
+  }
+  .row:hover .ico,
+  .row:focus-visible .ico {
+    border-color: color-mix(in oklch, var(--accent) 40%, var(--line-2));
+    color: var(--accent);
+  }
+  .row:hover .go,
+  .row:focus-visible .go {
+    color: var(--accent);
+    translate: 4px 0;
+  }
+
+  @media (min-width: 640px) {
+    .row {
+      grid-template-columns: 2.25rem minmax(0, 1fr) minmax(0, 14rem) 1.25rem;
+    }
+    .stack {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .row {
+      grid-template-columns: 4rem 2.25rem minmax(0, 1fr) minmax(0, 17rem) 9.5rem 1.25rem;
+      gap: 1.25rem;
+      padding: 0.9rem 0.75rem;
+    }
+    .year {
+      display: block;
+    }
+    .cat {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--fg-3);
+      font-size: 0.85rem;
+    }
+    .meta-m {
+      display: none;
+    }
+    .name {
+      font-size: 1.125rem;
+    }
+  }
+  .cat :global(.cat-ico) {
+    font-size: 0.85rem;
+  }
+</style>

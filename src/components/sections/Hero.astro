@@ -64,7 +64,7 @@ const [first, ...rest] = PROFILE.name[lang].split(' ');
   <div class="grid-bg" aria-hidden="true"></div>
 
   <div
-    class="shell grid items-center gap-x-12 gap-y-14 pt-[calc(var(--spacing-nav)+clamp(2rem,6vw,5rem))] pb-[clamp(3rem,7vw,6rem)] lg:grid-cols-12"
+    class="shell grid items-center gap-x-12 gap-y-14 pt-[calc(var(--spacing-nav)+clamp(1.75rem,4.5vw,4rem))] pb-[clamp(2.5rem,5vw,4.5rem)] lg:grid-cols-12"
   >
     <div class="lg:col-span-7">
       <p
@@ -78,8 +78,22 @@ const [first, ...rest] = PROFILE.name[lang].split(' ');
         id="hero-name"
         class="name mt-7 font-display font-semibold text-fg tracking-tightest [:lang(th)_&]:tracking-normal"
       >
-        <span class="block">{first}</span>
-        <span class="block">{rest.join(' ')}<span class="text-accent" aria-hidden="true">.</span></span>
+        {
+          lang === 'en' ? (
+            <>
+              <span class="block">{first}</span>
+              <span class="block">
+                {rest.join(' ')}
+                <span class="-ms-[0.04em] text-accent" aria-hidden="true">.</span>
+              </span>
+            </>
+          ) : (
+            <>
+              {PROFILE.name[lang]}
+              <span class="text-accent" aria-hidden="true">.</span>
+            </>
+          )
+        }
       </h1>
       <p
         lang={other}
@@ -94,7 +108,7 @@ const [first, ...rest] = PROFILE.name[lang].split(' ');
       </p>
 
       <p class="lead mt-8 max-w-[34ch] font-display text-fg [:lang(th)_&]:max-w-[30ch]">
-        <strong class="font-semibold">{t('lead')}</strong>
+        <strong class="font-semibold">{t('lead')}</strong>{' '}
         <span class="text-fg-2">{t('leadRest')}</span>
       </p>
 
@@ -137,7 +151,7 @@ const [first, ...rest] = PROFILE.name[lang].split(' ');
 
     {
       flagship && (
-        <div class="lg:col-span-5 lg:pt-10">
+        <div class="lg:col-span-5 lg:pt-6">
           <FeaturedTile lang={lang} project={flagship} peeks={peeks} />
         </div>
       )
@@ -176,8 +190,8 @@ const [first, ...rest] = PROFILE.name[lang].split(' ');
     line-height: 0.95;
   }
   :lang(th) .name {
-    font-size: clamp(3rem, 1.9rem + 4.6vw, 5.75rem);
-    line-height: 1.15;
+    font-size: clamp(2.75rem, 1.6rem + 4.4vw, 5.25rem);
+    line-height: 1.2;
   }
   .lead {
     font-size: clamp(1.3rem, 1.05rem + 1.05vw, 2rem);
