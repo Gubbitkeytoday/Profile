@@ -1,0 +1,427 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { href, type Lang, makeT, SECTIONS, useUi } from '@/i18n';
+import { PROFILE } from '@/lib/profile';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ui = useUi(lang);
+const dict = {
+  th: {
+    tagline: 'นักพัฒนา Full-Stack ที่สร้างซอฟต์แวร์ใช้งานได้จริง ตั้งแต่ระบบหลังบ้านไปจนถึงเว็บ 3 มิติ',
+    explore: 'สำรวจ',
+    connect: 'ช่องทางติดต่อ',
+    builtWith: 'สร้างด้วย',
+    rights: 'สงวนลิขสิทธิ์',
+    source: 'ซอร์สโค้ดของเว็บนี้',
+    newTab: '(เปิดในแท็บใหม่)',
+    email: 'อีเมล',
+  },
+  en: {
+    tagline: 'Full-stack developer shipping real, working software — from back-end systems to the 3D web.',
+    explore: 'Explore',
+    connect: 'Connect',
+    builtWith: 'Built with',
+    rights: 'All rights reserved',
+    source: 'Source of this site',
+    newTab: '(opens in a new tab)',
+    email: 'Email',
+  },
+};
+const t = makeT(dict, lang);
+const year = new Date().getFullYear();
+const REPO = 'https://github.com/Gubbitkeytoday/Profile';
+
+const links = SECTIONS.map((id) => ({ url: href(lang, `#${id}`), label: ui(id) }));
+const socials = [
+  { label: 'GitHub', url: PROFILE.github, icon: 'simple-icons:github', external: true },
+  { label: 'LINE', url: PROFILE.line, icon: 'simple-icons:line', external: true },
+  { label: 'Facebook', url: PROFILE.facebook, icon: 'simple-icons:facebook', external: true },
+  { label: t('email'), url: `mailto:${PROFILE.email}`, icon: 'lucide:mail', external: false },
+] as const;
+const stack = [
+  { label: 'Astro', icon: 'simple-icons:astro' },
+  { label: 'Tailwind CSS', icon: 'simple-icons:tailwindcss' },
+  { label: 'TypeScript', icon: 'simple-icons:typescript' },
+] as const;
+---
+
+<footer class="site-footer" data-footer>
+  <div class="shell">
+    <div class="footer-grid">
+      <div class="footer-intro">
+        <a href={href(lang, '/')} class="footer-brand">
+          <span class="footer-brand__mark" aria-hidden="true">WC</span>
+          <span class="whitespace-nowrap">{ui('siteName')}</span>
+        </a>
+        <p class="footer-tagline">{t('tagline')}</p>
+        <p class="footer-meta">
+          <Icon name="lucide:map-pin" size={14} />
+          {PROFILE.location[lang]}
+        </p>
+      </div>
+
+      <nav aria-labelledby="footer-explore" class="footer-col">
+        <h2 id="footer-explore" class="label">{t('explore')}</h2>
+        <ul role="list">
+          {
+            links.map((l) => (
+              <li>
+                <a href={l.url} class="footer-link">
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a href={href(lang, '/cv/')} class="footer-link">{ui('cv')}</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="footer-col">
+        <h2 class="label">{t('connect')}</h2>
+        <ul role="list">
+          {
+            socials.map((s) => (
+              <li>
+                <a
+                  href={s.url}
+                  class="footer-link footer-social"
+                  {...(s.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                  <Icon name={s.icon} size={15} brand={s.icon.startsWith('simple-icons')} />
+                  {s.label}
+                  {s.external && (
+                    <>
+                      <Icon name="lucide:arrow-up-right" size={13} class="footer-social__ext" />
+                      <span class="sr-only">{t('newTab')}</span>
+                    </>
+                  )}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <svg class="wordmark" viewBox="0 0 1000 108" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="wordmark-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" class="wordmark__stop-a"></stop>
+          <stop offset="1" class="wordmark__stop-b"></stop>
+        </linearGradient>
+      </defs>
+      <text x="0" y="104" textLength="1000" lengthAdjust="spacingAndGlyphs" fill="url(#wordmark-fill)">WONGSATHORN</text>
+    </svg>
+
+    <div class="footer-bar">
+      <p>© <span data-year>{year}</span> {ui('siteName')} · {t('rights')}</p>
+      <p class="footer-stack">
+        <span>{t('builtWith')}</span>
+        {
+          stack.map((s, i) => (
+            <>
+              {i > 0 && (
+                <span class="footer-stack__dot" aria-hidden="true">
+                  ·
+                </span>
+              )}
+              <span class="footer-stack__item">
+                <Icon name={s.icon} size={13} brand />
+                {s.label}
+              </span>
+            </>
+          ))
+        }
+      </p>
+      <p class="flex flex-wrap items-center gap-x-5 gap-y-2">
+        <a href={REPO} class="footer-link footer-social" target="_blank" rel="noopener noreferrer">
+          <Icon name="lucide:code-xml" size={14} />
+          {t('source')}
+          <span class="sr-only">{t('newTab')}</span>
+        </a>
+        <a href="#top" class="footer-link footer-social">
+          <Icon name="lucide:arrow-up" size={14} />
+          {ui('backToTop')}
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<button type="button" class="totop" data-totop aria-label={ui('backToTop')} title={ui('backToTop')}>
+  <svg class="totop__ring" viewBox="0 0 44 44" aria-hidden="true" focusable="false">
+    <circle class="totop__track" cx="22" cy="22" r="20"></circle>
+    <circle class="totop__progress" cx="22" cy="22" r="20" pathLength="100"></circle>
+  </svg>
+  <Icon name="lucide:arrow-up" size={16} />
+</button>
+<div class="totop-sentinel" data-totop-sentinel aria-hidden="true"></div>
+
+<script>
+  import { initFooter } from '@/scripts/footer';
+
+  initFooter();
+</script>
+
+<style>
+  /* Same order Tailwind declares; repeated here in case this sheet loads before global.css. */
+  @layer theme, base, components, utilities;
+  @layer components {
+    .site-footer {
+      position: relative;
+      padding-top: clamp(3rem, 6vw, 5rem);
+      border-top: 1px solid var(--line);
+      background:
+        radial-gradient(60% 80% at 50% 120%, color-mix(in oklch, var(--accent) 7%, transparent), transparent 70%),
+        var(--bg);
+      overflow: hidden;
+    }
+    .footer-grid {
+      display: grid;
+      gap: 2.5rem 2rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .footer-intro {
+      grid-column: 1 / -1;
+      display: grid;
+      gap: 1rem;
+      align-content: start;
+      max-width: 26rem;
+    }
+    @media (min-width: 48rem) {
+      .footer-grid {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+      }
+      .footer-intro {
+        grid-column: auto;
+      }
+    }
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      width: fit-content;
+      color: var(--fg);
+      font-family: var(--font-display);
+      font-weight: 600;
+    }
+    .footer-brand__mark {
+      display: grid;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 8px;
+      background: var(--fg);
+      color: var(--bg);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .footer-tagline {
+      color: var(--fg-2);
+      font-size: 0.9375rem;
+    }
+    .footer-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--fg-3);
+      font-size: 0.8125rem;
+    }
+    .footer-col {
+      display: grid;
+      gap: 0.9rem;
+      align-content: start;
+    }
+    .footer-col h2 {
+      font-weight: 400;
+      line-height: 1.4;
+    }
+    .footer-col ul {
+      display: grid;
+      gap: 0.15rem;
+    }
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.25rem;
+      color: var(--fg-2);
+      font-size: 0.9375rem;
+      transition: color var(--duration-fast) ease;
+    }
+    .footer-link:hover {
+      color: var(--fg);
+    }
+    .footer-social {
+      gap: 0.55rem;
+    }
+    /* Icons stay monochrome; brand colour only on hover. */
+    .footer-social :global(.icon--brand) {
+      color: currentColor;
+      transition: color var(--duration-fast) ease;
+    }
+    .footer-social:hover :global(.icon--brand) {
+      color: var(--brand, currentColor);
+    }
+    .footer-social :global(.footer-social__ext) {
+      color: var(--fg-3);
+      opacity: 0;
+      translate: -2px 2px;
+      transition:
+        opacity var(--duration-fast) ease,
+        translate var(--duration-base) var(--ease-out-expo);
+    }
+    .footer-social:hover :global(.footer-social__ext),
+    .footer-social:focus-visible :global(.footer-social__ext) {
+      opacity: 1;
+      translate: 0 0;
+    }
+
+    .wordmark {
+      width: 100%;
+      height: auto;
+      margin-top: clamp(2.5rem, 6vw, 4.5rem);
+      overflow: visible;
+      font-family: var(--font-display);
+      font-size: 141px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      user-select: none;
+    }
+    .wordmark__stop-a {
+      stop-color: var(--fg);
+      stop-opacity: 0.16;
+    }
+    .wordmark__stop-b {
+      stop-color: var(--fg);
+      stop-opacity: 0.02;
+    }
+    :global([data-theme='light']) .wordmark__stop-a {
+      stop-opacity: 0.11;
+    }
+
+    .footer-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem 2rem;
+      padding-block: 1.25rem calc(1.5rem + env(safe-area-inset-bottom));
+      border-top: 1px solid var(--line);
+      color: var(--fg-3);
+      font-size: 0.8125rem;
+    }
+    .footer-bar .footer-link {
+      font-size: 0.8125rem;
+      color: var(--fg-3);
+    }
+    .footer-bar .footer-link:hover {
+      color: var(--fg);
+    }
+    .footer-stack {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .footer-stack__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--fg-2);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+    }
+    .footer-stack__item :global(.icon--brand) {
+      color: currentColor;
+    }
+    .footer-stack__dot {
+      color: var(--fg-3);
+    }
+
+    /* ----------------------------------------------------------- back to top */
+    .totop-sentinel {
+      position: absolute;
+      top: 100vh;
+      left: 0;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+    .totop {
+      position: fixed;
+      right: max(1rem, env(safe-area-inset-right));
+      bottom: max(1rem, env(safe-area-inset-bottom));
+      z-index: 40;
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 999px;
+      background: var(--glass);
+      color: var(--fg);
+      box-shadow: var(--elev-2);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      visibility: hidden;
+      translate: 0 0.75rem;
+      transition:
+        opacity var(--duration-base) var(--ease-out-expo),
+        translate var(--duration-base) var(--ease-out-expo),
+        visibility 0s linear var(--duration-base);
+    }
+    .totop[data-show] {
+      opacity: 1;
+      visibility: visible;
+      translate: 0 0;
+      transition-delay: 0s;
+    }
+    .totop:hover {
+      color: var(--accent);
+    }
+    :global(html:has(dialog[open])) .totop {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .totop > :global(.icon) {
+      grid-area: 1 / 1;
+    }
+    .totop__ring {
+      grid-area: 1 / 1;
+      width: 100%;
+      height: 100%;
+      rotate: -90deg;
+      fill: none;
+      stroke-width: 1.5;
+    }
+    .totop__track {
+      stroke: var(--line-2);
+    }
+    .totop__progress {
+      stroke: var(--accent);
+      stroke-linecap: round;
+      stroke-dasharray: 100;
+      stroke-dashoffset: calc(100 - var(--progress, 0) * 100);
+    }
+    @supports (animation-timeline: scroll()) {
+      .totop__progress {
+        animation: totop-progress linear both;
+        animation-timeline: scroll(root block);
+      }
+    }
+    @keyframes totop-progress {
+      from {
+        stroke-dashoffset: 100;
+      }
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+</style>

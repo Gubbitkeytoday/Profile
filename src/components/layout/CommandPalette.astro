@@ -1,0 +1,564 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { href, LANGS, type Lang, makeT, SECTIONS, stripLocale, ui as uiStrings, useUi } from '@/i18n';
+import { type IconName, projectIcon } from '@/lib/icons';
+import { PROFILE } from '@/lib/profile';
+import { getProjects, projectPath } from '@/lib/projects';
+import { normalize } from '@/scripts/search';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ui = useUi(lang);
+const dict = {
+  th: {
+    placeholder: 'ค้นหาผลงาน เทคโนโลยี หรือส่วนต่าง ๆ…',
+    inputLabel: 'ค้นหา',
+    results: 'ผลการค้นหา',
+    actions: 'คำสั่ง',
+    sections: 'ส่วนต่าง ๆ',
+    projects: 'ผลงาน',
+    copyEmail: 'คัดลอกอีเมล',
+    copied: 'คัดลอกอีเมลแล้ว',
+    openCv: 'เปิด CV',
+    switchLang: 'เปลี่ยนเป็นภาษาอังกฤษ (English)',
+    openGithub: 'เปิด GitHub',
+    openLine: 'แอดไลน์ (LINE)',
+    jump: 'ไปที่ส่วน',
+    countOne: 'พบ 1 รายการ',
+    countMany: 'พบ {n} รายการ',
+    empty: 'ไม่พบผลลัพธ์สำหรับ “{q}”',
+    emptyHint: 'ลองคำอื่น เช่น react, python หรือ 3d',
+    navigate: 'เลื่อน',
+    open: 'เปิด',
+    close: 'ปิด',
+  },
+  en: {
+    placeholder: 'Search projects, tech or sections…',
+    inputLabel: 'Search',
+    results: 'Results',
+    actions: 'Actions',
+    sections: 'Sections',
+    projects: 'Projects',
+    copyEmail: 'Copy email address',
+    copied: 'Email address copied',
+    openCv: 'Open CV',
+    switchLang: 'Switch to Thai',
+    openGithub: 'Open GitHub',
+    openLine: 'Add on LINE',
+    jump: 'Jump to section',
+    countOne: '1 result',
+    countMany: '{n} results',
+    empty: 'No results for “{q}”',
+    emptyHint: 'Try another term, e.g. react, python or 3d',
+    navigate: 'navigate',
+    open: 'open',
+    close: 'close',
+  },
+};
+const t = makeT(dict, lang);
+const tt = (l: Lang, key: keyof (typeof dict)['th']) => makeT(dict, l)(key);
+
+const otherLang = LANGS.find((l) => l !== lang) ?? lang;
+const path = stripLocale(Astro.url.pathname);
+const both = (fn: (l: Lang) => string) => LANGS.map(fn).join(' ');
+
+interface Option {
+  id: string;
+  icon: IconName;
+  brand?: boolean;
+  label: string;
+  hint?: string;
+  key: string;
+  titleKey: string;
+  href?: string;
+  action?: 'copy' | 'theme';
+  external?: boolean;
+  keepHash?: boolean;
+  theme?: boolean;
+  /** Hint is prose (may be Thai) — never set it in mono. */
+  textHint?: boolean;
+}
+
+const actions: Option[] = [
+  {
+    id: 'copy-email',
+    icon: 'lucide:copy',
+    label: t('copyEmail'),
+    hint: PROFILE.email,
+    action: 'copy',
+    key: `${both((l) => tt(l, 'copyEmail'))} ${PROFILE.email} mail contact`,
+    titleKey: both((l) => tt(l, 'copyEmail')),
+  },
+  {
+    id: 'open-cv',
+    icon: 'lucide:file-down',
+    label: t('openCv'),
+    hint: 'PDF',
+    href: href(lang, '/cv/'),
+    key: `${both((l) => tt(l, 'openCv'))} ${both((l) => uiStrings[l].cvLong)} resume pdf`,
+    titleKey: both((l) => tt(l, 'openCv')),
+  },
+  {
+    id: 'toggle-theme',
+    icon: 'lucide:sun-moon',
+    label: ui('themeToLight'),
+    action: 'theme',
+    theme: true,
+    key: `${both((l) => `${uiStrings[l].themeToLight} ${uiStrings[l].themeToDark}`)} theme dark light ธีม`,
+    titleKey: both((l) => `${uiStrings[l].themeToLight} ${uiStrings[l].themeToDark}`),
+  },
+  {
+    id: 'switch-lang',
+    icon: 'lucide:languages',
+    label: t('switchLang'),
+    hint: otherLang.toUpperCase(),
+    href: href(otherLang, path),
+    keepHash: true,
+    key: `${both((l) => tt(l, 'switchLang'))} language ภาษา thai english th en`,
+    titleKey: both((l) => tt(l, 'switchLang')),
+  },
+  {
+    id: 'open-github',
+    icon: 'simple-icons:github',
+    brand: true,
+    label: t('openGithub'),
+    hint: PROFILE.github.replace('https://', ''),
+    href: PROFILE.github,
+    external: true,
+    key: `${both((l) => tt(l, 'openGithub'))} github repo source code`,
+    titleKey: 'github',
+  },
+  {
+    id: 'open-line',
+    icon: 'simple-icons:line',
+    brand: true,
+    label: t('openLine'),
+    hint: 'LINE',
+    href: PROFILE.line,
+    external: true,
+    key: `${both((l) => tt(l, 'openLine'))} line chat contact ไลน์`,
+    titleKey: 'line ไลน์',
+  },
+];
+
+const SECTION_ICONS: Record<string, IconName> = {
+  home: 'lucide:house',
+  work: 'lucide:folder-code',
+  skills: 'lucide:cpu',
+  journey: 'lucide:route',
+  about: 'lucide:user-round',
+  contact: 'lucide:send',
+};
+const sections: Option[] = (['home', ...SECTIONS] as const).map((id) => ({
+  id: `section-${id}`,
+  icon: SECTION_ICONS[id] ?? 'lucide:hash',
+  label: ui(id),
+  hint: t('jump'),
+  textHint: true,
+  href: id === 'home' ? href(lang, '/') : href(lang, `#${id}`),
+  key: `${both((l) => uiStrings[l][id])} ${id}`,
+  titleKey: both((l) => uiStrings[l][id]),
+}));
+
+const projects: Option[] = (await getProjects()).map((p) => {
+  const d = p.data;
+  return {
+    id: `project-${p.id}`,
+    icon: projectIcon(d.icon),
+    label: d.title[lang],
+    hint: [String(d.year), ...d.tags.slice(0, 2)].join(' · '),
+    href: href(lang, projectPath(p)),
+    key: [d.title.th, d.title.en, d.tags.join(' '), d.role[lang], d.summary[lang], d.category, d.year].join(' '),
+    titleKey: `${d.title.th} ${d.title.en}`,
+  };
+});
+
+const groups = [
+  { id: 'actions', label: t('actions'), options: actions },
+  { id: 'sections', label: t('sections'), options: sections },
+  { id: 'projects', label: t('projects'), options: projects },
+];
+---
+
+<dialog
+  class="cmdk"
+  aria-label={ui('search')}
+  data-cmdk
+  data-copied={t('copied')}
+  data-email={PROFILE.email}
+  data-count-one={t('countOne')}
+  data-count-many={t('countMany')}
+  data-empty={t('empty')}
+>
+  <div class="cmdk__panel">
+    <div class="cmdk__field">
+      <Icon name="lucide:search" size={18} class="cmdk__search-icon" />
+      <input
+        type="text"
+        class="cmdk__input"
+        role="combobox"
+        aria-label={t('inputLabel')}
+        aria-expanded="true"
+        aria-controls="cmdk-list"
+        aria-autocomplete="list"
+        aria-activedescendant=""
+        placeholder={t('placeholder')}
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        enterkeyhint="go"
+        autofocus
+        data-cmdk-input
+      />
+      <button type="button" class="cmdk__close" data-cmdk-close aria-label={ui('close')}>
+        <kbd class="cmdk__esc" aria-hidden="true">esc</kbd>
+        <Icon name="lucide:x" size={18} class="cmdk__x" />
+      </button>
+    </div>
+
+    <div class="cmdk__list" id="cmdk-list" role="listbox" aria-label={t('results')} data-cmdk-list>
+      {
+        groups.map((g) => (
+          <div class="cmdk__group" role="group" aria-labelledby={`cmdk-g-${g.id}`} data-cmdk-group>
+            <div class="cmdk__group-label" id={`cmdk-g-${g.id}`} role="presentation">
+              {g.label}
+            </div>
+            <div class="cmdk__options" data-cmdk-options>
+              {g.options.map((o) => (
+                <div
+                  class="cmdk__opt"
+                  role="option"
+                  id={`cmdk-${o.id}`}
+                  aria-selected="false"
+                  data-cmdk-opt
+                  data-key={normalize(o.key)}
+                  data-title-key={normalize(o.titleKey)}
+                  data-href={o.href}
+                  data-action={o.action}
+                  data-external={o.external ? 'true' : undefined}
+                  data-keep-hash={o.keepHash ? 'true' : undefined}
+                  {...(o.theme
+                    ? { 'data-theme-toggle': '', 'data-to-light': ui('themeToLight'), 'data-to-dark': ui('themeToDark') }
+                    : {})}
+                >
+                  <span class="cmdk__icon">
+                    <Icon name={o.icon} size={16} brand={o.brand} />
+                  </span>
+                  <span class="cmdk__label" {...(o.theme ? { 'data-theme-label': '' } : {})}>
+                    {o.label}
+                  </span>
+                  {o.hint && <span class:list={['cmdk__hint', { 'cmdk__hint--text': o.textHint }]}>{o.hint}</span>}
+                  {o.external ? (
+                    <Icon name="lucide:arrow-up-right" size={15} class="cmdk__enter" />
+                  ) : (
+                    <Icon name="lucide:corner-down-left" size={15} class="cmdk__enter" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+      <div class="cmdk__empty" data-cmdk-empty hidden>
+        <Icon name="lucide:search-x" size={22} />
+        <p data-cmdk-empty-text></p>
+        <p class="cmdk__empty-hint">{t('emptyHint')}</p>
+      </div>
+    </div>
+
+    <div class="cmdk__foot" aria-hidden="true">
+      <span><kbd>↑</kbd><kbd>↓</kbd> {t('navigate')}</span>
+      <span><kbd>↵</kbd> {t('open')}</span>
+      <span><kbd>esc</kbd> {t('close')}</span>
+    </div>
+    <p class="sr-only" role="status" aria-live="polite" aria-atomic="true" data-cmdk-status></p>
+  </div>
+</dialog>
+
+<script>
+  import { initPalette } from '@/scripts/palette';
+
+  initPalette();
+</script>
+
+<style>
+  /* Same order Tailwind declares; repeated here in case this sheet loads before global.css. */
+  @layer theme, base, components, utilities;
+  @layer components {
+    .cmdk {
+      margin: min(12vh, 7rem) auto auto;
+      padding: 0;
+      width: min(40rem, calc(100vw - 1.5rem));
+      max-width: none;
+      max-height: calc(100dvh - 1.5rem);
+      border: 0;
+      background: transparent;
+      color: var(--fg);
+      overflow: visible;
+      opacity: 0;
+      scale: 0.98;
+      translate: 0 -6px;
+      transition:
+        opacity var(--duration-base) var(--ease-out-expo),
+        scale var(--duration-base) var(--ease-out-expo),
+        translate var(--duration-base) var(--ease-out-expo),
+        overlay var(--duration-base) allow-discrete,
+        display var(--duration-base) allow-discrete;
+    }
+    .cmdk[open] {
+      opacity: 1;
+      scale: 1;
+      translate: 0 0;
+    }
+    @starting-style {
+      .cmdk[open] {
+        opacity: 0;
+        scale: 0.98;
+        translate: 0 -6px;
+      }
+    }
+    .cmdk::backdrop {
+      background: color-mix(in oklch, var(--bg) 62%, transparent);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      transition:
+        opacity var(--duration-base) ease,
+        overlay var(--duration-base) allow-discrete,
+        display var(--duration-base) allow-discrete;
+    }
+    .cmdk[open]::backdrop {
+      opacity: 1;
+    }
+    @starting-style {
+      .cmdk[open]::backdrop {
+        opacity: 0;
+      }
+    }
+    @media (max-width: 47.99rem) {
+      .cmdk {
+        margin-top: max(0.75rem, env(safe-area-inset-top));
+      }
+    }
+
+    .cmdk__panel {
+      display: flex;
+      flex-direction: column;
+      max-height: inherit;
+      border: 1px solid var(--line-2);
+      border-radius: var(--radius-xl);
+      background: var(--bg-1);
+      box-shadow:
+        var(--elev-2),
+        0 0 0 1px color-mix(in oklch, var(--bg) 60%, transparent);
+      overflow: hidden;
+    }
+
+    .cmdk__field {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding-inline: 1.1rem 0.6rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .cmdk__field :global(.cmdk__search-icon) {
+      color: var(--fg-3);
+    }
+    .cmdk__input {
+      flex: 1;
+      min-width: 0;
+      height: 3.5rem;
+      border: 0;
+      background: transparent;
+      color: var(--fg);
+      font-size: 1rem;
+      text-overflow: ellipsis;
+      outline: none;
+    }
+    .cmdk__input::placeholder {
+      color: var(--fg-3);
+      opacity: 0.85;
+    }
+    .cmdk__input:focus-visible {
+      outline: none;
+    }
+    .cmdk__close {
+      display: inline-grid;
+      place-items: center;
+      min-width: 2.75rem;
+      height: 2.75rem;
+      border-radius: var(--radius-md);
+      color: var(--fg-3);
+    }
+    .cmdk__close:hover {
+      color: var(--fg);
+    }
+    .cmdk__esc {
+      display: none;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .cmdk__esc {
+        display: inline-grid;
+      }
+      .cmdk__close :global(.cmdk__x) {
+        display: none;
+      }
+    }
+
+    kbd {
+      display: inline-grid;
+      place-items: center;
+      min-width: 1.35rem;
+      height: 1.35rem;
+      padding-inline: 0.3rem;
+      border: 1px solid var(--line-2);
+      border-bottom-width: 2px;
+      border-radius: 5px;
+      background: var(--bg-2);
+      color: var(--fg-2);
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      line-height: 1;
+    }
+
+    .cmdk__list {
+      flex: 1;
+      min-height: 0;
+      max-height: min(27rem, 60dvh);
+      padding: 0.4rem 0.5rem 0.6rem;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scroll-padding-block: 2.25rem 0.5rem;
+    }
+    .cmdk__group + .cmdk__group {
+      margin-top: 0.35rem;
+    }
+    .cmdk__group-label {
+      position: sticky;
+      top: -0.4rem;
+      z-index: 1;
+      padding: 0.6rem 0.65rem 0.35rem;
+      background: var(--bg-1);
+      color: var(--fg-3);
+      font-family: var(--font-mono);
+      font-size: var(--text-3xs);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+    }
+    :global(:lang(th)) .cmdk__group-label {
+      font-family: var(--font-sans);
+      font-size: var(--text-2xs);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .cmdk__opt {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-height: 2.875rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-md);
+      color: var(--fg-2);
+      cursor: pointer;
+      user-select: none;
+    }
+    .cmdk__opt[aria-selected='true'] {
+      background: color-mix(in oklch, var(--fg) 7%, transparent);
+      color: var(--fg);
+      box-shadow: inset 2px 0 0 var(--accent);
+    }
+    .cmdk__icon {
+      display: grid;
+      place-items: center;
+      width: 1.9rem;
+      height: 1.9rem;
+      flex-shrink: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--bg-2);
+      color: var(--fg-3);
+    }
+    .cmdk__icon :global(.icon--brand) {
+      color: currentColor;
+    }
+    .cmdk__opt[aria-selected='true'] .cmdk__icon {
+      border-color: color-mix(in oklch, var(--accent) 40%, transparent);
+      background: color-mix(in oklch, var(--accent) 12%, transparent);
+      color: var(--accent);
+    }
+    .cmdk__label {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.9375rem;
+    }
+    .cmdk__hint {
+      flex-shrink: 0;
+      max-width: 40%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--fg-3);
+      font-family: var(--font-mono);
+      font-size: var(--text-2xs);
+    }
+    .cmdk__hint--text {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+    }
+    @media (max-width: 30rem) {
+      .cmdk__hint {
+        display: none;
+      }
+    }
+    .cmdk__opt :global(.cmdk__enter) {
+      flex-shrink: 0;
+      color: var(--fg-3);
+      opacity: 0;
+    }
+    .cmdk__opt[aria-selected='true'] :global(.cmdk__enter) {
+      opacity: 1;
+    }
+
+    .cmdk__empty {
+      display: grid;
+      justify-items: center;
+      gap: 0.4rem;
+      padding: 2.5rem 1rem;
+      color: var(--fg-3);
+      text-align: center;
+    }
+    .cmdk__empty p:first-of-type {
+      color: var(--fg);
+      font-weight: 500;
+    }
+    .cmdk__empty-hint {
+      font-size: 0.8125rem;
+    }
+
+    .cmdk__foot {
+      display: flex;
+      gap: 1.25rem;
+      padding: 0.6rem 1.1rem;
+      border-top: 1px solid var(--line);
+      background: color-mix(in oklch, var(--bg-2) 50%, transparent);
+      color: var(--fg-3);
+      font-size: 0.75rem;
+    }
+    .cmdk__foot span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    @media (hover: none), (pointer: coarse) {
+      .cmdk__foot {
+        display: none;
+      }
+    }
+  }
+</style>

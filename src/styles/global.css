@@ -1,0 +1,375 @@
+/* Declare layer order up front so component-scoped `@layer components` blocks can never jump ahead of Tailwind base. */
+@layer theme, base, components, utilities;
+
+@import "tailwindcss";
+
+/* Self-hosted variable fonts (Fontsource) — no third-party font CDN. Thai glyphs come from IBM Plex Sans Thai. */
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/jetbrains-mono";
+
+/* Thai faces are declared here (not via Fontsource CSS) to use `font-display: optional`:
+ * Thai system fonts (Leelawadee, Thonburi, Loma…) can't be metric-matched, so a late swap
+ * would reflow whole paragraphs. TH pages preload these files (Base.astro); if one misses
+ * the ~100 ms window, that view keeps the system font — no shift — and the next page has it cached. */
+@font-face {
+  font-family: "Anuphan Variable";
+  font-style: normal;
+  font-display: optional;
+  font-weight: 100 700;
+  src: url("../../node_modules/@fontsource-variable/anuphan/files/anuphan-thai-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: "IBM Plex Sans Thai";
+  font-style: normal;
+  font-display: optional;
+  font-weight: 400;
+  src: url("../../node_modules/@fontsource/ibm-plex-sans-thai/files/ibm-plex-sans-thai-thai-400-normal.woff2")
+    format("woff2");
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: "IBM Plex Sans Thai";
+  font-style: normal;
+  font-display: optional;
+  font-weight: 500;
+  src: url("../../node_modules/@fontsource/ibm-plex-sans-thai/files/ibm-plex-sans-thai-thai-500-normal.woff2")
+    format("woff2");
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: "IBM Plex Sans Thai";
+  font-style: normal;
+  font-display: optional;
+  font-weight: 600;
+  src: url("../../node_modules/@fontsource/ibm-plex-sans-thai/files/ibm-plex-sans-thai-thai-600-normal.woff2")
+    format("woff2");
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: "IBM Plex Sans Thai";
+  font-style: normal;
+  font-display: optional;
+  font-weight: 700;
+  src: url("../../node_modules/@fontsource/ibm-plex-sans-thai/files/ibm-plex-sans-thai-thai-700-normal.woff2")
+    format("woff2");
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+
+/* Metric-matched fallbacks (computed with @capsizecss/metrics against Arial / Courier New).
+ * While the web fonts load, Latin text is set in a local font scaled to the same
+ * proportions, so the swap doesn't reflow headings and buttons (layout shift ≈ 0). */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial"), local("Liberation Sans"), local("Helvetica Neue"), local("Helvetica");
+  size-adjust: 107.12%;
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Space Grotesk Fallback";
+  src: local("Arial"), local("Liberation Sans"), local("Helvetica Neue"), local("Helvetica");
+  size-adjust: 109.69%;
+  ascent-override: 89.71%;
+  descent-override: 26.62%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "JetBrains Mono Fallback";
+  src: local("Courier New"), local("Liberation Mono"), local("Courier");
+  size-adjust: 99.98%;
+  ascent-override: 102.02%;
+  descent-override: 30%;
+  line-gap-override: 0%;
+}
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
+/* ------------------------------------------------------------------ TOKENS
+ * Runtime theme tokens (swap per theme) live as plain custom properties;
+ * Tailwind utilities map onto them via the inline theme block below.         */
+/* "Blueprint editorial" palette — OKLCH source values, hex noted for reference.
+ * One accent per view (ember); cyan is reserved for data/metrics. */
+:root,
+[data-theme="dark"] {
+  --bg: oklch(14.5% 0.006 265); /* #0b0c10 canvas */
+  --bg-1: oklch(18.5% 0.008 265); /* #13151a surface */
+  --bg-2: oklch(23% 0.01 265); /* #1c1f25 raised */
+  --bg-3: oklch(27% 0.012 265); /* #25282f hover */
+  --fg: oklch(95% 0.005 265); /* #eef0f4 */
+  --fg-2: oklch(80% 0.012 265); /* #c0c5cf */
+  --fg-3: oklch(72% 0.015 265); /* #a3a9b6 — 7.6:1 on canvas */
+  --accent: oklch(68% 0.2 36); /* #ff5c38 ember */
+  --accent-2: oklch(80% 0.12 220); /* #4cc9f0 data cyan */
+  --ok: oklch(80% 0.15 160); /* #3ddc97 */
+  --warn: oklch(80% 0.16 75); /* #ffb020 */
+  --violet: oklch(76% 0.13 300); /* #c39bf5 */
+  --on-accent: oklch(14.5% 0.006 265);
+  --line: oklch(100% 0 0 / 0.08);
+  --line-2: oklch(100% 0 0 / 0.15);
+  --grid: oklch(100% 0 0 / 0.035);
+  --glass: oklch(14.5% 0.006 265 / 0.72);
+  --elev-1: inset 0 1px 0 oklch(100% 0 0 / 0.06);
+  --elev-2: inset 0 1px 0 oklch(100% 0 0 / 0.06), 0 24px 60px -30px oklch(0% 0 0 / 0.8);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: oklch(98.5% 0.003 95); /* #fafaf8 */
+  --bg-1: oklch(100% 0 0); /* #ffffff */
+  --bg-2: oklch(95.5% 0.004 95); /* #f1f1ee */
+  --bg-3: oklch(92.5% 0.005 95); /* #e8e8e4 */
+  --fg: oklch(18% 0.01 265); /* #15171c */
+  --fg-2: oklch(36% 0.014 265); /* #3e434d */
+  --fg-3: oklch(46% 0.015 265); /* #5b606b — 6.3:1 on canvas */
+  --accent: oklch(51% 0.17 36); /* #b8401a */
+  --accent-2: oklch(50% 0.1 225); /* #0b6e8e */
+  --ok: oklch(50% 0.11 160); /* #1e7f52 */
+  --warn: oklch(52% 0.11 75); /* #8a5a00 */
+  --violet: oklch(50% 0.17 300); /* #7a3fbf */
+  --on-accent: oklch(100% 0 0);
+  --line: oklch(0% 0 0 / 0.09);
+  --line-2: oklch(0% 0 0 / 0.18);
+  --grid: oklch(0% 0 0 / 0.045);
+  --glass: oklch(98.5% 0.003 95 / 0.8);
+  --elev-1: 0 1px 2px oklch(0% 0 0 / 0.06);
+  --elev-2: 0 1px 2px oklch(0% 0 0 / 0.06), 0 8px 24px -12px oklch(0% 0 0 / 0.12);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-1: var(--bg-1);
+  --color-bg-2: var(--bg-2);
+  --color-bg-3: var(--bg-3);
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-fg-3: var(--fg-3);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-ok: var(--ok);
+  --color-violet: var(--violet);
+  --color-warn: var(--warn);
+  --color-on-accent: var(--on-accent);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-glass: var(--glass);
+  --shadow-elev-1: var(--elev-1);
+  --shadow-elev-2: var(--elev-2);
+}
+
+@theme {
+  /* Latin glyphs come first; Thai falls through to the paired Thai face (never to a system font). */
+  --font-sans: "Inter Variable", "Inter Fallback", "IBM Plex Sans Thai", ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    "Space Grotesk Variable", "Space Grotesk Fallback", "Anuphan Variable", "IBM Plex Sans Thai", ui-sans-serif,
+    sans-serif;
+  --font-mono:
+    "JetBrains Mono Variable", "JetBrains Mono Fallback", "IBM Plex Sans Thai", ui-monospace, SFMono-Regular, Menlo,
+    monospace;
+
+  --text-3xs: clamp(0.625rem, 0.61rem + 0.07vw, 0.688rem);
+  --text-2xs: clamp(0.688rem, 0.67rem + 0.09vw, 0.75rem);
+  --text-display-sm: clamp(1.75rem, 1.53rem + 1.05vw, 2.5rem);
+  --text-display: clamp(2.25rem, 1.87rem + 1.8vw, 3.5rem);
+  --text-display-lg: clamp(2.75rem, 2.1rem + 3.1vw, 4.75rem);
+  --text-hero: clamp(3rem, 2rem + 4.9vw, 6.5rem);
+
+  --tracking-label: 0.16em;
+  --tracking-tightest: -0.035em;
+
+  --radius-sm: 6px; /* chips */
+  --radius-md: 10px; /* inputs, buttons */
+  --radius-lg: 16px; /* cards */
+  --radius-xl: 24px; /* bento tiles */
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.42, 0.64, 1);
+  /* Three durations only. */
+  --duration-fast: 120ms;
+  --duration-base: 240ms;
+  --duration-slow: 480ms;
+
+  --container-shell: 84rem;
+  --spacing-gutter: clamp(1.15rem, 4vw, 4.5rem);
+  --spacing-section: clamp(4rem, 9vw, 9rem);
+  --spacing-nav: 66px;
+}
+
+/* -------------------------------------------------------------------- BASE */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--spacing-nav) + 1rem);
+    scrollbar-color: var(--line-2) transparent;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  :lang(th) body {
+    line-height: 1.75;
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    letter-spacing: -0.018em;
+    line-height: 1.1;
+  }
+  :lang(th) :is(h1, h2, h3, h4) {
+    line-height: 1.3;
+    letter-spacing: 0;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  img,
+  video,
+  svg {
+    display: block;
+  }
+  .icon {
+    display: inline-block;
+    flex-shrink: 0;
+    vertical-align: -0.125em;
+  }
+  .icon--brand {
+    color: var(--brand, currentColor);
+  }
+  /* Very dark brand marks (Next.js, Rust, three.js…) stay readable on dark surfaces. */
+  [data-theme="dark"] .icon--brand[style*="--brand:#000000"],
+  [data-theme="dark"] .icon--brand[style*="--brand:#181717"],
+  [data-theme="dark"] .icon--brand[style*="--brand:#0F0F11"],
+  [data-theme="dark"] .icon--brand[style*="--brand:#2D3748"],
+  [data-theme="dark"] .icon--brand[style*="--brand:#003B57"],
+  [data-theme="dark"] .icon--brand[style*="--brand:#003545"],
+  [data-theme="dark"] .icon--brand[style*="--brand:#333333"] {
+    color: var(--fg);
+  }
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@layer components {
+  .skip-link {
+    position: fixed;
+    inset-inline-start: 1rem;
+    top: 1rem;
+    z-index: 200;
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-md);
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 600;
+    translate: 0 -200%;
+    transition: translate 0.2s var(--ease-out-expo);
+  }
+  .skip-link:focus-visible {
+    translate: 0 0;
+  }
+  .shell {
+    width: 100%;
+    max-width: var(--container-shell);
+    margin-inline: auto;
+    padding-inline: var(--spacing-gutter);
+  }
+  .label {
+    font-family: var(--font-mono);
+    font-size: max(0.75rem, var(--text-2xs));
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+  /* Thai is never tracked or upper-cased, and never set in the mono face. */
+  :lang(th) .label {
+    font-family: var(--font-sans);
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: var(--text-xs);
+  }
+}
+
+/* ------------------------------------------------------- VIEW TRANSITIONS
+ * Native cross-document view transitions — zero JS. */
+@view-transition {
+  navigation: auto;
+}
+
+/* ----------------------------------------------------------------- MOTION */
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------ TOAST */
+.toast {
+  position: fixed;
+  inset-inline: 0;
+  bottom: max(1.25rem, env(safe-area-inset-bottom));
+  z-index: 300;
+  width: fit-content;
+  max-width: calc(100vw - 2rem);
+  margin-inline: auto;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-md);
+  background: var(--bg-2);
+  color: var(--fg);
+  box-shadow: var(--elev-2);
+  font-size: 0.875rem;
+  opacity: 0;
+  translate: 0 0.75rem;
+  pointer-events: none;
+  transition:
+    opacity var(--duration-base) var(--ease-out-expo),
+    translate var(--duration-base) var(--ease-out-expo);
+}
+.toast[data-show="true"] {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* ------------------------------------------------------------ RENDERING
+ * Below-the-fold sections skip style/layout until they approach the viewport.
+ * Thai line-breaking is dictionary-based and costly, so this matters most on the TH pages.
+ * `auto` in contain-intrinsic-size remembers each section's real height once laid out. */
+@layer base {
+  main > section:not(:first-child),
+  .site-footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1200px;
+  }
+}

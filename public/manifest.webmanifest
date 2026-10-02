@@ -1,0 +1,16 @@
+{
+  "name": "Wongsathorn Chapseethong — Full-Stack Developer",
+  "short_name": "Wongsathorn",
+  "description": "Bilingual (TH/EN) engineering portfolio of Wongsathorn Chapseethong.",
+  "lang": "th",
+  "dir": "ltr",
+  "start_url": "/Profile/",
+  "scope": "/Profile/",
+  "display": "standalone",
+  "theme_color": "#0b0c10",
+  "background_color": "#0b0c10",
+  "icons": [
+    { "src": "/Profile/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/Profile/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}

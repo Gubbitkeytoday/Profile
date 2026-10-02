@@ -1,0 +1,51 @@
+---
+import { getIconData, iconToHTML, iconToSVG, replaceIDs } from '@iconify/utils';
+/**
+ * Build-time SVG icon. Only icons actually rendered end up in the HTML —
+ * nothing is shipped to the client beyond the inline <svg>.
+ * Each page carries every icon's path data once: the first render emits a
+ * <symbol>, later renders are a tiny <use href="#…"> (tracked per page in Astro.locals).
+ *   <Icon name="lucide:zap" />          UI glyph (inherits currentColor)
+ *   <Icon name="simple-icons:react" brand />  brand mark tinted with its official colour
+ */
+import { icons as lucide } from '@iconify-json/lucide';
+import { icons as simple } from '@iconify-json/simple-icons';
+import { BRAND_COLORS } from '@/lib/icons';
+
+interface Props {
+  name: `lucide:${string}` | `simple-icons:${string}`;
+  size?: number | string | undefined;
+  /** Accessible label. Omit for decorative icons (default). */
+  label?: string | undefined;
+  /** Tint simple-icons with their brand colour (`--brand` custom property). */
+  brand?: boolean | undefined;
+  class?: string | undefined;
+}
+
+const { name, size = '1em', label, brand = false, class: className } = Astro.props;
+const [set, icon] = name.split(':') as [string, string];
+const data = getIconData(set === 'lucide' ? lucide : simple, icon);
+if (!data) throw new Error(`Unknown icon "${name}"`);
+
+const svg = iconToSVG(data, { height: size });
+const id = `i-${set}-${icon}`;
+Astro.locals.iconSprite ??= new Set<string>();
+const seen = Astro.locals.iconSprite;
+const first = !seen.has(id);
+seen.add(id);
+const symbol = first ? `<symbol id="${id}" viewBox="${svg.attributes.viewBox}">${replaceIDs(svg.body)}</symbol>` : '';
+const escapeHtml = (v: string) =>
+  v.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const body = `${symbol}<use href="#${id}"></use>`;
+const color = brand && set === 'simple-icons' ? BRAND_COLORS[icon] : undefined;
+const attrs: Record<string, string> = {
+  ...svg.attributes,
+  class: ['icon', brand ? 'icon--brand' : '', className ?? ''].filter(Boolean).join(' '),
+  ...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': 'true' }),
+  focusable: 'false',
+  ...(color ? { style: `--brand:#${color}` } : {}),
+};
+const html = iconToHTML(label ? `<title>${escapeHtml(label)}</title>${body}` : body, attrs);
+---
+
+<Fragment set:html={html} />

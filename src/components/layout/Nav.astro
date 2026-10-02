@@ -1,0 +1,669 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { href, LANGS, type Lang, makeT, SECTIONS, stripLocale, useUi } from '@/i18n';
+import { PROFILE } from '@/lib/profile';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ui = useUi(lang);
+const dict = {
+  th: {
+    brandHome: 'กลับหน้าแรก',
+    menu: 'เมนู',
+    display: 'การแสดงผล',
+    getInTouch: 'ติดต่อโดยตรง',
+    email: 'อีเมล',
+    phone: 'โทรศัพท์',
+  },
+  en: {
+    brandHome: 'Home',
+    menu: 'Menu',
+    display: 'Display',
+    getInTouch: 'Get in touch',
+    email: 'Email',
+    phone: 'Phone',
+  },
+};
+const t = makeT(dict, lang);
+
+// The 404 page has no per-locale twin: its language switch goes to the other home page.
+const rawPath = stripLocale(Astro.url.pathname);
+const path = /^\/404(\.html)?\/?$/.test(rawPath) ? '/' : rawPath;
+const LANG_META: Record<Lang, { short: string; name: string }> = {
+  th: { short: 'TH', name: 'ภาษาไทย' },
+  en: { short: 'EN', name: 'English' },
+};
+const langLinks = LANGS.map((l) => ({ lang: l, url: href(l, path), current: l === lang, ...LANG_META[l] }));
+const brandName = lang === 'th' ? ui('siteName') : ui('shortName');
+const links = SECTIONS.map((id, i) => ({
+  id,
+  url: href(lang, `#${id}`),
+  label: ui(id),
+  idx: String(i + 1).padStart(2, '0'),
+}));
+---
+
+<header class="site-nav" data-nav>
+  <nav aria-label={ui('navLabel')} class="shell flex h-full items-center justify-between gap-3 lg:grid lg:grid-cols-[1fr_auto_1fr]">
+    <a href={href(lang, '/')} class="brand group" data-brand>
+      <span class="brand__mark" aria-hidden="true">WC</span>
+      <span class="brand__name">{brandName}</span>
+      <span class="sr-only"> — {t('brandHome')}</span>
+    </a>
+
+    <ul class="hidden items-center gap-0.5 lg:flex" role="list">
+      {
+        links.map((l) => (
+          <li>
+            <a href={l.url} class="nav-link" data-spy-link={l.id}>
+              <span class="nav-link__idx" aria-hidden="true">
+                {l.idx}
+              </span>
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex items-center justify-end gap-1.5">
+      <button
+        type="button"
+        class="tool search-btn"
+        data-cmdk-open
+        aria-label={ui('search')}
+        aria-haspopup="dialog"
+        aria-keyshortcuts="Control+K Meta+K /"
+      >
+        <Icon name="lucide:search" size={17} />
+        <span class="search-btn__text">{ui('search')}</span>
+        <span class="kbd-hint" aria-hidden="true"><kbd data-kbd-mod>Ctrl</kbd><kbd>K</kbd></span>
+      </button>
+
+      <button
+        type="button"
+        class="tool hidden md:inline-flex"
+        data-theme-toggle
+        data-to-light={ui('themeToLight')}
+        data-to-dark={ui('themeToDark')}
+        aria-label={ui('themeToLight')}
+      >
+        <Icon name="lucide:sun" size={17} class="theme-icon--sun" />
+        <Icon name="lucide:moon" size={17} class="theme-icon--moon" />
+      </button>
+
+      <div class="lang-switch hidden md:flex" role="group" aria-label={ui('language')}>
+        {
+          langLinks.map((l) => (
+            <a
+              href={l.url}
+              hreflang={l.lang}
+              lang={l.lang}
+              data-lang-link
+              aria-current={l.current ? 'true' : undefined}
+            >
+              {l.short}
+              <span class="sr-only"> · {l.name}</span>
+            </a>
+          ))
+        }
+      </div>
+
+      <a href={href(lang, '/cv/')} class="cv-btn hidden lg:inline-flex">
+        <Icon name="lucide:file-down" size={15} />
+        {ui('cv')}
+      </a>
+
+      <button
+        type="button"
+        class="tool lg:hidden"
+        data-drawer-open
+        aria-controls="nav-drawer"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        aria-label={ui('openMenu')}
+      >
+        <Icon name="lucide:menu" size={20} />
+      </button>
+    </div>
+  </nav>
+</header>
+
+<dialog id="nav-drawer" class="drawer" aria-labelledby="nav-drawer-title" data-drawer>
+  <div class="drawer__panel">
+    <div class="drawer__head">
+      <p id="nav-drawer-title" class="label">{t('menu')}</p>
+      <button type="button" class="tool" data-drawer-close aria-label={ui('closeMenu')}>
+        <Icon name="lucide:x" size={20} />
+      </button>
+    </div>
+
+    <nav aria-label={ui('navLabel')}>
+      <ol class="drawer__links" role="list">
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.url} data-spy-link={l.id}>
+                <span class="drawer__idx" aria-hidden="true">
+                  {l.idx}
+                </span>
+                <span class="drawer__label">{l.label}</span>
+                <Icon name="lucide:arrow-up-right" size={18} class="drawer__arrow" />
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    <div class="drawer__prefs">
+      <p class="label">{t('display')}</p>
+      <div class="drawer__pref-row">
+        <button
+          type="button"
+          class="pref-btn"
+          data-theme-toggle
+          data-to-light={ui('themeToLight')}
+          data-to-dark={ui('themeToDark')}
+        >
+          <Icon name="lucide:sun" size={17} class="theme-icon--sun" />
+          <Icon name="lucide:moon" size={17} class="theme-icon--moon" />
+          <span data-theme-label>{ui('themeToLight')}</span>
+        </button>
+        <div class="lang-switch lang-switch--lg" role="group" aria-label={ui('language')}>
+          {
+            langLinks.map((l) => (
+              <a
+                href={l.url}
+                hreflang={l.lang}
+                lang={l.lang}
+                data-lang-link
+                aria-current={l.current ? 'true' : undefined}
+              >
+                {l.short}
+                <span class="sr-only"> · {l.name}</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <a href={href(lang, '/cv/')} class="drawer__cv">
+      <Icon name="lucide:file-down" size={18} />
+      {ui('cvLong')}
+    </a>
+
+    <div class="drawer__contact">
+      <p class="label">{t('getInTouch')}</p>
+      <a href={`mailto:${PROFILE.email}`} class="contact-row">
+        <Icon name="lucide:mail" size={17} />
+        <span class="sr-only">{t('email')}: </span>
+        <span class="font-mono text-sm">{PROFILE.email}</span>
+      </a>
+      <a href={`tel:${PROFILE.phone}`} class="contact-row">
+        <Icon name="lucide:phone" size={17} />
+        <span class="sr-only">{t('phone')}: </span>
+        <span class="font-mono text-sm">{PROFILE.phoneDisplay}</span>
+      </a>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import { initNav } from '@/scripts/nav';
+
+  initNav();
+</script>
+
+<style>
+  /* Same order Tailwind declares; repeated here in case this sheet loads before global.css. */
+  @layer theme, base, components, utilities;
+  /* In the components layer so Tailwind utilities (hidden, md:flex…) still win. */
+  @layer components {
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: var(--spacing-nav);
+    border-bottom: 1px solid transparent;
+    transition:
+      translate var(--duration-base) var(--ease-out-expo),
+      background-color var(--duration-base) var(--ease-out-expo),
+      border-color var(--duration-base) var(--ease-out-expo);
+  }
+  .site-nav[data-scrolled] {
+    background: var(--glass);
+    border-bottom-color: var(--line);
+    -webkit-backdrop-filter: blur(16px) saturate(1.5);
+    backdrop-filter: blur(16px) saturate(1.5);
+  }
+  .site-nav[data-hidden]:not(:focus-within) {
+    translate: 0 -100%;
+  }
+
+  /* ---------------------------------------------------------------- brand */
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    min-height: 44px;
+    min-width: 44px;
+    justify-self: start;
+    border-radius: var(--radius-md);
+    color: var(--fg);
+    text-decoration: none;
+  }
+  .brand__mark {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: var(--fg);
+    color: var(--bg);
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    transition: rotate var(--duration-base) var(--ease-out-expo);
+  }
+  .brand__mark::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    background: var(--accent);
+    box-shadow: 0 0 0 2px var(--bg);
+  }
+  .brand:hover .brand__mark {
+    rotate: -6deg;
+  }
+  .brand__name {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  @media (max-width: 419.98px) {
+    .brand__name {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
+
+  /* ---------------------------------------------------------------- links */
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: var(--radius-md);
+    color: var(--fg-3);
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition:
+      color var(--duration-fast) ease,
+      background-color var(--duration-fast) ease;
+  }
+  .nav-link:hover {
+    color: var(--fg);
+    background: color-mix(in oklch, var(--fg) 6%, transparent);
+  }
+  .nav-link__idx {
+    display: none;
+    font-family: var(--font-mono);
+    font-size: var(--text-3xs);
+    color: var(--fg-3);
+  }
+  @media (min-width: 80rem) {
+    .nav-link__idx {
+      display: inline;
+    }
+  }
+  .nav-link[aria-current='true'] {
+    color: var(--fg);
+  }
+  .nav-link[aria-current='true'] .nav-link__idx {
+    color: var(--accent);
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 1px;
+    width: 1rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+    translate: -50% 0;
+    scale: 0 1;
+    transition: scale var(--duration-base) var(--ease-out-expo);
+  }
+  .nav-link[aria-current='true']::after {
+    scale: 1 1;
+  }
+
+  /* ---------------------------------------------------------------- tools */
+  .tool {
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-md);
+    color: var(--fg-2);
+    transition:
+      color var(--duration-fast) ease,
+      background-color var(--duration-fast) ease;
+  }
+  @media (min-width: 64rem) {
+    .tool {
+      width: 2.375rem;
+      height: 2.375rem;
+    }
+  }
+  .tool:hover {
+    color: var(--fg);
+    background: color-mix(in oklch, var(--fg) 7%, transparent);
+  }
+  .search-btn__text,
+  .kbd-hint {
+    display: none;
+  }
+  @media (min-width: 80rem) {
+    .search-btn {
+      display: inline-flex;
+      width: auto;
+      gap: 0.55rem;
+      padding-inline: 0.7rem 0.45rem;
+      border: 1px solid var(--line);
+      background: color-mix(in oklch, var(--bg-1) 60%, transparent);
+      color: var(--fg-3);
+      font-size: 0.8125rem;
+      align-items: center;
+    }
+    .search-btn:hover {
+      border-color: var(--line-2);
+    }
+    .search-btn__text {
+      display: inline;
+      padding-inline-end: 0.75rem;
+      white-space: nowrap;
+    }
+  }
+  @media (min-width: 80rem) and (hover: hover) and (pointer: fine) {
+    .kbd-hint {
+      display: inline-flex;
+      gap: 3px;
+    }
+  }
+  .kbd-hint kbd {
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding-inline: 0.3rem;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid var(--line-2);
+    border-radius: 5px;
+    background: var(--bg-2);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1;
+    color: var(--fg-2);
+  }
+
+  :global([data-theme='dark'] .theme-icon--moon),
+  :global([data-theme='light'] .theme-icon--sun) {
+    display: none;
+  }
+
+  .lang-switch {
+    align-items: center;
+    gap: 2px;
+    padding: 3px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+  }
+  .lang-switch a {
+    display: inline-grid;
+    place-items: center;
+    min-width: 2.1rem;
+    height: 1.9rem;
+    padding-inline: 0.4rem;
+    border-radius: 7px;
+    color: var(--fg-3);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition:
+      color var(--duration-fast) ease,
+      background-color var(--duration-fast) ease;
+  }
+  .lang-switch a:hover {
+    color: var(--fg);
+  }
+  .lang-switch a[aria-current='true'] {
+    background: var(--bg-3);
+    color: var(--fg);
+    box-shadow: var(--elev-1);
+  }
+  .lang-switch--lg a {
+    min-width: 3rem;
+    height: 2.5rem;
+  }
+
+  .cv-btn {
+    align-items: center;
+    gap: 0.45rem;
+    height: 2.375rem;
+    margin-inline-start: 0.35rem;
+    padding-inline: 0.85rem;
+    border-radius: var(--radius-md);
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: inset 0 1px 0 oklch(100% 0 0 / 0.18);
+    transition:
+      background-color var(--duration-fast) ease,
+      translate var(--duration-fast) ease;
+  }
+  .cv-btn:hover {
+    background: color-mix(in oklch, var(--accent) 88%, var(--fg));
+  }
+  .cv-btn:active {
+    translate: 0 1px;
+  }
+
+  /* --------------------------------------------------------------- drawer */
+  .drawer {
+    margin: 0;
+    margin-inline-start: auto;
+    padding: 0;
+    width: min(25rem, calc(100vw - 2.75rem));
+    max-width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    border: 0;
+    border-inline-start: 1px solid var(--line);
+    background: var(--bg-1);
+    color: var(--fg);
+    box-shadow: var(--elev-2);
+    translate: 100% 0;
+    transition:
+      translate var(--duration-slow) var(--ease-out-expo),
+      overlay var(--duration-slow) allow-discrete,
+      display var(--duration-slow) allow-discrete;
+  }
+  .drawer[open] {
+    translate: 0 0;
+  }
+  @starting-style {
+    .drawer[open] {
+      translate: 100% 0;
+    }
+  }
+  .drawer::backdrop {
+    background: color-mix(in oklch, var(--bg) 55%, transparent);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    transition:
+      opacity var(--duration-base) ease,
+      overlay var(--duration-base) allow-discrete,
+      display var(--duration-base) allow-discrete;
+  }
+  .drawer[open]::backdrop {
+    opacity: 1;
+  }
+  @starting-style {
+    .drawer[open]::backdrop {
+      opacity: 0;
+    }
+  }
+  .drawer__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    min-height: 100%;
+    padding: max(0.75rem, env(safe-area-inset-top)) max(1.25rem, env(safe-area-inset-right))
+      max(1.5rem, env(safe-area-inset-bottom)) 1.25rem;
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: -1px -1px;
+  }
+  .drawer__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: calc(var(--spacing-nav) - 0.75rem);
+    margin-inline-end: -0.5rem;
+  }
+  .drawer__links {
+    border-top: 1px solid var(--line);
+  }
+  .drawer__links a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 3.5rem;
+    padding-block: 0.5rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--fg-2);
+    transition: color var(--duration-fast) ease;
+  }
+  .drawer__links a:hover,
+  .drawer__links a[aria-current='true'] {
+    color: var(--fg);
+  }
+  .drawer__idx {
+    width: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    color: var(--fg-3);
+  }
+  .drawer__links a[aria-current='true'] .drawer__idx {
+    color: var(--accent);
+  }
+  .drawer__label {
+    flex: 1;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  :global(:lang(th)) .drawer__label {
+    letter-spacing: 0;
+  }
+  .drawer__links :global(.drawer__arrow) {
+    color: var(--fg-3);
+    transition:
+      translate var(--duration-base) var(--ease-out-expo),
+      color var(--duration-fast) ease;
+  }
+  .drawer__links a:hover :global(.drawer__arrow) {
+    color: var(--accent);
+    translate: 2px -2px;
+  }
+  .drawer__prefs,
+  .drawer__contact {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .drawer__pref-row {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .drawer__pref-row .lang-switch {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .pref-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    height: 2.75rem;
+    padding-inline: 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--bg-1);
+    color: var(--fg-2);
+    font-size: 0.875rem;
+  }
+  .pref-btn:hover {
+    color: var(--fg);
+    border-color: var(--line-2);
+  }
+  .drawer__cv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    border-radius: var(--radius-md);
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 600;
+    box-shadow: inset 0 1px 0 oklch(100% 0 0 / 0.18);
+  }
+  .drawer__contact {
+    margin-top: auto;
+    padding-top: 1.25rem;
+    border-top: 1px dashed var(--line-2);
+  }
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 2.75rem;
+    color: var(--fg-2);
+    transition: color var(--duration-fast) ease;
+  }
+  .contact-row:hover {
+    color: var(--accent);
+  }
+
+  :global(html:has(dialog[open])) {
+    overflow: hidden;
+    scrollbar-gutter: stable;
+  }
+  }
+</style>

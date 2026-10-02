@@ -1,0 +1,586 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { href, type Lang, makeT } from '@/i18n';
+import { projectIcon } from '@/lib/icons';
+import { PROFILE } from '@/lib/profile';
+import type { Project } from '@/lib/projects';
+import { CATEGORY, dict, pad2, splitFeature } from './dict';
+import Gallery from './Gallery.astro';
+import MetricGrid from './MetricGrid.astro';
+import { atLeast, toSrcset, variants } from './media';
+import PrevNext from './PrevNext.astro';
+import ProjectFacts from './ProjectFacts.astro';
+import SectionHead from './SectionHead.astro';
+
+interface Props {
+  lang: Lang;
+  project: Project;
+  prev: Project | undefined;
+  next: Project | undefined;
+}
+
+const { lang, project, prev, next } = Astro.props;
+const t = makeT(dict, lang);
+const { title, summary, role, year, order, category, icon, live, repo, tags, cover, metrics, features } = project.data;
+const name = title[lang];
+/** Latin-only text inside a Thai page gets lang="en" (pronunciation + typography). */
+const latinIn = (text: string) => (lang === 'th' && !/[฀-๿]/.test(text) ? 'en' : undefined);
+
+/* ----------------------------------------------------------------- cover */
+const TALL = 2.5;
+const coverVariants = variants(cover.path, cover.widths, cover.width);
+const coverSrc = atLeast(coverVariants, 960);
+const coverRatio = cover.height / cover.width;
+/** plate: small source shown whole · crop: tall source cropped from the top · natural: as-is. */
+const coverMode = cover.width < 900 ? 'plate' : coverRatio > 0.75 ? 'crop' : 'natural';
+const coverAspect =
+  coverMode === 'natural' ? `${cover.width} / ${cover.height}` : coverMode === 'crop' ? '16 / 9' : 'auto';
+const coverSizes = coverMode === 'plate' ? `${cover.width}px` : '(min-width: 84rem) 78rem, calc(100vw - 2.5rem)';
+const frameHost = (live ?? repo ?? '').replace(/^https?:\/\//, '').replace(/\/$/, '');
+
+/* --------------------------------------------------------------- features */
+const items = features[lang].map(splitFeature);
+
+/* ---------------------------------------------------------------- JSON-LD */
+const site = Astro.site ?? new URL('https://gubbitkeytoday.github.io');
+const abs = (path: string) => new URL(path, site).href;
+const pageUrl = abs(href(lang, `/projects/${project.id}/`));
+const LANGUAGES = /^(typescript|javascript|python|rust|php|html\/css|webassembly|sql|bash)\b/i;
+const programmingLanguage = [
+  ...new Set(tags.filter((tag) => LANGUAGES.test(tag)).map((tag) => tag.replace(/\s+[\d.]+$/, ''))),
+];
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t('home'), item: abs(href(lang, '/')) },
+      { '@type': 'ListItem', position: 2, name: t('work'), item: abs(href(lang, '#work')) },
+      { '@type': 'ListItem', position: 3, name, item: pageUrl },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareSourceCode',
+    name,
+    description: summary[lang],
+    inLanguage: lang,
+    mainEntityOfPage: pageUrl,
+    ...(repo ? { codeRepository: repo } : {}),
+    ...(programmingLanguage.length ? { programmingLanguage } : {}),
+    keywords: tags.join(', '),
+    author: { '@type': 'Person', name: PROFILE.name.en, alternateName: PROFILE.name.th, url: abs(href(lang, '/')) },
+    dateCreated: String(year),
+    image: abs(coverSrc.url),
+    ...(live ? { url: live } : {}),
+  },
+];
+const ldJson = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
+---
+
+<script type="application/ld+json" set:html={ldJson} />
+
+<article class="pd" aria-labelledby="project-title">
+  <!-- ---------------------------------------------------------- Breadcrumb -->
+  <nav aria-label={t('breadcrumb')} class="shell pt-6 sm:pt-10">
+    <ol role="list" class="crumbs">
+      <li><a href={href(lang, '/')}>{t('home')}</a></li>
+      <li><a href={href(lang, '#work')}>{t('work')}</a></li>
+      <li><span aria-current="page" lang={latinIn(name)}>{name}</span></li>
+    </ol>
+  </nav>
+
+  <!-- ---------------------------------------------------------------- Hero -->
+  <header class="shell pt-8 sm:pt-12">
+    <p class="eyebrow">
+      <span class="eyebrow__no">
+        <span class="eyebrow__word">{t('no')}</span>
+        <span class="eyebrow__num">{pad2(order)}</span>
+      </span>
+      <span class="eyebrow__sep" aria-hidden="true">·</span>
+      <span class="eyebrow__num">{year}</span>
+      <span class="eyebrow__sep" aria-hidden="true">·</span>
+      <span class="eyebrow__word inline-flex items-center gap-1.5">
+        <Icon name={projectIcon(icon)} size={14} />
+        {CATEGORY[category][lang]}
+      </span>
+    </p>
+
+    <h1 id="project-title" class="pd__title" lang={latinIn(name)}>{name}</h1>
+
+    <div class="mt-6 grid gap-8 sm:mt-8 lg:grid-cols-12 lg:items-end lg:gap-12">
+      <p class="pd__lead lg:col-span-7">{summary[lang]}</p>
+
+      <div class="lg:col-span-5 lg:justify-self-end lg:text-end">
+        <p class="pd__role">
+          <span class="pd__role-k">{t('role')}</span>
+          <span class="pd__role-v">{role[lang]}</span>
+        </p>
+        <div class="mt-5 flex flex-wrap gap-3 lg:justify-end">
+          {
+            live && (
+              <a class="btn btn--primary" href={live} target="_blank" rel="noopener">
+                <Icon name="lucide:globe" size={17} />
+                {t('live')}
+                <Icon name="lucide:arrow-up-right" size={16} class="btn__arrow" />
+                <span class="sr-only">{t('newTab')}</span>
+              </a>
+            )
+          }
+          {
+            repo && (
+              <a class:list={['btn', live ? 'btn--ghost' : 'btn--primary']} href={repo} target="_blank" rel="noopener">
+                <Icon name="simple-icons:github" size={17} />
+                {t('source')}
+                <Icon name="lucide:arrow-up-right" size={16} class="btn__arrow" />
+                <span class="sr-only">{t('newTab')}</span>
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- --------------------------------------------------------------- Cover -->
+  <div class="shell mt-10 sm:mt-14">
+    <figure class="frame">
+      <figcaption class="frame__bar">
+        <span class="frame__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="frame__host" lang="en">{frameHost}</span>
+        <span class="frame__dim" aria-hidden="true">{cover.width} × {cover.height}</span>
+      </figcaption>
+      <div class:list={['frame__media', `frame__media--${coverMode}`]} style={`aspect-ratio: ${coverAspect}`}>
+        <img
+          src={coverSrc.url}
+          srcset={toSrcset(coverVariants)}
+          sizes={coverSizes}
+          width={cover.width}
+          height={cover.height}
+          alt={`${t('cover')} ${name}`}
+          fetchpriority="high"
+          decoding="async"
+          style={`view-transition-name: project-${project.id}`}
+        />
+        {
+          coverRatio > TALL && (
+            <span class="frame__badge">
+              <Icon name="lucide:move-vertical" size={13} />
+              {t('fullPage')}
+            </span>
+          )
+        }
+      </div>
+    </figure>
+  </div>
+
+  <!-- ------------------------------------------------------------- Metrics -->
+  <MetricGrid lang={lang} metrics={metrics} />
+
+  <!-- ------------------------------------------------- Case study + facts -->
+  <section id="highlights" aria-labelledby="highlights-title" class="shell pt-section">
+    <SectionHead id="highlights-title" num={1} title={t('highlights')} lead={t('highlightsLead')} />
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
+      <ol role="list" class="feats lg:col-span-7">
+        {
+          items.map((f, i) => (
+            <li class="feat">
+              <span class="feat__n" aria-hidden="true">
+                {pad2(i + 1)}
+              </span>
+              <div class="min-w-0">
+                {f.label && (
+                  <strong class="feat__label" lang={latinIn(f.label)}>
+                    {f.label}
+                  </strong>
+                )}
+                <p class:list={['feat__detail', { 'feat__detail--solo': !f.label }]}>{f.detail}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="lg:col-span-5 lg:col-start-8 xl:col-span-4 xl:col-start-9">
+        <div class="lg:sticky lg:top-[calc(var(--spacing-nav)+1.5rem)]">
+          <ProjectFacts lang={lang} project={project} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------- Gallery -->
+  {project.data.gallery.length > 0 && <Gallery lang={lang} project={project} num={2} />}
+
+  <!-- ----------------------------------------------------------- Prev/next -->
+  <PrevNext lang={lang} prev={prev} next={next} num={project.data.gallery.length > 0 ? 3 : 2} />
+</article>
+
+<style>
+  /* ------------------------------------------------------------ breadcrumb */
+  .crumbs {
+    /* One line, truncating the current page: a wrapping trail changes height when web fonts
+       swap in and pushes the whole hero down (layout shift). */
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.25rem 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.875rem;
+    color: var(--fg-3);
+  }
+  .crumbs li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+  .crumbs li + li::before {
+    content: '/';
+    color: var(--line-2);
+    font-family: var(--font-mono);
+  }
+  .crumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    color: var(--fg-3);
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.25em;
+    transition:
+      color var(--duration-fast) var(--ease-out-expo),
+      text-decoration-color var(--duration-fast) var(--ease-out-expo);
+  }
+  .crumbs a:hover {
+    color: var(--fg);
+    text-decoration-color: var(--line-2);
+  }
+  .crumbs li:last-child {
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+  .crumbs [aria-current] {
+    overflow: hidden;
+    max-width: min(36ch, 100%);
+    color: var(--fg-2);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ------------------------------------------------------------------ hero */
+  .eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.75rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.75rem;
+    color: var(--fg-3);
+  }
+  .eyebrow__no {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+  }
+  .eyebrow__no::before {
+    content: '';
+    width: 1.75rem;
+    height: 1px;
+    background: currentColor;
+  }
+  .eyebrow__num {
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+  }
+  .eyebrow__word {
+    font-family: var(--font-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  :lang(th) .eyebrow__word {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .eyebrow__sep {
+    color: var(--line-2);
+  }
+
+  .pd__title {
+    max-width: 22ch;
+    font-size: var(--text-display-lg);
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: var(--tracking-tightest);
+    color: var(--fg);
+  }
+  .pd__title:lang(th) {
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+  .pd__lead {
+    max-width: 62ch;
+    font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.3125rem);
+    line-height: 1.6;
+    color: var(--fg-2);
+  }
+  .pd__role {
+    display: grid;
+    gap: 0.2rem;
+  }
+  .pd__role-k {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+  :lang(th) .pd__role-k {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .pd__role-v {
+    font-weight: 500;
+    color: var(--fg);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 2.875rem;
+    padding: 0.65rem 1.15rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.2;
+    transition:
+      background-color var(--duration-fast) var(--ease-out-expo),
+      border-color var(--duration-fast) var(--ease-out-expo),
+      color var(--duration-fast) var(--ease-out-expo);
+  }
+  .btn--primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .btn--primary:hover {
+    background: color-mix(in oklch, var(--accent) 88%, var(--fg));
+  }
+  .btn--ghost {
+    border-color: var(--line-2);
+    background: var(--bg-1);
+    color: var(--fg);
+  }
+  .btn--ghost:hover {
+    border-color: var(--fg-3);
+    background: var(--bg-2);
+  }
+  .btn :global(.btn__arrow) {
+    opacity: 0.75;
+    transition: translate var(--duration-fast) var(--ease-out-expo);
+  }
+  .btn:hover :global(.btn__arrow) {
+    translate: 2px -2px;
+  }
+
+  /* ----------------------------------------------------------------- cover */
+  .frame {
+    position: relative;
+    margin: 0;
+    padding: 0 clamp(0.5rem, 1.2vw, 0.875rem) clamp(0.5rem, 1.2vw, 0.875rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background-color: var(--bg-1);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: -1px -1px;
+    box-shadow: var(--elev-2);
+  }
+  .frame::before,
+  .frame::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 0 solid var(--accent);
+    pointer-events: none;
+  }
+  .frame::before {
+    top: -7px;
+    left: -7px;
+    border-width: 1px 0 0 1px;
+  }
+  .frame::after {
+    right: -7px;
+    bottom: -7px;
+    border-width: 0 1px 1px 0;
+  }
+  .frame__bar {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    min-height: 2.75rem;
+    padding-inline: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--fg-3);
+  }
+  .frame__dots {
+    display: inline-flex;
+    gap: 0.35rem;
+  }
+  .frame__dots i {
+    width: 0.55rem;
+    height: 0.55rem;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+  }
+  .frame__host {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .frame__dim {
+    font-variant-numeric: tabular-nums;
+  }
+  .frame__media {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius-xl) - 0.6rem);
+    background: var(--bg-2);
+  }
+  .frame__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .frame__media--plate {
+    display: grid;
+    place-items: center;
+    padding: clamp(1.5rem, 5vw, 4rem) clamp(1rem, 4vw, 3rem);
+    border-color: transparent;
+    background: transparent;
+  }
+  .frame__media--plate img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    box-shadow: var(--elev-2);
+  }
+  .frame__badge {
+    position: absolute;
+    left: 0.75rem;
+    bottom: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--fg);
+  }
+  @media (max-width: 639px) {
+    .frame__dim {
+      display: none;
+    }
+    .frame {
+      border-radius: var(--radius-lg);
+    }
+    .frame__media {
+      border-radius: var(--radius-md);
+    }
+  }
+
+  /* -------------------------------------------------------------- features */
+  .feats {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: none;
+  }
+  .feat {
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    gap: 0.75rem;
+    padding-block: 1.35rem;
+    border-top: 1px solid var(--line);
+  }
+  .feat:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .feat__n {
+    padding-top: 0.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+  }
+  .feat__label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+  }
+  .feat__label:lang(th) {
+    letter-spacing: 0;
+  }
+  .feat__detail {
+    color: var(--fg-2);
+  }
+  .feat__detail--solo {
+    font-size: clamp(1rem, 0.97rem + 0.2vw, 1.0938rem);
+    color: var(--fg);
+  }
+
+  /* ---------------------------------------------------------------- motion */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .feat,
+      .pd :global(.facts),
+      .pd :global(.metric) {
+        animation: pd-rise linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 55%;
+      }
+    }
+  }
+  @keyframes pd-rise {
+    from {
+      opacity: 0;
+      translate: 0 1.25rem;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+</style>

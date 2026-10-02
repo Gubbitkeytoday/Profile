@@ -1,0 +1,274 @@
+---
+import { JOURNEY, KIND_LABEL, shortTitle } from '@/components/profile/facts';
+import SectionHead from '@/components/profile/SectionHead.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { href, type Lang, makeT } from '@/i18n';
+import { projectIcon } from '@/lib/icons';
+import { getProjects, projectPath } from '@/lib/projects';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const dict = {
+  th: {
+    eyebrow: 'เส้นทาง',
+    title: 'ตั้งแต่ 2023 ทิศทางเดียว',
+    lead: 'จากพื้นฐานปีหนึ่ง จนถึงการส่งมอบระบบที่ใช้งานได้จริง — การเรียนกับการทำโปรเจกต์เดินไปด้วยกันตั้งแต่ต้น',
+    education: 'การศึกษา',
+    educationV: 'ปริญญาตรี สาขาเทคโนโลยีสารสนเทศ · ชั้นปีที่ 3',
+    focus: 'สายงาน',
+    focusV: 'Full-Stack Developer · IT Support',
+    seeking: 'กำลังมองหา',
+    seekingV: 'ฝึกงาน · สหกิจศึกษา · งานประจำ',
+    cv: 'ดู CV ฉบับเต็ม',
+    built: 'ผลงานปีนี้',
+    studied: 'วิชาหลัก',
+    timeline: 'ไทม์ไลน์การศึกษาและผลงาน',
+  },
+  en: {
+    eyebrow: 'Journey',
+    title: 'Since 2023, one direction.',
+    lead: 'From first-year fundamentals to shipping systems people can use — the education and the projects grew together, on purpose.',
+    education: 'Education',
+    educationV: "Bachelor's in Information Technology · 3rd year",
+    focus: 'Focus',
+    focusV: 'Full-Stack Developer · IT Support',
+    seeking: 'Looking for',
+    seekingV: 'Internship · co-op · full-time',
+    cv: 'View the full CV',
+    built: 'Built this year',
+    studied: 'Core subjects',
+    timeline: 'Education and project timeline',
+  },
+};
+const t = makeT(dict, lang);
+
+const byId = new Map((await getProjects()).map((p) => [p.id, p]));
+const facts = [
+  { k: t('education'), v: t('educationV') },
+  { k: t('focus'), v: t('focusV') },
+  { k: t('seeking'), v: t('seekingV') },
+];
+---
+
+<section id="journey" aria-labelledby="journey-title" class="py-section">
+  <div class="shell grid gap-12 lg:grid-cols-12 lg:gap-16">
+    <div class="lg:col-span-5">
+      <div class="lg:sticky lg:top-[calc(var(--spacing-nav)+2.5rem)]">
+        <SectionHead num="03" eyebrow={t('eyebrow')} title={t('title')} id="journey-title" lead={t('lead')} />
+
+        <dl class="facts ticks mt-10 rounded-sm border border-line bg-bg-1 shadow-elev-1">
+          {
+            facts.map((f) => (
+              <div class="grid gap-1 border-b border-line px-5 py-4 last:border-b-0 sm:grid-cols-[8.5rem_1fr] sm:gap-4">
+                <dt class="label">{f.k}</dt>
+                <dd class="text-sm text-fg">{f.v}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <a
+          href={href(lang, '/cv/')}
+          class="group mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-fg underline decoration-line-2 underline-offset-4 transition-colors duration-(--duration-fast) hover:text-accent hover:decoration-accent"
+        >
+          <Icon name="lucide:file-text" class="text-fg-3 group-hover:text-accent" />
+          {t('cv')}
+          <Icon
+            name="lucide:arrow-right"
+            class="transition-transform duration-(--duration-base) ease-out-expo group-hover:translate-x-0.5"
+          />
+        </a>
+      </div>
+    </div>
+
+    <ol class="tl lg:col-span-7" aria-label={t('timeline')}>
+      {
+        JOURNEY.map((e) => {
+          const projects = (e.projects ?? []).map((id) => byId.get(id)).filter((p) => p !== undefined);
+          return (
+            <li class="tl-item" data-kind={e.kind}>
+              <p class="tl-year font-mono text-accent tabular-nums">{e.year}</p>
+              <div class="tl-body">
+                <p class="label">{KIND_LABEL[e.kind][lang]}</p>
+                <h3 class="mt-2 text-xl font-semibold text-fg sm:text-2xl">{e.title[lang]}</h3>
+                <p class="mt-3 max-w-[60ch] text-[0.95rem] leading-relaxed text-fg-2">{e.body[lang]}</p>
+                {e.topics && (
+                  <ul class="mt-5 flex flex-wrap gap-2" aria-label={t('studied')}>
+                    {e.topics.map((topic) => (
+                      <li class="rounded-sm border border-line px-2.5 py-1 font-mono text-xs text-fg-3">{topic}</li>
+                    ))}
+                  </ul>
+                )}
+                {projects.length > 0 && (
+                  <ul class="mt-5 flex flex-wrap gap-2" aria-label={t('built')}>
+                    {projects.map((p) => (
+                      <li>
+                        <a
+                          href={href(lang, projectPath(p))}
+                          class="inline-flex min-h-9 items-center gap-2 rounded-sm border border-line bg-bg-1 px-3 py-1.5 text-sm text-fg-2 transition-colors duration-(--duration-fast) hover:border-accent hover:text-fg"
+                        >
+                          <Icon name={projectIcon(p.data.icon)} class="text-fg-3" />
+                          {shortTitle(p, lang)}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .ticks {
+    position: relative;
+  }
+  .ticks::before,
+  .ticks::after {
+    content: "";
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border: 0 solid var(--line-2);
+    pointer-events: none;
+  }
+  .ticks::before {
+    top: -1px;
+    left: -1px;
+    border-width: 1px 0 0 1px;
+  }
+  .ticks::after {
+    right: -1px;
+    bottom: -1px;
+    border-width: 0 1px 1px 0;
+  }
+
+  /* ---------------------------------------------------------- timeline */
+  .tl {
+    --tl-x: 5px; /* line position */
+    --tl-gap: 2rem; /* content offset from the line */
+    position: relative;
+    view-timeline: --journey block;
+  }
+  /* Track + drawn progress. */
+  .tl::before,
+  .tl::after {
+    content: "";
+    position: absolute;
+    top: 0.6rem;
+    bottom: 0.6rem;
+    left: var(--tl-x);
+    width: 1px;
+    translate: -50% 0;
+  }
+  .tl::before {
+    background: var(--line);
+  }
+  .tl::after {
+    background: linear-gradient(180deg, var(--accent), color-mix(in oklch, var(--accent) 35%, var(--line-2)));
+    transform-origin: top;
+  }
+
+  .tl-item {
+    position: relative;
+    padding-left: var(--tl-gap);
+    padding-bottom: clamp(2.5rem, 5vw, 3.75rem);
+  }
+  .tl-item:last-child {
+    padding-bottom: 0;
+  }
+  /* Node on the line. */
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: var(--tl-x);
+    top: 0.55rem;
+    width: 9px;
+    height: 9px;
+    translate: -50% 0;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1.5px solid var(--accent);
+    box-shadow: 0 0 0 5px var(--bg);
+    z-index: 1;
+  }
+  .tl-item[data-kind="now"]::before {
+    background: var(--accent);
+  }
+  .tl-year {
+    font-size: var(--text-sm);
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+  }
+  .tl-body {
+    margin-top: 0.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .tl {
+      --tl-x: 7.25rem;
+      --tl-gap: 2.5rem;
+    }
+    .tl-item {
+      display: grid;
+      grid-template-columns: calc(var(--tl-x) - var(--tl-gap)) 1fr;
+      column-gap: calc(var(--tl-gap) * 2);
+      padding-left: 0;
+    }
+    .tl-year {
+      font-size: var(--text-display-sm);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      text-align: right;
+      font-weight: 500;
+      margin-top: 0.1rem;
+    }
+    .tl-item::before {
+      top: 0.7rem;
+    }
+    .tl-body {
+      margin-top: 0;
+    }
+  }
+
+  /* Scroll-driven line draw + item reveal. Static (fully drawn) without support or under reduced motion. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .tl::after {
+        animation: tl-draw linear both;
+        animation-timeline: --journey;
+        animation-range: entry 30% cover 65%;
+      }
+      .tl-item {
+        animation: tl-reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 60%;
+      }
+    }
+  }
+  @keyframes tl-draw {
+    from {
+      scale: 1 0;
+    }
+    to {
+      scale: 1 1;
+    }
+  }
+  @keyframes tl-reveal {
+    from {
+      opacity: 0;
+      translate: 0 1.25rem;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+</style>

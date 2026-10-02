@@ -1,0 +1,123 @@
+---
+import '@/styles/global.css';
+import plexThai400 from '@fontsource/ibm-plex-sans-thai/files/ibm-plex-sans-thai-thai-400-normal.woff2?url';
+import anuphanThai from '@fontsource-variable/anuphan/files/anuphan-thai-wght-normal.woff2?url';
+import { asset, DEFAULT_LANG, HTML_LANG, href, LANGS, type Lang, OG_LOCALE, useUi } from '@/i18n';
+import { PROFILE } from '@/lib/profile';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** Locale-agnostic path of this page, e.g. `/` or `/projects/metro3d/`. */
+  path: string;
+  /** Basename of the generated Open Graph image (see src/pages/og/[...slug].png.ts). */
+  ogImage?: string;
+  type?: 'website' | 'article';
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const { lang, title, description, path, ogImage = 'home', type = 'website', jsonLd, noindex = false } = Astro.props;
+const t = useUi(lang);
+const site = Astro.site ?? new URL('https://gubbitkeytoday.github.io');
+const canonical = new URL(href(lang, path), site).href;
+const og = new URL(asset(`og/${ogImage}-${lang}.png`), site).href;
+const alternates = LANGS.map((l) => ({ lang: l, url: new URL(href(l, path), site).href }));
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: PROFILE.name.en,
+  alternateName: PROFILE.name.th,
+  jobTitle: 'Full-Stack Developer',
+  email: `mailto:${PROFILE.email}`,
+  telephone: PROFILE.phone,
+  url: new URL(href(DEFAULT_LANG, '/'), site).href,
+  image: new URL(asset('apple-touch-icon.png'), site).href,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Hua Hin',
+    addressRegion: 'Prachuap Khiri Khan',
+    addressCountry: 'TH',
+  },
+  sameAs: [PROFILE.github, PROFILE.githubAlt, PROFILE.facebook, PROFILE.line],
+  knowsAbout: [
+    'Next.js',
+    'React',
+    'TypeScript',
+    'Rust',
+    'WebAssembly',
+    'Three.js',
+    'Python',
+    'FastAPI',
+    'PostgreSQL',
+    'Docker',
+    'Linux',
+    'Accessibility',
+  ],
+};
+/** Thai faces use `font-display: optional` (see global.css), so preload them where Thai is the page language. */
+const preloadFonts = lang === 'th' ? [plexThai400, anuphanThai] : [];
+const ld = [person, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
+---
+
+<!doctype html>
+<html lang={HTML_LANG[lang]} data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={PROFILE.name.en} />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0b0c10" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)" />
+    {noindex && <meta name="robots" content="noindex" />}
+    {
+      !noindex && (
+        <>
+          <link rel="canonical" href={canonical} />
+          {alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.url} />)}
+          <link rel="alternate" hreflang="x-default" href={alternates.find((a) => a.lang === DEFAULT_LANG)?.url} />
+        </>
+      )
+    }
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={t('siteName')} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={OG_LOCALE[lang]} />
+    {LANGS.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={OG_LOCALE[l]} />)}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={og} />
+
+    {preloadFonts.map((f) => <link rel="preload" href={f} as="font" type="font/woff2" crossorigin />)}
+    <link rel="icon" href={asset('favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={asset('apple-touch-icon.png')} />
+    <link rel="manifest" href={asset('manifest.webmanifest')} />
+    <link rel="sitemap" href={asset('sitemap-index.xml')} />
+
+    <!-- Theme before first paint: stored choice → OS preference. -->
+    <script is:inline>
+      (() => {
+        let t = null;
+        try { t = localStorage.getItem('theme'); } catch {}
+        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t('skip')}</a>
+    <slot />
+  </body>
+</html>

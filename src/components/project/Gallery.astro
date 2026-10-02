@@ -1,0 +1,384 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { type Lang, makeT } from '@/i18n';
+import { posterSrc, videoSrc } from '@/lib/media';
+import type { Project } from '@/lib/projects';
+import { dict, pad2 } from './dict';
+import { atLeast, posterSize, toSrcset, variants } from './media';
+import SectionHead from './SectionHead.astro';
+
+interface Props {
+  lang: Lang;
+  project: Project;
+  num: number;
+}
+
+const { lang, project, num } = Astro.props;
+const t = makeT(dict, lang);
+const title = project.data.title[lang];
+const items = project.data.gallery;
+const total = items.length;
+
+/** Ratio (h/w) above which a capture is a "full page" and shown cropped from the top. */
+const TALL = 2.5;
+
+interface Tile {
+  n: number;
+  kind: 'image' | 'video';
+  href: string;
+  /** Lightbox size. */
+  w: number;
+  h: number;
+  thumb: string;
+  thumbSrcset?: string;
+  thumbW: number;
+  thumbH: number;
+  srcset?: string;
+  poster?: string;
+  alt: string;
+  caption: string;
+  tall: boolean;
+  portrait: boolean;
+  /** Small source (e.g. a cropped UI detail): shown whole on a plate instead of cropped. */
+  small: boolean;
+  featured: boolean;
+}
+
+const tiles: Tile[] = items.map((g, i) => {
+  const n = i + 1;
+  const caption = `${title} — ${n}/${total}`;
+  if (g.type === 'video') {
+    const { width, height } = posterSize(g.path);
+    return {
+      n,
+      kind: 'video',
+      href: videoSrc(g.path),
+      w: width,
+      h: height,
+      thumb: posterSrc(g.path),
+      thumbW: width,
+      thumbH: height,
+      poster: posterSrc(g.path),
+      alt: `${title} — ${t('video')} ${n}`,
+      caption,
+      tall: false,
+      portrait: false,
+      small: false,
+      featured: i === 0 && total >= 5,
+    };
+  }
+  const list = variants(g.path, g.widths, g.width, g.format);
+  const largest = list.at(-1) ?? { url: '', w: g.width };
+  const thumb = atLeast(list, 480);
+  const ratio = g.height / g.width;
+  const tall = ratio > TALL;
+  const portrait = ratio > 1.15;
+  return {
+    n,
+    kind: 'image',
+    href: largest.url,
+    w: largest.w,
+    h: Math.round((g.height * largest.w) / g.width),
+    thumb: thumb.url,
+    thumbSrcset: toSrcset(list),
+    thumbW: thumb.w,
+    thumbH: Math.round((g.height * thumb.w) / g.width),
+    srcset: toSrcset(list),
+    alt: `${title} — ${t('screenshot')} ${n}`,
+    caption,
+    tall,
+    portrait,
+    small: g.width < 720 && !tall,
+    featured: i === 0 && !portrait && total >= 5,
+  };
+});
+
+const videoCount = tiles.filter((x) => x.kind === 'video').length;
+const imageCount = total - videoCount;
+const countLabel = [`${imageCount} ${t('images')}`, videoCount ? `${videoCount} ${t('videos')}` : '']
+  .filter(Boolean)
+  .join(' · ');
+
+const strings = JSON.stringify({
+  close: t('lbClose'),
+  zoom: t('lbZoom'),
+  prev: t('lbPrev'),
+  next: t('lbNext'),
+  error: t('lbError'),
+});
+
+const sizes = (tile: Tile) =>
+  tile.featured
+    ? '(min-width: 84rem) 54rem, (min-width: 1024px) 64vw, 100vw'
+    : '(min-width: 84rem) 27rem, (min-width: 1024px) 31vw, 50vw';
+---
+
+<section id="gallery" aria-labelledby="gallery-title" class="shell pt-section">
+  <SectionHead id="gallery-title" num={num} title={t('gallery')}>
+    <p class="font-mono text-xs tracking-[0.08em] text-fg-3 tabular-nums [:lang(th)_&]:font-sans [:lang(th)_&]:text-sm [:lang(th)_&]:tracking-normal">
+      {countLabel}
+    </p>
+  </SectionHead>
+
+  <div class="gal" data-gallery data-strings={strings} data-gallery-label={`${title} — ${t('lbDialog')}`}>
+    <ul role="list" class="gal__grid">
+      {
+        tiles.map((tile) => (
+          <li
+            class:list={[
+              'tile',
+              {
+                'tile--featured': tile.featured,
+                'tile--tall': tile.portrait && !tile.featured,
+                'tile--small': tile.small,
+              },
+            ]}
+          >
+            <a
+              class="tile__link"
+              href={tile.href}
+              data-pswp-width={tile.w}
+              data-pswp-height={tile.h}
+              data-pswp-srcset={tile.srcset}
+              data-pswp-type={tile.kind === 'video' ? 'video' : undefined}
+              data-poster={tile.poster}
+              data-caption={tile.caption}
+              data-tall={tile.tall ? '1' : undefined}
+              data-cropped={tile.small ? undefined : 'true'}
+            >
+              <img
+                class="tile__img"
+                src={tile.thumb}
+                srcset={tile.thumbSrcset}
+                sizes={tile.thumbSrcset ? sizes(tile) : undefined}
+                width={tile.thumbW}
+                height={tile.thumbH}
+                alt={tile.alt}
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="tile__n" aria-hidden="true">
+                {pad2(tile.n)}
+              </span>
+              {tile.kind === 'video' && (
+                <>
+                  <span class="tile__play" aria-hidden="true">
+                    <Icon name="lucide:play" size={22} />
+                  </span>
+                  <span class="tile__badge">
+                    <Icon name="lucide:film" size={13} />
+                    {t('videoBadge')}
+                  </span>
+                </>
+              )}
+              {tile.tall && (
+                <span class="tile__badge">
+                  <Icon name="lucide:move-vertical" size={13} />
+                  {t('fullPage')}
+                </span>
+              )}
+              <span class="tile__zoom" aria-hidden="true">
+                <Icon name="lucide:maximize-2" size={14} />
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  import './gallery';
+</script>
+
+<style>
+  .gal {
+    container-type: inline-size;
+  }
+  .gal__grid {
+    --cols: 2;
+    --gap: 0.625rem;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    /* Every row is exactly one 16:10 cell; tall tiles span two. */
+    grid-auto-rows: calc((100cqi - (var(--cols) - 1) * var(--gap)) / var(--cols) * 0.625);
+    grid-auto-flow: row dense;
+    gap: var(--gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 1024px) {
+    .gal__grid {
+      --cols: 3;
+      --gap: 1rem;
+    }
+  }
+  .tile {
+    position: relative;
+    min-width: 0;
+  }
+  .tile--featured {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .tile--tall {
+    grid-row: span 2;
+  }
+
+  .tile__link {
+    position: relative;
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--bg-1);
+    box-shadow: var(--elev-1);
+    transition:
+      border-color var(--duration-base) var(--ease-out-expo),
+      box-shadow var(--duration-base) var(--ease-out-expo);
+  }
+  .tile__link:hover {
+    border-color: var(--line-2);
+  }
+  .tile__link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-lg);
+  }
+  .tile__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: scale var(--duration-slow) var(--ease-out-expo);
+  }
+  .tile__link:hover .tile__img {
+    scale: 1.03;
+  }
+
+  /* Small UI crops sit whole on a blueprint plate instead of being upscaled. */
+  .tile--small .tile__link {
+    display: grid;
+    place-items: center;
+    padding: clamp(0.75rem, 4cqi, 1.75rem);
+    background-color: var(--bg-1);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: -1px -1px;
+  }
+  .tile--small .tile__img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--elev-2);
+  }
+
+  .tile__n,
+  .tile__badge,
+  .tile__zoom {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border: 1px solid var(--line);
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--fg);
+    border-radius: var(--radius-sm);
+    pointer-events: none;
+  }
+  .tile__n {
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0.15rem 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+    color: var(--fg-2);
+  }
+  .tile__badge {
+    left: 0.5rem;
+    bottom: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .tile__zoom {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    justify-content: center;
+    opacity: 0;
+    translate: 0 -0.25rem;
+    transition:
+      opacity var(--duration-base) var(--ease-out-expo),
+      translate var(--duration-base) var(--ease-out-expo);
+  }
+  .tile__link:hover .tile__zoom,
+  .tile__link:focus-visible .tile__zoom {
+    opacity: 1;
+    translate: 0 0;
+  }
+  .tile__play {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    display: grid;
+    place-items: center;
+    width: clamp(3rem, 12cqi, 4.5rem);
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--on-accent);
+    box-shadow: 0 0 0 8px color-mix(in oklch, var(--accent) 22%, transparent);
+    pointer-events: none;
+    transition: scale var(--duration-base) var(--ease-out-expo);
+  }
+  .tile__play :global(svg) {
+    translate: 2px 0;
+    fill: currentColor;
+  }
+  .tile__link:hover .tile__play {
+    scale: 1.08;
+  }
+
+  @media (max-width: 639px) {
+    .tile__link {
+      border-radius: var(--radius-md);
+    }
+    .tile__zoom {
+      display: none;
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .tile {
+        animation: pd-tile-in linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 60%;
+      }
+    }
+  }
+  @keyframes pd-tile-in {
+    from {
+      opacity: 0;
+      translate: 0 1.5rem;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+</style>

@@ -1,0 +1,182 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { href, type Lang, makeT } from '@/i18n';
+import { type Project, projectPath } from '@/lib/projects';
+import { CATEGORY, dict, pad2 } from './dict';
+import { atLeast, variants } from './media';
+import SectionHead from './SectionHead.astro';
+
+interface Props {
+  lang: Lang;
+  prev: Project | undefined;
+  next: Project | undefined;
+  num: number;
+}
+
+const { lang, prev, next, num } = Astro.props;
+const t = makeT(dict, lang);
+
+const card = (p: Project, dir: 'prev' | 'next') => {
+  const { cover } = p.data;
+  const v = atLeast(variants(cover.path, cover.widths, cover.width), 480);
+  return {
+    dir,
+    url: href(lang, projectPath(p)),
+    title: p.data.title[lang],
+    meta: `${pad2(p.data.order)} · ${p.data.year}`,
+    category: CATEGORY[p.data.category][lang],
+    img: v.url,
+    w: v.w,
+    h: Math.round((cover.height * v.w) / cover.width),
+  };
+};
+const cards = [prev && card(prev, 'prev'), next && card(next, 'next')].filter((c) => !!c);
+---
+
+<nav aria-labelledby="more-title" class="shell pt-section pb-section">
+  <SectionHead id="more-title" num={num} title={t('more')} />
+
+  <ul role="list" class="grid gap-3 sm:gap-4 md:grid-cols-2">
+    {
+      cards.map((c) => (
+        <li class:list={[{ 'md:col-start-2': c.dir === 'next' && cards.length === 1 }]}>
+          <a href={c.url} rel={c.dir} class:list={['pn', `pn--${c.dir}`]}>
+            <span class="pn__media">
+              <img src={c.img} width={c.w} height={c.h} alt="" loading="lazy" decoding="async" />
+            </span>
+            <span class="pn__body">
+              <span class="pn__dir">
+                {c.dir === 'prev' && <Icon name="lucide:arrow-left" size={14} />}
+                {c.dir === 'prev' ? t('prev') : t('next')}
+                {c.dir === 'next' && <Icon name="lucide:arrow-right" size={14} />}
+              </span>
+              <span class="pn__title">{c.title}</span>
+              <span class="pn__meta">
+                <span class="font-mono tabular-nums">{c.meta}</span>
+                <span aria-hidden="true">·</span>
+                <span>{c.category}</span>
+              </span>
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="mt-10 flex justify-center">
+    <a href={href(lang, '#work')} class="back">
+      <Icon name="lucide:layout-grid" size={16} />
+      {t('back')}
+    </a>
+  </p>
+</nav>
+
+<style>
+  .pn {
+    display: grid;
+    grid-template-columns: clamp(6.5rem, 26%, 10.5rem) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(0.9rem, 2vw, 1.5rem);
+    height: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--bg-1);
+    box-shadow: var(--elev-1);
+    transition:
+      border-color var(--duration-base) var(--ease-out-expo),
+      background-color var(--duration-base) var(--ease-out-expo);
+  }
+  .pn:is(:hover, :focus-visible) {
+    border-color: var(--line-2);
+    background: var(--bg-2);
+  }
+  .pn--next {
+    grid-template-columns: minmax(0, 1fr) clamp(6.5rem, 26%, 10.5rem);
+    text-align: end;
+  }
+  .pn--next .pn__media {
+    order: 2;
+  }
+  .pn__media {
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--bg-2);
+  }
+  .pn__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: scale var(--duration-slow) var(--ease-out-expo);
+  }
+  .pn:hover .pn__media img {
+    scale: 1.05;
+  }
+  .pn__body {
+    display: grid;
+    gap: 0.3rem;
+    min-width: 0;
+  }
+  .pn__dir {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8125rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .pn--next .pn__dir {
+    justify-content: flex-end;
+  }
+  .pn__dir :global(svg) {
+    transition: translate var(--duration-base) var(--ease-out-expo);
+  }
+  .pn--prev:hover .pn__dir :global(svg) {
+    translate: -3px 0;
+  }
+  .pn--next:hover .pn__dir :global(svg) {
+    translate: 3px 0;
+  }
+  .pn__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.35rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--fg);
+    text-wrap: balance;
+  }
+  .pn__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    font-size: 0.8125rem;
+    color: var(--fg-3);
+  }
+  .pn--next .pn__meta {
+    justify-content: flex-end;
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    padding: 0.6rem 1.25rem;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    color: var(--fg);
+    font-weight: 500;
+    transition:
+      border-color var(--duration-fast) var(--ease-out-expo),
+      background-color var(--duration-fast) var(--ease-out-expo);
+  }
+  .back:is(:hover, :focus-visible) {
+    border-color: var(--accent);
+    background: color-mix(in oklch, var(--accent) 10%, transparent);
+  }
+</style>

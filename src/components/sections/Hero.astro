@@ -1,0 +1,235 @@
+---
+import FeaturedTile from '@/components/hero/FeaturedTile.astro';
+import TechMarquee from '@/components/hero/TechMarquee.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { href, type Lang, makeT, useUi } from '@/i18n';
+import { PROFILE } from '@/lib/profile';
+import { getProjects } from '@/lib/projects';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ui = useUi(lang);
+const projects = await getProjects();
+const count = projects.length;
+
+/** Flagship: BKK Transit, else the newest (highest `order`). */
+const flagship = projects.find((p) => p.id === 'bkk-transit') ?? projects[0];
+/** Peeks: preferred picks with landscape covers, never the flagship. */
+const landscape = (p: (typeof projects)[number]) => p.data.cover.width / p.data.cover.height >= 1.4;
+const preferred = ['prism64', 'metro3d'];
+const peeks = [...preferred.map((id) => projects.find((p) => p.id === id)), ...projects.filter((p) => landscape(p))]
+  .filter((p): p is (typeof projects)[number] => !!p && p.id !== flagship?.id && landscape(p))
+  .filter((p, i, a) => a.findIndex((q) => q.id === p.id) === i)
+  .slice(0, 2);
+
+const dict = {
+  th: {
+    status: 'พร้อมรับงาน · ฝึกงาน/สหกิจ 2026',
+    lead: 'นักพัฒนา Full-Stack ที่สร้างระบบใช้งานจริงครบทั้งระบบ',
+    leadRest: '— ตั้งแต่ออกแบบฐานข้อมูลและ API ไปจนถึงหน้าเว็บที่เร็วและทุกคนเข้าถึงได้',
+    student: 'นักศึกษา IT ปี 3',
+    location: 'หัวหิน',
+    projects: `${count} โปรเจกต์`,
+    factsLabel: 'ข้อมูลโดยย่อ',
+    seeWork: 'ดูผลงาน',
+    emailSubject: 'ติดต่อเรื่องงาน / ฝึกงาน — จากพอร์ตโฟลิโอ',
+    emailLabel: 'ส่งอีเมลถึง',
+  },
+  en: {
+    status: 'Available · Internship / co-op 2026',
+    lead: 'Full-stack developer who ships real systems end to end',
+    leadRest: '— from database schema and APIs to fast, accessible interfaces.',
+    student: '3rd-year IT student',
+    location: 'Hua Hin, Thailand',
+    projects: `${count} projects`,
+    factsLabel: 'At a glance',
+    seeWork: 'See my work',
+    emailSubject: 'Internship / job opportunity — via your portfolio',
+    emailLabel: 'Email',
+  },
+};
+const t = makeT(dict, lang);
+const other: Lang = lang === 'th' ? 'en' : 'th';
+const mailto = `mailto:${PROFILE.email}?subject=${encodeURIComponent(t('emailSubject'))}`;
+const [first, ...rest] = PROFILE.name[lang].split(' ');
+---
+
+<section id="home" aria-labelledby="hero-name" class="hero relative isolate">
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <div
+    class="shell grid items-center gap-x-12 gap-y-14 pt-[clamp(2rem,6vw,5.5rem)] pb-[clamp(2.75rem,6vw,5.5rem)] lg:grid-cols-12"
+  >
+    <div class="lg:col-span-7">
+      <p
+        class="inline-flex items-center gap-2.5 rounded-full border border-line-2 bg-bg-1/70 py-1.5 ps-3 pe-4 text-sm text-fg-2 shadow-elev-1 backdrop-blur-sm"
+      >
+        <span class="dot" aria-hidden="true"></span>
+        {t('status')}
+      </p>
+
+      <h1
+        id="hero-name"
+        class="name mt-7 font-display font-semibold text-fg tracking-tightest [:lang(th)_&]:tracking-normal"
+      >
+        {
+          lang === 'en' ? (
+            <>
+              <span class="block">{first}</span>
+              <span class="block">
+                {rest.join(' ')}
+                <span class="-ms-[0.04em] text-accent" aria-hidden="true">.</span>
+              </span>
+            </>
+          ) : (
+            <>
+              {PROFILE.name[lang]}
+              <span class="text-accent" aria-hidden="true">.</span>
+            </>
+          )
+        }
+      </h1>
+      <p
+        lang={other}
+        class:list={[
+          'mt-3 text-fg-3',
+          other === 'en'
+            ? 'font-mono text-xs uppercase tracking-[0.18em]'
+            : 'font-display text-lg tracking-normal',
+        ]}
+      >
+        {PROFILE.name[other]}
+      </p>
+
+      <p class="lead mt-8 max-w-[34ch] font-display text-fg [:lang(th)_&]:max-w-[30ch]">
+        <strong class="font-semibold">{t('lead')}</strong>{' '}
+        <span class="text-fg-2">{t('leadRest')}</span>
+      </p>
+
+      <ul
+        class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-fg-3"
+        aria-label={t('factsLabel')}
+      >
+        <li class="flex items-center gap-2"><Icon name="lucide:graduation-cap" size={16} />{t('student')}</li>
+        <li class="flex items-center gap-2"><Icon name="lucide:map-pin" size={16} />{t('location')}</li>
+        <li class="flex items-center gap-2">
+          <Icon name="lucide:folder-git-2" size={16} /><span class="tabular-nums">{t('projects')}</span>
+        </li>
+      </ul>
+
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <a
+          href={href(lang, '#work')}
+          class="btn inline-flex min-h-12 items-center gap-2 rounded-md bg-accent px-5 font-semibold text-on-accent"
+        >
+          {t('seeWork')}
+          <Icon name="lucide:arrow-down-right" size={18} class="arrow" />
+        </a>
+        <a
+          href={href(lang, '/cv/')}
+          class="btn inline-flex min-h-12 items-center gap-2 rounded-md border border-line-2 bg-bg-1/60 px-5 font-medium text-fg hover:border-fg-3 hover:bg-bg-2"
+        >
+          <Icon name="lucide:file-down" size={18} class="text-fg-3" />
+          {ui('cvLong')}
+        </a>
+        <a
+          href={mailto}
+          class="mail inline-flex min-h-12 items-center gap-2 px-2 text-sm text-fg-2 hover:text-fg"
+        >
+          <Icon name="lucide:mail" size={16} class="text-fg-3" />
+          <span class="sr-only">{t('emailLabel')}</span>
+          <span class="underline decoration-line-2 underline-offset-4">{PROFILE.email}</span>
+        </a>
+      </div>
+    </div>
+
+    {
+      flagship && (
+        <div class="lg:col-span-5 lg:pt-6">
+          <FeaturedTile lang={lang} project={flagship} peeks={peeks} />
+        </div>
+      )
+    }
+  </div>
+
+  <TechMarquee lang={lang} />
+</section>
+
+<style>
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: center top;
+    mask-image: radial-gradient(ellipse 75% 70% at 60% 35%, #000 20%, transparent 75%);
+    pointer-events: none;
+  }
+  /* A single, faint ember wash behind the featured tile — no stacked layers. */
+  .grid-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      40rem 26rem at 78% 42%,
+      color-mix(in oklch, var(--accent) 9%, transparent),
+      transparent 70%
+    );
+  }
+
+  .name {
+    /* min sized so "Chapseethong." fits a 320px viewport (WCAG 1.4.10 reflow) */
+    font-size: clamp(2.25rem, 0.9rem + 7vw, 6rem);
+    overflow-wrap: anywhere;
+    line-height: 0.95;
+  }
+  :lang(th) .name {
+    font-size: clamp(2.5rem, 1.4rem + 4.8vw, 5.25rem);
+    line-height: 1.2;
+  }
+  .lead {
+    font-size: clamp(1.3rem, 1.05rem + 1.05vw, 2rem);
+    line-height: 1.3;
+    letter-spacing: -0.012em;
+    text-wrap: pretty;
+  }
+  :lang(th) .lead {
+    line-height: 1.55;
+    letter-spacing: 0;
+  }
+
+  .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--ok);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--ok) 22%, transparent);
+  }
+
+  .btn {
+    transition:
+      background-color var(--duration-fast) ease,
+      border-color var(--duration-fast) ease,
+      translate var(--duration-base) var(--ease-out-expo);
+  }
+  .btn:active {
+    translate: 0 1px;
+  }
+  .btn.bg-accent:hover {
+    background: color-mix(in oklch, var(--accent) 88%, var(--fg));
+  }
+  .btn :global(.arrow) {
+    transition: translate var(--duration-base) var(--ease-out-expo);
+  }
+  .btn:hover :global(.arrow) {
+    translate: 2px 2px;
+  }
+  .mail {
+    transition: color var(--duration-fast) ease;
+  }
+</style>

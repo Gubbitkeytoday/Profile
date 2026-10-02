@@ -1,0 +1,50 @@
+---
+import SectionHead from '@/components/profile/SectionHead.astro';
+import SkillTile from '@/components/skills/SkillTile.astro';
+import { DOMAINS } from '@/components/skills/tech';
+import { type Lang, makeT } from '@/i18n';
+import { getProjects } from '@/lib/projects';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const projects = await getProjects();
+const dict = {
+  th: {
+    eyebrow: 'ทักษะ',
+    title: 'เครื่องมือที่ใช้สร้างงานจริง',
+    lead: 'จัดกลุ่มตามงานที่ทำ ตัวเลขทุกตัวนับจากโปรเจกต์ด้านบน — กดที่เทคโนโลยีเพื่อดูว่าใช้ในงานไหนบ้าง',
+    legendCount: 'ตัวเลข = จำนวนโปรเจกต์ที่ใช้',
+    legendDashed: 'กรอบเส้นประ = ใช้งานเป็น แต่ยังไม่มีโปรเจกต์ที่ติดแท็กนี้',
+  },
+  en: {
+    eyebrow: 'Skills',
+    title: 'The stack I actually ship with.',
+    lead: 'Grouped by the work it does. Every number is counted from the projects above — pick a tool to see where I used it.',
+    legendCount: 'Number = projects that use it',
+    legendDashed: 'Dashed = a skill I use with no tagged project yet',
+  },
+};
+const t = makeT(dict, lang);
+---
+
+<section id="skills" aria-labelledby="skills-title" class="py-section">
+  <div class="shell">
+    <SectionHead num="02" eyebrow={t('eyebrow')} title={t('title')} id="skills-title" lead={t('lead')} />
+    <div class="mt-12 grid gap-4 lg:mt-16 lg:grid-cols-12 lg:gap-5">
+      {DOMAINS.map((domain, i) => <SkillTile lang={lang} domain={domain} index={i} projects={projects} />)}
+    </div>
+    <ul class="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-sm text-fg-3" role="list">
+      <li class="flex items-center gap-2.5">
+        <span class="key grid size-6 place-items-center rounded-sm border border-line-2 font-mono text-xs text-accent-2" aria-hidden="true">3</span>
+        {t('legendCount')}
+      </li>
+      <li class="flex items-center gap-2.5">
+        <span class="key size-6 rounded-sm border border-dashed border-line-2" aria-hidden="true"></span>
+        {t('legendDashed')}
+      </li>
+    </ul>
+  </div>
+</section>

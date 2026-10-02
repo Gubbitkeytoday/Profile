@@ -1,0 +1,454 @@
+---
+/**
+ * 01 — Work. Featured bento (curated) + a filterable editorial index of every
+ * project. All markup is static; work.ts only toggles [hidden] and syncs the URL.
+ */
+import SectionHead from '@/components/profile/SectionHead.astro';
+import Icon from '@/components/ui/Icon.astro';
+import FeaturedTile, { type TileSize } from '@/components/work/FeaturedTile.astro';
+import Filters, { type TechOption } from '@/components/work/Filters.astro';
+import ProjectRow from '@/components/work/ProjectRow.astro';
+import { CATEGORIES, type Category, techKey } from '@/components/work/shared';
+import { type Lang, makeT } from '@/i18n';
+import { getProjects } from '@/lib/projects';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const projects = await getProjects();
+const total = projects.length;
+
+/** Curated order + layout of the bento. `media` swaps in a stronger gallery shot. */
+const FEATURED: { id: string; size: TileSize; media?: string; fit?: 'cover' | 'peek' }[] = [
+  { id: 'bkk-transit', size: 'xl' },
+  { id: 'prism64', size: 'sm' },
+  { id: 'discord-rpc', size: 'sm', fit: 'peek' },
+  { id: 'metro3d', size: 'md' },
+  { id: 'khuiai', size: 'md', media: 'media/khuiai/12-chat-reply' },
+  { id: 'arom-coffee', size: 'md' },
+];
+const byId = new Map(projects.map((p) => [p.id, p]));
+const featured = FEATURED.flatMap((f) => {
+  const project = byId.get(f.id);
+  return project ? [{ ...f, project }] : [];
+});
+const featuredIds = new Set(featured.map((f) => f.id));
+
+/** Index reads as a chronology: newest year first, then newest project. */
+const index = projects; // already in site-wide order (byNewest)
+
+const counts = Object.fromEntries(
+  CATEGORIES.map((c) => [c, projects.filter((p) => p.data.category === c).length]),
+) as Record<Category, number>;
+
+/** One option per tech family ("Next.js", "Next.js 14" → Next.js), most-used first. */
+const families = new Map<string, { values: Set<string>; ids: Set<string> }>();
+for (const p of projects) {
+  for (const tag of p.data.tags) {
+    const key = techKey(tag);
+    const f = families.get(key) ?? { values: new Set(), ids: new Set() };
+    f.values.add(tag);
+    f.ids.add(p.id);
+    families.set(key, f);
+  }
+}
+const tech: TechOption[] = [...families]
+  .map(([key, f]) => ({
+    key,
+    value: [...f.values].sort((a, b) => a.length - b.length || a.localeCompare(b))[0] ?? key,
+    count: f.ids.size,
+  }))
+  .sort((a, b) => b.count - a.count || a.value.localeCompare(b.value));
+
+const years = projects.map((p) => p.data.year);
+const y0 = Math.min(...years);
+const y1 = Math.max(...years);
+const live = projects.filter((p) => p.data.live).length;
+const repos = projects.filter((p) => p.data.repo).length;
+
+const dict = {
+  th: {
+    eyebrow: 'ผลงาน',
+    title: 'ผลงานที่เลือก',
+    lead: `${total} โปรเจกต์ที่ลงมือสร้างจริงระหว่างปี ${y0}–${y1} ตั้งแต่ระบบข้อมูลขนส่ง แชท AI ระบบ POS ไปจนถึงเว็บ 3 มิติและแอปบนเดสก์ท็อป — ${repos === total ? 'เปิดซอร์สโค้ดให้ดูทุกชิ้น' : `เปิดซอร์สโค้ด ${repos} ชิ้น`} และ ${live} ชิ้นเปิดใช้งานออนไลน์`,
+    all: 'ทั้งหมด',
+    live: 'ออนไลน์',
+    years: 'ช่วงปี',
+    featured: 'ผลงานเด่น',
+    index: 'ผลงานทั้งหมด',
+    status: 'แสดง {x} จาก {n}',
+    remove: 'ลบตัวกรอง {t}',
+    tech: 'เทคโนโลยี',
+    colYear: 'ปี',
+    colProject: 'โปรเจกต์',
+    colStack: 'เทคโนโลยี',
+    colType: 'ประเภท',
+    emptyTitle: 'ไม่พบผลงานที่ตรงกัน',
+    emptyBody: 'ลองคำค้นอื่น หรือล้างตัวกรองดูครับ',
+    clear: 'ล้างตัวกรอง',
+  },
+  en: {
+    eyebrow: 'Work',
+    title: 'Selected work',
+    lead: `${total} projects built between ${y0} and ${y1} — transit data, AI chat, point-of-sale, 3D web and desktop tooling. ${repos === total ? 'Source code for every one' : `Source code for ${repos}`}; ${live} running live.`,
+    all: 'All',
+    live: 'Live',
+    years: 'Years',
+    featured: 'Featured projects',
+    index: 'All projects',
+    status: 'Showing {x} of {n}',
+    remove: 'Remove filter {t}',
+    tech: 'Technology',
+    colYear: 'Year',
+    colProject: 'Project',
+    colStack: 'Stack',
+    colType: 'Type',
+    emptyTitle: 'No projects match',
+    emptyBody: 'Try a different keyword, or clear the filters.',
+    clear: 'Clear filters',
+  },
+};
+const t = makeT(dict, lang);
+const status = t('status').replace('{x}', String(total)).replace('{n}', String(total));
+---
+
+<section
+  id="work"
+  aria-labelledby="work-title"
+  class="work py-section"
+  data-work
+  data-t-status={t('status')}
+  data-t-remove={t('remove')}
+  data-t-tech={t('tech')}
+>
+  <noscript><style is:inline>[data-work-filters]{display:none!important}</style></noscript>
+  <div class="shell">
+    <div class="head">
+      <SectionHead num="01" eyebrow={t('eyebrow')} title={t('title')} id="work-title" lead={t('lead')} />
+      <dl class="stats">
+        <div class="stat">
+          <dt class="label">{t('all')}</dt>
+          <dd>{total}</dd>
+        </div>
+        <div class="stat">
+          <dt class="label">{t('live')}</dt>
+          <dd><span class="live-dot" aria-hidden="true"></span>{live}</dd>
+        </div>
+        <div class="stat">
+          <dt class="label">{t('years')}</dt>
+          <dd>{y0}–{String(y1).slice(2)}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="featured" data-featured-block>
+      <ul class="bento" role="list" aria-label={t('featured')}>
+        {featured.map((f) => <FeaturedTile project={f.project} lang={lang} size={f.size} media={f.media} fit={f.fit} />)}
+      </ul>
+    </div>
+
+    <div class="index" id="work-index">
+      <div class="index-head">
+        <h3 class="index-title">{t('index')}</h3>
+        <p class="status" role="status" data-status>{status}</p>
+      </div>
+
+      <Filters lang={lang} total={total} counts={counts} tech={tech} />
+
+      <div class="list" data-list>
+        <div class="cols" aria-hidden="true">
+          <span>{t('colYear')}</span>
+          <span></span>
+          <span>{t('colProject')}</span>
+          <span>{t('colStack')}</span>
+          <span>{t('colType')}</span>
+          <span></span>
+        </div>
+        <ul class="rows" role="list" data-rows>
+          {index.map((p) => <ProjectRow project={p} lang={lang} featured={featuredIds.has(p.id)} />)}
+        </ul>
+        <div class="preview" aria-hidden="true" data-preview></div>
+      </div>
+
+      <div class="empty" data-empty hidden>
+        <span class="empty-ico"><Icon name="lucide:search-x" /></span>
+        <p class="empty-title">{t('emptyTitle')}</p>
+        <p class="empty-body">{t('emptyBody')}</p>
+        <button type="button" class="empty-btn" data-clear>
+          <Icon name="lucide:rotate-ccw" />
+          {t('clear')}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '@/components/work/work';
+</script>
+
+<style>
+  .head {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, auto));
+    justify-content: start;
+    gap: 0;
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--bg-1);
+    box-shadow: var(--elev-1);
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.85rem 1.25rem 0.95rem;
+  }
+  .stat + .stat {
+    border-inline-start: 1px solid var(--line);
+  }
+  .stat dd {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    color: var(--fg);
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ok);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--ok) 22%, transparent);
+  }
+
+  /* -------------------------------------------------------------- bento */
+  .featured {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+  .bento {
+    display: flex;
+    gap: 1rem;
+    margin: 0 calc(var(--spacing-gutter) * -1);
+    padding: 0.5rem var(--spacing-gutter) 1rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: var(--spacing-gutter);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    list-style: none;
+  }
+  .bento > :global(li) {
+    flex: 0 0 min(84%, 24rem);
+    scroll-snap-align: start;
+  }
+  @media (min-width: 640px) {
+    .bento > :global(li) {
+      flex-basis: 58%;
+    }
+  }
+  @media (min-width: 768px) {
+    .bento > :global(li) {
+      flex-basis: 44%;
+    }
+  }
+  @media (min-width: 1024px) {
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      grid-template-rows: 21rem 21rem 25rem;
+      gap: 1.25rem;
+      margin: 0;
+      padding: 0;
+      overflow: visible;
+    }
+    .bento > :global(li) {
+      grid-column: span 4;
+    }
+    .bento > :global(li.tile--xl) {
+      grid-row: span 2;
+      grid-column: span 8;
+    }
+  }
+
+  /* -------------------------------------------------------------- index */
+  .index {
+    margin-top: clamp(3.5rem, 7vw, 6rem);
+  }
+  .index-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .index-title {
+    color: var(--fg);
+    font-size: var(--text-display-sm);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+  :global(:lang(th)) .index-title {
+    letter-spacing: 0;
+  }
+  .status {
+    color: var(--fg-3);
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .list {
+    position: relative;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--line-2);
+  }
+  .cols {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .cols {
+      display: grid;
+      grid-template-columns: 4rem 2.25rem minmax(0, 1fr) minmax(0, 17rem) 9.5rem 1.25rem;
+      gap: 1.25rem;
+      padding: 0.7rem 0.75rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--fg-3);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    :global(:lang(th)) .cols {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+  }
+  .rows {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Floating cover preview (desktop pointer only; decorative). */
+  .preview {
+    display: none;
+  }
+  @media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+    .preview {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 5;
+      display: block;
+      width: 18rem;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border: 1px solid var(--line-2);
+      border-radius: var(--radius-md);
+      background: var(--bg-2);
+      box-shadow: var(--elev-2);
+      opacity: 0;
+      pointer-events: none;
+      scale: 0.94;
+      translate: var(--px, 0) calc(var(--py, 0px) - 50%);
+      transition:
+        opacity var(--duration-base) var(--ease-out-expo),
+        scale var(--duration-base) var(--ease-out-expo),
+        translate var(--duration-base) var(--ease-out-expo);
+    }
+    .preview[data-show="true"] {
+      opacity: 1;
+      scale: 1;
+    }
+    .preview[data-snap] {
+      transition: none;
+    }
+  }
+  .preview :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  /* -------------------------------------------------------------- empty */
+  .empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3.5rem 1.5rem;
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+  }
+  .empty-ico {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-md);
+    background: var(--bg-1);
+    color: var(--fg-3);
+    font-size: 1.25rem;
+  }
+  .empty-title {
+    margin-top: 1.1rem;
+    color: var(--fg);
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  .empty-body {
+    margin-top: 0.35rem;
+    color: var(--fg-2);
+    font-size: 0.95rem;
+  }
+  .empty-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    margin-top: 1.5rem;
+    padding: 0 1.15rem;
+    border: 1px solid var(--fg);
+    border-radius: var(--radius-md);
+    background: var(--fg);
+    color: var(--bg);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity var(--duration-fast) var(--ease-out-expo);
+  }
+  .empty-btn:hover {
+    opacity: 0.88;
+  }
+
+  @media (min-width: 1024px) {
+    .head {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+    .stats {
+      flex: none;
+    }
+  }
+</style>
