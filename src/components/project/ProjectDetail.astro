@@ -218,8 +218,10 @@ const ldJson = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 <style>
   /* ------------------------------------------------------------ breadcrumb */
   .crumbs {
+    /* One line, truncating the current page: a wrapping trail changes height when web fonts
+       swap in and pushes the whole hero down (layout shift). */
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     gap: 0.25rem 0.5rem;
     margin: 0;
@@ -255,9 +257,13 @@ const ldJson = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
     color: var(--fg);
     text-decoration-color: var(--line-2);
   }
+  .crumbs li:last-child {
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
   .crumbs [aria-current] {
     overflow: hidden;
-    max-width: 36ch;
+    max-width: min(36ch, 100%);
     color: var(--fg-2);
     text-overflow: ellipsis;
     white-space: nowrap;

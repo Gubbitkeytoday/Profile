@@ -78,13 +78,18 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
 
-      # `astro preview` serves dist/ under the /Profile/ base path, so Astro must be installed.
+      # LHCI's static server serves dist/ via the .lhci-root symlink created in lighthouserc.cjs.
       - run: npm ci
 
       - uses: actions/download-artifact@v8
         with:
           name: dist
           path: dist
+
+      # Every real device ships a Thai system font; the bare runner doesn't, which makes Thai text
+      # fall back to Unifont and inflates font-swap layout shift far beyond what visitors see.
+      - name: Install Thai system fonts (parity with real devices)
+        run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends fonts-thai-tlwg
 
       - name: Run Lighthouse CI (budgets in lighthouserc.cjs)
         run: npm run lhci

@@ -98,7 +98,7 @@ flowchart TD
 
 | Component | Purpose |
 | :-- | :-- |
-| `layouts/Base.astro` | `<head>`: title, description, canonical, hreflang, OG and Twitter tags, JSON-LD `Person`, manifest, and an inline theme bootstrap that runs before first paint. Also renders the skip link |
+| `layouts/Base.astro` | `<head>`: title, description, canonical, hreflang, OG and Twitter tags, JSON-LD `Person`, Thai font preloads (TH pages), manifest, and an inline theme bootstrap that runs before first paint. Also renders the skip link |
 | `components/layout/Nav.astro` | Sticky header with section links, language switch, theme toggle, palette trigger, CV link, and a mobile drawer in a `<dialog>` |
 | `components/layout/Footer.astro` | Footer links, live year, back-to-top button with a scroll-progress ring |
 | `components/layout/CommandPalette.astro` | `<dialog>` command palette. Options (actions, sections, projects) are rendered at build time |
@@ -202,9 +202,11 @@ The full token tables and typography rules are in
   Other images are `loading="lazy"` with `decoding="async"`.
 - **Responsive images:** every image has `srcset` built from the `<path>-<width>` variants and explicit
   `width`/`height` (enforced by a test), which prevents layout shift.
-- **Fonts:** self-hosted variable fonts (no font CDN) with `font-display: swap`; `unicode-range` subsets mean browsers
-  fetch only the scripts they need. No preloads — measured: they competed with the LCP image without improving LCP,
-  and font-swap CLS stays ≈ 0.01.
+- **Fonts:** self-hosted (no font CDN); `unicode-range` subsets mean browsers fetch only the scripts they need.
+  Latin faces (Inter, Space Grotesk, JetBrains Mono) use `font-display: swap` with **metric-matched fallbacks**
+  (`size-adjust`/`ascent-override` on local Arial/Liberation, computed with `@capsizecss/metrics`), so the swap barely
+  moves text. Thai faces (IBM Plex Sans Thai, Anuphan) can't be matched against every OS's Thai font, so they use
+  `font-display: optional` and are preloaded on TH pages only. Result: CLS 0–0.02 on every page.
 - **CSS:** inlined per page (`build.inlineStylesheets: 'always'`, ~20 KB gzipped) so nothing blocks first render.
 - **Rendering:** sections below the hero use `content-visibility: auto` (with remembered `contain-intrinsic-size`), which
   cut style/layout time by ~35 % on the Thai home page, where dictionary-based Thai line breaking is expensive.

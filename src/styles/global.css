@@ -6,12 +6,85 @@
 /* Self-hosted variable fonts (Fontsource) — no third-party font CDN. Thai glyphs come from IBM Plex Sans Thai. */
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/space-grotesk";
-@import "@fontsource-variable/anuphan";
 @import "@fontsource-variable/jetbrains-mono";
-@import "@fontsource/ibm-plex-sans-thai/thai-400.css";
-@import "@fontsource/ibm-plex-sans-thai/thai-500.css";
-@import "@fontsource/ibm-plex-sans-thai/thai-600.css";
-@import "@fontsource/ibm-plex-sans-thai/thai-700.css";
+
+/* Thai faces are declared here (not via Fontsource CSS) to use `font-display: optional`:
+ * Thai system fonts (Leelawadee, Thonburi, Loma…) can't be metric-matched, so a late swap
+ * would reflow whole paragraphs. TH pages preload these files (Base.astro); if one misses
+ * the ~100 ms window, that view keeps the system font — no shift — and the next page has it cached. */
+@font-face {
+  font-family: "Anuphan Variable";
+  font-style: normal;
+  font-display: optional;
+  font-weight: 100 700;
+  src: url("../../node_modules/@fontsource-variable/anuphan/files/anuphan-thai-wght-normal.woff2")
+    format("woff2-variations");
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: "IBM Plex Sans Thai";
+  font-style: normal;
+  font-display: optional;
+  font-weight: 400;
+  src: url("../../node_modules/@fontsource/ibm-plex-sans-thai/files/ibm-plex-sans-thai-thai-400-normal.woff2")
+    format("woff2");
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: "IBM Plex Sans Thai";
+  font-style: normal;
+  font-display: optional;
+  font-weight: 500;
+  src: url("../../node_modules/@fontsource/ibm-plex-sans-thai/files/ibm-plex-sans-thai-thai-500-normal.woff2")
+    format("woff2");
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: "IBM Plex Sans Thai";
+  font-style: normal;
+  font-display: optional;
+  font-weight: 600;
+  src: url("../../node_modules/@fontsource/ibm-plex-sans-thai/files/ibm-plex-sans-thai-thai-600-normal.woff2")
+    format("woff2");
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: "IBM Plex Sans Thai";
+  font-style: normal;
+  font-display: optional;
+  font-weight: 700;
+  src: url("../../node_modules/@fontsource/ibm-plex-sans-thai/files/ibm-plex-sans-thai-thai-700-normal.woff2")
+    format("woff2");
+  unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC;
+}
+
+/* Metric-matched fallbacks (computed with @capsizecss/metrics against Arial / Courier New).
+ * While the web fonts load, Latin text is set in a local font scaled to the same
+ * proportions, so the swap doesn't reflow headings and buttons (layout shift ≈ 0). */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial"), local("Liberation Sans"), local("Helvetica Neue"), local("Helvetica");
+  size-adjust: 107.12%;
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Space Grotesk Fallback";
+  src: local("Arial"), local("Liberation Sans"), local("Helvetica Neue"), local("Helvetica");
+  size-adjust: 109.69%;
+  ascent-override: 89.71%;
+  descent-override: 26.62%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "JetBrains Mono Fallback";
+  src: local("Courier New"), local("Liberation Mono"), local("Courier");
+  size-adjust: 99.98%;
+  ascent-override: 102.02%;
+  descent-override: 30%;
+  line-gap-override: 0%;
+}
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
@@ -91,9 +164,13 @@
 
 @theme {
   /* Latin glyphs come first; Thai falls through to the paired Thai face (never to a system font). */
-  --font-sans: "Inter Variable", "IBM Plex Sans Thai", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk Variable", "Anuphan Variable", "IBM Plex Sans Thai", ui-sans-serif, sans-serif;
-  --font-mono: "JetBrains Mono Variable", "IBM Plex Sans Thai", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: "Inter Variable", "Inter Fallback", "IBM Plex Sans Thai", ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    "Space Grotesk Variable", "Space Grotesk Fallback", "Anuphan Variable", "IBM Plex Sans Thai", ui-sans-serif,
+    sans-serif;
+  --font-mono:
+    "JetBrains Mono Variable", "JetBrains Mono Fallback", "IBM Plex Sans Thai", ui-monospace, SFMono-Regular, Menlo,
+    monospace;
 
   --text-3xs: clamp(0.625rem, 0.61rem + 0.07vw, 0.688rem);
   --text-2xs: clamp(0.688rem, 0.67rem + 0.09vw, 0.75rem);

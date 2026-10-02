@@ -41,7 +41,8 @@ A full rebuild from the vanilla v1 site to Astro, guided by the review in
   are inlined.
 - **Self-hosted Fontsource fonts:** Inter, Space Grotesk, Anuphan (Thai display), IBM Plex Sans Thai, JetBrains Mono.
 - **Performance work:** per-page SVG icon sprite (`<symbol>` once, `<use>` after), inlined CSS, `content-visibility`
-  on below-the-fold sections, 720w cover variants for phones, Lighthouse CI served with gzip like Pages.
+  on below-the-fold sections, 720w cover variants for phones, metric-matched Latin font fallbacks plus
+  `font-display: optional` (preloaded) Thai faces for near-zero CLS, Lighthouse CI served with gzip like Pages.
 - **Generated Open Graph images** (satori + sharp, 1200 × 630) for the home page and each project, in both languages.
 - `sitemap-index.xml`, `robots.txt`, `manifest.webmanifest`, and a bilingual `noindex` 404 page.
 - **Quality tooling:** Biome lint/format; `astro check`; Playwright with `@axe-core/playwright` (WCAG 2.2 AA must be

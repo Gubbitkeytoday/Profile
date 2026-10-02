@@ -1,5 +1,7 @@
 ---
 import '@/styles/global.css';
+import plexThai400 from '@fontsource/ibm-plex-sans-thai/files/ibm-plex-sans-thai-thai-400-normal.woff2?url';
+import anuphanThai from '@fontsource-variable/anuphan/files/anuphan-thai-wght-normal.woff2?url';
 import { asset, DEFAULT_LANG, HTML_LANG, href, LANGS, type Lang, OG_LOCALE, useUi } from '@/i18n';
 import { PROFILE } from '@/lib/profile';
 
@@ -55,6 +57,8 @@ const person = {
     'Accessibility',
   ],
 };
+/** Thai faces use `font-display: optional` (see global.css), so preload them where Thai is the page language. */
+const preloadFonts = lang === 'th' ? [plexThai400, anuphanThai] : [];
 const ld = [person, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
 ---
 
@@ -93,6 +97,7 @@ const ld = [person, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={og} />
 
+    {preloadFonts.map((f) => <link rel="preload" href={f} as="font" type="font/woff2" crossorigin />)}
     <link rel="icon" href={asset('favicon.svg')} type="image/svg+xml" />
     <link rel="apple-touch-icon" href={asset('apple-touch-icon.png')} />
     <link rel="manifest" href={asset('manifest.webmanifest')} />

@@ -130,7 +130,7 @@ src/
 ├── data/
 │   └── projects.json  Single source of truth for all project content
 ├── i18n/index.ts      Locales, href()/asset() helpers, shared UI dict, makeT()
-├── layouts/Base.astro <head>: SEO, OG, hreflang, JSON-LD, theme bootstrap
+├── layouts/Base.astro <head>: SEO, OG, hreflang, JSON-LD, Thai font preloads, theme bootstrap
 ├── lib/               icons.ts, media.ts, profile.ts, projects.ts, project-paths.ts
 ├── pages/
 │   ├── index.astro · cv.astro · 404.astro · robots.txt.ts
