@@ -6,6 +6,11 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 10
+    ignore:
+      # @astrojs/check (used by `npm run check` in CI) peers on typescript ^5 || ^6.
+      # Remove this once it supports TypeScript 7.
+      - dependency-name: typescript
+        versions: ['>=7']
     groups:
       astro:
         patterns:
