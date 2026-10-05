@@ -46,7 +46,7 @@
     "@iconify-json/simple-icons": "^1.2.98",
     "@iconify/utils": "^3.1.7",
     "@playwright/test": "^1.63.0",
-    "satori": "^0.33.5",
+    "satori": "^0.34.1",
     "sharp": "^0.35.5",
     "typescript": "^6.0.3"
   }
